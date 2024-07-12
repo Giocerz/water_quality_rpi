@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>480</width>
+    <height>320</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">font-family: Poppins;
+background-color: white;</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">QTableWidget {
+	border: 0;
+}
+
+QPushButton {
+	height: 40px;
+	border-radius: 20px;
+	border: 1px solid #00007f;
+	background-color: white;
+	color: #00007f;
+	font-weight: 500;
+	font-size: 18px;
+}</string>
+   </property>
+   <widget class="QTableWidget" name="tableWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>70</y>
+      <width>451</width>
+      <height>241</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <row>
+     <property name="text">
+      <string/>
+     </property>
+    </row>
+    <row>
+     <property name="text">
+      <string/>
+     </property>
+    </row>
+    <row>
+     <property name="text">
+      <string/>
+     </property>
+    </row>
+    <column>
+     <property name="text">
+      <string>Etiqueta</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Temperatura</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>OD</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>TDS</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>pH</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>CE</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Calidad</string>
+     </property>
+    </column>
+    <item row="0" column="0">
+     <property name="text">
+      <string>Valledupar</string>
+     </property>
+    </item>
+    <item row="0" column="1">
+     <property name="text">
+      <string>31.92</string>
+     </property>
+    </item>
+    <item row="0" column="2">
+     <property name="text">
+      <string>14.84</string>
+     </property>
+    </item>
+    <item row="0" column="3">
+     <property name="text">
+      <string>457.30</string>
+     </property>
+    </item>
+    <item row="0" column="4">
+     <property name="text">
+      <string>9.65</string>
+     </property>
+    </item>
+    <item row="0" column="5">
+     <property name="text">
+      <string>914.6</string>
+     </property>
+    </item>
+    <item row="1" column="0">
+     <property name="text">
+      <string>Manaure</string>
+     </property>
+    </item>
+    <item row="1" column="1">
+     <property name="text">
+      <string>25.37</string>
+     </property>
+    </item>
+    <item row="1" column="2">
+     <property name="text">
+      <string>7.75</string>
+     </property>
+    </item>
+    <item row="1" column="3">
+     <property name="text">
+      <string>526.49</string>
+     </property>
+    </item>
+    <item row="1" column="4">
+     <property name="text">
+      <string>11.98</string>
+     </property>
+    </item>
+    <item row="1" column="5">
+     <property name="text">
+      <string>1052.98</string>
+     </property>
+    </item>
+    <item row="2" column="0">
+     <property name="text">
+      <string>La Paz</string>
+     </property>
+    </item>
+    <item row="2" column="1">
+     <property name="text">
+      <string>28.80</string>
+     </property>
+    </item>
+    <item row="2" column="2">
+     <property name="text">
+      <string>21.96</string>
+     </property>
+    </item>
+    <item row="2" column="3">
+     <property name="text">
+      <string>706.50</string>
+     </property>
+    </item>
+    <item row="2" column="4">
+     <property name="text">
+      <string>7.89</string>
+     </property>
+    </item>
+    <item row="2" column="5">
+     <property name="text">
+      <string>1413.00</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QPushButton" name="backBtn">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="actBtn">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>11</y>
+      <width>161</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Ver gráficas</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
