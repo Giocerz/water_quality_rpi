@@ -11,7 +11,7 @@ from src.views.ui_Monitoring import Ui_Monitoring
 from src.views.ui_Bluetooth import Ui_Bluetooth
 from src.views.ui_Datos import Ui_Datos
 from src.views.ui_Calibration import Ui_Calibration
-from bluepy.btle import Peripheral, UUID, Service, Characteristic, DefaultDelegate, Advertisement
+from bluepy.btle import Peripheral, UUID, Service, Characteristic, DefaultDelegate
 
 class QualityService(Service):
     QUALITY_UUID = UUID("12345678-1234-5678-1234-56789abcdef0")
@@ -37,6 +37,24 @@ class QualityCharacteristic(Characteristic):
         self.getQualityData()
         return self.value
 
+class CustomPeripheral(Peripheral):
+    def __init__(self, name):
+        Peripheral.__init__(self)
+        self.name = name
+        self.services = []
+    
+    def add_service(self, service):
+        self.addService(service)
+        self.services.append(service)
+    
+    def start_advertising(self):
+        # Implement custom advertising code if necessary
+        print(f"Advertising with name: {self.name}")
+
+    def stop_advertising(self):
+        # Implement code to stop advertising
+        print("Stopping advertising")
+
 class BLEServiceThread(QThread):
     notification_received = Signal(bytes)
     connection_status = Signal(str)
@@ -44,25 +62,27 @@ class BLEServiceThread(QThread):
     def __init__(self):
         super().__init__()
         self.running = False
-        self.peripheral = None
-        self.advertisement = CustomAdvertisement(name="WATER_QUALITY_B")
+        self.peripheral = CustomPeripheral(name="WATER_QUALITY_B")
 
     def run(self):
         self.running = True
-        self.peripheral = Peripheral()
-        self.peripheral.addService(QualityService(self.peripheral))
+        self.peripheral.add_service(QualityService(self.peripheral))
         self.peripheral.setDelegate(ConnectionDelegate(self))
+
+        self.peripheral.start_advertising()
 
         print("BLE service started. Waiting for connections...")
         while self.running:
             if self.peripheral.waitForNotifications(1.0):
                 continue
         if self.peripheral:
+            self.peripheral.stop_advertising()
             self.peripheral.disconnect()
 
     def stop(self):
         self.running = False
         if self.peripheral:
+            self.peripheral.stop_advertising()
             self.peripheral.disconnect()
 
 class ConnectionDelegate(DefaultDelegate):
@@ -75,10 +95,10 @@ class ConnectionDelegate(DefaultDelegate):
         print(f"Notification from handle: {cHandle} with data: {data}")
 
     def handleConnected(self, dev):
-        self.params.connection_status.emit(f"Device {dev.addr} connected")
+        self.params.connection_status.emit(f"{dev.addr} connected")
 
     def handleDisconnected(self, dev):
-        self.params.connection_status.emit(f"Device {dev.addr} disconnected")
+        self.params.connection_status.emit(f"{dev.addr} disconnected")
 
 class ParametersMeasuredWorker(QThread):
     parameters_result = Signal(list)
@@ -233,7 +253,7 @@ class BluetoothView(QMainWindow):
 
     @Slot(str)
     def handle_connection_status(self, status):
-        print(status)
+        self.ui.label.setText(status)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
