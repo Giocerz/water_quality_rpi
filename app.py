@@ -41,12 +41,10 @@ class CustomPeripheral(Peripheral):
     def __init__(self, name):
         Peripheral.__init__(self)
         self.name = name
-        self.services = []
-    
+
     def add_service(self, service):
         self.addService(service)
-        self.services.append(service)
-    
+
     def start_advertising(self):
         # Implement custom advertising code if necessary
         print(f"Advertising with name: {self.name}")
@@ -66,7 +64,8 @@ class BLEServiceThread(QThread):
 
     def run(self):
         self.running = True
-        self.peripheral.add_service(QualityService(self.peripheral))
+        quality_service = QualityService(self.peripheral)
+        self.peripheral.add_service(quality_service)
         self.peripheral.setDelegate(ConnectionDelegate(self))
 
         self.peripheral.start_advertising()
@@ -95,10 +94,10 @@ class ConnectionDelegate(DefaultDelegate):
         print(f"Notification from handle: {cHandle} with data: {data}")
 
     def handleConnected(self, dev):
-        self.params.connection_status.emit(f"{dev.addr} connected")
+        self.params.connection_status.emit(f"Device {dev.addr} connected")
 
     def handleDisconnected(self, dev):
-        self.params.connection_status.emit(f"{dev.addr} disconnected")
+        self.params.connection_status.emit(f"Device {dev.addr} disconnected")
 
 class ParametersMeasuredWorker(QThread):
     parameters_result = Signal(list)
