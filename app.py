@@ -37,22 +37,6 @@ class QualityCharacteristic(Characteristic):
         self.getQualityData()
         return self.value
 
-class CustomPeripheral(Peripheral):
-    def __init__(self, name):
-        Peripheral.__init__(self)
-        self.name = name
-
-    def add_service(self, service):
-        self.addService(service)
-
-    def start_advertising(self):
-        # Implement custom advertising code if necessary
-        print(f"Advertising with name: {self.name}")
-
-    def stop_advertising(self):
-        # Implement code to stop advertising
-        print("Stopping advertising")
-
 class BLEServiceThread(QThread):
     notification_received = Signal(bytes)
     connection_status = Signal(str)
@@ -60,28 +44,24 @@ class BLEServiceThread(QThread):
     def __init__(self):
         super().__init__()
         self.running = False
-        self.peripheral = CustomPeripheral(name="WATER_QUALITY_B")
+        self.peripheral = Peripheral()
 
     def run(self):
         self.running = True
         quality_service = QualityService(self.peripheral)
-        self.peripheral.add_service(quality_service)
+        self.peripheral.addService(quality_service)
         self.peripheral.setDelegate(ConnectionDelegate(self))
-
-        self.peripheral.start_advertising()
 
         print("BLE service started. Waiting for connections...")
         while self.running:
             if self.peripheral.waitForNotifications(1.0):
                 continue
         if self.peripheral:
-            self.peripheral.stop_advertising()
             self.peripheral.disconnect()
 
     def stop(self):
         self.running = False
         if self.peripheral:
-            self.peripheral.stop_advertising()
             self.peripheral.disconnect()
 
 class ConnectionDelegate(DefaultDelegate):
@@ -252,7 +232,7 @@ class BluetoothView(QMainWindow):
 
     @Slot(str)
     def handle_connection_status(self, status):
-        self.ui.label.setText(status)
+        print(status)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
