@@ -35,7 +35,7 @@ QWidget {
       <x>0</x>
       <y>0</y>
       <width>481</width>
-      <height>321</height>
+      <height>322</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout" rowstretch="1,0,1,0,1,0">
@@ -56,7 +56,8 @@ border-top-right-radius: 15px;</string>
      <item row="4" column="0" colspan="2">
       <widget class="QLabel" name="ecLbl">
        <property name="styleSheet">
-        <string notr="true">text-align: center;</string>
+        <string notr="true">text-align: center;
+font-size: 22pt;</string>
        </property>
        <property name="text">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:22pt;&quot;&gt;1413.00&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -66,7 +67,8 @@ border-top-right-radius: 15px;</string>
      <item row="2" column="0">
       <widget class="QLabel" name="tdsLbl">
        <property name="styleSheet">
-        <string notr="true">text-align: center;</string>
+        <string notr="true">text-align: center;
+font-size: 22pt;</string>
        </property>
        <property name="text">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:22pt;&quot;&gt;703.50&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -104,7 +106,8 @@ border-top-right-radius: 15px;</string>
      <item row="0" column="1">
       <widget class="QLabel" name="odLbl">
        <property name="styleSheet">
-        <string notr="true">text-align: center;</string>
+        <string notr="true">text-align: center;
+font-size: 22px;</string>
        </property>
        <property name="text">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:22pt;&quot;&gt;17.30&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -114,7 +117,9 @@ border-top-right-radius: 15px;</string>
      <item row="2" column="1">
       <widget class="QLabel" name="phLbl">
        <property name="styleSheet">
-        <string notr="true">text-align: center;</string>
+        <string notr="true">text-align: center;
+font-size: 22pt
+;</string>
        </property>
        <property name="text">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:22pt;&quot;&gt;6.87&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -152,7 +157,8 @@ border-top-right-radius: 15px;</string>
      <item row="0" column="0">
       <widget class="QLabel" name="tempLbl">
        <property name="styleSheet">
-        <string notr="true">text-align: center;</string>
+        <string notr="true">text-align: center;
+font-size: 22pt;;</string>
        </property>
        <property name="text">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:22pt;&quot;&gt;32.21&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>

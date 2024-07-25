@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'MonitoringBrEPlf.ui'
+## Form generated from reading UI file 'MonitoringinrqJN.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -49,13 +49,15 @@ class Ui_Monitoring(object):
 
         self.ecLbl = QLabel(self.gridLayoutWidget)
         self.ecLbl.setObjectName(u"ecLbl")
-        self.ecLbl.setStyleSheet(u"text-align: center;")
+        self.ecLbl.setStyleSheet(u"text-align: center;\n"
+"font-size: 22pt;")
 
         self.gridLayout.addWidget(self.ecLbl, 4, 0, 1, 2)
 
         self.tdsLbl = QLabel(self.gridLayoutWidget)
         self.tdsLbl.setObjectName(u"tdsLbl")
-        self.tdsLbl.setStyleSheet(u"text-align: center;")
+        self.tdsLbl.setStyleSheet(u"text-align: center;\n"
+"font-size: 22pt;")
 
         self.gridLayout.addWidget(self.tdsLbl, 2, 0, 1, 1)
 
@@ -81,13 +83,15 @@ class Ui_Monitoring(object):
 
         self.odLbl = QLabel(self.gridLayoutWidget)
         self.odLbl.setObjectName(u"odLbl")
-        self.odLbl.setStyleSheet(u"text-align: center;")
+        self.odLbl.setStyleSheet(u"text-align: center;\n"
+"font-size: 22pt;")
 
         self.gridLayout.addWidget(self.odLbl, 0, 1, 1, 1)
 
         self.phLbl = QLabel(self.gridLayoutWidget)
         self.phLbl.setObjectName(u"phLbl")
-        self.phLbl.setStyleSheet(u"text-align: center;")
+        self.phLbl.setStyleSheet(u"text-align: center;\n"
+"font-size: 22pt;")
 
         self.gridLayout.addWidget(self.phLbl, 2, 1, 1, 1)
 
@@ -113,7 +117,8 @@ class Ui_Monitoring(object):
 
         self.tempLbl = QLabel(self.gridLayoutWidget)
         self.tempLbl.setObjectName(u"tempLbl")
-        self.tempLbl.setStyleSheet(u"text-align: center;")
+        self.tempLbl.setStyleSheet(u"text-align: center;\n"
+"font-size: 22pt;")
 
         self.gridLayout.addWidget(self.tempLbl, 0, 0, 1, 1)
 

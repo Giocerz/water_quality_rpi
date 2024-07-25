@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'CalibrationZbtIPN.ui'
+## Form generated from reading UI file 'CalibrationErlUNh.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -52,6 +52,7 @@ class Ui_Calibration(object):
         self.instLbl = QLabel(self.centralwidget)
         self.instLbl.setObjectName(u"instLbl")
         self.instLbl.setGeometry(QRect(94, 160, 291, 41))
+        self.instLbl.setStyleSheet(u"font-size: 8pt;")
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
