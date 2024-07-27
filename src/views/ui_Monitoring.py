@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'MonitoringinrqJN.ui'
+## Form generated from reading UI file 'MonitoringRDaYEM.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -84,14 +84,15 @@ class Ui_Monitoring(object):
         self.odLbl = QLabel(self.gridLayoutWidget)
         self.odLbl.setObjectName(u"odLbl")
         self.odLbl.setStyleSheet(u"text-align: center;\n"
-"font-size: 22pt;")
+"font-size: 22px;")
 
         self.gridLayout.addWidget(self.odLbl, 0, 1, 1, 1)
 
         self.phLbl = QLabel(self.gridLayoutWidget)
         self.phLbl.setObjectName(u"phLbl")
         self.phLbl.setStyleSheet(u"text-align: center;\n"
-"font-size: 22pt;")
+"font-size: 22pt\n"
+";")
 
         self.gridLayout.addWidget(self.phLbl, 2, 1, 1, 1)
 
@@ -118,7 +119,7 @@ class Ui_Monitoring(object):
         self.tempLbl = QLabel(self.gridLayoutWidget)
         self.tempLbl.setObjectName(u"tempLbl")
         self.tempLbl.setStyleSheet(u"text-align: center;\n"
-"font-size: 22pt;")
+"font-size: 22pt;;")
 
         self.gridLayout.addWidget(self.tempLbl, 0, 0, 1, 1)
 
@@ -153,15 +154,15 @@ class Ui_Monitoring(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-size:10pt;\">Conductividad el\u00e9ctrica (uS/cm)</span></p></body></html>", None))
-        self.ecLbl.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-size:22pt;\">1413.00</span></p></body></html>", None))
-        self.tdsLbl.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-size:22pt;\">703.50</span></p></body></html>", None))
+        self.ecLbl.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\">--</p></body></html>", None))
+        self.tdsLbl.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\">--</p></body></html>", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-size:10pt;\">Temperatura (\u00b0C)</span></p></body></html>", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-size:10pt;\">TDS (ppm)</span></p></body></html>", None))
-        self.odLbl.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-size:22pt;\">17.30</span></p></body></html>", None))
-        self.phLbl.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-size:22pt;\">6.87</span></p></body></html>", None))
+        self.odLbl.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-size:22pt;\">--</span></p></body></html>", None))
+        self.phLbl.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\">--</p></body></html>", None))
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-size:10pt;\">Ox\u00edgeno disuelto (mg/L)</span></p></body></html>", None))
         self.label_8.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-size:10pt;\">pH</span></p></body></html>", None))
-        self.tempLbl.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-size:22pt;\">32.21</span></p></body></html>", None))
+        self.tempLbl.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\">--</p></body></html>", None))
         self.backBtn.setText("")
         self.saveBtn.setText("")
     # retranslateUi
