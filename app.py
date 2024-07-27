@@ -2,6 +2,8 @@ import sys
 import struct
 import time
 import random
+import board
+import busio
 from PySide2 import QtWidgets, QtCore
 from PySide2.QtWidgets import QApplication, QMainWindow
 from PySide2.QtCore import QSize, QThread, Signal, Slot
@@ -12,7 +14,8 @@ from src.views.ui_Bluetooth import Ui_Bluetooth
 from src.views.ui_Datos import Ui_Datos
 from src.views.ui_Calibration import Ui_Calibration
 from w1thermsensor import W1ThermSensor
-from src.modules.adcModule import ADCModule
+import adafruit_ads1x15.ads1115 as ADS
+from adafruit_ads1x15.analog_in import AnalogIn
 from src.modules.parametersCalc import *
 
 class ParametersMeasuredWorker(QThread):
@@ -24,9 +27,11 @@ class ParametersMeasuredWorker(QThread):
     def run(self):
         self.running_state = True
         temperature_sensor = W1ThermSensor()
-        ADC = ADCModule()
-        tds_channel = ADC.channel(0)
-        ph_channel = ADC.channel(1)
+        i2c = busio.I2C(board.SCL, board.SDA)
+        ads = ADS.ADS1115(i2c)
+        ads.gain = 2/3
+        tds_channel = AnalogIn(ads, ADS.P0)
+        ph_channel = AnalogIn(ads, ADS.P1)
         while self.running_state:
             try:
                 temp = round(temperature_sensor.get_temperature(), 2)
