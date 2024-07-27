@@ -11,73 +11,9 @@ from src.views.ui_Monitoring import Ui_Monitoring
 from src.views.ui_Bluetooth import Ui_Bluetooth
 from src.views.ui_Datos import Ui_Datos
 from src.views.ui_Calibration import Ui_Calibration
-from bluepy.btle import Peripheral, UUID, Service, Characteristic, DefaultDelegate
-
-class QualityService(Service):
-    QUALITY_UUID = UUID("12345678-1234-5678-1234-56789abcdef0")
-    CHAR_UUID = UUID("12345678-1234-5678-1234-56789abcdef1")
-
-    def __init__(self, conn):
-        Service.__init__(self, conn, self.QUALITY_UUID)
-        self.addCharacteristic(QualityCharacteristic(conn, self.CHAR_UUID))
-
-class QualityCharacteristic(Characteristic):
-    def __init__(self, conn, uuid):
-        Characteristic.__init__(self, uuid, props=Characteristic.propRead | Characteristic.propNotify, val=b'\x00\x00\x00\x00')
-        self.conn = conn
-
-    def getQualityData(self):
-        tds = round(random.uniform(500.0, 601.0), 2)
-        temp = round(random.uniform(28.9, 29.9), 2)
-        ph = round(random.uniform(4.0, 7.0), 2)
-        data = struct.pack('fff', tds, temp, ph)
-        self.setValue(data)
-
-    def Read(self, maxLen):
-        self.getQualityData()
-        return self.value
-
-class BLEServiceThread(QThread):
-    notification_received = Signal(bytes)
-    connection_status = Signal(str)
-
-    def __init__(self):
-        super().__init__()
-        self.running = False
-        self.peripheral = Peripheral()
-
-    def run(self):
-        self.running = True
-        quality_service = QualityService(self.peripheral)
-        self.peripheral.addService(quality_service)
-        self.peripheral.setDelegate(ConnectionDelegate(self))
-
-        print("BLE service started. Waiting for connections...")
-        while self.running:
-            if self.peripheral.waitForNotifications(1.0):
-                continue
-        if self.peripheral:
-            self.peripheral.disconnect()
-
-    def stop(self):
-        self.running = False
-        if self.peripheral:
-            self.peripheral.disconnect()
-
-class ConnectionDelegate(DefaultDelegate):
-    def __init__(self, params):
-        DefaultDelegate.__init__(self)
-        self.params = params
-
-    def handleNotification(self, cHandle, data):
-        self.params.notification_received.emit(data)
-        print(f"Notification from handle: {cHandle} with data: {data}")
-
-    def handleConnected(self, dev):
-        self.params.connection_status.emit(f"Device {dev.addr} connected")
-
-    def handleDisconnected(self, dev):
-        self.params.connection_status.emit(f"Device {dev.addr} disconnected")
+from w1thermsensor import W1ThermSensor
+from src.modules.adcModule import ADCModule
+from src.modules.parametersCalc import *
 
 class ParametersMeasuredWorker(QThread):
     parameters_result = Signal(list)
@@ -87,12 +23,16 @@ class ParametersMeasuredWorker(QThread):
 
     def run(self):
         self.running_state = True
+        temperature_sensor = W1ThermSensor()
+        ADC = ADCModule()
+        tds_channel = ADC.channel(0)
+        ph_channel = ADC.channel(1)
         while self.running_state:
             try:
-                ph = round(random.uniform(4.0, 7.0), 2)
+                temp = round(temperature_sensor.get_temperature(), 2)
+                ph = round(calculatePh(ph_channel.voltage), 2)
                 do = round(random.uniform(6.0, 7.0), 2)
-                tds = round(random.uniform(500.0, 601.0), 2)
-                temp = round(random.uniform(28.9, 29.9), 2)
+                tds = round(calculateTds(temp, tds_channel.voltage), 2)
                 self.parameters_result.emit([ph, do, tds, temp])
                 time.sleep(1)
             except Exception as e:
@@ -211,11 +151,6 @@ class BluetoothView(QMainWindow):
         self.ui_components()
 
         self.ui.backBtn.clicked.connect(self.on_back_clicked)
-
-        self.ble_service_thread = BLEServiceThread()
-        self.ble_service_thread.notification_received.connect(self.handle_notification_received)
-        self.ble_service_thread.connection_status.connect(self.handle_connection_status)
-        self.ble_service_thread.start()
 
     def ui_components(self):
         icon = QIcon('./src/resources/icons/back.png')
