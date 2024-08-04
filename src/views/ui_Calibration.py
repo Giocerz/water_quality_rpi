@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'CalibrationErlUNh.ui'
+## Form generated from reading UI file 'CalibrationGHFcpa.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -35,15 +35,15 @@ class Ui_Calibration(object):
 "QLabel {\n"
 "		text-align: center;\n"
 "	}")
-        self.actBtn = QPushButton(self.centralwidget)
-        self.actBtn.setObjectName(u"actBtn")
-        self.actBtn.setGeometry(QRect(150, 220, 181, 41))
-        self.actBtn_2 = QPushButton(self.centralwidget)
-        self.actBtn_2.setObjectName(u"actBtn_2")
-        self.actBtn_2.setGeometry(QRect(150, 270, 181, 41))
+        self.skipBtn = QPushButton(self.centralwidget)
+        self.skipBtn.setObjectName(u"skipBtn")
+        self.skipBtn.setGeometry(QRect(150, 220, 181, 41))
+        self.nextBtn = QPushButton(self.centralwidget)
+        self.nextBtn.setObjectName(u"nextBtn")
+        self.nextBtn.setGeometry(QRect(150, 270, 181, 41))
         self.imgLbl = QLabel(self.centralwidget)
         self.imgLbl.setObjectName(u"imgLbl")
-        self.imgLbl.setGeometry(QRect(165, 20, 151, 121))
+        self.imgLbl.setGeometry(QRect(180, 10, 121, 121))
         self.imgLbl.setStyleSheet(u"")
         self.backBtn = QPushButton(self.centralwidget)
         self.backBtn.setObjectName(u"backBtn")
@@ -51,8 +51,25 @@ class Ui_Calibration(object):
         self.backBtn.setStyleSheet(u"")
         self.instLbl = QLabel(self.centralwidget)
         self.instLbl.setObjectName(u"instLbl")
-        self.instLbl.setGeometry(QRect(94, 160, 291, 41))
-        self.instLbl.setStyleSheet(u"font-size: 8pt;")
+        self.instLbl.setGeometry(QRect(14, 140, 451, 71))
+        self.instLbl.setStyleSheet(u"font-size: 12pt;")
+        self.loadingBar = QProgressBar(self.centralwidget)
+        self.loadingBar.setObjectName(u"loadingBar")
+        self.loadingBar.setGeometry(QRect(0, 240, 481, 31))
+        self.loadingBar.setStyleSheet(u"QProgressBar {\n"
+"    border: 1px solid #bbb;\n"
+"    border-radius: 5px;\n"
+"    background-color: #f3f3f3;\n"
+"	border-radius: 10px;\n"
+"}\n"
+"\n"
+"QProgressBar::chunk {\n"
+"    background-color: #00007f;\n"
+"	border-radius: 10px;\n"
+"}\n"
+"")
+        self.loadingBar.setValue(0)
+        self.loadingBar.setTextVisible(False)
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -62,10 +79,10 @@ class Ui_Calibration(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.actBtn.setText(QCoreApplication.translate("MainWindow", u"Omitir", None))
-        self.actBtn_2.setText(QCoreApplication.translate("MainWindow", u"Siguiente", None))
+        self.skipBtn.setText(QCoreApplication.translate("MainWindow", u"Omitir", None))
+        self.nextBtn.setText(QCoreApplication.translate("MainWindow", u"Siguiente", None))
         self.imgLbl.setText("")
         self.backBtn.setText("")
-        self.instLbl.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">Instructions</span></p></body></html>", None))
+        self.instLbl.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><br/></p></body></html>", None))
     # retranslateUi
 

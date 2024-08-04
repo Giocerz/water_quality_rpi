@@ -10,7 +10,7 @@ class ADCModule():
         self.ads = ADS.ADS1115(i2c)
         self.ads.gain = 2/3
 
-    def channel(self, channel:int) -> float:
+    def channel(self, channel:int) -> AnalogIn:
         if(channel == 0):
             return AnalogIn(self.ads, ADS.P0)
         elif (channel == 1):
@@ -20,3 +20,6 @@ class ADCModule():
         else:
             return AnalogIn(self.ads, ADS.P3)
     
+
+
+

@@ -12,8 +12,9 @@ from src.views.ui_Bluetooth import Ui_Bluetooth
 from src.views.ui_Datos import Ui_Datos
 from src.views.ui_Calibration import Ui_Calibration
 from w1thermsensor import W1ThermSensor
+
 from src.modules.adcModule import ADCModule
-from src.modules.parametersCalc import *
+from src.logic.parametersCalc import *
 
 class ParametersMeasuredWorker(QThread):
     parameters_result = Signal(list)
@@ -100,14 +101,19 @@ class MonitoringView(QMainWindow):
     def handle_parameters_result(self, parameters):
         self.ui.phLbl.setText(str(parameters[0]))
         self.ui.phLbl.setAlignment(QtCore.Qt.AlignHCenter)
+        self.ui.phLbl.setAlignment(QtCore.Qt.AlignVCenter)
         self.ui.odLbl.setText(str(parameters[1]))
         self.ui.odLbl.setAlignment(QtCore.Qt.AlignHCenter)
+        self.ui.odLbl.setAlignment(QtCore.Qt.AlignVCenter)
         self.ui.tdsLbl.setText(str(parameters[2]))
         self.ui.tdsLbl.setAlignment(QtCore.Qt.AlignHCenter)
+        self.ui.tdsLbl.setAlignment(QtCore.Qt.AlignVCenter)
         self.ui.tempLbl.setText(str(parameters[3]))
         self.ui.tempLbl.setAlignment(QtCore.Qt.AlignHCenter)
+        self.ui.tempLbl.setAlignment(QtCore.Qt.AlignVCenter)
         self.ui.ecLbl.setText(str(parameters[2] * 2))
         self.ui.ecLbl.setAlignment(QtCore.Qt.AlignHCenter)
+        self.ui.ecLbl.setAlignment(QtCore.Qt.AlignVCenter)
 
 class CalibrationView(QMainWindow):
     def __init__(self):

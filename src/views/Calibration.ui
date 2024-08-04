@@ -33,7 +33,7 @@ QLabel {
 		text-align: center;
 	}</string>
    </property>
-   <widget class="QPushButton" name="actBtn">
+   <widget class="QPushButton" name="skipBtn">
     <property name="geometry">
      <rect>
       <x>150</x>
@@ -46,7 +46,7 @@ QLabel {
      <string>Omitir</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="actBtn_2">
+   <widget class="QPushButton" name="nextBtn">
     <property name="geometry">
      <rect>
       <x>150</x>
@@ -62,9 +62,9 @@ QLabel {
    <widget class="QLabel" name="imgLbl">
     <property name="geometry">
      <rect>
-      <x>165</x>
-      <y>20</y>
-      <width>151</width>
+      <x>180</x>
+      <y>10</y>
+      <width>121</width>
       <height>121</height>
      </rect>
     </property>
@@ -94,17 +94,47 @@ QLabel {
    <widget class="QLabel" name="instLbl">
     <property name="geometry">
      <rect>
-      <x>94</x>
-      <y>160</y>
-      <width>291</width>
-      <height>41</height>
+      <x>14</x>
+      <y>140</y>
+      <width>451</width>
+      <height>71</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">font-size: 12pt;</string>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;Instructions&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QProgressBar" name="loadingBar">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>240</y>
+      <width>481</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QProgressBar {
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    background-color: #f3f3f3;
+	border-radius: 10px;
+}
+
+QProgressBar::chunk {
+    background-color: #00007f;
+	border-radius: 10px;
+}
+</string>
+    </property>
+    <property name="value">
+     <number>0</number>
+    </property>
+    <property name="textVisible">
+     <bool>false</bool>
     </property>
    </widget>
   </widget>

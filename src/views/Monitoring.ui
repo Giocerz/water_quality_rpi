@@ -35,26 +35,12 @@ QWidget {
       <x>0</x>
       <y>0</y>
       <width>481</width>
-      <height>322</height>
+      <height>328</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridLayout" rowstretch="1,0,1,0,1,0">
-     <item row="5" column="0" colspan="2">
-      <widget class="QLabel" name="label_10">
-       <property name="styleSheet">
-        <string notr="true">background-color: #00007f;
-color: white;
-font-weight: bold;
-border-top-left-radius: 15px;
-border-top-right-radius: 15px;</string>
-       </property>
-       <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Conductividad eléctrica (uS/cm)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0" colspan="2">
-      <widget class="QLabel" name="ecLbl">
+    <layout class="QGridLayout" name="gridLayout" rowstretch="1,0,1,0,1,0" columnstretch="0,0" rowminimumheight="0,0,0,0,0,0">
+     <item row="2" column="0">
+      <widget class="QLabel" name="tdsLbl">
        <property name="styleSheet">
         <string notr="true">text-align: center;
 font-size: 22pt;</string>
@@ -64,8 +50,33 @@ font-size: 22pt;</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="tdsLbl">
+     <item row="0" column="1">
+      <widget class="QLabel" name="odLbl">
+       <property name="styleSheet">
+        <string notr="true">text-align: center;
+font-size: 22pt;</string>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:22pt;&quot;&gt;--&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLabel" name="label_6">
+       <property name="styleSheet">
+        <string notr="true">background-color: #00007f;
+color: white;
+font-weight: bold;
+border-top-left-radius: 15px;
+border-top-right-radius: 15px;</string>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Oxígeno disuelto (mg/L)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="tempLbl">
        <property name="styleSheet">
         <string notr="true">text-align: center;
 font-size: 22pt;</string>
@@ -89,31 +100,6 @@ border-top-right-radius: 15px;</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="label_2">
-       <property name="styleSheet">
-        <string notr="true">background-color: #00007f;
-color: white;
-font-weight: bold;
-border-top-left-radius: 15px;
-border-top-right-radius: 15px;</string>
-       </property>
-       <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;TDS (ppm)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QLabel" name="odLbl">
-       <property name="styleSheet">
-        <string notr="true">text-align: center;
-font-size: 22px;</string>
-       </property>
-       <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:22pt;&quot;&gt;--&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-      </widget>
-     </item>
      <item row="2" column="1">
       <widget class="QLabel" name="phLbl">
        <property name="styleSheet">
@@ -126,17 +112,14 @@ font-size: 22pt
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="QLabel" name="label_6">
+     <item row="4" column="0">
+      <widget class="QLabel" name="ecLbl">
        <property name="styleSheet">
-        <string notr="true">background-color: #00007f;
-color: white;
-font-weight: bold;
-border-top-left-radius: 15px;
-border-top-right-radius: 15px;</string>
+        <string notr="true">text-align: center;
+font-size: 22pt;</string>
        </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Oxígeno disuelto (mg/L)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;--&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>
@@ -154,11 +137,53 @@ border-top-right-radius: 15px;</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="tempLbl">
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="styleSheet">
+        <string notr="true">background-color: #00007f;
+color: white;
+font-weight: bold;
+border-top-left-radius: 15px;
+border-top-right-radius: 15px;</string>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;TDS (ppm)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="label_10">
+       <property name="styleSheet">
+        <string notr="true">background-color: #00007f;
+color: white;
+font-weight: bold;
+border-top-left-radius: 15px;
+border-top-right-radius: 15px;</string>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Ec (uS/cm)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QLabel" name="label_11">
+       <property name="styleSheet">
+        <string notr="true">background-color: #00007f;
+color: white;
+font-weight: bold;
+border-top-left-radius: 15px;
+border-top-right-radius: 15px;</string>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Turbidez NTU)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QLabel" name="turbLbl">
        <property name="styleSheet">
         <string notr="true">text-align: center;
-font-size: 22pt;;</string>
+font-size: 22pt;</string>
        </property>
        <property name="text">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;--&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
