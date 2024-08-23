@@ -45,3 +45,37 @@ class DialogWidget(QDialog):
         if self.no_callback:
             self.no_callback()
         self.close()
+
+
+class DialogWidgetInfo(QDialog):
+    def __init__(self, text):
+        super().__init__()
+        self.ui = Ui_Dialog()
+        self.ui.setupUi(self)
+
+        self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+
+        self.opacity = QGraphicsOpacityEffect()
+        self.opacity.setOpacity(0.2)
+        self.ui.lblOpacity.setGraphicsEffect(self.opacity)
+        self.ui.LabelInfo.setText(text)
+        self.ui.si.hide()
+        self.ui.no.setText('OK')
+
+        self.ui.no.clicked.connect(self.ok_clicked)
+
+        self.adjust_size_and_center()
+
+    def adjust_size_and_center(self):
+        screen_rect = QApplication.desktop().availableGeometry()
+        screen_width = screen_rect.width()
+        screen_height = screen_rect.height()
+        dialog_width = 480
+        dialog_height = 320
+        x = (screen_width - dialog_width) / 2
+        y = (screen_height - dialog_height) / 2
+        self.move(int(x), int(y))
+
+    def ok_clicked(self):
+        self.close()

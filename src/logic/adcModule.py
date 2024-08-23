@@ -20,6 +20,28 @@ class ADCModule():
         else:
             return AnalogIn(self.ads, ADS.P3)
     
+class ParametersVoltages():
+    def __init__(self):
+        super(ParametersVoltages, self).__init__()
+        ADC = ADCModule()
+        self.turb_analogIn = ADC.channel(0)
+        self.tds_analogIn = ADC.channel(1)
+        self.do_analogIn = ADC.channel(2)
+        self.ph_analogIn = ADC.channel(3)
 
+    def turbidity_volt(self) -> float:
+        return self.turb_analogIn.voltage
+
+    def tds_volt(self) -> float:
+        return self.tds_analogIn.voltage
+
+    def oxygen_volt(self) -> float:
+        return self.do_analogIn.voltage
+
+    def ph_volt(self) -> float:
+        return self.ph_analogIn.voltage
+
+
+    
 
 
