@@ -315,8 +315,7 @@ class CalibrationView(QMainWindow):
         progress = int(self.timer_counter/self.STABILIZATION_TIME * 100)
         self.ui.loadingBar.setValue(progress)
         if self.timer_counter > self.STABILIZATION_TIME:
-            succes = self.step_actions[self.CALIBRATION_STEPS[self.calibration_step]](
-            )
+            succes:bool = self.step_actions[self.CALIBRATION_STEPS[int(self.calibration_step)]]()
             self.ui.loadingBar.setValue(0)
             self.stabilization_timer.stop()
             self.timer_counter = 0
@@ -370,7 +369,7 @@ class CalibrationView(QMainWindow):
             temperature_sensor = W1ThermSensor()
             temp = temperature_sensor.get_temperature()
             self.tds_voltage = self.parameters_volt.tds_volt()
-            kValue_temp = self.parameters_calc.tds_calibration(temp, tds_voltage)
+            kValue_temp = self.parameters_calc.tds_calibration(temp, self.tds_voltage)
             if (kValue_temp <= 0.0 or kValue_temp >= 10.0):
                 self.show_dialog_error('Error: kValue fuera de rango')
                 return False
@@ -393,6 +392,7 @@ class CalibrationView(QMainWindow):
     def handle_ph4(self):
         ph4_voltage = self.parameters_volt.ph_volt()
         self.ph4 = ph4_voltage
+        return True
 
     def handle_ph10(self):
         ph10_voltage = self.parameters_volt.ph_volt()
@@ -404,7 +404,7 @@ class CalibrationView(QMainWindow):
 
             if (slope_temp <= 0.025 or slope_temp >= 1.0):
                 self.ph_offset - None
-                self.calibration_step = 2
+                self.calibration_step = int(2)
                 self.show_dialog_error('Error: pendiente fuera de rango')
                 return False
             else:
@@ -412,7 +412,7 @@ class CalibrationView(QMainWindow):
                 return True
         except:
             self.ph_offset - None
-            self.calibration_step = 2
+            self.calibration_step = int(2)
             self.show_dialog_error('Error: pendiente fuera de rango')
             return False
 
