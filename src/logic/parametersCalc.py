@@ -14,6 +14,9 @@ class ParametersCalculate():
         self.phSlope = None
         self.oxygenTempCal = None
         self.oxygenVoltCal = None
+        self.turb_coef_a = None
+        self.turb_coef_b = None
+        self.turb_coef_c = None
 
         self.set_calibration_values()
 
@@ -27,6 +30,9 @@ class ParametersCalculate():
         self.phSlope = float(lista[2])
         self.oxygenTempCal = float(lista[3])
         self.oxygenVoltCal = float(lista[4]) * 1000
+        self.turb_coef_a = float(lista[5])
+        self.turb_coef_b = float(lista[6])
+        self.turb_coef_c = float(lista[7])
 
     def calculateTds(self, temperature: float, voltage: float) -> float:
         kValue = self.kValue
@@ -60,4 +66,5 @@ class ParametersCalculate():
       return float(voltage * self.DO_TABLE[int(self.oxygenTempCal)] / voltageSaturation) * 0.001
 
     def calculateTurb(self, voltage: float) -> float:
+        turb = self.turb_coef_a * voltage ** 2 + self.turb_coef_b * voltage + self.turb_coef_c
         return voltage

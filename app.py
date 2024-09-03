@@ -244,6 +244,9 @@ class CalibrationView(QMainWindow):
         self.turb4 = None
         self.oxygenOffset = None
         self.oxygenTemperature = None
+        self.turb_coef_a = None
+        self.turb_coef_b = None
+        self.turb_coef_c = None
 
         self.parameters_volt = ParametersVoltages()
         self.temperature_sensor = W1ThermSensor()
@@ -419,25 +422,42 @@ class CalibrationView(QMainWindow):
 
     def handle_turb1(self):
         self.turb1 = self.parameters_volt.turbidity_volt()
-        return self.turb1 >= 0.0 and self.turb1 <= 5.0
+        if(self.turb1 <= 0.0 or self.turb1 >= 5.0):
+            self.show_dialog_error('Error: Valor de turbidez fuera de rango')
+            return False
+        else: 
+            return True
 
     def handle_turb2(self):
         self.turb2 = self.parameters_volt.turbidity_volt()
-        return self.turb2 >= 0.0 and self.turb2 <= 5.0
+        if(self.turb2 <= 0.0 or self.turb2 >= 5.0):
+            self.show_dialog_error('Error: Valor de turbidez fuera de rango')
+            return False
+        else: 
+            return True
 
     def handle_turb3(self):
         self.turb3 = self.parameters_volt.turbidity_volt()
-        return self.turb3 >= 0.0 and self.turb3 <= 5.0
+        if(self.turb3 <= 0.0 or self.turb3 >= 5.0):
+            self.show_dialog_error('Error: Valor de turbidez fuera de rango')
+            return False
+        else: 
+            return True
 
     def handle_turb4(self):
         self.turb4 = self.parameters_volt.turbidity_volt()
-        import numpy as np
-        voltages = np.array([self.turb1, self.turb2, self.turb3, self.turb4])
-        ntu_values = np.array([0.28, 98.1, 287, 475])
-        coefficients = np.polyfit(voltages, ntu_values, 2)
-        a, b, c = coefficients
-
-        return True
+        if(self.turb4 <= 0.0 or self.turb4 >= 5.0):
+            self.show_dialog_error('Error: Valor de turbidez fuera de rango')
+            return False
+        try:
+            import numpy as np
+            voltages = np.array([self.turb1, self.turb2, self.turb3, self.turb4])
+            ntu_values = np.array([0.28, 98.1, 287, 475])
+            coefficients = np.polyfit(voltages, ntu_values, 2)
+            self.turb_coef_a, self.turb_coef_b, self.turb_coef_c = coefficients
+        except:
+            self.show_dialog_error('Error: Calibracion de turbidez fallida')
+            return False
 
     def handle_do(self):
         vCal = self.parameters_volt.oxygen_volt()
@@ -465,6 +485,11 @@ class CalibrationView(QMainWindow):
         if(self.oxygenOffset != None):
             df.loc[3, 'calibration_values'] = self.oxygenTemperature
             df.loc[4, 'calibration_values'] = self.oxygenOffset
+            params_save_flag = True
+        if(self.turb_coef_a != None):
+            df.loc[5, 'calibration_values'] = self.turb_coef_a
+            df.loc[6, 'calibration_values'] = self.turb_coef_b
+            df.loc[7, 'calibration_values'] = self.turb_coef_c
             params_save_flag = True
         df.to_csv('./src/config/calibrationSettings.txt', index=False)
 
