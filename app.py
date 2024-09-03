@@ -162,7 +162,7 @@ class SaveDataView(QMainWindow):
 
 ########### VISTA DE CALIBRACION Y FUNCIONES#################
 class CalibrationView(QMainWindow):
-    STABILIZATION_TIME = 7  # secs
+    STABILIZATION_TIME = 70  # secs
     TIMEOUT_STABILIZATION_TIMER = 1000  # ms
     LOADING_TEXT = 'Espera mientras se estabiliza el valor medido',
 
@@ -315,7 +315,8 @@ class CalibrationView(QMainWindow):
         progress = int(self.timer_counter/self.STABILIZATION_TIME * 100)
         self.ui.loadingBar.setValue(progress)
         if self.timer_counter > self.STABILIZATION_TIME:
-            succes:bool = self.step_actions[self.CALIBRATION_STEPS[int(self.calibration_step)]]()
+            succes = self.step_actions[self.CALIBRATION_STEPS[self.calibration_step]](
+            )
             self.ui.loadingBar.setValue(0)
             self.stabilization_timer.stop()
             self.timer_counter = 0
@@ -402,17 +403,17 @@ class CalibrationView(QMainWindow):
 
             slope_temp = (slopeA + slopeB)/2
 
-            if (slope_temp <= 0.025 or slope_temp >= 1.0):
-                self.ph_offset - None
-                self.calibration_step = int(2)
+            if (slope_temp <= 0.01 or slope_temp >= 2.0):
+                self.ph_offset = None
+                self.calibration_step = 2
                 self.show_dialog_error('Error: pendiente fuera de rango')
                 return False
             else:
                 self.phSlope = slope_temp
                 return True
         except:
-            self.ph_offset - None
-            self.calibration_step = int(2)
+            self.ph_offset = None
+            self.calibration_step = 2
             self.show_dialog_error('Error: pendiente fuera de rango')
             return False
 
@@ -467,7 +468,7 @@ class CalibrationView(QMainWindow):
             params_save_flag = True
         df.to_csv('./src/config/calibrationSettings.txt', index=False)
 
-        if (params_save_flag):
+        if (not params_save_flag):
             self.show_dialog_error('No realizo ninguna calibración')
         else:
             self.show_dialog_error('Calibración exitosa')

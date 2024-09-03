@@ -26,7 +26,7 @@ class ParametersCalculate():
         self.phOffset = float(lista[1])
         self.phSlope = float(lista[2])
         self.oxygenTempCal = float(lista[3])
-        self.oxygenVoltCal = float(lista[4])
+        self.oxygenVoltCal = float(lista[4]) * 1000
 
     def calculateTds(self, temperature: float, voltage: float) -> float:
         kValue = self.kValue
@@ -56,9 +56,8 @@ class ParametersCalculate():
 
     def calculateDo(self, voltage: float, temperature:float) -> float:
       voltage *= 1000
-      self.oxygenVoltCal *= 1000
-      voltageSaturation = int(self.oxygenVoltCal) + int(temperature * 35) - int(self.oxygenVoltCal * 35)
-      return float(voltage * self.DO_TABLE[int(self.oxygenTempCal)] / voltageSaturation)
+      voltageSaturation = int(self.oxygenVoltCal) + int(temperature * 35) - int(self.oxygenTempCal * 35)
+      return float(voltage * self.DO_TABLE[int(self.oxygenTempCal)] / voltageSaturation) * 0.001
 
     def calculateTurb(self, voltage: float) -> float:
         return voltage
