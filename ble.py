@@ -8,7 +8,7 @@ GATT_CHRC_IFACE = "org.bluez.GattCharacteristic1"
 class ThermometerAdvertisement(Advertisement):
     def __init__(self, index):
         Advertisement.__init__(self, index, "peripheral")
-        self.add_local_name("WaterQualityBL")
+        self.add_local_name("CitizenAquaProbeBLE")
         self.include_tx_power = True
 
 class ThermometerService(Service):

@@ -13,10 +13,9 @@ from src.views.ui_Datos import Ui_Datos
 from src.views.ui_Calibration import Ui_Calibration
 from src.views.ui_Save import Ui_Save
 from src.widgets.DialogWidget import DialogWidget, DialogWidgetInfo
-from w1thermsensor import W1ThermSensor
-from src.logic.adcModule import ParametersVoltages
+#from src.logic.adcModule import ParametersVoltages
 from src.logic.parametersCalc import *
-from src.services.bluetoothLE import BluetoothWorker
+#from src.services.bluetoothLE import BluetoothWorker
 
 
 class ParametersMeasuredWorker(QThread):
@@ -27,25 +26,15 @@ class ParametersMeasuredWorker(QThread):
 
     def run(self):
         self.running_state = True
-
-        temperature_sensor = W1ThermSensor()
-        parameters = ParametersVoltages()
-        parameters_calc = ParametersCalculate()
+        paraamCalc = ParametersCalculate()
 
         while self.running_state:
             try:
-                '''
                 temp = round(random.uniform(29, 33), 2)
                 ph = round(random.uniform(6.1, 7.32), 2)
                 do = round(random.uniform(4.55, 5.89), 2)
                 tds = round(random.uniform(724.23, 892.23), 2)
                 turb = round(random.uniform(56.23, 203.23), 2)
-                '''
-                temp = round(temperature_sensor.get_temperature(), 2)
-                ph = round(parameters_calc.calculatePh(parameters.ph_volt()), 2)
-                do = round(parameters_calc.calculateDo(parameters.oxygen_volt(), temp), 2)
-                tds = round(parameters_calc.calculateTds(temp, parameters.tds_volt()), 2)
-                turb = round(parameters_calc.calculateTurb(parameters.turbidity_volt()), 2)
 
                 self.parameters_result.emit([ph, do, tds, temp, turb])
                 time.sleep(1)
@@ -114,12 +103,13 @@ class MonitoringView(QMainWindow):
         if self.parameters_worker.isRunning():
             self.parameters_worker.stop()
         widget.removeWidget(self)
-
+    
     def on_save_clicked(self):
         view = SaveDataView()
         widget.addWidget(view)
         widget.setCurrentIndex(widget.currentIndex() + 1)
         widget.removeWidget(self)
+
 
     def handle_parameters_result(self, parameters):
         self.ui.phLbl.setText(str(parameters[0]))
@@ -152,7 +142,6 @@ class SaveDataView(QMainWindow):
 
     def on_back_clicked(self):
         widget.removeWidget(self)
-
 
 ########### VISTA DE CALIBRACION Y FUNCIONES#################
 class CalibrationView(QMainWindow):
@@ -238,10 +227,6 @@ class CalibrationView(QMainWindow):
         self.turb4 = None
         self.oxygenOffset = None
         self.oxygenTemperature = None
-
-        self.parameters_volt = ParametersVoltages()
-        self.temperature_sensor = W1ThermSensor()
-        self.parameters_calc = ParametersCalculate()
 
         self.step_actions = {
             'tds': self.handle_tds,
@@ -360,11 +345,8 @@ class CalibrationView(QMainWindow):
 
     ######### FUNCIONES PARA CADA PASO#################
     def handle_tds(self) -> bool:
-        # temp = temperature_sensor.get_temperature()
-        # self.tds_voltage = self.parameters_volt.tds_volt()
-        # kValue = self.parameters_calc.tds_calibration(temp, tds_voltage)
         try:
-            kValue_temp = 0
+            kValue_temp = 1.2
             if (kValue_temp <= 0.0 or kValue_temp >= 10.0):
                 self.show_dialog_error('Error: kValue fuera de rango')
                 return False
@@ -376,18 +358,11 @@ class CalibrationView(QMainWindow):
             return False
 
     def handle_ph7(self):
-        # self.tds_voltage = self.parameters_volt.tds_volt()
-        # offset_temp = self.parameters_volt.ph_volt()
-        offset_temp = 0
-        if (offset_temp <= 0.0 or offset_temp >= 4):
-            self.show_dialog_error('Error: Offset fuera de rango')
-            return False
-        else:
-            self.ph_offset = offset_temp
-            return True
+        self.ph_offset = 2.7
+        return True
 
     def handle_ph4(self):
-        ph4_voltage = self.parameters_volt.ph_volt()
+        ph4_voltage = 3.0
         self.ph4 = ph4_voltage
 
     def handle_ph10(self):
@@ -407,10 +382,7 @@ class CalibrationView(QMainWindow):
                 self.phSlope = slope_temp
                 return True
         except:
-            self.ph_offset - None
-            self.calibration_step = 2
-            self.show_dialog_error('Error: pendiente fuera de rango')
-            return False
+            return True
 
     def handle_turb1(self):
         #self.ph_offset = self.parameters_volt.turbidity_volt()
@@ -429,8 +401,8 @@ class CalibrationView(QMainWindow):
         return True
 
     def handle_do(self):
-        vCal = self.parameters_volt.oxygen_volt()
-        tempCal = temperature_sensor.get_temperature()
+        vCal = 1.76
+        tempCal = 25.54
         if ((tempCal <= 0.0 or tempCal >= 40.0) or (vCal <= 0.0 or vCal >= 3.0)):
             self.show_dialog_error('Error: Valores de oxigeno fuera de rango')
             return False
