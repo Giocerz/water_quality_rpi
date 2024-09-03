@@ -162,7 +162,7 @@ class SaveDataView(QMainWindow):
 
 ########### VISTA DE CALIBRACION Y FUNCIONES#################
 class CalibrationView(QMainWindow):
-    STABILIZATION_TIME = 2  # secs
+    STABILIZATION_TIME = 70  # secs
     TIMEOUT_STABILIZATION_TIMER = 1000  # ms
     LOADING_TEXT = 'Espera mientras se estabiliza el valor medido',
 
