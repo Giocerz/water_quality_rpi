@@ -42,10 +42,14 @@ class ParametersMeasuredWorker(QThread):
                 turb = round(random.uniform(56.23, 203.23), 2)
                 '''
                 temp = round(temperature_sensor.get_temperature(), 2)
-                ph = round(parameters_calc.calculatePh(parameters.ph_volt()), 2)
-                do = round(parameters_calc.calculateDo(parameters.oxygen_volt(), temp), 2)
-                tds = round(parameters_calc.calculateTds(temp, parameters.tds_volt()), 2)
-                turb = round(parameters_calc.calculateTurb(parameters.turbidity_volt()), 2)
+                ph = round(parameters_calc.calculatePh(
+                    parameters.ph_volt()), 2)
+                do = round(parameters_calc.calculateDo(
+                    parameters.oxygen_volt(), temp), 2)
+                tds = round(parameters_calc.calculateTds(
+                    temp, parameters.tds_volt()), 2)
+                turb = round(parameters_calc.calculateTurb(
+                    parameters.turbidity_volt()), 2)
 
                 self.parameters_result.emit([ph, do, tds, temp, turb])
                 time.sleep(1)
@@ -136,6 +140,8 @@ class MonitoringView(QMainWindow):
         self.ui.turbLbl.setAlignment(QtCore.Qt.AlignCenter)
 
 ########### VISTA DE GUARDADO#################
+
+
 class SaveDataView(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
@@ -360,11 +366,10 @@ class CalibrationView(QMainWindow):
 
     ######### FUNCIONES PARA CADA PASO#################
     def handle_tds(self) -> bool:
-        # temp = temperature_sensor.get_temperature()
-        # self.tds_voltage = self.parameters_volt.tds_volt()
-        # kValue = self.parameters_calc.tds_calibration(temp, tds_voltage)
         try:
-            kValue_temp = 0
+            temp = temperature_sensor.get_temperature()
+            self.tds_voltage = self.parameters_volt.tds_volt()
+            kValue_temp = self.parameters_calc.tds_calibration(temp, tds_voltage)
             if (kValue_temp <= 0.0 or kValue_temp >= 10.0):
                 self.show_dialog_error('Error: kValue fuera de rango')
                 return False
@@ -376,9 +381,7 @@ class CalibrationView(QMainWindow):
             return False
 
     def handle_ph7(self):
-        # self.tds_voltage = self.parameters_volt.tds_volt()
-        # offset_temp = self.parameters_volt.ph_volt()
-        offset_temp = 0
+        offset_temp = self.parameters_volt.ph_volt()
         if (offset_temp <= 0.0 or offset_temp >= 4):
             self.show_dialog_error('Error: Offset fuera de rango')
             return False
@@ -413,19 +416,19 @@ class CalibrationView(QMainWindow):
             return False
 
     def handle_turb1(self):
-        #self.ph_offset = self.parameters_volt.turbidity_volt()
+        # self.ph_offset = self.parameters_volt.turbidity_volt()
         return True
 
     def handle_turb2(self):
-        #self.ph_offset = self.parameters_volt.turbidity_volt()
+        # self.ph_offset = self.parameters_volt.turbidity_volt()
         return True
 
     def handle_turb3(self):
-        #self.ph_offset = self.parameters_volt.turbidity_volt()
+        # self.ph_offset = self.parameters_volt.turbidity_volt()
         return True
 
     def handle_turb4(self):
-        #self.ph_offset = self.parameters_volt.turbidity_volt()
+        # self.ph_offset = self.parameters_volt.turbidity_volt()
         return True
 
     def handle_do(self):
@@ -443,24 +446,24 @@ class CalibrationView(QMainWindow):
         params_save_flag = False
         import pandas as pd
         df = pd.read_csv('./src/config/calibrationSettings.txt')
-        if(self.kValue != None):
+        if (self.kValue != None):
             df.loc[0, 'calibration_values'] = self.kValue
             params_save_flag = True
-        if(self.ph_offset != None):
+        if (self.ph_offset != None):
             df.loc[1, 'calibration_values'] = self.ph_offset
             df.loc[2, 'calibration_values'] = self.phSlope
             params_save_flag = True
-        if(self.oxygenOffset!= None):
+        if(self.oxygenOffset != None):
             df.loc[3, 'calibration_values'] = self.oxygenTemperature
             df.loc[4, 'calibration_values'] = self.oxygenOffset
             params_save_flag = True
         df.to_csv('./src/config/calibrationSettings.txt', index=False)
 
-        if(params_save_flag):
+        if (params_save_flag):
             self.show_dialog_error('No realizo ninguna calibración')
         else:
             self.show_dialog_error('Calibración exitosa')
-        
+
 
 ##### VISTA DE LA TABLA DE DATOS###############
 class DatosView(QMainWindow):
