@@ -367,6 +367,7 @@ class CalibrationView(QMainWindow):
     ######### FUNCIONES PARA CADA PASO#################
     def handle_tds(self) -> bool:
         try:
+            temperature_sensor = W1ThermSensor()
             temp = temperature_sensor.get_temperature()
             self.tds_voltage = self.parameters_volt.tds_volt()
             kValue_temp = self.parameters_calc.tds_calibration(temp, tds_voltage)
@@ -439,6 +440,7 @@ class CalibrationView(QMainWindow):
 
     def handle_do(self):
         vCal = self.parameters_volt.oxygen_volt()
+        temperature_sensor = W1ThermSensor()
         tempCal = temperature_sensor.get_temperature()
         if ((tempCal <= 0.0 or tempCal >= 40.0) or (vCal <= 0.0 or vCal >= 3.0)):
             self.show_dialog_error('Error: Valores de oxigeno fuera de rango')
