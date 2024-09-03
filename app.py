@@ -162,7 +162,7 @@ class SaveDataView(QMainWindow):
 
 ########### VISTA DE CALIBRACION Y FUNCIONES#################
 class CalibrationView(QMainWindow):
-    STABILIZATION_TIME = 70  # secs
+    STABILIZATION_TIME = 5  # secs
     TIMEOUT_STABILIZATION_TIMER = 1000  # ms
     LOADING_TEXT = 'Espera mientras se estabiliza el valor medido',
 
@@ -398,8 +398,8 @@ class CalibrationView(QMainWindow):
     def handle_ph10(self):
         ph10_voltage = self.parameters_volt.ph_volt()
         try:
-            slopeA = abs(3/(self.ph_offset - self.ph4))
-            slopeB = abs(3/(ph10_voltage - self.ph_offset))
+            slopeA = abs((self.ph_offset - self.ph4)/3)
+            slopeB = abs((ph10_voltage - self.ph_offset)/3)
 
             slope_temp = (slopeA + slopeB)/2
 
