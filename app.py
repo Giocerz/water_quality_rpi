@@ -191,22 +191,22 @@ class CalibrationView(QMainWindow):
         },
         'turb1': {
             'img': './src/resources/images/lab_glass',
-            'text': 'Sumerja la sonda en una solución<br>con una <b>turbidez</b> de <b>0.02 NTU</b>',
+            'text': 'Sumerja la sonda en una solución<br>con una <b>turbidez</b> de <b>0.28 NTU</b>',
             'skipButton': True
         },
         'turb2': {
             'img': './src/resources/images/lab_glass',
-            'text': 'Sumerja la sonda en una solución<br>con una <b>turbidez</b> de <b>20 NTU</b>',
+            'text': 'Sumerja la sonda en una solución<br>con una <b>turbidez</b> de <b>98.1 NTU</b>',
             'skipButton': False
         },
         'turb3': {
             'img': './src/resources/images/lab_glass',
-            'text': 'Sumerja la sonda en una solución<br>con una <b>turbidez</b> de <b>100 NTU</b>',
+            'text': 'Sumerja la sonda en una solución<br>con una <b>turbidez</b> de <b>287 NTU</b>',
             'skipButton': False
         },
         'turb4': {
             'img': './src/resources/images/lab_glass',
-            'text': 'Sumerja la sonda en una solución<br>con una <b>turbidez</b> de <b>800 NTU</b>',
+            'text': 'Sumerja la sonda en una solución<br>con una <b>turbidez</b> de <b>475 NTU</b>',
             'skipButton': False
         },
         'do': {
@@ -416,19 +416,25 @@ class CalibrationView(QMainWindow):
             return False
 
     def handle_turb1(self):
-        # self.ph_offset = self.parameters_volt.turbidity_volt()
-        return True
+        self.turb1 = self.parameters_volt.turbidity_volt()
+        return self.turb1 >= 0.0 and self.turb1 <= 5.0
 
     def handle_turb2(self):
-        # self.ph_offset = self.parameters_volt.turbidity_volt()
-        return True
+        self.turb2 = self.parameters_volt.turbidity_volt()
+        return self.turb2 >= 0.0 and self.turb2 <= 5.0
 
     def handle_turb3(self):
-        # self.ph_offset = self.parameters_volt.turbidity_volt()
-        return True
+        self.turb3 = self.parameters_volt.turbidity_volt()
+        return self.turb3 >= 0.0 and self.turb3 <= 5.0
 
     def handle_turb4(self):
-        # self.ph_offset = self.parameters_volt.turbidity_volt()
+        self.turb4 = self.parameters_volt.turbidity_volt()
+        import numpy as np
+        voltages = np.array([self.turb1, self.turb2, self.turb3, self.turb4])
+        ntu_values = np.array([0.28, 98.1, 287, 475])
+        coefficients = np.polyfit(voltages, ntu_values, 2)
+        a, b, c = coefficients
+
         return True
 
     def handle_do(self):

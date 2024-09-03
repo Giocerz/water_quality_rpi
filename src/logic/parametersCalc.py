@@ -58,7 +58,7 @@ class ParametersCalculate():
       voltage *= 1000
       self.oxygenVoltCal *= 1000
       voltageSaturation = int(self.oxygenVoltCal) + int(temperature * 35) - int(self.oxygenVoltCal * 35)
-      return float(voltage * self.DO_TABLE[int(self.oxygenVoltCal)] / voltageSaturation)
+      return float(voltage * self.DO_TABLE[int(self.oxygenTempCal)] / voltageSaturation)
 
     def calculateTurb(self, voltage: float) -> float:
         return voltage
