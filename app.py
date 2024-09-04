@@ -3,7 +3,7 @@ import time
 import RPi.GPIO as GPIO
 from PySide2 import QtWidgets, QtCore
 from PySide2.QtWidgets import QApplication, QMainWindow
-from PySide2.QtCore import QThread
+from PySide2.QtCore import QThread, Signal
 from src.views.ui_Main import Ui_MainWindow
 from src.views.MonitoringView.MonitoringView import MonitoringView
 from src.views.CalibrationView.CalibrationView import CalibrationView
@@ -12,7 +12,9 @@ from src.views.BluetoothView.BluetoothView import BluetoothView
 
 
 class ButtonListener(QThread):
-    def __init__(self, button_pin, app):
+    button_pressed = Signal()
+
+    def __init__(self, button_pin):
         super(ButtonListener, self).__init__()
         self.button_pin = button_pin
         self.app = app
@@ -28,7 +30,7 @@ class ButtonListener(QThread):
                         time.sleep(0.3) 
                         if GPIO.input(self.button_pin) == GPIO.LOW:
                             print('SE PRESIONO EL BOTON')
-                            self.on_button_pressed()
+                            self.button_pressed.emit()
                     time.sleep(0.01)
             except GPIO.error as e:
                 print(f"Error con GPIO: {e}")
@@ -36,13 +38,9 @@ class ButtonListener(QThread):
                 self.running = False
                 GPIO.cleanup()
 
-    def on_button_pressed(self):
-        if hasattr(self.app, 'switch_to_bluetooth_view'):
-            self.app.switch_to_bluetooth_view()
-
     def stop(self):
         self.running = False
-        GPIO.cleanup()  # Limpiar configuración de GPIO
+        GPIO.cleanup()
 
 
 class MyApp(QMainWindow):
@@ -84,7 +82,8 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     welcome = MyApp()
     button_pin = 17
-    button_listener = ButtonListener(button_pin, welcome)
+    button_listener = ButtonListener(button_pin)
+    button_listener.button_pressed.connect(welcome.switch_to_bluetooth_view)
     button_listener.start()
     widget = QtWidgets.QStackedWidget()
     widget.addWidget(welcome)
