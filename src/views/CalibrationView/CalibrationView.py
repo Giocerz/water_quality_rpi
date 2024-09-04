@@ -304,6 +304,7 @@ class CalibrationView(QMainWindow):
             ntu_values = np.array([0.28, 98.1, 287, 475])
             coefficients = np.polyfit(voltages, ntu_values, 2)
             self.turb_coef_a, self.turb_coef_b, self.turb_coef_c = coefficients
+            return True
         except:
             self.show_dialog_error('Error: Calibracion de turbidez fallida')
             return False
