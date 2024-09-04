@@ -67,4 +67,6 @@ class ParametersCalculate():
 
     def calculateTurb(self, voltage: float) -> float:
         turb = self.turb_coef_a * voltage ** 2 + self.turb_coef_b * voltage + self.turb_coef_c
+        if(turb >= 500.0):
+            turb = 500.0
         return turb
