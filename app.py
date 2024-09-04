@@ -1,12 +1,7 @@
 import sys
 from PySide2 import QtWidgets, QtCore
 from PySide2.QtWidgets import QApplication, QMainWindow
-from PySide2.QtCore import QSize, QThread, Signal, Slot, QTimer
-from PySide2.QtGui import QIcon
 from src.views.ui_Main import Ui_MainWindow
-from src.views.ui_Bluetooth import Ui_Bluetooth
-from src.views.ui_Datos import Ui_Datos
-from src.views.ui_Save import Ui_Save
 from src.views.MonitoringView.MonitoringView import MonitoringView
 from src.views.CalibrationView.CalibrationView import CalibrationView
 from src.views.DatosView.DatosView import DatosView
