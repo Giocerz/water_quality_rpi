@@ -22,12 +22,19 @@ class ButtonListener(QThread):
 
     def run(self):
         while self.running:
-            # Lee el estado del botón
             GPIO.wait_for_edge(self.button_pin, GPIO.FALLING)
             self.on_button_pressed()
+            try:
+                print("Esperando a que se presione el botón...")
+                GPIO.wait_for_edge(self.button_pin, GPIO.FALLING)
+                print("Botón presionado!")
+            except GPIO.error as e:
+                print(f"Error con GPIO: {e}")
+            finally:
+                self.running = False
+                GPIO.cleanup()
 
     def on_button_pressed(self):
-        # Comunicar al hilo principal de la aplicación
         if hasattr(self.app, 'switch_to_bluetooth_view'):
             self.app.switch_to_bluetooth_view()
 
