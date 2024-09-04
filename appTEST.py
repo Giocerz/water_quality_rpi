@@ -3,7 +3,7 @@ import sys
 import time
 import random
 from PySide2 import QtWidgets, QtCore
-from PySide2.QtWidgets import QApplication, QMainWindow
+from PySide2.QtWidgets import QApplication, QMainWindow, QStackedLayout
 from PySide2.QtCore import QSize, QThread, Signal, Slot, QTimer
 from PySide2.QtGui import QIcon, QPixmap
 from src.views.ui_Main import Ui_MainWindow
@@ -16,6 +16,7 @@ from src.widgets.DialogWidget import DialogWidget, DialogWidgetInfo
 #from src.logic.adcModule import ParametersVoltages
 from src.logic.parametersCalc import *
 #from src.services.bluetoothLE import BluetoothWorker
+from src.widgets.KeyboardWidget import KeyboardWidget
 
 
 class ParametersMeasuredWorker(QThread):
@@ -132,6 +133,12 @@ class SaveDataView(QMainWindow):
         self.ui = Ui_Save()
         self.ui.setupUi(self)
         self.ui_components()
+
+        self.keyboard = KeyboardWidget(self.ui.inputPlace)
+        layout = QStackedLayout(self.ui.widgetKeyboard)
+        layout.addWidget(self.keyboard)
+        self.ui.widgetKeyboard.setLayout(layout)
+
 
         self.ui.backBtn.clicked.connect(self.on_back_clicked)
 
