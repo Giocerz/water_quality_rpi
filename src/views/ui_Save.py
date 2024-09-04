@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'SaveUBTNya.ui'
+## Form generated from reading UI file 'SaveBzzkNc.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -22,19 +22,17 @@ class Ui_Save(object):
 "font: 11pt Poppins;")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
-        self.centralwidget.setStyleSheet(u"QPushButton {\n"
-"	height: 40px;\n"
-"	border-radius: 20px;\n"
-"	border: 1px solid #00007f;\n"
-"	background-color: white;\n"
-"	color: #00007f;\n"
-"	font-weight: 500;\n"
-"	font-size: 11px;\n"
-"}")
+        self.centralwidget.setStyleSheet(u"")
         self.backBtn = QPushButton(self.centralwidget)
         self.backBtn.setObjectName(u"backBtn")
         self.backBtn.setGeometry(QRect(20, 20, 41, 41))
-        self.backBtn.setStyleSheet(u"")
+        self.backBtn.setStyleSheet(u"height: 40px;\n"
+"border-radius: 20px;\n"
+"border: 1px solid #00007f;\n"
+"background-color: white;\n"
+"color: #00007f;\n"
+"font-weight: 500;\n"
+"font-size: 11px;")
         self.widgetKeyboard = QWidget(self.centralwidget)
         self.widgetKeyboard.setObjectName(u"widgetKeyboard")
         self.widgetKeyboard.setGeometry(QRect(0, 185, 480, 135))
