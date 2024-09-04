@@ -43,10 +43,12 @@ class ParametersMeasuredWorker(QThread):
                 turb = round(parameters_calc.calculateTurb(
                     parameters.turbidity_volt()), 2)
                 
-                bus_voltage = ina219.getBusVoltage_V()             # voltage on V- (load side)                # power in W
-                p = (bus_voltage - 6)/2.4*100
-                if(p > 100):p = 100
-                if(p < 0):p = 0
+                bus_voltage = ina219.getBusVoltage_V()
+                p = int((bus_voltage - 6)/2.4*100)
+                if(p > 100):
+                    p = 100
+                if(p < 0):
+                    p = 0
 
                 self.parameters_result.emit([ph, do, tds, temp, turb, p])
                 time.sleep(1)
