@@ -1,4 +1,5 @@
 import sys
+import time
 import RPi.GPIO as GPIO
 from PySide2 import QtWidgets, QtCore
 from PySide2.QtWidgets import QApplication, QMainWindow
@@ -22,12 +23,11 @@ class ButtonListener(QThread):
 
     def run(self):
         while self.running:
-            GPIO.wait_for_edge(self.button_pin, GPIO.FALLING)
-            self.on_button_pressed()
             try:
-                print("Esperando a que se presione el botón...")
-                GPIO.wait_for_edge(self.button_pin, GPIO.FALLING)
-                print("Botón presionado!")
+                if GPIO.input(self.button_pin) == GPIO.LOW:
+                    self.on_button_pressed()
+                    time.sleep(0.5) 
+                time.sleep(0.05)
             except GPIO.error as e:
                 print(f"Error con GPIO: {e}")
             finally:
