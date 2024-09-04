@@ -22,12 +22,14 @@ class ButtonListener(QThread):
         GPIO.setup(self.button_pin, GPIO.IN)
 
     def run(self):
-        while self.running:
             try:
-                if GPIO.input(self.button_pin) == GPIO.LOW:
-                    self.on_button_pressed()
-                    time.sleep(0.5) 
-                time.sleep(0.05)
+                while self.running:
+                    if GPIO.input(self.button_pin) == GPIO.LOW:
+                        time.sleep(0.3) 
+                        if GPIO.input(self.button_pin) == GPIO.LOW:
+                            print('SE PRESIONO EL BOTON')
+                            self.on_button_pressed()
+                    time.sleep(0.01)
             except GPIO.error as e:
                 print(f"Error con GPIO: {e}")
             finally:
