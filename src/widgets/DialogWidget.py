@@ -54,7 +54,6 @@ class DialogWidgetInfo(QDialog):
         self.ui.setupUi(self)
 
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-        self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
 
         self.opacity = QGraphicsOpacityEffect()
         self.opacity.setOpacity(0.2)
