@@ -1,11 +1,39 @@
 import sys
+import RPi.GPIO as GPIO
 from PySide2 import QtWidgets, QtCore
 from PySide2.QtWidgets import QApplication, QMainWindow
+from PySide2.QtCore import QThread
 from src.views.ui_Main import Ui_MainWindow
 from src.views.MonitoringView.MonitoringView import MonitoringView
 from src.views.CalibrationView.CalibrationView import CalibrationView
 from src.views.DatosView.DatosView import DatosView
 from src.views.BluetoothView.BluetoothView import BluetoothView
+
+
+class ButtonListener(QThread):
+    def __init__(self, button_pin, app):
+        super(ButtonListener, self).__init__()
+        self.button_pin = button_pin
+        self.app = app
+        self.running = True
+
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(self.button_pin, GPIO.IN)
+
+    def run(self):
+        while self.running:
+            # Lee el estado del botón
+            GPIO.wait_for_edge(self.button_pin, GPIO.FALLING)
+            self.on_button_pressed()
+
+    def on_button_pressed(self):
+        # Comunicar al hilo principal de la aplicación
+        if hasattr(self.app, 'switch_to_bluetooth_view'):
+            self.app.switch_to_bluetooth_view()
+
+    def stop(self):
+        self.running = False
+        GPIO.cleanup()  # Limpiar configuración de GPIO
 
 
 class MyApp(QMainWindow):
@@ -20,25 +48,35 @@ class MyApp(QMainWindow):
         self.ui.bluetoothBtn.clicked.connect(self.on_bluetooth_clicked)
 
     def on_monitoring_clicked(self):
-        self.open_view(MonitoringView(context= widget))
+        self.open_view(MonitoringView(context=widget))
 
     def on_calibration_clicked(self):
-        self.open_view(CalibrationView(context= widget))
+        self.open_view(CalibrationView(context=widget))
 
     def on_datos_clicked(self):
-        self.open_view(DatosView(context= widget))
+        self.open_view(DatosView(context=widget))
 
     def on_bluetooth_clicked(self):
-        self.open_view(BluetoothView(context= widget))
+        self.open_view(BluetoothView(context=widget))
 
     def open_view(self, view):
         widget.addWidget(view)
         widget.setCurrentIndex(widget.currentIndex() + 1)
+    
+    def switch_to_bluetooth_view(self):
+        if widget.currentIndex() > 0:
+            current_widget = widget.currentWidget()
+            widget.removeWidget(current_widget)
+            current_widget.deleteLater()
+        self.on_bluetooth_clicked()
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     welcome = MyApp()
+    button_pin = 17
+    button_listener = ButtonListener(button_pin, welcome)
+    button_listener.start()
     widget = QtWidgets.QStackedWidget()
     widget.addWidget(welcome)
     widget.setFixedHeight(320)
@@ -50,3 +88,5 @@ if __name__ == '__main__':
         sys.exit(app.exec_())
     except:
         print("Exit")
+    finally:
+        button_listener.stop()
