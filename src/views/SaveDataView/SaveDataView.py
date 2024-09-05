@@ -91,6 +91,7 @@ class SaveDataView(QMainWindow):
 
     def on_gps_clicked(self):
         self.loading_popup = PopupWidgetInfo(context=self.context,text='Localizando...', button= False)
+        self.loading_popup.show()
         if not self.location_worker.isRunning():
             self.location_worker.start()
 

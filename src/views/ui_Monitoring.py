@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'MonitoringCavKVO.ui'
+## Form generated from reading UI file 'MonitoringsYfCfm.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -163,15 +163,14 @@ class Ui_Monitoring(object):
 "font-size: 16px;")
         self.label = QLabel(self.centralwidget)
         self.label.setObjectName(u"label")
-        self.label.setGeometry(QRect(240, 0, 101, 20))
+        self.label.setGeometry(QRect(320, 0, 71, 20))
         self.label.setStyleSheet(u"text-align: center;\n"
-"font-size: 16pt;\n"
-"font-weight: bold;")
+"font-size: 12pt;")
         self.batLbl = QLabel(self.centralwidget)
         self.batLbl.setObjectName(u"batLbl")
-        self.batLbl.setGeometry(QRect(330, 0, 101, 20))
+        self.batLbl.setGeometry(QRect(390, 0, 81, 20))
         self.batLbl.setStyleSheet(u"text-align: center;\n"
-"font-size: 16pt;")
+"font-size: 12pt;")
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)

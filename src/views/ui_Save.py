@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'SaveBdoyMJ.ui'
+## Form generated from reading UI file 'SaveuKOaQv.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -146,7 +146,7 @@ class Ui_Save(object):
 
         self.checkBox.setText(QCoreApplication.translate("MainWindow", u"\u00bfLlovi\u00f3 recientemente?", None))
         self.gpsBtn.setText(QCoreApplication.translate("MainWindow", u"Localizar con GPS", None))
-        self.label_4.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\">Lattitud, longitud</p></body></html>", None))
+        self.label_4.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\">Latitud, longitud</p></body></html>", None))
         self.saveBtn.setText(QCoreApplication.translate("MainWindow", u"Guardar", None))
     # retranslateUi
 

@@ -237,16 +237,15 @@ font-size: 16px;</string>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>240</x>
+      <x>320</x>
       <y>0</y>
-      <width>101</width>
+      <width>71</width>
       <height>20</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">text-align: center;
-font-size: 16pt;
-font-weight: bold;</string>
+font-size: 12pt;</string>
     </property>
     <property name="text">
      <string>Bateria:</string>
@@ -255,15 +254,15 @@ font-weight: bold;</string>
    <widget class="QLabel" name="batLbl">
     <property name="geometry">
      <rect>
-      <x>330</x>
+      <x>390</x>
       <y>0</y>
-      <width>101</width>
+      <width>81</width>
       <height>20</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">text-align: center;
-font-size: 16pt;</string>
+font-size: 12pt;</string>
     </property>
     <property name="text">
      <string/>
