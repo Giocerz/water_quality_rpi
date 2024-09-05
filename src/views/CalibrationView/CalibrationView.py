@@ -190,14 +190,12 @@ class CalibrationView(QMainWindow):
         def on_no():
             pass
 
-        dialog = PopupWidget(yes_callback=on_yes, no_callback=on_no,
+        dialog = PopupWidget(context=self.context, yes_callback=on_yes, no_callback=on_no,
                               text='No se ha completado la calibración<br>¿Desea salir?')
-        dialog.setParent(self.context)
         dialog.show()
 
     def show_dialog_error(self, error: str):
-        dialog = PopupWidgetInfo(text=error)
-        dialog.setParent(self.context)
+        dialog = PopupWidgetInfo(context=self.context ,text=error)
         dialog.show()
 
     def next_btn_clicked(self):

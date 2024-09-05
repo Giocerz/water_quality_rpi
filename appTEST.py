@@ -3,7 +3,7 @@ import sys
 import time
 import random
 from PySide2 import QtWidgets, QtCore
-from PySide2.QtWidgets import QApplication, QMainWindow, QStackedLayout
+from PySide2.QtWidgets import QApplication, QMainWindow, QStackedLayout, QTableWidgetItem
 from PySide2.QtCore import QSize, QThread, Signal, Slot, QTimer
 from PySide2.QtGui import QIcon, QPixmap
 from src.views.ui_Main import Ui_MainWindow
@@ -13,11 +13,13 @@ from src.views.ui_Datos import Ui_Datos
 from src.views.ui_Calibration import Ui_Calibration
 from src.views.ui_Save import Ui_Save
 from src.widgets.DialogWidget import DialogWidget, DialogWidgetInfo
-#from src.logic.adcModule import ParametersVoltages
+# from src.logic.adcModule import ParametersVoltages
 from src.logic.parametersCalc import *
-#from src.services.bluetoothLE import BluetoothWorker
+# from src.services.bluetoothLE import BluetoothWorker
 from src.widgets.KeyboardWidget import KeyboardWidget
 from src.widgets.PopupWidget import PopupWidget, PopupWidgetInfo
+from src.model.WaterQualityParams import WaterQualityParams
+from src.model.WaterQualityDB import WaterDataBase
 
 
 class ParametersMeasuredWorker(QThread):
@@ -83,6 +85,14 @@ class MonitoringView(QMainWindow):
         self.ui.setupUi(self)
         self.ui_components()
 
+        self.oxygen = None
+        self.ph = None
+        self.temperature = None
+        self.tds = None
+        self.turbidity = None
+
+        self.receive_parameters = False
+
         self.parameters_worker = ParametersMeasuredWorker()
         if not self.parameters_worker.isRunning():
             self.parameters_worker.start()
@@ -105,33 +115,55 @@ class MonitoringView(QMainWindow):
         if self.parameters_worker.isRunning():
             self.parameters_worker.stop()
         widget.removeWidget(self)
-    
+
     def on_save_clicked(self):
-        view = SaveDataView()
+        if (not self.receive_parameters):
+            return
+        view = SaveDataView(oxygen=self.oxygen, ph=self.ph,
+                            temperature=self.temperature, tds=self.tds, turbidity=self.turbidity)
         widget.addWidget(view)
         widget.setCurrentIndex(widget.currentIndex() + 1)
         self.parameters_worker.stop()
         widget.removeWidget(self)
 
-
     def handle_parameters_result(self, parameters):
-        self.ui.phLbl.setText(str(parameters[0]))
+        self.receive_parameters = True
+
+        self.ph = parameters[0]
+        self.ui.phLbl.setText(str(self.ph))
         self.ui.phLbl.setAlignment(QtCore.Qt.AlignCenter)
-        self.ui.odLbl.setText(str(parameters[1]))
+
+        self.oxygen = parameters[1]
+        self.ui.odLbl.setText(str(self.oxygen))
         self.ui.odLbl.setAlignment(QtCore.Qt.AlignCenter)
-        self.ui.tdsLbl.setText(str(parameters[2]))
+
+        self.tds = parameters[2]
+        self.ui.tdsLbl.setText(str(self.tds))
         self.ui.tdsLbl.setAlignment(QtCore.Qt.AlignCenter)
-        self.ui.tempLbl.setText(str(parameters[3]))
+
+        self.temperature = parameters[3]
+        self.ui.tempLbl.setText(str(self.temperature))
         self.ui.tempLbl.setAlignment(QtCore.Qt.AlignCenter)
-        self.ui.ecLbl.setText(str(parameters[2] * 2))
+
+        self.ui.ecLbl.setText(str(self.tds * 2))
         self.ui.ecLbl.setAlignment(QtCore.Qt.AlignCenter)
-        self.ui.turbLbl.setText(str(parameters[4]))
+
+        self.turbidity = parameters[4]
+        self.ui.turbLbl.setText(str(self.turbidity))
         self.ui.turbLbl.setAlignment(QtCore.Qt.AlignCenter)
 
 ########### VISTA DE GUARDADO#################
+
+
 class SaveDataView(QMainWindow):
-    def __init__(self):
+    def __init__(self, oxygen, ph, temperature, tds, turbidity):
         QMainWindow.__init__(self)
+        self.oxygen = oxygen
+        self.ph = ph
+        self.temperature = temperature
+        self.tds = tds
+        self.turbidity = turbidity
+
         self.ui = Ui_Save()
         self.ui.setupUi(self)
         self.ui_components()
@@ -143,19 +175,59 @@ class SaveDataView(QMainWindow):
 
         self.ui.backBtn.clicked.connect(self.on_back_clicked)
         self.ui.gpsBtn.clicked.connect(self.on_gps_clicked)
+        self.ui.saveBtn.clicked.connect(self.on_save_clicked)
 
     def ui_components(self):
         icon = QIcon('./src/resources/icons/back.png')
         self.ui.backBtn.setIcon(icon)
         self.ui.backBtn.setIconSize(QSize(30, 30))
-    
+
     def on_gps_clicked(self):
-        loading = PopupWidgetInfo(text='Localizando...', button= False)
-        loading.setParent(widget)
-        loading.show()   
+        # loading = PopupWidgetInfo(text='Localizando...', button= False)
+        # loading.setParent(widget)
+        # loading.show()
+        hola: list[WaterQualityParams] = WaterDataBase.get_water_quality_params()
+        print(hola[0].date)
 
     def on_back_clicked(self):
         widget.removeWidget(self)
+
+    def show_dialog_error(self, error: str):
+        dialog = PopupWidgetInfo(context=widget, text=error)
+        dialog.show()
+
+    def on_save_clicked(self):
+        place = self.ui.inputPlace.text()
+        sample_origin = self.ui.comboBox.currentText()
+        # Obtener la fecha actual
+        from datetime import datetime
+        dtatetime_now = datetime.now()
+        format_date = dtatetime_now.strftime("%Y-%m-%d")
+        hour = dtatetime_now.strftime("%H:%M")
+        if (place == ''):
+            self.show_dialog_error(error='Ingrese un lugar o nombre valido')
+            return
+        if (sample_origin == 'Escoja una opción'):
+            self.show_dialog_error(error='Seleccione el origen de la muestra')
+            return
+        it_rained_check = self.ui.checkBox.checkState()
+        it_rained = ''
+        if (it_rained_check):
+            it_rained = 'Si'
+        else:
+            it_rained = 'No'
+        print([place, sample_origin, it_rained, self.oxygen,
+              self.ph, self.temperature, self.tds, self.turbidity])
+
+        params = WaterQualityParams(
+            name=place, device_id="Device123", latitude=4.6097, longitude=-74.0817,
+            date=format_date, hour=str(hour), sample_origin=sample_origin, it_rained=it_rained,
+            upload_state=1, lote_id=10, conductivity=self.tds * 2, oxygen=self.oxygen, ph=self.ph, 
+            temperature=self.temperature, tds=self.tds, turbidity=self.turbidity
+        )
+        WaterDataBase.insert(params)
+        self.on_back_clicked()
+
 
 ########### VISTA DE CALIBRACION Y FUNCIONES#################
 class CalibrationView(QMainWindow):
@@ -330,14 +402,12 @@ class CalibrationView(QMainWindow):
         def on_no():
             pass
 
-        dialog = PopupWidget(yes_callback=on_yes, no_callback=on_no,
-                              text='No se ha completado la calibración<br>¿Desea salir?')
-        dialog.setParent(widget)
+        dialog = PopupWidget(context=widget, yes_callback=on_yes, no_callback=on_no,
+                             text='No se ha completado la calibración<br>¿Desea salir?')
         dialog.show()
 
     def show_dialog_error(self, error: str):
-        dialog = PopupWidgetInfo(text=error)
-        dialog.setParent(widget)
+        dialog = PopupWidgetInfo(context=widget, text=error)
         dialog.show()
 
     def next_btn_clicked(self):
@@ -401,19 +471,19 @@ class CalibrationView(QMainWindow):
             return True
 
     def handle_turb1(self):
-        #self.ph_offset = self.parameters_volt.turbidity_volt()
+        # self.ph_offset = self.parameters_volt.turbidity_volt()
         return True
 
     def handle_turb2(self):
-        #self.ph_offset = self.parameters_volt.turbidity_volt()
+        # self.ph_offset = self.parameters_volt.turbidity_volt()
         return True
 
     def handle_turb3(self):
-        #self.ph_offset = self.parameters_volt.turbidity_volt()
+        # self.ph_offset = self.parameters_volt.turbidity_volt()
         return True
 
     def handle_turb4(self):
-        #self.ph_offset = self.parameters_volt.turbidity_volt()
+        # self.ph_offset = self.parameters_volt.turbidity_volt()
         return True
 
     def handle_do(self):
@@ -431,24 +501,24 @@ class CalibrationView(QMainWindow):
         params_save_flag = False
         import pandas as pd
         df = pd.read_csv('./src/config/calibrationSettings.txt')
-        if(self.kValue != None):
+        if (self.kValue != None):
             df.loc[0, 'calibration_values'] = self.kValue
             params_save_flag = True
-        if(self.ph_offset != None):
+        if (self.ph_offset != None):
             df.loc[1, 'calibration_values'] = self.ph_offset
             df.loc[2, 'calibration_values'] = self.phSlope
             params_save_flag = True
-        if(self.oxygenOffset!= None):
+        if (self.oxygenOffset != None):
             df.loc[3, 'calibration_values'] = self.oxygenTemperature
             df.loc[4, 'calibration_values'] = self.oxygenOffset
             params_save_flag = True
         df.to_csv('./src/config/calibrationSettings.txt', index=False)
 
-        if(params_save_flag):
+        if (params_save_flag):
             self.show_dialog_error('No realizo ninguna calibración')
         else:
             self.show_dialog_error('Calibración exitosa')
-        
+
 
 ##### VISTA DE LA TABLA DE DATOS###############
 class DatosView(QMainWindow):
@@ -457,6 +527,14 @@ class DatosView(QMainWindow):
         self.ui = Ui_Datos()
         self.ui.setupUi(self)
         self.ui_components()
+
+        # Configurar la tabla
+        self.ui.tableWidget.setColumnCount(13)
+        self.ui.tableWidget.setHorizontalHeaderLabels(
+            ['Nombre', 'Fecha', 'Hora', 'Latitud', 'Longitud','Temperatura', 'Oxígeno', 'TDS', 'pH', 'Conductividad', 'Turbidez', 'Origen', '¿Llovió?'])
+
+        # Llenar la tabla con los datos de la base de datos
+        self.load_table_data()
 
         self.ui.backBtn.clicked.connect(self.on_back_clicked)
 
@@ -467,6 +545,45 @@ class DatosView(QMainWindow):
 
     def on_back_clicked(self):
         widget.removeWidget(self)
+
+    def load_table_data(self):
+        data_list = WaterDataBase.get_water_quality_params()
+
+        self.ui.tableWidget.setRowCount(len(data_list))
+
+        for row_idx, data in enumerate(data_list):
+            self.ui.tableWidget.setItem(row_idx, 0, QTableWidgetItem(str(data.name)))
+            self.ui.tableWidget.setItem(row_idx, 1, QTableWidgetItem(str(data.date)))
+            self.ui.tableWidget.setItem(row_idx, 2, QTableWidgetItem(str(data.hour)))
+            self.ui.tableWidget.setItem(row_idx, 3, QTableWidgetItem(str(data.latitude)))
+            self.ui.tableWidget.setItem(row_idx, 4, QTableWidgetItem(str(data.longitude)))
+
+            # Temperatura (si no es None)
+            if data.temperature is not None:
+                self.ui.tableWidget.setItem(row_idx, 5, QTableWidgetItem(str(data.temperature)))
+
+            # Oxígeno (si no es None)
+            if data.oxygen is not None:
+                self.ui.tableWidget.setItem(row_idx, 6, QTableWidgetItem(str(data.oxygen)))
+
+            # TDS (si no es None)
+            if data.tds is not None:
+                self.ui.tableWidget.setItem(row_idx, 7, QTableWidgetItem(str(data.tds)))
+
+            # pH (si no es None)
+            if data.ph is not None:
+                self.ui.tableWidget.setItem(row_idx, 8, QTableWidgetItem(str(data.ph)))
+
+            # Conductividad (si no es None, calculada como el doble de TDS)
+            if data.tds is not None:
+                conductividad = data.tds * 2
+                self.ui.tableWidget.setItem(row_idx, 9, QTableWidgetItem(str(conductividad)))
+            
+            if data.turbidity is not None:
+                self.ui.tableWidget.setItem(row_idx, 10, QTableWidgetItem(str(data.turbidity)))
+
+            self.ui.tableWidget.setItem(row_idx, 11, QTableWidgetItem(str(data.sample_origin)))
+            self.ui.tableWidget.setItem(row_idx, 12, QTableWidgetItem(str(data.it_rained)))
 
 
 class BluetoothView(QMainWindow):

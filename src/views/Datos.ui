@@ -43,7 +43,13 @@ QPushButton {
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true"/>
+     <string notr="true">font-size: 12pt;</string>
+    </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::EditKeyPressed</set>
+    </property>
+    <property name="columnCount">
+     <number>13</number>
     </property>
     <row>
      <property name="text">
@@ -95,6 +101,12 @@ QPushButton {
       <string>Calidad</string>
      </property>
     </column>
+    <column/>
+    <column/>
+    <column/>
+    <column/>
+    <column/>
+    <column/>
     <item row="0" column="0">
      <property name="text">
       <string>Valledupar</string>

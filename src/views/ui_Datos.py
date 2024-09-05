@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'DatosFdlRsE.ui'
+## Form generated from reading UI file 'DatosLuhDbk.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -36,8 +36,8 @@ class Ui_Datos(object):
 "	font-size: 18px;\n"
 "}")
         self.tableWidget = QTableWidget(self.centralwidget)
-        if (self.tableWidget.columnCount() < 7):
-            self.tableWidget.setColumnCount(7)
+        if (self.tableWidget.columnCount() < 13):
+            self.tableWidget.setColumnCount(13)
         __qtablewidgetitem = QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(0, __qtablewidgetitem)
         __qtablewidgetitem1 = QTableWidgetItem()
@@ -98,7 +98,9 @@ class Ui_Datos(object):
         self.tableWidget.setItem(2, 5, __qtablewidgetitem27)
         self.tableWidget.setObjectName(u"tableWidget")
         self.tableWidget.setGeometry(QRect(10, 70, 451, 241))
-        self.tableWidget.setStyleSheet(u"")
+        self.tableWidget.setStyleSheet(u"font-size: 12pt;")
+        self.tableWidget.setEditTriggers(QAbstractItemView.AnyKeyPressed|QAbstractItemView.EditKeyPressed)
+        self.tableWidget.setColumnCount(13)
         self.backBtn = QPushButton(self.centralwidget)
         self.backBtn.setObjectName(u"backBtn")
         self.backBtn.setGeometry(QRect(10, 10, 41, 41))

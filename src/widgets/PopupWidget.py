@@ -4,8 +4,9 @@ from src.views.ui_PopupWidget import Ui_Popup
 
 
 class PopupWidget(QWidget):
-    def __init__(self, yes_callback, no_callback, text):
+    def __init__(self, context, yes_callback, no_callback, text):
         super().__init__()
+        self.context = context
         self.ui = Ui_Popup()
         self.ui.setupUi(self)
 
@@ -20,6 +21,7 @@ class PopupWidget(QWidget):
         self.ui.si.clicked.connect(self.yes_clicked)
         self.ui.no.clicked.connect(self.no_clicked)
         self.ui.lblOpacity.mousePressEvent = self.handle_click
+        self.setParent(self.context)
 
     def yes_clicked(self):
         if self.yes_callback:
@@ -40,8 +42,9 @@ class PopupWidget(QWidget):
 
 
 class PopupWidgetInfo(QWidget):
-    def __init__(self, text, button = True):
+    def __init__(self, context, text, button = True):
         super().__init__()
+        self.context = context
         self.ui = Ui_Popup()
         self.ui.setupUi(self)
 
@@ -59,6 +62,7 @@ class PopupWidgetInfo(QWidget):
             self.ui.lblOpacity.mousePressEvent = self.handle_click
 
         self.ui.no.clicked.connect(self.ok_clicked)
+        self.setParent(self.context)
 
 
     def ok_clicked(self):

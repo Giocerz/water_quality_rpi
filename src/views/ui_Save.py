@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'SaveCnfBdT.ui'
+## Form generated from reading UI file 'SaveBdoyMJ.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -100,10 +100,21 @@ class Ui_Save(object):
         self.label_4 = QLabel(self.widget)
         self.label_4.setObjectName(u"label_4")
         self.label_4.setGeometry(QRect(30, 100, 281, 21))
+        self.saveBtn = QPushButton(self.centralwidget)
+        self.saveBtn.setObjectName(u"saveBtn")
+        self.saveBtn.setGeometry(QRect(360, 140, 111, 31))
+        self.saveBtn.setStyleSheet(u"border-radius: 20px;\n"
+"background-color: #00007f;\n"
+"color: white;\n"
+"border: none;\n"
+"border-radius: 15px;\n"
+"font-size: 11pt;\n"
+"")
         MainWindow.setCentralWidget(self.centralwidget)
         self.widget.raise_()
         self.backBtn.raise_()
         self.widgetKeyboard.raise_()
+        self.saveBtn.raise_()
 
         self.retranslateUi(MainWindow)
 
@@ -136,5 +147,6 @@ class Ui_Save(object):
         self.checkBox.setText(QCoreApplication.translate("MainWindow", u"\u00bfLlovi\u00f3 recientemente?", None))
         self.gpsBtn.setText(QCoreApplication.translate("MainWindow", u"Localizar con GPS", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\">Lattitud, longitud</p></body></html>", None))
+        self.saveBtn.setText(QCoreApplication.translate("MainWindow", u"Guardar", None))
     # retranslateUi
 

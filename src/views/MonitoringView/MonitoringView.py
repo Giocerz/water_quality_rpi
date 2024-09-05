@@ -1,6 +1,6 @@
-from PySide2 import QtWidgets, QtCore
-from PySide2.QtWidgets import QApplication, QMainWindow
-from PySide2.QtCore import QSize, QThread, Signal, Slot, QTimer
+from PySide2 import QtCore
+from PySide2.QtWidgets import QMainWindow
+from PySide2.QtCore import QSize, QThread, Signal
 from PySide2.QtGui import QIcon
 from src.views.ui_Monitoring import Ui_Monitoring
 import time
@@ -68,6 +68,14 @@ class MonitoringView(QMainWindow):
         self.ui.setupUi(self)
         self.ui_components()
 
+        self.oxygen = None
+        self.ph = None
+        self.temperature = None
+        self.tds = None
+        self.turbidity = None
+
+        self.receive_parameters = False
+
         self.parameters_worker = ParametersMeasuredWorker()
         if not self.parameters_worker.isRunning():
             self.parameters_worker.start()
@@ -92,23 +100,39 @@ class MonitoringView(QMainWindow):
         self.context.removeWidget(self)
 
     def on_save_clicked(self):
-        view = SaveDataView(context= self.context)
+        if(not self.receive_parameters):
+            return
+        view = SaveDataView(context= self.context, oxygen=self.oxygen, ph=self.ph, temperature=self.temperature, tds=self.tds, turbidity=self.turbidity)
         self.context.addWidget(view)
         self.context.setCurrentIndex(self.context.currentIndex() + 1)
+        self.parameters_worker.stop()
         self.context.removeWidget(self)
 
     def handle_parameters_result(self, parameters):
-        self.ui.phLbl.setText(str(parameters[0]))
+        self.receive_parameters = True
+
+        self.ph = parameters[0]
+        self.ui.phLbl.setText(str(self.ph))
         self.ui.phLbl.setAlignment(QtCore.Qt.AlignCenter)
-        self.ui.odLbl.setText(str(parameters[1]))
+
+        self.oxygen = parameters[1]
+        self.ui.odLbl.setText(str(self.oxygen))
         self.ui.odLbl.setAlignment(QtCore.Qt.AlignCenter)
-        self.ui.tdsLbl.setText(str(parameters[2]))
+
+        self.tds = parameters[2]
+        self.ui.tdsLbl.setText(str(self.tds))
         self.ui.tdsLbl.setAlignment(QtCore.Qt.AlignCenter)
-        self.ui.tempLbl.setText(str(parameters[3]))
+
+        self.temperature = parameters[3]
+        self.ui.tempLbl.setText(str(self.temperature))
         self.ui.tempLbl.setAlignment(QtCore.Qt.AlignCenter)
-        self.ui.ecLbl.setText(str(parameters[2] * 2))
+
+        self.ui.ecLbl.setText(str(self.tds * 2))
         self.ui.ecLbl.setAlignment(QtCore.Qt.AlignCenter)
-        self.ui.turbLbl.setText(str(parameters[4]))
+
+        self.turbidity = parameters[4]
+        self.ui.turbLbl.setText(str(self.turbidity))
         self.ui.turbLbl.setAlignment(QtCore.Qt.AlignCenter)
+
         self.ui.batLbl.setText(f"{str(parameters[5])} %")
         self.ui.batLbl.setAlignment(QtCore.Qt.AlignCenter)
