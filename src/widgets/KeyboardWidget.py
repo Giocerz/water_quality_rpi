@@ -5,6 +5,7 @@ from src.views.ui_Keyboard import Ui_Keyboard
 
 class KeyboardWidget(QWidget):
     def __init__(self, focusLine):
+        print('Keybiard')
         QWidget.__init__(self)
         self.ui = Ui_Keyboard()
         self.ui.setupUi(self)

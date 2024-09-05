@@ -3,6 +3,7 @@ from PySide2.QtCore import QSize
 from PySide2.QtGui import QIcon
 from src.views.ui_Save import Ui_Save
 from src.widgets.KeyboardWidget import KeyboardWidget
+from src.widgets.PopupWidget import PopupWidgetInfo
 
 class SaveDataView(QMainWindow):
     def __init__(self, context):
@@ -18,6 +19,7 @@ class SaveDataView(QMainWindow):
         self.ui.widgetKeyboard.setLayout(layout)
 
         self.ui.backBtn.clicked.connect(self.on_back_clicked)
+        self.ui.gpsBtn.clicked.connect(self.on_gps_clicked)
 
     def ui_components(self):
         icon = QIcon('./src/resources/icons/back.png')
@@ -26,3 +28,8 @@ class SaveDataView(QMainWindow):
 
     def on_back_clicked(self):
         self.context.removeWidget(self)
+    
+    def on_gps_clicked(self):
+        loading = PopupWidgetInfo(text='Localizando...', button= False)
+        loading.setParent(self.context)
+        loading.show()   

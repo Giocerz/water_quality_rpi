@@ -110,6 +110,7 @@ class MonitoringView(QMainWindow):
         view = SaveDataView()
         widget.addWidget(view)
         widget.setCurrentIndex(widget.currentIndex() + 1)
+        self.parameters_worker.stop()
         widget.removeWidget(self)
 
 
@@ -140,13 +141,18 @@ class SaveDataView(QMainWindow):
         layout.addWidget(self.keyboard)
         self.ui.widgetKeyboard.setLayout(layout)
 
-
         self.ui.backBtn.clicked.connect(self.on_back_clicked)
+        self.ui.gpsBtn.clicked.connect(self.on_gps_clicked)
 
     def ui_components(self):
         icon = QIcon('./src/resources/icons/back.png')
         self.ui.backBtn.setIcon(icon)
         self.ui.backBtn.setIconSize(QSize(30, 30))
+    
+    def on_gps_clicked(self):
+        loading = PopupWidgetInfo(text='Localizando...', button= False)
+        loading.setParent(widget)
+        loading.show()   
 
     def on_back_clicked(self):
         widget.removeWidget(self)

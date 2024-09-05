@@ -39,8 +39,8 @@ class PopupWidget(QWidget):
         self.close_and_delete()
 
 
-class PopupWidgetInfo(QDialog):
-    def __init__(self, text):
+class PopupWidgetInfo(QWidget):
+    def __init__(self, text, button = True):
         super().__init__()
         self.ui = Ui_Popup()
         self.ui.setupUi(self)
@@ -52,10 +52,13 @@ class PopupWidgetInfo(QDialog):
         self.ui.lblOpacity.setGraphicsEffect(self.opacity)
         self.ui.LabelInfo.setText(text)
         self.ui.si.hide()
-        self.ui.no.setText('OK')
+        self.ui.no.hide()
+        if(button):
+            self.ui.no.show()
+            self.ui.no.setText('OK')
+            self.ui.lblOpacity.mousePressEvent = self.handle_click
 
         self.ui.no.clicked.connect(self.ok_clicked)
-        self.ui.lblOpacity.mousePressEvent = self.handle_click
 
 
     def ok_clicked(self):

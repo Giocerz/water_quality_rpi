@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'SaveBzzkNc.ui'
+## Form generated from reading UI file 'SaveCnfBdT.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -39,7 +39,7 @@ class Ui_Save(object):
         self.widgetKeyboard.setStyleSheet(u"background-color: rgb(234, 234, 234);")
         self.widget = QWidget(self.centralwidget)
         self.widget.setObjectName(u"widget")
-        self.widget.setGeometry(QRect(80, 30, 321, 241))
+        self.widget.setGeometry(QRect(80, 10, 321, 241))
         self.label = QLabel(self.widget)
         self.label.setObjectName(u"label")
         self.label.setGeometry(QRect(50, 6, 51, 21))
@@ -52,10 +52,10 @@ class Ui_Save(object):
 "border-radius: 6px;\n"
 "font: 12pt \"Poppins\";\n"
 "background-color: rgb(234, 234, 234);")
-        self.inputPlace.setMaxLength(10)
+        self.inputPlace.setMaxLength(30)
         self.label_2 = QLabel(self.widget)
         self.label_2.setObjectName(u"label_2")
-        self.label_2.setGeometry(QRect(50, 51, 51, 21))
+        self.label_2.setGeometry(QRect(50, 40, 51, 21))
         self.comboBox = QComboBox(self.widget)
         self.comboBox.addItem("")
         self.comboBox.addItem("")
@@ -75,23 +75,21 @@ class Ui_Save(object):
         self.comboBox.addItem("")
         self.comboBox.addItem("")
         self.comboBox.setObjectName(u"comboBox")
-        self.comboBox.setGeometry(QRect(110, 50, 181, 26))
+        self.comboBox.setGeometry(QRect(110, 40, 181, 26))
         self.comboBox.setStyleSheet(u"border-color: rgb(0, 0, 0);\n"
 "border-style: solid;\n"
 "border-width: 1px;\n"
 "border-radius: 6px;")
         self.checkBox = QCheckBox(self.widget)
         self.checkBox.setObjectName(u"checkBox")
-        self.checkBox.setGeometry(QRect(65, 98, 191, 16))
+        self.checkBox.setGeometry(QRect(70, 80, 191, 16))
         self.checkBox.setStyleSheet(u"font-size: 11pt;\n"
 "background-color: transparent;\n"
-"height: 21px;")
-        self.label_3 = QLabel(self.widget)
-        self.label_3.setObjectName(u"label_3")
-        self.label_3.setGeometry(QRect(0, 130, 101, 21))
+"height: 21px;\n"
+"")
         self.gpsBtn = QPushButton(self.widget)
         self.gpsBtn.setObjectName(u"gpsBtn")
-        self.gpsBtn.setGeometry(QRect(110, 125, 180, 31))
+        self.gpsBtn.setGeometry(QRect(80, 130, 180, 31))
         self.gpsBtn.setStyleSheet(u"border-radius: 20px;\n"
 "background-color: #00007f;\n"
 "color: white;\n"
@@ -99,6 +97,9 @@ class Ui_Save(object):
 "border-radius: 15px;\n"
 "font-size: 11pt;\n"
 "")
+        self.label_4 = QLabel(self.widget)
+        self.label_4.setObjectName(u"label_4")
+        self.label_4.setGeometry(QRect(30, 100, 281, 21))
         MainWindow.setCentralWidget(self.centralwidget)
         self.widget.raise_()
         self.backBtn.raise_()
@@ -133,7 +134,7 @@ class Ui_Save(object):
         self.comboBox.setItemText(16, QCoreApplication.translate("MainWindow", u"Otro", None))
 
         self.checkBox.setText(QCoreApplication.translate("MainWindow", u"\u00bfLlovi\u00f3 recientemente?", None))
-        self.label_3.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"right\">Localizaci\u00f3n:</p></body></html>", None))
         self.gpsBtn.setText(QCoreApplication.translate("MainWindow", u"Localizar con GPS", None))
+        self.label_4.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\">Lattitud, longitud</p></body></html>", None))
     # retranslateUi
 
