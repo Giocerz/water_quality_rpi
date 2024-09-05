@@ -19,7 +19,7 @@ class PopupWidget(QWidget):
 
         self.ui.si.clicked.connect(self.yes_clicked)
         self.ui.no.clicked.connect(self.no_clicked)
-        self.ui.lblOpacity.clicked.connect
+        self.ui.lblOpacity.mousePressEvent = self.handle_click
 
     def yes_clicked(self):
         if self.yes_callback:
@@ -34,6 +34,9 @@ class PopupWidget(QWidget):
     def close_and_delete(self):
         self.setParent(None)
         self.deleteLater()
+    
+    def handle_click(self, event):
+        self.close_and_delete()
 
 
 class PopupWidgetInfo(QDialog):
@@ -52,6 +55,7 @@ class PopupWidgetInfo(QDialog):
         self.ui.no.setText('OK')
 
         self.ui.no.clicked.connect(self.ok_clicked)
+        self.ui.lblOpacity.mousePressEvent = self.handle_click
 
 
     def ok_clicked(self):
@@ -60,3 +64,6 @@ class PopupWidgetInfo(QDialog):
     def close_and_delete(self):
         self.setParent(None)
         self.deleteLater()
+    
+    def handle_click(self, event):
+        self.close_and_delete()
