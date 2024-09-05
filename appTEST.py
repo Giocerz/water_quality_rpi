@@ -17,6 +17,7 @@ from src.widgets.DialogWidget import DialogWidget, DialogWidgetInfo
 from src.logic.parametersCalc import *
 #from src.services.bluetoothLE import BluetoothWorker
 from src.widgets.KeyboardWidget import KeyboardWidget
+from src.widgets.PopupWidget import PopupWidget, PopupWidgetInfo
 
 
 class ParametersMeasuredWorker(QThread):
@@ -323,13 +324,15 @@ class CalibrationView(QMainWindow):
         def on_no():
             pass
 
-        dialog = DialogWidget(yes_callback=on_yes, no_callback=on_no,
+        dialog = PopupWidget(yes_callback=on_yes, no_callback=on_no,
                               text='No se ha completado la calibración<br>¿Desea salir?')
-        dialog.exec_()
+        dialog.setParent(widget)
+        dialog.show()
 
     def show_dialog_error(self, error: str):
-        dialog = DialogWidgetInfo(text=error)
-        dialog.exec_()
+        dialog = PopupWidgetInfo(text=error)
+        dialog.setParent(widget)
+        dialog.show()
 
     def next_btn_clicked(self):
         if self.CALIBRATION_STEPS[self.calibration_step] == 'wash':

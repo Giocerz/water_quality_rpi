@@ -7,6 +7,7 @@ from src.widgets.DialogWidget import DialogWidget, DialogWidgetInfo
 from w1thermsensor import W1ThermSensor
 from src.logic.adcModule import ParametersVoltages
 from src.logic.parametersCalc import *
+from src.widgets.PopupWidget import PopupWidget, PopupWidgetInfo
 
 ########### VISTA DE CALIBRACION Y FUNCIONES#################
 class CalibrationView(QMainWindow):
@@ -189,13 +190,15 @@ class CalibrationView(QMainWindow):
         def on_no():
             pass
 
-        dialog = DialogWidget(yes_callback=on_yes, no_callback=on_no,
+        dialog = PopupWidget(yes_callback=on_yes, no_callback=on_no,
                               text='No se ha completado la calibración<br>¿Desea salir?')
-        dialog.exec_()
+        dialog.setParent(self.context)
+        dialog.show()
 
     def show_dialog_error(self, error: str):
-        dialog = DialogWidgetInfo(text=error)
-        dialog.exec_()
+        dialog = PopupWidgetInfo(text=error)
+        dialog.setParent(self.context)
+        dialog.show()
 
     def next_btn_clicked(self):
         if self.CALIBRATION_STEPS[self.calibration_step] == 'wash':
