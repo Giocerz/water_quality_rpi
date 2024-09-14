@@ -67,7 +67,7 @@ class WaterDataBase:
     def get_water_quality_params() -> list[WaterQualityParams]:
         conn = WaterDataBase._open_db()
         cursor = conn.cursor()
-        cursor.execute(f"SELECT * FROM {WaterDataBase.table_name}")
+        cursor.execute(f"SELECT * FROM {WaterDataBase.table_name} ORDER BY id DESC")
         rows = cursor.fetchall()
         conn.close()
 

@@ -33,12 +33,12 @@ QWidget {
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>30</y>
+      <y>20</y>
       <width>481</width>
       <height>291</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridLayout" rowstretch="1,0,0,0,0,0" columnstretch="0,0">
+    <layout class="QGridLayout" name="gridLayout" rowstretch="1,0,1,0,1,0" columnstretch="0,0">
      <item row="0" column="1">
       <widget class="QLabel" name="odLbl">
        <property name="styleSheet">
@@ -50,8 +50,8 @@ font-size: 22pt;</string>
        </property>
       </widget>
      </item>
-     <item row="5" column="1">
-      <widget class="QLabel" name="label_11">
+     <item row="1" column="1">
+      <widget class="QLabel" name="label_6">
        <property name="styleSheet">
         <string notr="true">background-color: #00007f;
 color: white;
@@ -60,7 +60,32 @@ border-top-left-radius: 15px;
 border-top-right-radius: 15px;</string>
        </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Turbidez NTU)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Oxígeno disuelto (mg/L)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="ecLbl">
+       <property name="styleSheet">
+        <string notr="true">text-align: center;
+font-size: 22pt;</string>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;--&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="label_10">
+       <property name="styleSheet">
+        <string notr="true">background-color: #00007f;
+color: white;
+font-weight: bold;
+border-top-left-radius: 15px;
+border-top-right-radius: 15px;</string>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Ec (uS/cm)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>
@@ -78,20 +103,6 @@ border-top-right-radius: 15px;</string>
        </property>
       </widget>
      </item>
-     <item row="5" column="0">
-      <widget class="QLabel" name="label_10">
-       <property name="styleSheet">
-        <string notr="true">background-color: #00007f;
-color: white;
-font-weight: bold;
-border-top-left-radius: 15px;
-border-top-right-radius: 15px;</string>
-       </property>
-       <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;CE (uS/cm)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-      </widget>
-     </item>
      <item row="1" column="0">
       <widget class="QLabel" name="label_4">
        <property name="styleSheet">
@@ -106,33 +117,8 @@ border-top-right-radius: 15px;</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="label_2">
-       <property name="styleSheet">
-        <string notr="true">background-color: #00007f;
-color: white;
-font-weight: bold;
-border-top-left-radius: 15px;
-border-top-right-radius: 15px;</string>
-       </property>
-       <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;TDS (ppm)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="ecLbl">
-       <property name="styleSheet">
-        <string notr="true">text-align: center;
-font-size: 22pt;</string>
-       </property>
-       <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;--&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="tempLbl">
+     <item row="2" column="0">
+      <widget class="QLabel" name="tdsLbl">
        <property name="styleSheet">
         <string notr="true">text-align: center;
 font-size: 22pt;</string>
@@ -154,8 +140,8 @@ font-size: 22pt
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="QLabel" name="label_6">
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_2">
        <property name="styleSheet">
         <string notr="true">background-color: #00007f;
 color: white;
@@ -164,12 +150,26 @@ border-top-left-radius: 15px;
 border-top-right-radius: 15px;</string>
        </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Oxígeno disuelto (mg/L)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;TDS (ppm)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="tdsLbl">
+     <item row="5" column="1">
+      <widget class="QLabel" name="label_11">
+       <property name="styleSheet">
+        <string notr="true">background-color: #00007f;
+color: white;
+font-weight: bold;
+border-top-left-radius: 15px;
+border-top-right-radius: 15px;</string>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Turbidez NTU)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="tempLbl">
        <property name="styleSheet">
         <string notr="true">text-align: center;
 font-size: 22pt;</string>
@@ -234,13 +234,30 @@ font-size: 16px;</string>
      <string/>
     </property>
    </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>0</y>
+      <width>71</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">text-align: center;
+font-size: 12pt;</string>
+    </property>
+    <property name="text">
+     <string>Bateria:</string>
+    </property>
+   </widget>
    <widget class="QLabel" name="batLbl">
     <property name="geometry">
      <rect>
-      <x>417</x>
-      <y>10</y>
-      <width>61</width>
-      <height>31</height>
+      <x>390</x>
+      <y>0</y>
+      <width>81</width>
+      <height>20</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -251,44 +268,6 @@ font-size: 12pt;</string>
      <string/>
     </property>
    </widget>
-   <widget class="QLabel" name="batLblBg">
-    <property name="geometry">
-     <rect>
-      <x>367</x>
-      <y>10</y>
-      <width>51</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(85, 255, 0);</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="batLblPng">
-    <property name="geometry">
-     <rect>
-      <x>367</x>
-      <y>10</y>
-      <width>51</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: transparent;</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <zorder>gridLayoutWidget</zorder>
-   <zorder>backBtn</zorder>
-   <zorder>saveBtn</zorder>
-   <zorder>batLblBg</zorder>
-   <zorder>batLblPng</zorder>
-   <zorder>batLbl</zorder>
   </widget>
  </widget>
  <resources/>

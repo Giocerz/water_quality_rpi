@@ -17,7 +17,7 @@ from src.widgets.DialogWidget import DialogWidget, DialogWidgetInfo
 from src.logic.parametersCalc import *
 # from src.services.bluetoothLE import BluetoothWorker
 from src.widgets.KeyboardWidget import KeyboardWidget
-from src.widgets.PopupWidget import PopupWidget, PopupWidgetInfo
+from src.widgets.PopupWidget import PopupWidget, PopupWidgetInfo, LoadingPopupWidget
 from src.model.WaterQualityParams import WaterQualityParams
 from src.model.WaterQualityDB import WaterDataBase
 
@@ -31,7 +31,7 @@ class ParametersMeasuredWorker(QThread):
     def run(self):
         self.running_state = True
         paraamCalc = ParametersCalculate()
-
+        bat = 50
         while self.running_state:
             try:
                 temp = round(random.uniform(29, 33), 2)
@@ -40,8 +40,9 @@ class ParametersMeasuredWorker(QThread):
                 tds = round(random.uniform(724.23, 892.23), 2)
                 turb = round(random.uniform(56.23, 203.23), 2)
 
-                self.parameters_result.emit([ph, do, tds, temp, turb])
+                self.parameters_result.emit([ph, do, tds, temp, turb, bat])
                 time.sleep(1)
+                bat -= 2
             except Exception as e:
                 print(e)
 
@@ -111,6 +112,9 @@ class MonitoringView(QMainWindow):
         self.ui.saveBtn.setIcon(icon)
         self.ui.saveBtn.setIconSize(QSize(30, 30))
 
+        pixmap = QPixmap('./src/resources/icons/batteryIcon.png')
+        self.ui.batLblPng.setPixmap(pixmap)
+
     def on_back_clicked(self):
         if self.parameters_worker.isRunning():
             self.parameters_worker.stop()
@@ -152,6 +156,20 @@ class MonitoringView(QMainWindow):
         self.ui.turbLbl.setText(str(self.turbidity))
         self.ui.turbLbl.setAlignment(QtCore.Qt.AlignCenter)
 
+        self.battery_ui(parameters[5])
+
+        
+    
+    def battery_ui(self, battery_level):
+        self.ui.batLbl.setText(f'{round(battery_level)}%')
+        self.ui.batLbl.setAlignment(QtCore.Qt.AlignCenter)
+        if(battery_level < 20):
+            self.ui.batLblBg.setStyleSheet('background-color: #fb8b24;')
+        move_level = round(-0.39 * battery_level + 47)
+        self.ui.batLblBg.move(367 + move_level, 10)
+
+
+
 ########### VISTA DE GUARDADO#################
 
 
@@ -183,11 +201,15 @@ class SaveDataView(QMainWindow):
         self.ui.backBtn.setIconSize(QSize(30, 30))
 
     def on_gps_clicked(self):
-        # loading = PopupWidgetInfo(text='Localizando...', button= False)
-        # loading.setParent(widget)
-        # loading.show()
-        hola: list[WaterQualityParams] = WaterDataBase.get_water_quality_params()
-        print(hola[0].date)
+        self.loading_popup = LoadingPopupWidget(context=widget,text='Localizando...')
+        self.loading_popup.show()
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.finish_loading)
+        self.timer.start(5000)
+
+    def finish_loading(self):
+        self.loading_popup.close_and_delete()
+        self.timer.stop()
 
     def on_back_clicked(self):
         widget.removeWidget(self)
@@ -528,26 +550,99 @@ class DatosView(QMainWindow):
         self.ui.setupUi(self)
         self.ui_components()
 
+        self.table_pages:int = 0
+        self.total_data_len:int = 0
+        self.current_page:int = 0
+
         # Configurar la tabla
         self.ui.tableWidget.setColumnCount(13)
         self.ui.tableWidget.setHorizontalHeaderLabels(
             ['Nombre', 'Fecha', 'Hora', 'Latitud', 'Longitud','Temperatura', 'Oxígeno', 'TDS', 'pH', 'Conductividad', 'Turbidez', 'Origen', '¿Llovió?'])
 
         # Llenar la tabla con los datos de la base de datos
-        self.load_table_data()
+        self.data_table_controller()
 
         self.ui.backBtn.clicked.connect(self.on_back_clicked)
 
+        self.ui.horizontalSlider.valueChanged.connect(self.slider_value_changed)
+
+        self.scrollBar.rangeChanged.connect(self.adjust_slider_range)
+        self.scrollBar.valueChanged.connect(self.scroll_value_changed)
+
+        self.ui.nextPageBtn.clicked.connect(self.handle_nextPageBtn)
+        self.ui.prevPageBtn.clicked.connect(self.handle_prevPageBtn)
+
+    def data_table_controller(self):
+        import math
+        ELEMENTS_NUMBER = 4
+        data_list = WaterDataBase.get_water_quality_params()
+        result = []
+        self.total_data_len = len(data_list)
+        self.table_pages = math.ceil((self.total_data_len / ELEMENTS_NUMBER))
+        for i in range(self.table_pages):
+            print(i)
+            sub_list = []
+            for j in range(ELEMENTS_NUMBER*i, ELEMENTS_NUMBER*(i+1)):
+                if(j >= len(data_list)):
+                    break
+                sub_list.append(data_list[j])
+            result.append(sub_list)
+        self.data_pages = result
+        self.update_page(1)
+    
+    def handle_nextPageBtn(self):
+        self.update_page(self.current_page + 1)
+
+    def handle_prevPageBtn(self):
+        self.update_page(self.current_page - 1)
+        
+    def update_page(self, page):
+        ELEMENTS_NUMBER = 4
+        self.current_page = page
+        if(self.current_page >= len(self.data_pages)):
+            label_pages = f"{ELEMENTS_NUMBER*self.current_page - (ELEMENTS_NUMBER - 1)}-{(self.total_data_len)} de {self.total_data_len}"
+        else:
+            label_pages = f"{ELEMENTS_NUMBER*self.current_page - (ELEMENTS_NUMBER - 1)}-{(ELEMENTS_NUMBER*self.current_page)} de {self.total_data_len}"
+        self.ui.dataCountLbl.setText(label_pages)
+        self.ui.dataCountLbl.setAlignment(QtCore.Qt.AlignCenter)
+        self.ui.prevPageBtn.setEnabled(not(page == 1))
+        self.ui.nextPageBtn.setEnabled(not(page == len(self.data_pages)))
+        data = self.data_pages[self.current_page - 1]
+        self.load_table_data(data=data)
+        
+        
+
+
+
+
     def ui_components(self):
+        icon = QIcon('./src/resources/icons/arrowr.png')
+        self.ui.nextPageBtn.setIcon(icon)
+        self.ui.nextPageBtn.setIconSize(QSize(30, 30))
+        icon = QIcon('./src/resources/icons/arrowl.png')
+        self.ui.prevPageBtn.setIcon(icon)
+        self.ui.prevPageBtn.setIconSize(QSize(30, 30))
         icon = QIcon('./src/resources/icons/back.png')
         self.ui.backBtn.setIcon(icon)
         self.ui.backBtn.setIconSize(QSize(30, 30))
 
+        self.scrollBar = self.ui.tableWidget.horizontalScrollBar()
+        self.ui.horizontalSlider.setRange(self.scrollBar.minimum(), self.scrollBar.maximum())
+
+    def slider_value_changed(self, value):
+        self.scrollBar.setValue(value)
+
+    def adjust_slider_range(self, min, max):
+        self.ui.horizontalSlider.setRange(min, max)    
+
+    def scroll_value_changed(self, value):
+        self.ui.horizontalSlider.setValue(value) 
+
     def on_back_clicked(self):
         widget.removeWidget(self)
 
-    def load_table_data(self):
-        data_list = WaterDataBase.get_water_quality_params()
+    def load_table_data(self, data:list[list[WaterQualityParams]]):
+        data_list = data
 
         self.ui.tableWidget.setRowCount(len(data_list))
 

@@ -36,21 +36,39 @@ QPushButton {
    <widget class="QTableWidget" name="tableWidget">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>0</x>
       <y>70</y>
-      <width>451</width>
-      <height>241</height>
+      <width>481</width>
+      <height>181</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">font-size: 12pt;</string>
     </property>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
     <property name="editTriggers">
-     <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::EditKeyPressed</set>
+     <set>QAbstractItemView::NoEditTriggers</set>
+    </property>
+    <property name="selectionMode">
+     <enum>QAbstractItemView::NoSelection</enum>
+    </property>
+    <property name="showGrid">
+     <bool>true</bool>
+    </property>
+    <property name="gridStyle">
+     <enum>Qt::SolidLine</enum>
+    </property>
+    <property name="rowCount">
+     <number>3</number>
     </property>
     <property name="columnCount">
      <number>13</number>
     </property>
+    <attribute name="verticalHeaderVisible">
+     <bool>false</bool>
+    </attribute>
     <row>
      <property name="text">
       <string/>
@@ -225,6 +243,89 @@ QPushButton {
     </property>
     <property name="text">
      <string>Ver gráficas</string>
+    </property>
+   </widget>
+   <widget class="QSlider" name="horizontalSlider">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>250</y>
+      <width>461</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QSlider::groove:horizontal{ 
+    background-color: rgb(234, 234, 234);
+    height: 20px;
+    border-radius: 10px;
+}
+
+QSlider::handle:horizontal { 
+    background-color: #00007f;
+    width: 60px;
+    height: 20px;
+    margin-left: 0px; 
+    margin-right: 0px;
+    border-radius: 10px;
+}
+
+QSlider{
+    background-color: rgb(234, 234, 234);
+    border-radius: 10px;
+}
+</string>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="nextPageBtn">
+    <property name="geometry">
+     <rect>
+      <x>425</x>
+      <y>275</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="prevPageBtn">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>275</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="dataCountLbl">
+    <property name="geometry">
+     <rect>
+      <x>246</x>
+      <y>272</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font-size: 12pt;</string>
+    </property>
+    <property name="text">
+     <string>1-5 de 11</string>
     </property>
    </widget>
   </widget>

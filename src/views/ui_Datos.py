@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'DatosLuhDbk.ui'
+## Form generated from reading UI file 'DatoslKhFYm.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -97,10 +97,16 @@ class Ui_Datos(object):
         __qtablewidgetitem27 = QTableWidgetItem()
         self.tableWidget.setItem(2, 5, __qtablewidgetitem27)
         self.tableWidget.setObjectName(u"tableWidget")
-        self.tableWidget.setGeometry(QRect(10, 70, 451, 241))
+        self.tableWidget.setGeometry(QRect(0, 70, 481, 181))
         self.tableWidget.setStyleSheet(u"font-size: 12pt;")
-        self.tableWidget.setEditTriggers(QAbstractItemView.AnyKeyPressed|QAbstractItemView.EditKeyPressed)
+        self.tableWidget.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.tableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.tableWidget.setSelectionMode(QAbstractItemView.NoSelection)
+        self.tableWidget.setShowGrid(True)
+        self.tableWidget.setGridStyle(Qt.SolidLine)
+        self.tableWidget.setRowCount(3)
         self.tableWidget.setColumnCount(13)
+        self.tableWidget.verticalHeader().setVisible(False)
         self.backBtn = QPushButton(self.centralwidget)
         self.backBtn.setObjectName(u"backBtn")
         self.backBtn.setGeometry(QRect(10, 10, 41, 41))
@@ -108,6 +114,42 @@ class Ui_Datos(object):
         self.actBtn = QPushButton(self.centralwidget)
         self.actBtn.setObjectName(u"actBtn")
         self.actBtn.setGeometry(QRect(310, 11, 161, 41))
+        self.horizontalSlider = QSlider(self.centralwidget)
+        self.horizontalSlider.setObjectName(u"horizontalSlider")
+        self.horizontalSlider.setGeometry(QRect(10, 250, 461, 21))
+        self.horizontalSlider.setStyleSheet(u"QSlider::groove:horizontal{ \n"
+"    background-color: rgb(234, 234, 234);\n"
+"    height: 20px;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"QSlider::handle:horizontal { \n"
+"    background-color: #00007f;\n"
+"    width: 60px;\n"
+"    height: 20px;\n"
+"    margin-left: 0px; \n"
+"    margin-right: 0px;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"QSlider{\n"
+"    background-color: rgb(234, 234, 234);\n"
+"    border-radius: 10px;\n"
+"}\n"
+"")
+        self.horizontalSlider.setOrientation(Qt.Horizontal)
+        self.nextPageBtn = QPushButton(self.centralwidget)
+        self.nextPageBtn.setObjectName(u"nextPageBtn")
+        self.nextPageBtn.setGeometry(QRect(425, 275, 41, 41))
+        self.nextPageBtn.setStyleSheet(u"")
+        self.prevPageBtn = QPushButton(self.centralwidget)
+        self.prevPageBtn.setObjectName(u"prevPageBtn")
+        self.prevPageBtn.setGeometry(QRect(380, 275, 41, 41))
+        self.prevPageBtn.setStyleSheet(u"")
+        self.dataCountLbl = QLabel(self.centralwidget)
+        self.dataCountLbl.setObjectName(u"dataCountLbl")
+        self.dataCountLbl.setGeometry(QRect(246, 272, 121, 41))
+        self.dataCountLbl.setStyleSheet(u"font-size: 12pt;")
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -174,5 +216,8 @@ class Ui_Datos(object):
 
         self.backBtn.setText("")
         self.actBtn.setText(QCoreApplication.translate("MainWindow", u"Ver gr\u00e1ficas", None))
+        self.nextPageBtn.setText("")
+        self.prevPageBtn.setText("")
+        self.dataCountLbl.setText(QCoreApplication.translate("MainWindow", u"1-5 de 11", None))
     # retranslateUi
 

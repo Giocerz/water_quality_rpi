@@ -134,5 +134,12 @@ class MonitoringView(QMainWindow):
         self.ui.turbLbl.setText(str(self.turbidity))
         self.ui.turbLbl.setAlignment(QtCore.Qt.AlignCenter)
 
-        self.ui.batLbl.setText(f"{str(parameters[5])} %")
+        self.battery_ui(parameters[5])
+
+    def battery_ui(self, battery_level):
+        self.ui.batLbl.setText(f'{round(battery_level)}%')
         self.ui.batLbl.setAlignment(QtCore.Qt.AlignCenter)
+        if(battery_level < 20):
+            self.ui.batLblBg.setStyleSheet('background-color: #fb8b24;')
+        move_level = round(-0.39 * battery_level + 47)
+        self.ui.batLblBg.move(367 + move_level, 10)

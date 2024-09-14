@@ -1,6 +1,5 @@
-from PySide2 import QtWidgets, QtCore
-from PySide2.QtWidgets import QApplication, QMainWindow, QWidget
-from PySide2.QtCore import QThread, Signal, QTimer
+from PySide2.QtWidgets import QWidget
+from PySide2.QtCore import QTimer
 from src.views.ui_Keyboard import Ui_Keyboard
 
 class KeyboardWidget(QWidget):
@@ -9,12 +8,12 @@ class KeyboardWidget(QWidget):
         QWidget.__init__(self)
         self.ui = Ui_Keyboard()
         self.ui.setupUi(self)
-        self.focusLine = focusLine #atributo de linea texto seleccionada
-        self.focusLine.setFocus() #Mantiene el cursor del texto en el line seleccionado
+        self.focusLine = focusLine 
+        self.focusLine.setFocus() 
 
-        self.capStatus = False #atributo de estado del boton de capitalizar
-        self.numbersCharsStatus = False #Atributo de estado del boton de caracteres
-        self.numberCharsStatus_2 = False #Atributo de estado del boton de caracteres extra
+        self.capStatus = False 
+        self.numbersCharsStatus = False 
+        self.numberCharsStatus_2 = False 
 
         self.timerBackSpace = QTimer(self)
         self.timerBackSpace.setInterval(1000)
