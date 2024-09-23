@@ -4,7 +4,7 @@ from PySide2.QtGui import QIcon
 from PySide2 import QtCore
 from src.views.ui_Save import Ui_Save
 from src.widgets.KeyboardWidget import KeyboardWidget
-from src.widgets.PopupWidget import PopupWidgetInfo
+from src.widgets.PopupWidget import PopupWidgetInfo, LoadingPopupWidget
 from src.model.WaterQualityParams import WaterQualityParams
 from src.model.WaterQualityDB import WaterDataBase
 from datetime import datetime
@@ -90,7 +90,7 @@ class SaveDataView(QMainWindow):
         self.context.removeWidget(self)
 
     def on_gps_clicked(self):
-        self.loading_popup = PopupWidgetInfo(context=self.context,text='Localizando...', button= False)
+        self.loading_popup = LoadingPopupWidget(context=self.context, text='Localizando...')
         self.loading_popup.show()
         if not self.location_worker.isRunning():
             self.location_worker.start()

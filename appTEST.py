@@ -3,13 +3,14 @@ import sys
 import time
 import random
 from PySide2 import QtWidgets, QtCore
-from PySide2.QtWidgets import QApplication, QMainWindow, QStackedLayout, QTableWidgetItem
+from PySide2.QtWidgets import QApplication, QMainWindow, QStackedLayout, QTableWidgetItem, QVBoxLayout
 from PySide2.QtCore import QSize, QThread, Signal, Slot, QTimer
 from PySide2.QtGui import QIcon, QPixmap
 from src.views.ui_Main import Ui_MainWindow
 from src.views.ui_Monitoring import Ui_Monitoring
 from src.views.ui_Bluetooth import Ui_Bluetooth
 from src.views.ui_Datos import Ui_Datos
+from src.views.ui_Graphics_view import Ui_Graphics_view
 from src.views.ui_Calibration import Ui_Calibration
 from src.views.ui_Save import Ui_Save
 from src.widgets.DialogWidget import DialogWidget, DialogWidgetInfo
@@ -563,6 +564,7 @@ class DatosView(QMainWindow):
         self.data_table_controller()
 
         self.ui.backBtn.clicked.connect(self.on_back_clicked)
+        self.ui.actBtn.clicked.connect(self.open_graph_view)
 
         self.ui.horizontalSlider.valueChanged.connect(self.slider_value_changed)
 
@@ -609,11 +611,6 @@ class DatosView(QMainWindow):
         self.ui.nextPageBtn.setEnabled(not(page == len(self.data_pages)))
         data = self.data_pages[self.current_page - 1]
         self.load_table_data(data=data)
-        
-        
-
-
-
 
     def ui_components(self):
         icon = QIcon('./src/resources/icons/arrowr.png')
@@ -640,6 +637,11 @@ class DatosView(QMainWindow):
 
     def on_back_clicked(self):
         widget.removeWidget(self)
+
+    def open_graph_view(self):
+        view = GraphView()
+        widget.addWidget(view)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def load_table_data(self, data:list[list[WaterQualityParams]]):
         data_list = data
@@ -679,6 +681,66 @@ class DatosView(QMainWindow):
 
             self.ui.tableWidget.setItem(row_idx, 11, QTableWidgetItem(str(data.sample_origin)))
             self.ui.tableWidget.setItem(row_idx, 12, QTableWidgetItem(str(data.it_rained)))
+
+class GraphView(QMainWindow):
+    def __init__(self):
+        QMainWindow.__init__(self)
+        self.ui = Ui_Graphics_view()
+        self.ui.setupUi(self)
+        self.ui_components()
+        self.load_data()
+        self.canvas_init()
+
+        self.ui.backBtn.clicked.connect(self.on_back_clicked)
+
+    def ui_components(self):
+        icon = QIcon('./src/resources/icons/back.png')
+        self.ui.backBtn.setIcon(icon)
+        self.ui.backBtn.setIconSize(QSize(30, 30))
+
+    def on_back_clicked(self):
+        widget.removeWidget(self)
+
+    def load_data(self):
+        self.data_list = WaterDataBase.get_water_quality_params()
+        self.conductivity_values = [data.conductivity for data in self.data_list]
+
+    def canvas_init(self):
+        from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas, NavigationToolbar2QT as NavigationToolbar
+        from matplotlib.figure import Figure   
+        self.figure = Figure()
+        
+        # Crear un canvas para la figura
+        self.canvas = FigureCanvas(self.figure)
+        
+        # Crear un layout vertical
+        layout = QVBoxLayout()
+        
+        # Agregar el canvas al layout
+        layout.addWidget(self.canvas)
+        
+        # Establecer el layout en el widget
+        self.ui.graphWidget.setLayout(layout)
+
+        self.plot_example()
+
+    def plot_example(self):
+        """Dibuja un gráfico de ejemplo."""
+        # Obtener el eje
+        ax = self.figure.add_subplot(111)
+        
+        x = range(len(self.conductivity_values))  # Usar índices como ejemplo de eje x
+        y = self.conductivity_values
+        
+        # Dibujar los datos
+        ax.plot(x, y, label='Conductividad')
+        ax.set_xlabel('muestras')
+        ax.set_ylabel('uS/cm')
+        ax.legend()
+        
+        # Dibujar el gráfico en el canvas
+        self.canvas.draw()
+
 
 
 class BluetoothView(QMainWindow):

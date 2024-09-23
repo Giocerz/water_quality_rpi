@@ -1,7 +1,7 @@
 from PySide2 import QtCore
 from PySide2.QtWidgets import QMainWindow
 from PySide2.QtCore import QSize, QThread, Signal
-from PySide2.QtGui import QIcon
+from PySide2.QtGui import QIcon, QPixmap
 from src.views.ui_Monitoring import Ui_Monitoring
 import time
 from w1thermsensor import W1ThermSensor
@@ -93,6 +93,8 @@ class MonitoringView(QMainWindow):
         icon = QIcon('./src/resources/icons/save.png')
         self.ui.saveBtn.setIcon(icon)
         self.ui.saveBtn.setIconSize(QSize(30, 30))
+        pixmap = QPixmap('./src/resources/icons/batteryIcon.png')
+        self.ui.batLblPng.setPixmap(pixmap)
 
     def on_back_clicked(self):
         if self.parameters_worker.isRunning():
