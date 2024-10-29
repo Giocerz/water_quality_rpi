@@ -3,19 +3,15 @@ import random
 from .advertisement import Advertisement
 from .service import Application, Service, Characteristic, Descriptor
 from PySide2.QtCore import QSize, QThread, Signal, Slot
-from w1thermsensor import W1ThermSensor
-from src.logic.adcModule import ParametersVoltages
-from src.logic.parametersCalc import *
-from src.logic.INA219 import INA219
 
 GATT_CHRC_IFACE = "org.bluez.GattCharacteristic1"
 NOTIFY_TIMEOUT = 3000
-DEVICE_ID = "CAP0003-FC"
+
 
 class WaterQualityAdvertisement(Advertisement):
     def __init__(self, index):
         Advertisement.__init__(self, index, "peripheral")
-        self.add_local_name("CitizenAP0003")
+        self.add_local_name("WaterQualityBL")
         self.include_tx_power = True
 
 
@@ -27,7 +23,7 @@ class WaterParametersService(Service):
 
         Service.__init__(self, index, self.WQ_SVC_UUID, True)
         self.add_characteristic(WQCharacteristic(self))
-        #self.add_characteristic(UnitCharacteristic(self))
+        self.add_characteristic(UnitCharacteristic(self))
 
     """
     def is_farenheit(self):
@@ -47,35 +43,15 @@ class WQCharacteristic(Characteristic):
             self, self.WQ_CHARACTERISTIC_UUID,
             ["notify", "read"], service)
         self.add_descriptor(ParamDescriptor(self))
-
-    def sensors_init(self):
-        self.temperature_sensor = W1ThermSensor()
-        self.parameters = ParametersVoltages()
-        self.parameters_calc = ParametersCalculate()
-        self.ina219 = INA219(addr=0x42)
+        
 
     def get_parameters(self):
-        temp = round(self.temperature_sensor.get_temperature(), 2)
-        ph = round(self.parameters_calc.calculatePh(
-                    self.parameters.ph_volt()), 2)
-        do = round(self.parameters_calc.calculateDo(
-                    self.parameters.oxygen_volt(), temp), 2)
-        tds = round(self.parameters_calc.calculateTds(
-        temp = self.parameters.tds_volt()), 2)
-        turb = round(self.parameters_calc.calculateTurb(
-                    self.parameters.turbidity_volt()), 2)
-                
-        bus_voltage = self.ina219.getBusVoltage_V()
+        temp = round(random.uniform(29.1, 31.22), 2)
+        ph = round(random.uniform(6.0, 7.0), 2)
+        do = round(random.uniform(3.12, 5.0), 2)
+        tds = round(random.uniform(434.23, 678.23), 2)
 
-        p = int((bus_voltage - 6)/2.4*100)
-        if(p > 100):
-            p = 100
-        if(p < 0):
-            p = 0
-
-        self.parameters_result.emit([ph, do, tds, temp, turb, p])
-
-        strtemp = f"dt,{temp},{do},{tds},{ph},{turb},{p},pg"
+        strtemp = f"dt,{temp},{ph},{do},{tds},pg"
         return strtemp.encode()
 
     def set_params_callback(self):
@@ -122,24 +98,52 @@ class ParamDescriptor(Descriptor):
         return value
 
 
-class IDCharacteristic(Characteristic):
-    ID_CHARACTERISTIC_UUID = "00000002-b149-430d-8d97-e2ed464102df"
+class UnitCharacteristic(Characteristic):
+    UNIT_CHARACTERISTIC_UUID = "00000003-710e-4a5b-8d75-3e5b444bc3cf"
 
     def __init__(self, service):
-        self.notifying = False
         Characteristic.__init__(
-            self, self.ID_CHARACTERISTIC_UUID,
-            ["read"], service)
+            self, self.UNIT_CHARACTERISTIC_UUID,
+            ["read", "write"], service)
+        self.add_descriptor(UnitDescriptor(self))
 
-    def get_id(self):
-        strtemp = DEVICE_ID
-        return strtemp.encode()
-    
+    def WriteValue(self, value, options):
+        val = str(value[0]).upper()
+        if val == "C":
+            self.service.set_farenheit(False)
+        elif val == "F":
+            self.service.set_farenheit(True)
+
     def ReadValue(self, options):
-        value = self.get_id()
+        value = []
+
+        if self.service.is_farenheit():
+            val = "F"
+        else:
+            val = "C"
+        value.append(dbus.Byte(val.encode()))
+
         return value
 
 
+class UnitDescriptor(Descriptor):
+    UNIT_DESCRIPTOR_UUID = "2901"
+    UNIT_DESCRIPTOR_VALUE = "C, ph, mg/L, "
+
+    def __init__(self, characteristic):
+        Descriptor.__init__(
+            self, self.UNIT_DESCRIPTOR_UUID,
+            ["read"],
+            characteristic)
+
+    def ReadValue(self, options):
+        value = []
+        desc = self.UNIT_DESCRIPTOR_VALUE
+
+        for c in desc:
+            value.append(dbus.Byte(c.encode()))
+
+        return value
 
 app_blue = None
 adv_blue = None
