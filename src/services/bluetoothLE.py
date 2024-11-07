@@ -11,6 +11,9 @@ from src.logic.INA219 import INA219
 GATT_CHRC_IFACE = "org.bluez.GattCharacteristic1"
 NOTIFY_TIMEOUT = 3000
 DEVICE_ID = "CAP0003-FC"
+SERVICE_UUID = "00000001-b149-430d-8d97-e2ed464102df"
+DEVICE_ID_UUID = "00000002-b149-430d-8d97-e2ed464102df"
+MONITORING_UUID =  "00000005-710e-4a5b-8d75-3e5b444bc3cf"
 
 class WaterQualityAdvertisement(Advertisement):
     def __init__(self, index):
@@ -20,11 +23,9 @@ class WaterQualityAdvertisement(Advertisement):
 
 
 class WaterParametersService(Service):
-    WQ_SVC_UUID = "00000001-b149-430d-8d97-e2ed464102df"
-
     def __init__(self, index):
 
-        Service.__init__(self, index, self.WQ_SVC_UUID, True)
+        Service.__init__(self, index, SERVICE_UUID, True)
         self.add_characteristic(WQCharacteristic(self))
         self.add_characteristic(IDCharacteristic(self))
 
@@ -38,12 +39,11 @@ class WaterParametersService(Service):
 
 
 class WQCharacteristic(Characteristic):
-    WQ_CHARACTERISTIC_UUID = "00000002-710e-4a5b-8d75-3e5b444bc3cf"
 
     def __init__(self, service):
         self.notifying = False
         Characteristic.__init__(
-            self, self.WQ_CHARACTERISTIC_UUID,
+            self, MONITORING_UUID,
             ["notify", "read"], service)
         self.add_descriptor(ParamDescriptor(self))
 
@@ -127,7 +127,7 @@ class IDCharacteristic(Characteristic):
     def __init__(self, service):
         self.notifying = False
         Characteristic.__init__(
-            self, self.ID_CHARACTERISTIC_UUID,
+            self, DEVICE_ID_UUID
             ["read"], service)
 
     def get_id(self):
