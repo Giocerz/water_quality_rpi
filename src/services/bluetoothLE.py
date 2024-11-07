@@ -23,11 +23,10 @@ class WaterParametersService(Service):
     WQ_SVC_UUID = "00000001-b149-430d-8d97-e2ed464102df"
 
     def __init__(self, index):
-        self.farenheit = True
 
         Service.__init__(self, index, self.WQ_SVC_UUID, True)
         self.add_characteristic(WQCharacteristic(self))
-        #self.add_characteristic(UnitCharacteristic(self))
+        self.add_characteristic(IDCharacteristic(self))
 
     """
     def is_farenheit(self):
