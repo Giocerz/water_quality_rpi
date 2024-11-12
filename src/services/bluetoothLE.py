@@ -72,8 +72,6 @@ class WQCharacteristic(Characteristic):
         if(p < 0):
             p = 0
 
-        self.parameters_result.emit([ph, do, tds, temp, turb, p])
-
         strtemp = f"dt,{temp},{do},{tds},{ph},{turb},{p},pg"
         return strtemp.encode()
 
