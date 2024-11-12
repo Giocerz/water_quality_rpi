@@ -122,7 +122,6 @@ class ParamDescriptor(Descriptor):
 
 
 class IDCharacteristic(Characteristic):
-    ID_CHARACTERISTIC_UUID = "00000002-b149-430d-8d97-e2ed464102df"
 
     def __init__(self, service):
         self.notifying = False
