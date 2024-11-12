@@ -120,12 +120,10 @@ class ParamDescriptor(Descriptor):
 
         return value
 
-
 class IDCharacteristic(Characteristic):
-
     def __init__(self, service):
         Characteristic.__init__(
-            self, DEVICE_ID_UUID
+            self, DEVICE_ID_UUID,
             ["read"], service)
         self.add_descriptor(IDDescriptor(self))
 
@@ -143,13 +141,13 @@ class IDDescriptor(Descriptor):
 
     def __init__(self, characteristic):
         Descriptor.__init__(
-                self, self.UNIT_DESCRIPTOR_UUID,
+                self, self.ID_DESCRIPTOR_UUID,
                 ["read"],
                 characteristic)
 
     def ReadValue(self, options):
         value = []
-        desc = self.UNIT_DESCRIPTOR_VALUE
+        desc = self.ID_DESCRIPTOR_VALUE
 
         for c in desc:
             value.append(dbus.Byte(c.encode()))
