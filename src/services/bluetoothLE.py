@@ -46,6 +46,7 @@ class WQCharacteristic(Characteristic):
             self, MONITORING_UUID,
             ["notify", "read"], service)
         self.add_descriptor(ParamDescriptor(self))
+        self.sensors_init()
 
     def sensors_init(self):
         self.temperature_sensor = W1ThermSensor()
