@@ -62,7 +62,7 @@ class WQCharacteristic(Characteristic):
             do = round(self.parameters_calc.calculateDo(
                         self.parameters.oxygen_volt(), temp), 2)
             tds = round(self.parameters_calc.calculateTds(
-            temp = self.parameters.tds_volt()), 2)
+                    temp, self.parameters.tds_volt()), 2)
             turb = round(self.parameters_calc.calculateTurb(
                         self.parameters.turbidity_volt()), 2)
                     
