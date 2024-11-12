@@ -13,7 +13,7 @@ NOTIFY_TIMEOUT = 3000
 DEVICE_ID = "CAP0003-FC"
 SERVICE_UUID = "00000001-b149-430d-8d97-e2ed464102df"
 DEVICE_ID_UUID = "00000002-b149-430d-8d97-e2ed464102df"
-MONITORING_UUID =  "00000005-710e-4a5b-8d75-3e5b444bc3cf"
+MONITORING_UUID =  "00000005-b149-430d-8d97-e2ed464102df"
 
 class WaterQualityAdvertisement(Advertisement):
     def __init__(self, index):
