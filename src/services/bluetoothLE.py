@@ -124,10 +124,10 @@ class ParamDescriptor(Descriptor):
 class IDCharacteristic(Characteristic):
 
     def __init__(self, service):
-        self.notifying = False
         Characteristic.__init__(
             self, DEVICE_ID_UUID
             ["read"], service)
+        self.add_descriptor(IDDescriptor(self))
 
     def get_id(self):
         strtemp = DEVICE_ID
@@ -137,6 +137,24 @@ class IDCharacteristic(Characteristic):
         value = self.get_id()
         return value
 
+class IDDescriptor(Descriptor):
+    ID_DESCRIPTOR_UUID = "2902"
+    ID_DESCRIPTOR_VALUE = "Device ID"
+
+    def __init__(self, characteristic):
+        Descriptor.__init__(
+                self, self.UNIT_DESCRIPTOR_UUID,
+                ["read"],
+                characteristic)
+
+    def ReadValue(self, options):
+        value = []
+        desc = self.UNIT_DESCRIPTOR_VALUE
+
+        for c in desc:
+            value.append(dbus.Byte(c.encode()))
+
+        return value
 
 
 app_blue = None
