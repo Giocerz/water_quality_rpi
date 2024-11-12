@@ -55,23 +55,27 @@ class WQCharacteristic(Characteristic):
         self.ina219 = INA219(addr=0x42)
 
     def get_parameters(self):
-        temp = round(self.temperature_sensor.get_temperature(), 2)
-        ph = round(self.parameters_calc.calculatePh(
-                    self.parameters.ph_volt()), 2)
-        do = round(self.parameters_calc.calculateDo(
-                    self.parameters.oxygen_volt(), temp), 2)
-        tds = round(self.parameters_calc.calculateTds(
-        temp = self.parameters.tds_volt()), 2)
-        turb = round(self.parameters_calc.calculateTurb(
-                    self.parameters.turbidity_volt()), 2)
-                
-        bus_voltage = self.ina219.getBusVoltage_V()
+        try:
+            temp = round(self.temperature_sensor.get_temperature(), 2)
+            ph = round(self.parameters_calc.calculatePh(
+                        self.parameters.ph_volt()), 2)
+            do = round(self.parameters_calc.calculateDo(
+                        self.parameters.oxygen_volt(), temp), 2)
+            tds = round(self.parameters_calc.calculateTds(
+            temp = self.parameters.tds_volt()), 2)
+            turb = round(self.parameters_calc.calculateTurb(
+                        self.parameters.turbidity_volt()), 2)
+                    
+            bus_voltage = self.ina219.getBusVoltage_V()
 
-        p = int((bus_voltage - 6)/2.4*100)
-        if(p > 100):
-            p = 100
-        if(p < 0):
-            p = 0
+            p = int((bus_voltage - 6)/2.4*100)
+            if(p > 100):
+                p = 100
+            if(p < 0):
+                p = 0
+        
+        except Exception as e:
+            print(e)
 
         strtemp = f"dt,{temp},{do},{tds},{ph},{turb},{p},pg"
         return strtemp.encode()
