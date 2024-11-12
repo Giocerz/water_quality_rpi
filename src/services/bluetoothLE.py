@@ -44,7 +44,7 @@ class WQCharacteristic(Characteristic):
         self.notifying = False
         Characteristic.__init__(
             self, MONITORING_UUID,
-            ["notify", "read"], service)
+            ["read"], service)
         self.add_descriptor(ParamDescriptor(self))
         self.sensors_init()
 
@@ -75,25 +75,6 @@ class WQCharacteristic(Characteristic):
 
         strtemp = f"dt,{temp},{do},{tds},{ph},{turb},{p},pg"
         return strtemp.encode()
-
-    def set_params_callback(self):
-        if self.notifying:
-            value = self.get_parameters()
-            self.PropertiesChanged(GATT_CHRC_IFACE, {"Value": value}, [])
-
-        return self.notifying
-
-    def StartNotify(self):
-        if self.notifying:
-            return
-
-        self.notifying = True
-        value = self.get_parameters()
-        self.PropertiesChanged(GATT_CHRC_IFACE, {"Value": value}, [])
-        self.add_timeout(NOTIFY_TIMEOUT, self.set_params_callback)
-
-    def StopNotify(self):
-        self.notifying = False
 
     def ReadValue(self, options):
         value = self.get_parameters()
