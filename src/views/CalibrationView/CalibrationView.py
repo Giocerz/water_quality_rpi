@@ -180,7 +180,7 @@ class CalibrationView(QMainWindow):
         self.timer_counter += 1
         progress = int(self.timer_counter/self.STABILIZATION_TIME * 100)
         self.ui.loadingBar.setValue(progress)
-        self.show_volt[self.CALIBRATION_STEPS[self.calibration_step]]
+        self.show_volt[self.CALIBRATION_STEPS[self.calibration_step]]()
         if self.timer_counter > self.STABILIZATION_TIME:
             succes = self.step_actions[self.CALIBRATION_STEPS[self.calibration_step]](
             )
