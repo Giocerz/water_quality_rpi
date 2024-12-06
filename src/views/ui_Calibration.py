@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'CalibrationfrkCgp.ui'
+## Form generated from reading UI file 'CalibrationMVQcfa.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -73,8 +73,8 @@ class Ui_Calibration(object):
         self.showVoltLbl = QLabel(self.centralwidget)
         self.showVoltLbl.setObjectName(u"showVoltLbl")
         self.showVoltLbl.setGeometry(QRect(60, 211, 361, 51))
-        self.showVoltLbl.setStyleSheet(u"font-size: 18pt;\n"
-"color: rgb(213, 213, 213);")
+        self.showVoltLbl.setStyleSheet(u"font-size: 16pt;\n"
+"color: rgb(134, 134, 134)")
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)

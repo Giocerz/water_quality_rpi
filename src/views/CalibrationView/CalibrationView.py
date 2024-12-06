@@ -170,10 +170,10 @@ class CalibrationView(QMainWindow):
         self.ui.instLbl.setAlignment(QtCore.Qt.AlignCenter)
 
     def show_loading(self):
+        self.ui.showVoltLbl.show()
         self.ui.loadingBar.show()
         self.ui.skipBtn.hide()
         self.ui.nextBtn.hide()
-        self.ui.showVoltLbl.show()
         self.stabilization_timer.start(self.TIMEOUT_STABILIZATION_TIMER)
 
     def update_time(self):
@@ -233,19 +233,23 @@ class CalibrationView(QMainWindow):
 
     ######### MOSTRAR VOLTAJES ########################
     def show_tds_volt(self):
-        self.ui.showVoltLbl.setText(f"Temp: {self.temperature_sensor.get_temperature():.2f} °C Volt: {self.parameters_volt.tds_volt:.2f} V")
+        #text = f"Temp: {round(self.temperature_sensor.get_temperature(), 2)} °C Volt: {round(self.parameters_volt.tds_volt, 2)} V"
+        self.ui.showVoltLbl.setText("hola")
         self.ui.showVoltLbl.setAlignment(QtCore.Qt.AlignCenter)
 
     def show_ph_volt(self):
-        self.ui.showVoltLbl.setText(f"Volt: {self.parameters_volt.ph_volt:.2f} V")
+        text = f"Volt: {round(self.parameters_volt.ph_volt, 2)} V"
+        self.ui.showVoltLbl.setText(text)
         self.ui.showVoltLbl.setAlignment(QtCore.Qt.AlignCenter)
 
     def show_turb_volt(self):
-        self.ui.showVoltLbl.setText(f"Volt: {self.parameters_volt.turbidity_volt:.2f} V")
+        text = f"Volt: {round(self.parameters_volt.turbidity_volt, 2)} V"
+        self.ui.showVoltLbl.setText(text)
         self.ui.showVoltLbl.setAlignment(QtCore.Qt.AlignCenter)
 
     def show_do_volt(self):
-        self.ui.showVoltLbl.setText(f"Temp: {self.temperature_sensor.get_temperature():.2f} °C Volt: {self.parameters_volt.oxygen_volt:.2f} V")
+        text = f"Temp: {round(self.temperature_sensor.get_temperature(), 2)} °C Volt: {round(self.parameters_volt.tds_volt, 2)} V"
+        self.ui.showVoltLbl.setText(text)
         self.ui.showVoltLbl.setAlignment(QtCore.Qt.AlignCenter)
 
     ######### FUNCIONES PARA CADA PASO#################

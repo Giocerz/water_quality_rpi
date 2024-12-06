@@ -147,8 +147,8 @@ QProgressBar::chunk {
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font-size: 18pt;
-color: rgb(213, 213, 213);</string>
+     <string notr="true">font-size: 16pt;
+color: rgb(134, 134, 134)</string>
     </property>
     <property name="text">
      <string/>
