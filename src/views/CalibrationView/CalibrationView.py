@@ -234,6 +234,7 @@ class CalibrationView(QMainWindow):
     ######### MOSTRAR VOLTAJES ########################
     def show_tds_volt(self):
         text = f"Temp: {round(self.temperature_sensor.get_temperature(), 2)} °C Volt: {round(self.parameters_volt.tds_volt, 2)} V"
+        print(text)
         self.ui.showVoltLbl.setText(text)
         self.ui.showVoltLbl.setAlignment(QtCore.Qt.AlignCenter)
 
