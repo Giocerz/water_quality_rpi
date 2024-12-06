@@ -10,6 +10,8 @@ from src.logic.parametersCalc import *
 from src.widgets.PopupWidget import PopupWidget, PopupWidgetInfo
 
 ########### VISTA DE CALIBRACION Y FUNCIONES#################
+
+
 class CalibrationView(QMainWindow):
     STABILIZATION_TIME = 5  # secs
     TIMEOUT_STABILIZATION_TIMER = 1000  # ms
@@ -141,7 +143,7 @@ class CalibrationView(QMainWindow):
         self.ui.backBtn.setIconSize(QSize(30, 30))
         self.update_state()
 
-    def  update_state(self):
+    def update_state(self):
         self.ui.nextBtn.show()
         if (self.STEPS_DESCRIPTION[self.CALIBRATION_STEPS[self.calibration_step]]['skipButton']):
             self.ui.skipBtn.show()
@@ -205,11 +207,11 @@ class CalibrationView(QMainWindow):
             pass
 
         dialog = PopupWidget(context=self.context, yes_callback=on_yes, no_callback=on_no,
-                              text='No se ha completado la calibración<br>¿Desea salir?')
+                             text='No se ha completado la calibración<br>¿Desea salir?')
         dialog.show()
 
     def show_dialog_error(self, error: str):
-        dialog = PopupWidgetInfo(context=self.context ,text=error)
+        dialog = PopupWidgetInfo(context=self.context, text=error)
         dialog.show()
 
     def next_btn_clicked(self):
@@ -233,23 +235,47 @@ class CalibrationView(QMainWindow):
 
     ######### MOSTRAR VOLTAJES ########################
     def show_tds_volt(self):
-        text = f"Temp: {round(self.temperature_sensor.get_temperature(), 2)} °C Volt: {round(self.parameters_volt.tds_volt, 2)} V"
-        print(text)
+        try:
+            temperature = float(self.temperature_sensor.get_temperature())
+            tds_volt = float(self.parameters_volt.tds_volt)
+            text = f"Temp: {temperature:.2f} °C Volt: {tds_volt:.2f} V"
+        except (TypeError, ValueError):
+            text = "Temp: N/A °C Volt: N/A V"
+
         self.ui.showVoltLbl.setText(text)
         self.ui.showVoltLbl.setAlignment(QtCore.Qt.AlignCenter)
+
 
     def show_ph_volt(self):
-        text = f"Volt: {round(self.parameters_volt.ph_volt, 2)} V"
+        try:
+            ph_volt = float(self.parameters_volt.ph_volt)
+            text = f"Volt: {ph_volt:.2f} V"
+        except (TypeError, ValueError):
+            text = "Volt: N/A V"
+
         self.ui.showVoltLbl.setText(text)
         self.ui.showVoltLbl.setAlignment(QtCore.Qt.AlignCenter)
+
 
     def show_turb_volt(self):
-        text = f"Volt: {round(self.parameters_volt.turbidity_volt, 2)} V"
+        try:
+            turbidity_volt = float(self.parameters_volt.turbidity_volt)
+            text = f"Volt: {turbidity_volt:.2f} V"
+        except (TypeError, ValueError):
+            text = "Volt: N/A V"
+
         self.ui.showVoltLbl.setText(text)
         self.ui.showVoltLbl.setAlignment(QtCore.Qt.AlignCenter)
 
+
     def show_do_volt(self):
-        text = f"Temp: {round(self.temperature_sensor.get_temperature(), 2)} °C Volt: {round(self.parameters_volt.tds_volt, 2)} V"
+        try:
+            temperature = float(self.temperature_sensor.get_temperature())
+            oxygen_volt = float(self.parameters_volt.oxygen_volt)
+            text = f"Temp: {temperature:.2f} °C Volt: {oxygen_volt:.2f} V"
+        except (TypeError, ValueError):
+            text = "Temp: N/A °C Volt: N/A V"
+
         self.ui.showVoltLbl.setText(text)
         self.ui.showVoltLbl.setAlignment(QtCore.Qt.AlignCenter)
 
@@ -258,7 +284,8 @@ class CalibrationView(QMainWindow):
         try:
             temp = self.temperature_sensor.get_temperature()
             self.tds_voltage = self.parameters_volt.tds_volt()
-            kValue_temp = self.parameters_calc.tds_calibration(temp, self.tds_voltage)
+            kValue_temp = self.parameters_calc.tds_calibration(
+                temp, self.tds_voltage)
             if (kValue_temp <= 0.0 or kValue_temp >= 10.0):
                 self.show_dialog_error('Error: kValue fuera de rango')
                 return False
@@ -307,36 +334,37 @@ class CalibrationView(QMainWindow):
 
     def handle_turb1(self):
         self.turb1 = self.parameters_volt.turbidity_volt()
-        if(self.turb1 <= 0.0 or self.turb1 >= 5.0):
+        if (self.turb1 <= 0.0 or self.turb1 >= 5.0):
             self.show_dialog_error('Error: Valor de turbidez fuera de rango')
             return False
-        else: 
+        else:
             return True
 
     def handle_turb2(self):
         self.turb2 = self.parameters_volt.turbidity_volt()
-        if(self.turb2 <= 0.0 or self.turb2 >= 5.0):
+        if (self.turb2 <= 0.0 or self.turb2 >= 5.0):
             self.show_dialog_error('Error: Valor de turbidez fuera de rango')
             return False
-        else: 
+        else:
             return True
 
     def handle_turb3(self):
         self.turb3 = self.parameters_volt.turbidity_volt()
-        if(self.turb3 <= 0.0 or self.turb3 >= 5.0):
+        if (self.turb3 <= 0.0 or self.turb3 >= 5.0):
             self.show_dialog_error('Error: Valor de turbidez fuera de rango')
             return False
-        else: 
+        else:
             return True
 
     def handle_turb4(self):
         self.turb4 = self.parameters_volt.turbidity_volt()
-        if(self.turb4 <= 0.0 or self.turb4 >= 5.0):
+        if (self.turb4 <= 0.0 or self.turb4 >= 5.0):
             self.show_dialog_error('Error: Valor de turbidez fuera de rango')
             return False
         try:
             import numpy as np
-            voltages = np.array([self.turb1, self.turb2, self.turb3, self.turb4])
+            voltages = np.array(
+                [self.turb1, self.turb2, self.turb3, self.turb4])
             ntu_values = np.array([0.28, 16.6, 287, 475])
             coefficients = np.polyfit(voltages, ntu_values, 2)
             self.turb_coef_a, self.turb_coef_b, self.turb_coef_c = coefficients
@@ -368,11 +396,11 @@ class CalibrationView(QMainWindow):
             df.loc[1, 'calibration_values'] = self.ph_offset
             df.loc[2, 'calibration_values'] = self.phSlope
             params_save_flag = True
-        if(self.oxygenOffset != None):
+        if (self.oxygenOffset != None):
             df.loc[3, 'calibration_values'] = self.oxygenTemperature
             df.loc[4, 'calibration_values'] = self.oxygenOffset
             params_save_flag = True
-        if(self.turb_coef_a != None):
+        if (self.turb_coef_a != None):
             df.loc[5, 'calibration_values'] = self.turb_coef_a
             df.loc[6, 'calibration_values'] = self.turb_coef_b
             df.loc[7, 'calibration_values'] = self.turb_coef_c
@@ -383,4 +411,3 @@ class CalibrationView(QMainWindow):
             self.show_dialog_error('No realizo ninguna calibración')
         else:
             self.show_dialog_error('Calibración exitosa')
-
