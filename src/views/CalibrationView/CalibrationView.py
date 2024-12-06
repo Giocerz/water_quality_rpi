@@ -45,7 +45,7 @@ class CalibrationView(QMainWindow):
         },
         'turb2': {
             'img': './src/resources/images/lab_glass',
-            'text': 'Sumerja la sonda en una solución<br>con una <b>turbidez</b> de <b>98.1 NTU</b>',
+            'text': 'Sumerja la sonda en una solución<br>con una <b>turbidez</b> de <b>16.6 NTU</b>',
             'skipButton': False
         },
         'turb3': {
@@ -114,6 +114,18 @@ class CalibrationView(QMainWindow):
             'do': self.handle_do,
         }
 
+        self.show_volt = {
+            'tds': self.show_tds_volt,
+            'ph7': self.show_ph_volt,
+            'ph4': self.show_ph_volt,
+            'ph10': self.show_ph_volt,
+            'turb1': self.show_turb_volt,
+            'turb2': self.show_turb_volt,
+            'turb3': self.show_turb_volt,
+            'turb4': self.show_turb_volt,
+            'do': self.show_do_volt,
+        }
+
         self.ui_components()
 
         self.stabilization_timer = QTimer()
@@ -129,8 +141,7 @@ class CalibrationView(QMainWindow):
         self.ui.backBtn.setIconSize(QSize(30, 30))
         self.update_state()
 
-    def update_state(self):
-        print(self.calibration_step)
+    def  update_state(self):
         self.ui.nextBtn.show()
         if (self.STEPS_DESCRIPTION[self.CALIBRATION_STEPS[self.calibration_step]]['skipButton']):
             self.ui.skipBtn.show()
@@ -144,6 +155,7 @@ class CalibrationView(QMainWindow):
         self.set_image(
             self.STEPS_DESCRIPTION[self.CALIBRATION_STEPS[self.calibration_step]]['img'])
         self.ui.loadingBar.hide()
+        self.ui.showVoltLbl.hide()
         self.set_text_label(
             self.STEPS_DESCRIPTION[self.CALIBRATION_STEPS[self.calibration_step]]['text'])
         self.ui.instLbl.setAlignment(QtCore.Qt.AlignCenter)
@@ -161,6 +173,7 @@ class CalibrationView(QMainWindow):
         self.ui.loadingBar.show()
         self.ui.skipBtn.hide()
         self.ui.nextBtn.hide()
+        self.ui.showVoltLbl.show()
         self.stabilization_timer.start(self.TIMEOUT_STABILIZATION_TIMER)
 
     def update_time(self):
@@ -217,11 +230,23 @@ class CalibrationView(QMainWindow):
             self.calibration_step += 2
         self.update_state()
 
+    ######### MOSTRAR VOLTAJES ########################
+    def show_tds_volt(self):
+        self.ui.showVoltLbl.setText(f"Temp: {self.temperature_sensor.get_temperature():.2f} °C Volt: {self.parameters_volt.tds_volt:.2f} V")
+
+    def show_ph_volt(self):
+        self.ui.showVoltLbl.setText(f"Volt: {self.parameters_volt.ph_volt:.2f} V")
+
+    def show_turb_volt(self):
+        self.ui.showVoltLbl.setText(f"Volt: {self.parameters_volt.turbidity_volt:.2f} V")
+
+    def show_do_volt(self):
+        self.ui.showVoltLbl.setText(f"Temp: {self.temperature_sensor.get_temperature():.2f} °C Volt: {self.parameters_volt.oxygen_volt:.2f} V")
+
     ######### FUNCIONES PARA CADA PASO#################
     def handle_tds(self) -> bool:
         try:
-            temperature_sensor = W1ThermSensor()
-            temp = temperature_sensor.get_temperature()
+            temp = self.temperature_sensor.get_temperature()
             self.tds_voltage = self.parameters_volt.tds_volt()
             kValue_temp = self.parameters_calc.tds_calibration(temp, self.tds_voltage)
             if (kValue_temp <= 0.0 or kValue_temp >= 10.0):
@@ -302,7 +327,7 @@ class CalibrationView(QMainWindow):
         try:
             import numpy as np
             voltages = np.array([self.turb1, self.turb2, self.turb3, self.turb4])
-            ntu_values = np.array([0.28, 98.1, 287, 475])
+            ntu_values = np.array([0.28, 16.6, 287, 475])
             coefficients = np.polyfit(voltages, ntu_values, 2)
             self.turb_coef_a, self.turb_coef_b, self.turb_coef_c = coefficients
             return True

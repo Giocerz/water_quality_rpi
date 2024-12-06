@@ -111,7 +111,7 @@ QLabel {
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>240</y>
+      <y>270</y>
       <width>481</width>
       <height>31</height>
      </rect>
@@ -135,6 +135,23 @@ QProgressBar::chunk {
     </property>
     <property name="textVisible">
      <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="showVoltLbl">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>211</y>
+      <width>361</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font-size: 18pt;
+color: rgb(213, 213, 213);</string>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
   </widget>

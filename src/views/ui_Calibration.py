@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'CalibrationGHFcpa.ui'
+## Form generated from reading UI file 'CalibrationfrkCgp.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -55,7 +55,7 @@ class Ui_Calibration(object):
         self.instLbl.setStyleSheet(u"font-size: 12pt;")
         self.loadingBar = QProgressBar(self.centralwidget)
         self.loadingBar.setObjectName(u"loadingBar")
-        self.loadingBar.setGeometry(QRect(0, 240, 481, 31))
+        self.loadingBar.setGeometry(QRect(0, 270, 481, 31))
         self.loadingBar.setStyleSheet(u"QProgressBar {\n"
 "    border: 1px solid #bbb;\n"
 "    border-radius: 5px;\n"
@@ -70,6 +70,11 @@ class Ui_Calibration(object):
 "")
         self.loadingBar.setValue(0)
         self.loadingBar.setTextVisible(False)
+        self.showVoltLbl = QLabel(self.centralwidget)
+        self.showVoltLbl.setObjectName(u"showVoltLbl")
+        self.showVoltLbl.setGeometry(QRect(60, 211, 361, 51))
+        self.showVoltLbl.setStyleSheet(u"font-size: 18pt;\n"
+"color: rgb(213, 213, 213);")
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -84,5 +89,6 @@ class Ui_Calibration(object):
         self.imgLbl.setText("")
         self.backBtn.setText("")
         self.instLbl.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><br/></p></body></html>", None))
+        self.showVoltLbl.setText("")
     # retranslateUi
 
