@@ -180,6 +180,7 @@ class CalibrationView(QMainWindow):
         self.timer_counter += 1
         progress = int(self.timer_counter/self.STABILIZATION_TIME * 100)
         self.ui.loadingBar.setValue(progress)
+        self.show_volt[self.CALIBRATION_STEPS[self.calibration_step]]
         if self.timer_counter > self.STABILIZATION_TIME:
             succes = self.step_actions[self.CALIBRATION_STEPS[self.calibration_step]](
             )
@@ -233,15 +234,19 @@ class CalibrationView(QMainWindow):
     ######### MOSTRAR VOLTAJES ########################
     def show_tds_volt(self):
         self.ui.showVoltLbl.setText(f"Temp: {self.temperature_sensor.get_temperature():.2f} °C Volt: {self.parameters_volt.tds_volt:.2f} V")
+        self.ui.showVoltLbl.setAlignment(QtCore.Qt.AlignCenter)
 
     def show_ph_volt(self):
         self.ui.showVoltLbl.setText(f"Volt: {self.parameters_volt.ph_volt:.2f} V")
+        self.ui.showVoltLbl.setAlignment(QtCore.Qt.AlignCenter)
 
     def show_turb_volt(self):
         self.ui.showVoltLbl.setText(f"Volt: {self.parameters_volt.turbidity_volt:.2f} V")
+        self.ui.showVoltLbl.setAlignment(QtCore.Qt.AlignCenter)
 
     def show_do_volt(self):
         self.ui.showVoltLbl.setText(f"Temp: {self.temperature_sensor.get_temperature():.2f} °C Volt: {self.parameters_volt.oxygen_volt:.2f} V")
+        self.ui.showVoltLbl.setAlignment(QtCore.Qt.AlignCenter)
 
     ######### FUNCIONES PARA CADA PASO#################
     def handle_tds(self) -> bool:
