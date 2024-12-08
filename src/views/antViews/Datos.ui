@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>480</width>
-    <height>272</height>
+    <height>320</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -37,7 +37,7 @@ QPushButton {
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>15</y>
+      <y>70</y>
       <width>481</width>
       <height>181</height>
      </rect>
@@ -220,7 +220,7 @@ QPushButton {
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>220</y>
+      <y>10</y>
       <width>41</width>
       <height>41</height>
      </rect>
@@ -235,8 +235,8 @@ QPushButton {
    <widget class="QPushButton" name="actBtn">
     <property name="geometry">
      <rect>
-      <x>70</x>
-      <y>220</y>
+      <x>310</x>
+      <y>11</y>
       <width>161</width>
       <height>41</height>
      </rect>
@@ -249,7 +249,7 @@ QPushButton {
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>195</y>
+      <y>250</y>
       <width>461</width>
       <height>21</height>
      </rect>
@@ -284,7 +284,7 @@ QSlider{
     <property name="geometry">
      <rect>
       <x>425</x>
-      <y>220</y>
+      <y>275</y>
       <width>41</width>
       <height>41</height>
      </rect>
@@ -300,7 +300,7 @@ QSlider{
     <property name="geometry">
      <rect>
       <x>380</x>
-      <y>220</y>
+      <y>275</y>
       <width>41</width>
       <height>41</height>
      </rect>
@@ -316,7 +316,7 @@ QSlider{
     <property name="geometry">
      <rect>
       <x>246</x>
-      <y>217</y>
+      <y>272</y>
       <width>121</width>
       <height>41</height>
      </rect>

@@ -2,7 +2,7 @@ from PySide2 import QtCore
 from PySide2.QtWidgets import QMainWindow
 from PySide2.QtCore import QSize, QThread, Signal
 from PySide2.QtGui import QIcon, QPixmap
-from src.views.ui_Monitoring import Ui_Monitoring
+from src.views.ui_Monitoring3 import Ui_MainWindow
 import time
 from w1thermsensor import W1ThermSensor
 from src.logic.adcModule import ParametersVoltages
@@ -64,7 +64,7 @@ class MonitoringView(QMainWindow):
     def __init__(self, context):
         QMainWindow.__init__(self)
         self.context = context
-        self.ui = Ui_Monitoring()
+        self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.ui_components()
 
@@ -75,6 +75,8 @@ class MonitoringView(QMainWindow):
         self.turbidity = None
 
         self.receive_parameters = False
+        
+        self.isPause = False
 
         self.parameters_worker = ParametersMeasuredWorker()
         if not self.parameters_worker.isRunning():
@@ -82,6 +84,7 @@ class MonitoringView(QMainWindow):
 
         self.ui.backBtn.clicked.connect(self.on_back_clicked)
         self.ui.saveBtn.clicked.connect(self.on_save_clicked)
+        self.ui.pauseBtn.clicked.connect(self.on_pause_clicked)
 
         self.parameters_worker.parameters_result.connect(
             self.handle_parameters_result)
@@ -100,6 +103,18 @@ class MonitoringView(QMainWindow):
         if self.parameters_worker.isRunning():
             self.parameters_worker.stop()
         self.context.removeWidget(self)
+    
+    def on_pause_clicked(self):
+        if(self.isPause):
+            if not self.parameters_worker.isRunning():
+                self.parameters_worker.start()
+                self.ui.pauseBtn.setText('Pausar')
+                self.isPause = False
+        else:
+            if self.parameters_worker.isRunning():
+                self.parameters_worker.stop()
+                self.ui.pauseBtn.setText('Reanudar')
+                self.isPause = True
 
     def on_save_clicked(self):
         if(not self.receive_parameters):
@@ -135,13 +150,3 @@ class MonitoringView(QMainWindow):
         self.turbidity = parameters[4]
         self.ui.turbLbl.setText(str(self.turbidity))
         self.ui.turbLbl.setAlignment(QtCore.Qt.AlignCenter)
-
-        self.battery_ui(parameters[5])
-
-    def battery_ui(self, battery_level):
-        self.ui.batLbl.setText(f'{round(battery_level)}%')
-        self.ui.batLbl.setAlignment(QtCore.Qt.AlignCenter)
-        if(battery_level < 20):
-            self.ui.batLblBg.setStyleSheet('background-color: #fb8b24;')
-        move_level = round(-0.39 * battery_level + 47)
-        self.ui.batLblBg.move(367 + move_level, 10)

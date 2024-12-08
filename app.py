@@ -2,14 +2,10 @@ import sys
 import time
 import RPi.GPIO as GPIO
 from PySide2 import QtWidgets, QtCore
-from PySide2.QtWidgets import QApplication, QMainWindow
+from PySide2.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
 from PySide2.QtCore import QThread, Signal
-from src.views.ui_Main import Ui_MainWindow
-from src.views.MonitoringView.MonitoringView import MonitoringView
-from src.views.CalibrationView.CalibrationView import CalibrationView
-from src.views.DatosView.DatosView import DatosView
-from src.views.BluetoothView.BluetoothView import BluetoothView
-
+from src.views.TopBarView import TopBarView
+from src.views.MainMenuView import MainMenuView
 
 class ButtonListener(QThread):
     button_pressed = Signal()
@@ -45,37 +41,30 @@ class ButtonListener(QThread):
 
 class MyApp(QMainWindow):
     def __init__(self):
-        QMainWindow.__init__(self)
-        self.ui = Ui_MainWindow()
-        self.ui.setupUi(self)
+        super().__init__()
+        
+        self.setFixedSize(480, 320)
+        
+        self.central_widget = QWidget(self)
+        self.setCentralWidget(self.central_widget)
+        
+        self.main_layout = QVBoxLayout(self.central_widget)
+        self.main_layout.setContentsMargins(0, 0, 0, 0)
+        self.main_layout.setSpacing(0)
+        
+        self.top_bar = QtWidgets.QStackedWidget()
+        self.top_bar.setFixedSize(480, 48)  
+        self.main_layout.addWidget(self.top_bar)
+        
+        self.bottom_widget = QtWidgets.QStackedWidget()
+        self.bottom_widget.setFixedSize(480, 272)
+        self.main_layout.addWidget(self.bottom_widget)
+        
+        top_bar_view = TopBarView()
+        self.top_bar.addWidget(top_bar_view)
 
-        self.ui.monitoringBtn.clicked.connect(self.on_monitoring_clicked)
-        self.ui.calibrationBtn.clicked.connect(self.on_calibration_clicked)
-        self.ui.dataBtn.clicked.connect(self.on_datos_clicked)
-        self.ui.bluetoothBtn.clicked.connect(self.on_bluetooth_clicked)
-
-    def on_monitoring_clicked(self):
-        self.open_view(MonitoringView(context=widget))
-
-    def on_calibration_clicked(self):
-        self.open_view(CalibrationView(context=widget))
-
-    def on_datos_clicked(self):
-        self.open_view(DatosView(context=widget))
-
-    def on_bluetooth_clicked(self):
-        self.open_view(BluetoothView(context=widget))
-
-    def open_view(self, view):
-        widget.addWidget(view)
-        widget.setCurrentIndex(widget.currentIndex() + 1)
-    
-    def switch_to_bluetooth_view(self):
-        if widget.currentIndex() > 0:
-            current_widget = widget.currentWidget()
-            widget.removeWidget(current_widget)
-            current_widget.deleteLater()
-        self.on_bluetooth_clicked()
+        main_menu_view = MainMenuView(context= self.bottom_widget)
+        self.bottom_widget.addWidget(main_menu_view)
 
 
 if __name__ == '__main__':

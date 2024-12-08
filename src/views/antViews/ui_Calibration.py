@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'CalibrationJbbpcT.ui'
+## Form generated from reading UI file 'CalibrationMVQcfa.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -13,11 +13,11 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
 
-class Ui_MainWindow(object):
+class Ui_Calibration(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(480, 272)
+        MainWindow.resize(480, 320)
         MainWindow.setStyleSheet(u"font-family: Poppins;\n"
 "background-color: white;")
         self.centralwidget = QWidget(MainWindow)
@@ -37,13 +37,13 @@ class Ui_MainWindow(object):
 "	}")
         self.skipBtn = QPushButton(self.centralwidget)
         self.skipBtn.setObjectName(u"skipBtn")
-        self.skipBtn.setGeometry(QRect(40, 220, 181, 41))
+        self.skipBtn.setGeometry(QRect(150, 220, 181, 41))
         self.nextBtn = QPushButton(self.centralwidget)
         self.nextBtn.setObjectName(u"nextBtn")
-        self.nextBtn.setGeometry(QRect(260, 220, 181, 41))
+        self.nextBtn.setGeometry(QRect(150, 270, 181, 41))
         self.imgLbl = QLabel(self.centralwidget)
         self.imgLbl.setObjectName(u"imgLbl")
-        self.imgLbl.setGeometry(QRect(180, 0, 121, 121))
+        self.imgLbl.setGeometry(QRect(180, 10, 121, 121))
         self.imgLbl.setStyleSheet(u"")
         self.backBtn = QPushButton(self.centralwidget)
         self.backBtn.setObjectName(u"backBtn")
@@ -51,11 +51,11 @@ class Ui_MainWindow(object):
         self.backBtn.setStyleSheet(u"")
         self.instLbl = QLabel(self.centralwidget)
         self.instLbl.setObjectName(u"instLbl")
-        self.instLbl.setGeometry(QRect(10, 120, 451, 71))
+        self.instLbl.setGeometry(QRect(14, 140, 451, 71))
         self.instLbl.setStyleSheet(u"font-size: 12pt;")
         self.loadingBar = QProgressBar(self.centralwidget)
         self.loadingBar.setObjectName(u"loadingBar")
-        self.loadingBar.setGeometry(QRect(0, 240, 481, 31))
+        self.loadingBar.setGeometry(QRect(0, 270, 481, 31))
         self.loadingBar.setStyleSheet(u"QProgressBar {\n"
 "    border: 1px solid #bbb;\n"
 "    border-radius: 5px;\n"
@@ -72,17 +72,10 @@ class Ui_MainWindow(object):
         self.loadingBar.setTextVisible(False)
         self.showVoltLbl = QLabel(self.centralwidget)
         self.showVoltLbl.setObjectName(u"showVoltLbl")
-        self.showVoltLbl.setGeometry(QRect(60, 210, 361, 21))
+        self.showVoltLbl.setGeometry(QRect(60, 211, 361, 51))
         self.showVoltLbl.setStyleSheet(u"font-size: 16pt;\n"
 "color: rgb(134, 134, 134)")
         MainWindow.setCentralWidget(self.centralwidget)
-        self.instLbl.raise_()
-        self.imgLbl.raise_()
-        self.loadingBar.raise_()
-        self.showVoltLbl.raise_()
-        self.skipBtn.raise_()
-        self.nextBtn.raise_()
-        self.backBtn.raise_()
 
         self.retranslateUi(MainWindow)
 

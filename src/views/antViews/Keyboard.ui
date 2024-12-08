@@ -179,7 +179,7 @@ font: 11pt &quot;Poppins&quot;;
    </property>
    <property name="styleSheet">
     <string notr="true">border-radius: 10px;
-background-color: #00007f;
+background-color: rgb(0, 98, 204);
 font: 12pt &quot;Poppins&quot;;
 color: rgb(255, 255, 255);
 </string>
@@ -332,7 +332,7 @@ font: 11pt &quot;Poppins&quot;;
    </property>
    <property name="styleSheet">
     <string notr="true">border-radius: 10px;
-background-color: #00007f;
+background-color: rgb(0, 98, 204);
 font: 20pt &quot;MS Shell Dlg 2&quot;;
 color: rgb(255, 255, 255);</string>
    </property>
@@ -351,7 +351,7 @@ color: rgb(255, 255, 255);</string>
    </property>
    <property name="styleSheet">
     <string notr="true">border-radius: 10px;
-background-color: #00007f;
+background-color: rgb(0, 98, 204);
 font: 11pt &quot;Poppins&quot;;
 color: rgb(255, 255, 255);</string>
    </property>
@@ -484,7 +484,7 @@ font: 11pt &quot;Poppins&quot;;
    </property>
    <property name="styleSheet">
     <string notr="true">border-radius: 10px;
-background-color: #00007f;
+background-color: rgb(0, 98, 204);
 font: 11pt &quot;Poppins&quot;;
 color: rgb(255, 255, 255);</string>
    </property>

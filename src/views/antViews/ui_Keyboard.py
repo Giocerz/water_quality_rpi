@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'KeyboardimREpN.ui'
+## Form generated from reading UI file 'KeyboardKrsjjL.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -79,7 +79,7 @@ class Ui_Keyboard(object):
         self.btn29.setObjectName(u"btn29")
         self.btn29.setGeometry(QRect(410, 70, 63, 21))
         self.btn29.setStyleSheet(u"border-radius: 10px;\n"
-"background-color: #00007f;\n"
+"background-color: rgb(0, 98, 204);\n"
 "font: 12pt \"Poppins\";\n"
 "color: rgb(255, 255, 255);\n"
 "")
@@ -136,14 +136,14 @@ class Ui_Keyboard(object):
         self.btn35.setObjectName(u"btn35")
         self.btn35.setGeometry(QRect(410, 100, 63, 21))
         self.btn35.setStyleSheet(u"border-radius: 10px;\n"
-"background-color: #00007f;\n"
+"background-color: rgb(0, 98, 204);\n"
 "font: 20pt \"MS Shell Dlg 2\";\n"
 "color: rgb(255, 255, 255);")
         self.btn30 = QPushButton(Form)
         self.btn30.setObjectName(u"btn30")
         self.btn30.setGeometry(QRect(10, 100, 61, 21))
         self.btn30.setStyleSheet(u"border-radius: 10px;\n"
-"background-color: #00007f;\n"
+"background-color: rgb(0, 98, 204);\n"
 "font: 11pt \"Poppins\";\n"
 "color: rgb(255, 255, 255);")
         self.btn17 = QPushButton(Form)
@@ -192,7 +192,7 @@ class Ui_Keyboard(object):
         self.btn21.setObjectName(u"btn21")
         self.btn21.setGeometry(QRect(10, 70, 61, 21))
         self.btn21.setStyleSheet(u"border-radius: 10px;\n"
-"background-color: #00007f;\n"
+"background-color: rgb(0, 98, 204);\n"
 "font: 11pt \"Poppins\";\n"
 "color: rgb(255, 255, 255);")
         self.btn31 = QPushButton(Form)

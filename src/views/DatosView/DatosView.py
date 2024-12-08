@@ -2,7 +2,7 @@ from PySide2 import QtCore
 from PySide2.QtWidgets import QMainWindow, QTableWidgetItem
 from PySide2.QtCore import QSize
 from PySide2.QtGui import QIcon
-from src.views.ui_Datos import Ui_Datos
+from src.views.ui_Datos import Ui_MainWindow
 from src.model.WaterQualityParams import WaterQualityParams
 from src.model.WaterQualityDB import WaterDataBase
 
@@ -12,7 +12,7 @@ class DatosView(QMainWindow):
     def __init__(self, context):
         QMainWindow.__init__(self)
         self.context = context
-        self.ui = Ui_Datos()
+        self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.ui_components()
 

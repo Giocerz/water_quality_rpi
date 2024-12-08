@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>480</width>
-    <height>272</height>
+    <height>320</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -36,7 +36,7 @@ QLabel {
    <widget class="QPushButton" name="skipBtn">
     <property name="geometry">
      <rect>
-      <x>40</x>
+      <x>150</x>
       <y>220</y>
       <width>181</width>
       <height>41</height>
@@ -49,8 +49,8 @@ QLabel {
    <widget class="QPushButton" name="nextBtn">
     <property name="geometry">
      <rect>
-      <x>260</x>
-      <y>220</y>
+      <x>150</x>
+      <y>270</y>
       <width>181</width>
       <height>41</height>
      </rect>
@@ -63,7 +63,7 @@ QLabel {
     <property name="geometry">
      <rect>
       <x>180</x>
-      <y>0</y>
+      <y>10</y>
       <width>121</width>
       <height>121</height>
      </rect>
@@ -94,8 +94,8 @@ QLabel {
    <widget class="QLabel" name="instLbl">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>120</y>
+      <x>14</x>
+      <y>140</y>
       <width>451</width>
       <height>71</height>
      </rect>
@@ -111,7 +111,7 @@ QLabel {
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>240</y>
+      <y>270</y>
       <width>481</width>
       <height>31</height>
      </rect>
@@ -141,9 +141,9 @@ QProgressBar::chunk {
     <property name="geometry">
      <rect>
       <x>60</x>
-      <y>210</y>
+      <y>211</y>
       <width>361</width>
-      <height>21</height>
+      <height>51</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -154,13 +154,6 @@ color: rgb(134, 134, 134)</string>
      <string/>
     </property>
    </widget>
-   <zorder>instLbl</zorder>
-   <zorder>imgLbl</zorder>
-   <zorder>loadingBar</zorder>
-   <zorder>showVoltLbl</zorder>
-   <zorder>skipBtn</zorder>
-   <zorder>nextBtn</zorder>
-   <zorder>backBtn</zorder>
   </widget>
  </widget>
  <resources/>

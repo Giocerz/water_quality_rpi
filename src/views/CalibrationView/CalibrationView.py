@@ -2,7 +2,7 @@ from PySide2 import QtCore
 from PySide2.QtWidgets import QMainWindow
 from PySide2.QtCore import QSize, QTimer
 from PySide2.QtGui import QIcon, QPixmap
-from src.views.ui_Calibration import Ui_Calibration
+from src.views.ui_Calibration import Ui_MainWindow
 from src.widgets.DialogWidget import DialogWidget, DialogWidgetInfo
 from w1thermsensor import W1ThermSensor
 from src.logic.adcModule import ParametersVoltages
@@ -80,7 +80,7 @@ class CalibrationView(QMainWindow):
     def __init__(self, context):
         QMainWindow.__init__(self)
         self.context = context
-        self.ui = Ui_Calibration()
+        self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.calibration_step = 0
         self.timer_counter = 0

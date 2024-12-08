@@ -2,7 +2,7 @@ from PySide2.QtWidgets import QMainWindow, QStackedLayout
 from PySide2.QtCore import QSize, QThread, Signal
 from PySide2.QtGui import QIcon
 from PySide2 import QtCore
-from src.views.ui_Save import Ui_Save
+from src.views.ui_Save import Ui_MainWindow
 from src.widgets.KeyboardWidget import KeyboardWidget
 from src.widgets.PopupWidget import PopupWidgetInfo, LoadingPopupWidget
 from src.model.WaterQualityParams import WaterQualityParams
@@ -61,7 +61,7 @@ class SaveDataView(QMainWindow):
         self.temperature = temperature
         self.tds = tds
         self.turbidity = turbidity
-        self.ui = Ui_Save()
+        self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.ui_components()
 
@@ -77,6 +77,8 @@ class SaveDataView(QMainWindow):
         self.ui.backBtn.clicked.connect(self.on_back_clicked)
         self.ui.gpsBtn.clicked.connect(self.on_gps_clicked)
         self.ui.saveBtn.clicked.connect(self.on_save_clicked)
+        self.ui.nextBtn.clicked.connect(self.on_next_clicked)
+        self.ui.prevBtn.clicked.connect(self.on_prev_clicked)
 
         self.location_worker.location_result.connect(
             self.handle_location_result)
@@ -88,6 +90,12 @@ class SaveDataView(QMainWindow):
 
     def on_back_clicked(self):
         self.context.removeWidget(self)
+
+    def on_next_clicked(self):
+        self.ui.tabWidget.setCurrentIndex(0)
+    
+    def on_prev_clicked(self):
+        self.ui.tabWidget.setCurrentIndex(1)
 
     def on_gps_clicked(self):
         self.loading_popup = LoadingPopupWidget(context=self.context, text='Localizando...')
