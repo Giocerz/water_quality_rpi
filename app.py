@@ -1,13 +1,63 @@
 import sys
 import time
 import RPi.GPIO as GPIO
+from pynput.mouse import Controller
 from PySide2 import QtWidgets, QtCore
 from PySide2.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
 from PySide2.QtCore import QThread, Signal
 from src.views.TopBarView.TopBarView import TopBarView
 from src.views.MainMenuView.MainMenuView import MainMenuView
 
+
 class ButtonListener(QThread):
+
+    def __init__(self, button_pins, parent=None):
+        super(ButtonListener, self).__init__(parent)
+        self.button_pins = button_pins
+        self.running = True
+
+        GPIO.setmode(GPIO.BCM)
+
+        for pin in self.button_pins:
+            GPIO.setup(pin, GPIO.IN)
+
+    def run(self):
+        mouse_controller = Controller()  # Controlador de mouse
+        try:
+            while self.running:
+                for i, pin in enumerate(self.button_pins):
+                    if GPIO.input(pin) == GPIO.LOW:
+                        time.sleep(0.3)  # Debounce
+                        if GPIO.input(pin) == GPIO.LOW:
+                            if i == 0:
+                                print("Movimiento: Arriba")
+                                mouse_controller.move(0, -10)
+                            elif i == 1:
+                                print("Movimiento: Abajo")
+                                mouse_controller.move(0, 10)
+                            elif i == 2:
+                                print("Movimiento: Izquierda")
+                                mouse_controller.move(-10, 0)
+                            elif i == 3:
+                                print("Movimiento: Derecha")
+                                mouse_controller.move(10, 0)
+                            elif i == 4:
+                                print("Clic Izquierdo")
+                                mouse_controller.click(Button.left)
+                time.sleep(0.01)
+        except GPIO.error as e:
+            print(f"Error con GPIO: {e}")
+        finally:
+            self.running = False
+            GPIO.cleanup()
+
+    def stop(self):
+        self.running = False
+        GPIO.cleanup()
+        self.wait()
+
+
+class ButtonListener2(QThread):
     button_pressed = Signal()
 
     def __init__(self, button_pin):
@@ -70,10 +120,11 @@ class MyApp(QMainWindow):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     welcome = MyApp()
-    #button_pin = 17
-    #button_listener = ButtonListener(button_pin)
-    #button_listener.button_pressed.connect(welcome.switch_to_bluetooth_view)
-    #button_listener.start()
+    button_pins = [17, 27, 22, 23, 24]
+
+    button_listener = ButtonListener(button_pins)
+    button_listener.start()
+
     widget = QtWidgets.QStackedWidget()
     widget.addWidget(welcome)
     widget.setFixedHeight(320)
@@ -86,5 +137,5 @@ if __name__ == '__main__':
     except:
         print("Exit")
     finally:
-        #button_listener.stop()
+        button_listener.stop()
         pass

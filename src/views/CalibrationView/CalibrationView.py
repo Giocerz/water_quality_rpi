@@ -201,6 +201,7 @@ class CalibrationView(QMainWindow):
 
     def show_dialog(self):
         def on_yes():
+            self.stabilization_timer.stop()
             self.context.removeWidget(self)
 
         def on_no():
