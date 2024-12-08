@@ -2,10 +2,10 @@ from PySide2 import QtWidgets, QtCore
 from PySide2.QtWidgets import QApplication, QMainWindow
 from PySide2.QtCore import QThread, Signal
 from src.views.ui_MainMenu import Ui_MainWindow
-from src.views.MonitoringView import MonitoringView
-from src.views.CalibrationView import CalibrationView
-from src.views.DatosView import DatosView
-from src.views.BluetoothView import BluetoothView
+from src.views.MonitoringView.MonitoringView import MonitoringView
+from src.views.CalibrationView.CalibrationView import CalibrationView
+from src.views.DatosView.DatosView import DatosView
+from src.views.BluetoothView.BluetoothView import BluetoothView
 
 class MainMenuView(QMainWindow):
     def __init__(self, context):
