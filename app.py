@@ -15,7 +15,7 @@ class ButtonListener(QThread):
         super(ButtonListener, self).__init__(parent)
         self.button_pins = button_pins
         self.running = True
-
+        self.pressed_times = {pin: None for pin in button_pins}
         GPIO.setmode(GPIO.BCM)
 
         for pin in self.button_pins:
@@ -27,23 +27,32 @@ class ButtonListener(QThread):
             while self.running:
                 for i, pin in enumerate(self.button_pins):
                     if GPIO.input(pin) == GPIO.LOW:
-                        time.sleep(0.3)
-                        if GPIO.input(pin) == GPIO.LOW:
-                            if i == 0:
-                                print("Movimiento: Arriba")
-                                mouse_controller.move(0, -10)
-                            elif i == 1:
-                                print("Movimiento: Abajo")
-                                mouse_controller.move(0, 10)
-                            elif i == 2:
-                                print("Movimiento: Izquierda")
-                                mouse_controller.move(-10, 0)
-                            elif i == 3:
-                                print("Movimiento: Derecha")
-                                mouse_controller.move(10, 0)
-                            elif i == 4:
-                                print("Clic Izquierdo")
-                                mouse_controller.click(Button.left)
+                        if self.pressed_times[pin] is None:
+                            self.pressed_times[pin] = time.time()
+                        press_duration = time.time() - self.pressed_times[pin]
+                        base_speed = 10
+                        acceleration = min(press_duration * 10, 100) 
+                        distance = int(base_speed + acceleration)
+
+                        if i == 0:
+                            print(f"Movimiento: Arriba ({distance}px)")
+                            mouse_controller.move(0, -distance)
+                        elif i == 1:
+                            print(f"Movimiento: Abajo ({distance}px)")
+                            mouse_controller.move(0, distance)
+                        elif i == 2:
+                            print(f"Movimiento: Izquierda ({distance}px)")
+                            mouse_controller.move(-distance, 0)
+                        elif i == 3:
+                            print(f"Movimiento: Derecha ({distance}px)")
+                            mouse_controller.move(distance, 0)
+                        elif i == 4:
+                            print("Clic Izquierdo")
+                            mouse_controller.click(Button.left)
+
+                    else: 
+                        self.pressed_times[pin] = None
+
                 time.sleep(0.01)
         except Exception as e:
             print(f"Error con GPIO: {e}")
@@ -120,7 +129,7 @@ class MyApp(QMainWindow):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     welcome = MyApp()
-    button_pins = [17, 24, 22, 23, 27]
+    button_pins = [5, 24, 22, 23, 27]
 
     button_listener = ButtonListener(button_pins)
     button_listener.start()
