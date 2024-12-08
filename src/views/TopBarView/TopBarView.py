@@ -24,7 +24,7 @@ class TopBarView(QMainWindow):
         self.ina219 = INA219(addr=0x42)
 
         self.timer = QTimer(self)
-        self.timer.timeout.connect(self.update_battery)
+        self.timer.timeout.connect(self.get_battery_level)
         self.timer.start(1000)
 
 
