@@ -86,4 +86,5 @@ if __name__ == '__main__':
     except:
         print("Exit")
     finally:
-        button_listener.stop()
+        #button_listener.stop()
+        pass

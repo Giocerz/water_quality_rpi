@@ -96,8 +96,6 @@ class MonitoringView(QMainWindow):
         icon = QIcon('./src/resources/icons/save.png')
         self.ui.saveBtn.setIcon(icon)
         self.ui.saveBtn.setIconSize(QSize(30, 30))
-        pixmap = QPixmap('./src/resources/icons/batteryIcon.png')
-        self.ui.batLblPng.setPixmap(pixmap)
 
     def on_back_clicked(self):
         if self.parameters_worker.isRunning():
