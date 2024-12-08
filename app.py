@@ -120,7 +120,7 @@ class MyApp(QMainWindow):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     welcome = MyApp()
-    button_pins = [17, 27, 22, 23, 24]
+    button_pins = [17, 24, 22, 23, 27]
 
     button_listener = ButtonListener(button_pins)
     button_listener.start()
