@@ -30,12 +30,14 @@ class TopBarView(QMainWindow):
 
     def get_battery_level(self):
         bus_voltage = self.ina219.getBusVoltage_V()
+        current = self.ina219.getCurrent_mA()
         p = int((bus_voltage - 6)/2.4*100)
         if (p > 100):
             p = 100
         if (p < 0):
             p = 0
         self.update_battery(battery_level= p)
+        self.charge_indicator(current= current)
     
     def charge_indicator(self, current):
         if(current < 0):
