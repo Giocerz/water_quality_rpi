@@ -1,7 +1,7 @@
 import sys
 import time
 import RPi.GPIO as GPIO
-from pynput.mouse import Controller
+from pynput.mouse import Controller, Button
 from PySide2 import QtWidgets, QtCore
 from PySide2.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
 from PySide2.QtCore import QThread, Signal
@@ -27,7 +27,7 @@ class ButtonListener(QThread):
             while self.running:
                 for i, pin in enumerate(self.button_pins):
                     if GPIO.input(pin) == GPIO.LOW:
-                        time.sleep(0.3)  # Debounce
+                        time.sleep(0.3)
                         if GPIO.input(pin) == GPIO.LOW:
                             if i == 0:
                                 print("Movimiento: Arriba")
@@ -45,7 +45,7 @@ class ButtonListener(QThread):
                                 print("Clic Izquierdo")
                                 mouse_controller.click(Button.left)
                 time.sleep(0.01)
-        except GPIO.error as e:
+        except Exception as e:
             print(f"Error con GPIO: {e}")
         finally:
             self.running = False
