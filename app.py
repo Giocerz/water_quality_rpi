@@ -70,10 +70,10 @@ class MyApp(QMainWindow):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     welcome = MyApp()
-    button_pin = 17
-    button_listener = ButtonListener(button_pin)
-    button_listener.button_pressed.connect(welcome.switch_to_bluetooth_view)
-    button_listener.start()
+    #button_pin = 17
+    #button_listener = ButtonListener(button_pin)
+    #button_listener.button_pressed.connect(welcome.switch_to_bluetooth_view)
+    #button_listener.start()
     widget = QtWidgets.QStackedWidget()
     widget.addWidget(welcome)
     widget.setFixedHeight(320)
