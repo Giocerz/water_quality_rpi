@@ -13,7 +13,7 @@ from src.widgets.PopupWidget import PopupWidget, PopupWidgetInfo
 
 
 class CalibrationView(QMainWindow):
-    STABILIZATION_TIME = 5  # secs
+    STABILIZATION_TIME = 35  # secs
     TIMEOUT_STABILIZATION_TIMER = 1000  # ms
     LOADING_TEXT = 'Espera mientras se estabiliza el valor medido',
 
@@ -236,8 +236,8 @@ class CalibrationView(QMainWindow):
     ######### MOSTRAR VOLTAJES ########################
     def show_tds_volt(self):
         try:
-            temperature = float(self.temperature_sensor.get_temperature())
-            tds_volt = float(self.parameters_volt.tds_volt)
+            temperature = self.temperature_sensor.get_temperature()
+            tds_volt = self.parameters_volt.tds_volt()
             text = f"Temp: {temperature:.2f} °C Volt: {tds_volt:.2f} V"
         except (TypeError, ValueError):
             text = "Temp: N/A °C Volt: N/A V"
@@ -248,7 +248,7 @@ class CalibrationView(QMainWindow):
 
     def show_ph_volt(self):
         try:
-            ph_volt = float(self.parameters_volt.ph_volt)
+            ph_volt = self.parameters_volt.ph_volt()
             text = f"Volt: {ph_volt:.2f} V"
         except (TypeError, ValueError):
             text = "Volt: N/A V"
@@ -259,7 +259,7 @@ class CalibrationView(QMainWindow):
 
     def show_turb_volt(self):
         try:
-            turbidity_volt = float(self.parameters_volt.turbidity_volt)
+            turbidity_volt = self.parameters_volt.turbidity_volt()
             text = f"Volt: {turbidity_volt:.2f} V"
         except (TypeError, ValueError):
             text = "Volt: N/A V"
@@ -270,8 +270,8 @@ class CalibrationView(QMainWindow):
 
     def show_do_volt(self):
         try:
-            temperature = float(self.temperature_sensor.get_temperature())
-            oxygen_volt = float(self.parameters_volt.oxygen_volt)
+            temperature = self.temperature_sensor.get_temperature()
+            oxygen_volt = self.parameters_volt.oxygen_volt()
             text = f"Temp: {temperature:.2f} °C Volt: {oxygen_volt:.2f} V"
         except (TypeError, ValueError):
             text = "Temp: N/A °C Volt: N/A V"

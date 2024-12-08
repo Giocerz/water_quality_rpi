@@ -41,7 +41,7 @@ class TopBarView(QMainWindow):
     
     def charge_indicator(self, current):
         print(current)
-        if(current < 0):
+        if(current > 0):
             self.ui.chargeLbl.show()
         else:
             self.ui.chargeLbl.hide()
