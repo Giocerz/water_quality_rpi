@@ -4,8 +4,8 @@ import RPi.GPIO as GPIO
 from PySide2 import QtWidgets, QtCore
 from PySide2.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
 from PySide2.QtCore import QThread, Signal
-from src.views.TopBarView import TopBarView
-from src.views.MainMenuView import MainMenuView
+from src.views.TopBarView.TopBarView import TopBarView
+from src.views.MainMenuView.MainMenuView import MainMenuView
 
 class ButtonListener(QThread):
     button_pressed = Signal()
