@@ -131,8 +131,8 @@ if __name__ == '__main__':
     welcome = MyApp()
     button_pins = [5, 24, 22, 23, 27]
 
-    button_listener = ButtonListener(button_pins)
-    button_listener.start()
+    #button_listener = ButtonListener(button_pins)
+    #button_listener.start()
 
     widget = QtWidgets.QStackedWidget()
     widget.addWidget(welcome)
