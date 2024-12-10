@@ -61,9 +61,13 @@ class ParametersCalculate():
         return (voltage - self.phOffset)/self.phSlope + 7
 
     def calculateDo(self, voltage: float, temperature:float) -> float:
-      voltage *= 1000
-      voltageSaturation = int(self.oxygenVoltCal) + int(temperature * 35) - int(self.oxygenTempCal * 35)
-      return float(voltage * self.DO_TABLE[int(self.oxygenTempCal)] / voltageSaturation) * 0.001
+        if(temperature > 40.0):
+            temperature = 40.0
+        elif(temperature < 0.0):
+            temperature = 0.0
+        voltage *= 1000
+        voltageSaturation = int(self.oxygenVoltCal) + int(temperature * 35) - int(self.oxygenTempCal * 35)
+        return float(voltage * self.DO_TABLE[int(self.oxygenTempCal)] / voltageSaturation) * 0.001
 
     def calculateTurb(self, voltage: float) -> float:
         turb = self.turb_coef_a * voltage ** 2 + self.turb_coef_b * voltage + self.turb_coef_c
