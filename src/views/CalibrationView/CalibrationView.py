@@ -18,7 +18,7 @@ class CalibrationView(QMainWindow):
     LOADING_TEXT = 'Espera mientras se estabiliza el valor medido',
 
     CALIBRATION_STEPS = ['tds', 'wash', 'ph7', 'wash', 'ph4',
-                         'wash', 'ph10', 'wash', 'turb1', 'wash', 'turb2', 'wash', 'turb3', 'wash', 'turb4', 'wash', 'do', 'final']
+                         'wash', 'ph10', 'wash', 'turb1', 'wash', 'turb2', 'wash', 'turb3', 'wash', 'do', 'final']
     STEPS_DESCRIPTION = {
         'tds': {
             'img': './src/resources/images/lab_glass',
@@ -47,15 +47,10 @@ class CalibrationView(QMainWindow):
         },
         'turb2': {
             'img': './src/resources/images/lab_glass',
-            'text': 'Sumerja la sonda en una solución<br>con una <b>turbidez</b> de <b>16.6 NTU</b>',
-            'skipButton': False
-        },
-        'turb3': {
-            'img': './src/resources/images/lab_glass',
             'text': 'Sumerja la sonda en una solución<br>con una <b>turbidez</b> de <b>287 NTU</b>',
             'skipButton': False
         },
-        'turb4': {
+        'turb3': {
             'img': './src/resources/images/lab_glass',
             'text': 'Sumerja la sonda en una solución<br>con una <b>turbidez</b> de <b>475 NTU</b>',
             'skipButton': False
@@ -93,7 +88,6 @@ class CalibrationView(QMainWindow):
         self.turb1 = None
         self.turb2 = None
         self.turb3 = None
-        self.turb4 = None
         self.oxygenOffset = None
         self.oxygenTemperature = None
         self.turb_coef_a = None
@@ -112,7 +106,6 @@ class CalibrationView(QMainWindow):
             'turb1': self.handle_turb1,
             'turb2': self.handle_turb2,
             'turb3': self.handle_turb3,
-            'turb4': self.handle_turb4,
             'do': self.handle_do,
         }
 
@@ -124,7 +117,6 @@ class CalibrationView(QMainWindow):
             'turb1': self.show_turb_volt,
             'turb2': self.show_turb_volt,
             'turb3': self.show_turb_volt,
-            'turb4': self.show_turb_volt,
             'do': self.show_do_volt,
         }
 
@@ -227,7 +219,7 @@ class CalibrationView(QMainWindow):
         if self.CALIBRATION_STEPS[self.calibration_step] == 'ph7':
             self.calibration_step += 6
         elif self.CALIBRATION_STEPS[self.calibration_step] == 'turb1':
-            self.calibration_step += 8
+            self.calibration_step += 6
         elif self.CALIBRATION_STEPS[self.calibration_step] == 'do' or self.CALIBRATION_STEPS[self.calibration_step] == 'wash':
             self.calibration_step += 1
         else:
@@ -354,19 +346,11 @@ class CalibrationView(QMainWindow):
         if (self.turb3 <= 0.0 or self.turb3 >= 5.0):
             self.show_dialog_error('Error: Valor de turbidez fuera de rango')
             return False
-        else:
-            return True
-
-    def handle_turb4(self):
-        self.turb4 = self.parameters_volt.turbidity_volt()
-        if (self.turb4 <= 0.0 or self.turb4 >= 5.0):
-            self.show_dialog_error('Error: Valor de turbidez fuera de rango')
-            return False
         try:
             import numpy as np
             voltages = np.array(
-                [self.turb1, self.turb2, self.turb3, self.turb4])
-            ntu_values = np.array([0.28, 16.6, 287, 475])
+                [self.turb1, self.turb2, self.turb3])
+            ntu_values = np.array([0.28, 287, 475])
             coefficients = np.polyfit(voltages, ntu_values, 2)
             self.turb_coef_a, self.turb_coef_b, self.turb_coef_c = coefficients
             return True
