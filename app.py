@@ -119,7 +119,7 @@ class MyApp(QMainWindow):
         self.bottom_widget.setFixedSize(480, 272)
         self.main_layout.addWidget(self.bottom_widget)
         
-        top_bar_view = TopBarView()
+        top_bar_view = TopBarView(context= self.bottom_widget)
         self.top_bar.addWidget(top_bar_view)
 
         main_menu_view = MainMenuView(context= self.bottom_widget)
