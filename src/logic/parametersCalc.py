@@ -24,7 +24,6 @@ class ParametersCalculate():
         import pandas as pd
         df = pd.read_csv('src/config/calibrationSettings.txt')
         lista = df['calibration_values'].tolist()
-        print(lista)
         self.kValue = float(lista[0])
         self.phOffset = float(lista[1])
         self.phSlope = float(lista[2])

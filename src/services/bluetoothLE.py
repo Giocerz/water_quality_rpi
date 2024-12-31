@@ -13,7 +13,9 @@ NOTIFY_TIMEOUT = 3000
 DEVICE_ID = "CAP0003-FC"
 SERVICE_UUID = "00000001-b149-430d-8d97-e2ed464102df"
 DEVICE_ID_UUID = "00000002-b149-430d-8d97-e2ed464102df"
+CALIBRATION_SAVE_UUID =  "00000003-b149-430d-8d97-e2ed464102df"
 MONITORING_UUID =  "00000005-b149-430d-8d97-e2ed464102df"
+
 
 class WaterQualityAdvertisement(Advertisement):
     def __init__(self, index):
@@ -29,17 +31,8 @@ class WaterParametersService(Service):
         self.add_characteristic(WQCharacteristic(self))
         self.add_characteristic(IDCharacteristic(self))
 
-    """
-    def is_farenheit(self):
-        return self.farenheit
-
-    def set_farenheit(self, farenheit):
-        self.farenheit = farenheit
-    """
-
 
 class WQCharacteristic(Characteristic):
-
     def __init__(self, service):
         self.notifying = False
         Characteristic.__init__(
@@ -122,6 +115,50 @@ class IDCharacteristic(Characteristic):
 class IDDescriptor(Descriptor):
     ID_DESCRIPTOR_UUID = "2902"
     ID_DESCRIPTOR_VALUE = "Device ID"
+
+    def __init__(self, characteristic):
+        Descriptor.__init__(
+                self, self.ID_DESCRIPTOR_UUID,
+                ["read"],
+                characteristic)
+
+    def ReadValue(self, options):
+        value = []
+        desc = self.ID_DESCRIPTOR_VALUE
+
+        for c in desc:
+            value.append(dbus.Byte(c.encode()))
+
+        return value
+
+class CalibrationSaveCharacteristic(Characteristic):
+    def __init__(self, service):
+        Characteristic.__init__(
+            self, CALIBRATION_SAVE_UUID,
+            ["read", "write"], service)
+        self.add_descriptor(CalibrationSaveDescriptor(self))
+
+    def WriteValue(self, value, options):
+        val = str(value[0])
+        if val == "C":
+            self.service.set_farenheit(False)
+        elif val == "F":
+            self.service.set_farenheit(True)
+
+    def ReadValue(self, options):
+        value = []
+
+        if self.service.is_farenheit():
+            val = "F"
+        else:
+            val = "C"
+        value.append(dbus.Byte(val.encode()))
+
+        return value
+
+class CalibrationSaveDescriptor(Descriptor):
+    ID_DESCRIPTOR_UUID = "2903"
+    ID_DESCRIPTOR_VALUE = "Calibration save"
 
     def __init__(self, characteristic):
         Descriptor.__init__(

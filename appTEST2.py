@@ -13,6 +13,7 @@ import src.views.ui_Top_Bar as TopBar
 import src.views.ui_Save as Save_View
 import src.views.ui_Calibration as Calibration_View
 import src.views.ui_Datos as Datos_View
+import src.views.ui_Graphics_view as Graph_View
 from src.widgets.DialogWidget import DialogWidget, DialogWidgetInfo
 # from src.logic.adcModule import ParametersVoltages
 from src.logic.parametersCalc import *
@@ -21,7 +22,8 @@ from src.widgets.KeyboardWidget import KeyboardWidget
 from src.widgets.PopupWidget import PopupWidget, PopupWidgetInfo, LoadingPopupWidget
 from src.model.WaterQualityParams import WaterQualityParams
 from src.model.WaterQualityDB import WaterDataBase
-
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg, NavigationToolbar2QT as NavigationToolbar
+from matplotlib.figure import Figure
 
 class ParametersMeasuredWorker(QThread):
     parameters_result = Signal(list)
@@ -77,7 +79,7 @@ class MainLayout(QMainWindow):
         self.bottom_widget.setFixedSize(480, 272)  # 480x272 píxeles
         self.main_layout.addWidget(self.bottom_widget)
         
-        top_bar_view = TopBarView()
+        top_bar_view = TopBarView(context=self.bottom_widget)
         self.top_bar.addWidget(top_bar_view)
 
         main_menu_view = MainView(context= self.bottom_widget)
@@ -85,17 +87,17 @@ class MainLayout(QMainWindow):
 
         
 class TopBarView(QMainWindow):
-    def __init__(self):
+    def __init__(self, context):
         QMainWindow.__init__(self)
+        self.context = context
         self.ui = TopBar.Ui_Form()
         self.ui.setupUi(self)
 
-        pixmap = QPixmap('./src/resources/icons/batteryIcon.png')
-        self.ui.batLblPng.setPixmap(pixmap)
+        pixmap = QPixmap('./src/resources/icons/electric_bolt_b.png')
+        scaled_pixmap = pixmap.scaled(26, 26, QtCore.Qt.IgnoreAspectRatio, QtCore.Qt.SmoothTransformation)
+        self.ui.chargeIndicator.setPixmap(scaled_pixmap)
 
-        pixmap = QPixmap('./src/resources/icons/electric_bolt.png')
-        scaled_pixmap = pixmap.scaled(28, 28, QtCore.Qt.IgnoreAspectRatio, QtCore.Qt.SmoothTransformation)
-        self.ui.chargeLbl.setPixmap(scaled_pixmap)
+        self.low_battery_flag = False
 
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update_battery)
@@ -103,12 +105,33 @@ class TopBarView(QMainWindow):
 
     def update_battery(self):
         battery_level = self.get_battery_level()
-        self.ui.batLbl.setText(f'{round(battery_level)}%')
-        self.ui.batLbl.setAlignment(QtCore.Qt.AlignCenter)
-        if(battery_level < 20):
-            self.ui.batLblBg.setStyleSheet('background-color: #fb8b24;')
-        move_level = round(-0.39 * battery_level + 47)
-        self.ui.batLblBg.move(367 + move_level, 10)
+        self.ui.batteryLbl.setText(f'{round(battery_level)}%')
+        self.ui.batteryLbl.setAlignment(QtCore.Qt.AlignLeft)
+        print(f'battery_level: {battery_level}')
+        if(battery_level < 25 and battery_level >= 10):
+            color = '252, 163, 17'
+            if(not self.low_battery_flag):
+                self.open_battery_popup()
+                self.low_battery_flag = True
+        elif(battery_level < 10):
+            color = '230, 57, 70'
+        else:
+            color = '0, 0, 127'
+            self.low_battery_flag = False
+
+        if(battery_level == 100):
+            percent = 0
+        elif(battery_level == 0):
+            percent =0.95
+        else:
+            percent = round((-0.81633 * battery_level + 90.81633)/100.0, 2)
+        
+        print(f'percent: {percent}')
+        self.ui.baterryLevel.setStyleSheet(f'background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 0,stop:0 rgba(255, 255, 255, 255),stop:{percent} rgba(255, 255, 255, 255), stop:{percent + 0.01} rgba({color}, 255), stop:1 rgba({color}, 255));border-radius: 12px;')
+
+    def open_battery_popup(self):
+        popup = PopupWidgetInfo(context=self.context,text='Batería baja, conecte el cargador')
+        popup.show()
 
     def get_battery_level(self):
         # Simulación: reemplazar con código real para consultar el nivel de batería
@@ -313,9 +336,6 @@ class SaveDataView(QMainWindow):
             it_rained = 'Si'
         else:
             it_rained = 'No'
-        print([place, sample_origin, it_rained, self.oxygen,
-              self.ph, self.temperature, self.tds, self.turbidity])
-
         params = WaterQualityParams(
             name=place, device_id="Device123", latitude=4.6097, longitude=-74.0817,
             date=format_date, hour=str(hour), sample_origin=sample_origin, it_rained=it_rained,
@@ -438,7 +458,6 @@ class CalibrationView(QMainWindow):
         self.update_state()
 
     def update_state(self):
-        print(self.calibration_step)
         self.ui.nextBtn.show()
         if (self.STEPS_DESCRIPTION[self.CALIBRATION_STEPS[self.calibration_step]]['skipButton']):
             self.ui.skipBtn.show()
@@ -654,7 +673,6 @@ class DatosView(QMainWindow):
         self.total_data_len = len(data_list)
         self.table_pages = math.ceil((self.total_data_len / ELEMENTS_NUMBER))
         for i in range(self.table_pages):
-            print(i)
             sub_list = []
             for j in range(ELEMENTS_NUMBER*i, ELEMENTS_NUMBER*(i+1)):
                 if(j >= len(data_list)):
@@ -711,10 +729,9 @@ class DatosView(QMainWindow):
         self.context.removeWidget(self)
 
     def open_graph_view(self):
-        #view = GraphView()
-        #self.context.addWidget(view)
-        #self.context.setCurrentIndex(widget.currentIndex() + 1)
-        pass
+        view = GraphView(context= self.context)
+        self.context.addWidget(view)
+        self.context.setCurrentIndex(self.context.currentIndex() + 1)
 
     def load_table_data(self, data:list[list[WaterQualityParams]]):
         data_list = data
@@ -754,6 +771,64 @@ class DatosView(QMainWindow):
 
             self.ui.tableWidget.setItem(row_idx, 11, QTableWidgetItem(str(data.sample_origin)))
             self.ui.tableWidget.setItem(row_idx, 12, QTableWidgetItem(str(data.it_rained)))
+
+class MplCanvas(FigureCanvasQTAgg):
+    def __init__(self, parent=None, width=5, height=4, dpi=100):
+        fig = Figure(figsize=(width, height), dpi=dpi)
+        self.axes = fig.add_subplot(111)
+        super(MplCanvas, self).__init__(fig)
+
+class CustomNavigationToolbar(NavigationToolbar):
+    def __init__(self, canvas, parent=None):
+        super(CustomNavigationToolbar, self).__init__(canvas, parent)
+        
+        # Lista de herramientas que deseas mostrar
+        tools_to_keep = ['home', 'pan', 'zoom']  # Ajusta según lo que necesites
+
+        # Ocultar herramientas no deseadas
+        for action in self.actions():
+            if action.text().lower() not in tools_to_keep:
+                self.removeAction(action)
+
+class GraphView(QMainWindow):
+    def __init__(self, context):
+        QMainWindow.__init__(self)
+        self.context = context
+        self.ui = Graph_View.Ui_MainWindow()
+        self.ui.setupUi(self)
+        self.ui_components()
+        self.load_data()
+        self.canvas_init()
+
+        self.ui.backBtn.clicked.connect(self.on_back_clicked)
+
+    def ui_components(self):
+        icon = QIcon('./src/resources/icons/back.png')
+        self.ui.backBtn.setIcon(icon)
+        self.ui.backBtn.setIconSize(QSize(30, 30))
+
+    def on_back_clicked(self):
+        self.context.removeWidget(self)
+
+    def load_data(self):
+        self.data_list = WaterDataBase.get_water_quality_params()
+        self.conductivity_values = [data.conductivity for data in self.data_list]
+
+    def canvas_init(self):   
+        self.sc = MplCanvas(self, width=5, height=4, dpi=100)
+        x = range(len(self.conductivity_values))
+        y = self.conductivity_values
+        self.sc.axes.plot(x, y, label='Conductividad')
+        self.sc.axes.set_xlabel('muestras')
+        self.sc.axes.set_ylabel('uS/cm')
+        self.sc.axes.legend()
+
+        toolbar = CustomNavigationToolbar(self.sc, self)
+        layout = QtWidgets.QVBoxLayout()
+        layout.setAlignment(QtCore.Qt.AlignRight)
+        layout.addWidget(toolbar)
+        layout.addWidget(self.sc)
+        self.ui.graphWidget.setLayout(layout)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

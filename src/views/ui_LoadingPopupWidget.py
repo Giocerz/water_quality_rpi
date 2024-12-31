@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'LoadingPopupWidgetnNwXZX.ui'
+## Form generated from reading UI file 'LoadingPopupWidgetpMihYW.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -13,11 +13,11 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
 
-class Ui_LoadingPopup(object):
+class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(480, 320)
+        Form.resize(480, 272)
         self.lblOpacity = QLabel(Form)
         self.lblOpacity.setObjectName(u"lblOpacity")
         self.lblOpacity.setGeometry(QRect(0, 0, 480, 320))
@@ -25,7 +25,7 @@ class Ui_LoadingPopup(object):
         self.WidgetInfo = QWidget(Form)
         self.WidgetInfo.setObjectName(u"WidgetInfo")
         self.WidgetInfo.setEnabled(True)
-        self.WidgetInfo.setGeometry(QRect(29, 79, 422, 162))
+        self.WidgetInfo.setGeometry(QRect(29, 55, 422, 162))
         self.WidgetInfo.setStyleSheet(u"border-radius: 20px;\n"
 "background-color: white;")
         self.LabelInfo = QLabel(self.WidgetInfo)

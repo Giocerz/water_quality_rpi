@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>480</width>
-    <height>320</height>
+    <height>272</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -34,11 +34,21 @@ QLabel {
 }
 </string>
    </property>
+   <widget class="QWidget" name="graphWidget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>480</width>
+      <height>272</height>
+     </rect>
+    </property>
+   </widget>
    <widget class="QPushButton" name="backBtn">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>20</y>
+      <x>420</x>
+      <y>0</y>
       <width>41</width>
       <height>41</height>
      </rect>
@@ -48,16 +58,6 @@ QLabel {
     </property>
     <property name="text">
      <string/>
-    </property>
-   </widget>
-   <widget class="QWidget" name="graphWidget" native="true">
-    <property name="geometry">
-     <rect>
-      <x>9</x>
-      <y>69</y>
-      <width>461</width>
-      <height>241</height>
-     </rect>
     </property>
    </widget>
   </widget>

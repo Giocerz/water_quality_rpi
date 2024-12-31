@@ -2,8 +2,8 @@ from PySide2.QtWidgets import QGraphicsOpacityEffect, QWidget
 from PySide2.QtCore import QTimer
 from PySide2.QtGui import QTransform
 from PySide2 import QtCore
-from src.views.ui_PopupWidget import Ui_Popup
-from src.views.ui_LoadingPopupWidget import Ui_LoadingPopup
+from src.views.ui_PopupWidget import Ui_Form as Ui_Popup
+from src.views.ui_LoadingPopupWidget import Ui_Form as Ui_Loading
 
 
 class PopupWidget(QWidget):
@@ -82,7 +82,7 @@ class LoadingPopupWidget(QWidget):
     def __init__(self, context, text):
         super().__init__()
         self.context = context
-        self.ui = Ui_LoadingPopup()
+        self.ui = Ui_Loading()
         self.ui.setupUi(self)
 
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)

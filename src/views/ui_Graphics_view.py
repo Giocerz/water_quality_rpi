@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'Graphics_viewoWPjIN.ui'
+## Form generated from reading UI file 'Graphics_viewynliyF.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -13,11 +13,11 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
 
-class Ui_Graphics_view(object):
+class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(480, 320)
+        MainWindow.resize(480, 272)
         MainWindow.setStyleSheet(u"background-color: white;\n"
 "font-family: Poppins;\n"
 "font-size:18px;\n"
@@ -36,13 +36,13 @@ class Ui_Graphics_view(object):
 "	color: #00007f;\n"
 "}\n"
 "")
-        self.backBtn = QPushButton(self.centralwidget)
-        self.backBtn.setObjectName(u"backBtn")
-        self.backBtn.setGeometry(QRect(20, 20, 41, 41))
-        self.backBtn.setStyleSheet(u"")
         self.graphWidget = QWidget(self.centralwidget)
         self.graphWidget.setObjectName(u"graphWidget")
-        self.graphWidget.setGeometry(QRect(9, 69, 461, 241))
+        self.graphWidget.setGeometry(QRect(0, 0, 480, 272))
+        self.backBtn = QPushButton(self.centralwidget)
+        self.backBtn.setObjectName(u"backBtn")
+        self.backBtn.setGeometry(QRect(420, 0, 41, 41))
+        self.backBtn.setStyleSheet(u"")
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'Top_BarBxqakh.ui'
+## Form generated from reading UI file 'Top_BarFfMPtv.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -26,26 +26,46 @@ class Ui_Form(object):
 "	background-color: white;\n"
 "}\n"
 "")
-        self.batLblBg = QLabel(Form)
-        self.batLblBg.setObjectName(u"batLblBg")
-        self.batLblBg.setGeometry(QRect(360, 10, 51, 31))
-        self.batLblBg.setStyleSheet(u"background-color: rgb(85, 255, 0);")
-        self.batLbl = QLabel(Form)
-        self.batLbl.setObjectName(u"batLbl")
-        self.batLbl.setGeometry(QRect(410, 10, 61, 31))
-        self.batLbl.setStyleSheet(u"text-align: center;\n"
-"font-size: 12pt;")
-        self.batLblPng = QLabel(Form)
-        self.batLblPng.setObjectName(u"batLblPng")
-        self.batLblPng.setGeometry(QRect(360, 10, 51, 31))
-        self.batLblPng.setStyleSheet(u"background-color: transparent;")
         self.label = QLabel(Form)
         self.label.setObjectName(u"label")
         self.label.setGeometry(QRect(20, 16, 191, 16))
-        self.chargeLbl = QLabel(Form)
-        self.chargeLbl.setObjectName(u"chargeLbl")
-        self.chargeLbl.setGeometry(QRect(370, 10, 31, 31))
-        self.chargeLbl.setStyleSheet(u"background-color: transparent;")
+        self.batteryExtBorder = QLabel(Form)
+        self.batteryExtBorder.setObjectName(u"batteryExtBorder")
+        self.batteryExtBorder.setGeometry(QRect(380, 11, 60, 26))
+        self.batteryExtBorder.setStyleSheet(u"border: 2px solid #00007f;\n"
+"border-radius: 12px;\n"
+"background-color: transparent;")
+        self.baterryLevel = QLabel(Form)
+        self.baterryLevel.setObjectName(u"baterryLevel")
+        self.baterryLevel.setGeometry(QRect(380, 11, 60, 26))
+        self.baterryLevel.setStyleSheet(u"background: qlineargradient(\n"
+"    x1: 0, y1: 0, x2: 1, y2: 0,\n"
+"    stop:0 rgba(255, 255, 255, 255),\n"
+"	stop:0 rgba(255, 255, 255, 255), \n"
+"	stop:0 rgba(0, 0, 127, 255), \n"
+"	stop:1 rgba(0, 0, 127, 255)\n"
+");\n"
+"border-radius: 12px;\n"
+"\n"
+"")
+        self.batteryIntBorder = QLabel(Form)
+        self.batteryIntBorder.setObjectName(u"batteryIntBorder")
+        self.batteryIntBorder.setGeometry(QRect(382, 13, 56, 22))
+        self.batteryIntBorder.setStyleSheet(u"border: 2px solid white;\n"
+"background-color: transparent;\n"
+"border-radius: 10px;")
+        self.batteryLbl = QLabel(Form)
+        self.batteryLbl.setObjectName(u"batteryLbl")
+        self.batteryLbl.setGeometry(QRect(445, 14, 31, 20))
+        self.chargeIndicator = QLabel(Form)
+        self.chargeIndicator.setObjectName(u"chargeIndicator")
+        self.chargeIndicator.setGeometry(QRect(350, 10, 26, 26))
+        self.baterryLevel.raise_()
+        self.batteryExtBorder.raise_()
+        self.label.raise_()
+        self.batteryIntBorder.raise_()
+        self.batteryLbl.raise_()
+        self.chargeIndicator.raise_()
 
         self.retranslateUi(Form)
 
@@ -54,10 +74,11 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
-        self.batLblBg.setText("")
-        self.batLbl.setText("")
-        self.batLblPng.setText("")
         self.label.setText(QCoreApplication.translate("Form", u"Citizen Aqua Probe V1.0", None))
-        self.chargeLbl.setText("")
+        self.batteryExtBorder.setText("")
+        self.baterryLevel.setText("")
+        self.batteryIntBorder.setText("")
+        self.batteryLbl.setText("")
+        self.chargeIndicator.setText("")
     # retranslateUi
 

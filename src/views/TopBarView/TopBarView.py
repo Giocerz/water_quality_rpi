@@ -3,23 +3,23 @@ from PySide2.QtWidgets import QMainWindow
 from PySide2.QtCore import QTimer
 from PySide2.QtGui import QPixmap
 from src.views.ui_Top_Bar import Ui_Form
+from src.widgets.PopupWidget import PopupWidgetInfo
 from src.logic.INA219 import INA219
 
 
 class TopBarView(QMainWindow):
-    def __init__(self):
+    def __init__(self, context):
         QMainWindow.__init__(self)
+        self.context = context
         self.ui = Ui_Form()
         self.ui.setupUi(self)
+        self.low_battery_flag = False
 
-        pixmap = QPixmap('./src/resources/icons/batteryIcon.png')
-        self.ui.batLblPng.setPixmap(pixmap)
+        pixmap = QPixmap('./src/resources/icons/electric_bolt_b.png')
+        scaled_pixmap = pixmap.scaled(26, 26, QtCore.Qt.IgnoreAspectRatio, QtCore.Qt.SmoothTransformation)
+        self.ui.chargeIndicator.setPixmap(scaled_pixmap)
 
-        pixmap = QPixmap('./src/resources/icons/electric_bolt.png')
-        scaled_pixmap = pixmap.scaled(28, 28, QtCore.Qt.IgnoreAspectRatio, QtCore.Qt.SmoothTransformation)
-        self.ui.chargeLbl.setPixmap(scaled_pixmap)
-
-        self.ui.chargeLbl.hide()
+        self.ui.chargeIndicator.hide()
 
         self.ina219 = INA219(addr=0x42)
 
@@ -42,15 +42,35 @@ class TopBarView(QMainWindow):
     def charge_indicator(self, current):
         print(current)
         if(current > 0):
-            self.ui.chargeLbl.show()
+            self.ui.chargeIndicator.show()
         else:
-            self.ui.chargeLbl.hide()
+            self.ui.chargeIndicator.hide()
 
 
     def update_battery(self, battery_level):
-        self.ui.batLbl.setText(f'{round(battery_level)}%')
-        self.ui.batLbl.setAlignment(QtCore.Qt.AlignCenter)
-        if (battery_level < 20):
-            self.ui.batLblBg.setStyleSheet('background-color: #fb8b24;')
-        move_level = round(-0.39 * battery_level + 47)
-        self.ui.batLblBg.move(367 + move_level, 10)
+        self.ui.batteryLbl.setText(f'{round(battery_level)}%')
+        self.ui.batteryLbl.setAlignment(QtCore.Qt.AlignLeft)
+
+        if(battery_level < 25 and battery_level >= 10):
+            color = '252, 163, 17'
+            if(not self.low_battery_flag):
+                self.open_battery_popup()
+                self.low_battery_flag = True
+        elif(battery_level < 10):
+            color = '230, 57, 70'
+        else:
+            color = '0, 0, 127'
+            self.low_battery_flag = False
+
+        if(battery_level == 100):
+            percent = 0
+        elif(battery_level == 0):
+            percent =0.95
+        else:
+            percent = round((-0.81633 * battery_level + 90.81633)/100.0, 2)
+
+        self.ui.baterryLevel.setStyleSheet(f'background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 0,stop:0 rgba(255, 255, 255, 255),stop:{percent} rgba(255, 255, 255, 255), stop:{percent + 0.01} rgba({color}, 255), stop:1 rgba({color}, 255));border-radius: 12px;')
+
+    def open_battery_popup(self):
+        popup = PopupWidgetInfo(context=self.context,text='Batería baja, conecte el cargador')
+        popup.show()
