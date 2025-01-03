@@ -21,7 +21,7 @@ class LocationdWorker(QThread):
         self.running_state = True
         subprocess.run("sudo systemctl stop gpsd.socket", shell=True)
         time.sleep(0.5)
-        subprocess.run("sudo gpsd /dev/serial0 -F /var/run/gpsd.sock", shell=True)
+        subprocess.run("sudo gpsd /dev/ttyS0 -F /var/run/gpsd.sock", shell=True)
         time.sleep(0.5)
         import gps
         session = gps.gps(mode=gps.WATCH_ENABLE)
