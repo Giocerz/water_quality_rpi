@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'DatoscUbNbc.ui'
+## Form generated from reading UI file 'DatosZSnhfx.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -97,8 +97,15 @@ class Ui_MainWindow(object):
         __qtablewidgetitem27 = QTableWidgetItem()
         self.tableWidget.setItem(2, 5, __qtablewidgetitem27)
         self.tableWidget.setObjectName(u"tableWidget")
-        self.tableWidget.setGeometry(QRect(0, 15, 481, 181))
-        self.tableWidget.setStyleSheet(u"font-size: 12pt;")
+        self.tableWidget.setGeometry(QRect(0, 0, 481, 191))
+        self.tableWidget.setStyleSheet(u"QTableWidget {\n"
+"	font-size: 10pt;\n"
+"}\n"
+"\n"
+"QHeaderView::section {\n"
+"	font-weight: bold;\n"
+"	border: 1px solid #d9d9d9;\n"
+"}")
         self.tableWidget.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.tableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.tableWidget.setSelectionMode(QAbstractItemView.NoSelection)
@@ -148,8 +155,8 @@ class Ui_MainWindow(object):
         self.prevPageBtn.setStyleSheet(u"")
         self.dataCountLbl = QLabel(self.centralwidget)
         self.dataCountLbl.setObjectName(u"dataCountLbl")
-        self.dataCountLbl.setGeometry(QRect(246, 217, 121, 41))
-        self.dataCountLbl.setStyleSheet(u"font-size: 12pt;")
+        self.dataCountLbl.setGeometry(QRect(260, 220, 101, 41))
+        self.dataCountLbl.setStyleSheet(u"font-size: 10pt;")
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)

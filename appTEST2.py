@@ -3,7 +3,7 @@ import sys
 import time
 import random
 from PySide2 import QtWidgets, QtCore
-from PySide2.QtWidgets import QApplication, QMainWindow, QStackedLayout, QTableWidgetItem, QVBoxLayout, QWidget
+from PySide2.QtWidgets import QApplication, QMainWindow, QStackedLayout, QTableWidgetItem, QVBoxLayout, QWidget, QGridLayout
 from PySide2.QtCore import QSize, QThread, Signal, Slot, QTimer
 from PySide2.QtGui import QIcon, QPixmap
 from src.views.ui_MainLayout import Ui_MainLayout
@@ -12,9 +12,11 @@ import src.views.ui_Monitoring3 as Monitoring3
 import src.views.ui_Top_Bar as TopBar
 import src.views.ui_Save as Save_View
 import src.views.ui_Calibration as Calibration_View
+import src.views.ui_Folders_view as Folders_view
 import src.views.ui_Datos as Datos_View
 import src.views.ui_Graphics_view as Graph_View
 from src.widgets.DialogWidget import DialogWidget, DialogWidgetInfo
+from src.widgets.FolderWidget import FolderWidget
 # from src.logic.adcModule import ParametersVoltages
 from src.logic.parametersCalc import *
 # from src.services.bluetoothLE import BluetoothWorker
@@ -107,11 +109,11 @@ class TopBarView(QMainWindow):
         battery_level = self.get_battery_level()
         self.ui.batteryLbl.setText(f'{round(battery_level)}%')
         self.ui.batteryLbl.setAlignment(QtCore.Qt.AlignLeft)
-        print(f'battery_level: {battery_level}')
+        #print(f'battery_level: {battery_level}')
         if(battery_level < 25 and battery_level >= 10):
             color = '252, 163, 17'
             if(not self.low_battery_flag):
-                self.open_battery_popup()
+                #self.open_battery_popup()
                 self.low_battery_flag = True
         elif(battery_level < 10):
             color = '230, 57, 70'
@@ -126,7 +128,7 @@ class TopBarView(QMainWindow):
         else:
             percent = round((-0.81633 * battery_level + 90.81633)/100.0, 2)
         
-        print(f'percent: {percent}')
+        #print(f'percent: {percent}')
         self.ui.baterryLevel.setStyleSheet(f'background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 0,stop:0 rgba(255, 255, 255, 255),stop:{percent} rgba(255, 255, 255, 255), stop:{percent + 0.01} rgba({color}, 255), stop:1 rgba({color}, 255));border-radius: 12px;')
 
     def open_battery_popup(self):
@@ -159,7 +161,7 @@ class MainView(QMainWindow):
         self.open_view(CalibrationView(context=self.context))
 
     def on_datos_clicked(self):
-        self.open_view(DatosView(context=self.context))
+        self.open_view(FoldersView(context=self.context))
 
     def on_bluetooth_clicked(self):
         print('ble')
@@ -634,6 +636,66 @@ class CalibrationView(QMainWindow):
         else:
             self.show_dialog_error('Calibración exitosa')
 
+class FoldersView(QMainWindow):
+    def __init__(self, context):
+        QMainWindow.__init__(self)
+        self.context = context
+        self.ui = Folders_view.Ui_MainWindow()
+        self.ui.setupUi(self)
+        self.ui_components()
+        self.setup_list()
+
+        self.ui.backBtn.clicked.connect(self.on_back_clicked)
+
+    def ui_components(self):
+        icon = QIcon('./src/resources/icons/back.png')
+        self.ui.backBtn.setIcon(icon)
+        self.ui.backBtn.setIconSize(QSize(30, 30))
+
+    def on_back_clicked(self):
+        self.context.removeWidget(self)
+    
+    def setup_list(self):
+        productos = [
+            {'name': 'Producto1', 'description': 'Este es un producto'},
+            {'name': 'Producto2', 'description': 'Este es un producto2'},
+            {'name': 'Producto3', 'description': 'Este es un producto3'},
+            {'name': 'Producto4', 'description': 'Este es un producto4'},
+            {'name': 'Producto5', 'description': 'Este es un producto5'},
+            {'name': 'Producto6', 'description': 'Este es un producto6'},
+            {'name': 'Producto7', 'description': 'Este es un producto7'},
+            {'name': 'Producto8', 'description': 'Este es un producto8'},
+            {'name': 'Producto9', 'description': 'Este es un producto9'},
+            {'name': 'Producto10', 'description': 'Este es un producto10'},
+            {'name': 'Producto11', 'description': 'Este es un producto11'},
+            {'name': 'Producto12', 'description': 'Este es un producto12'},
+            {'name': 'Producto13', 'description': 'Este es un producto13'},
+            {'name': 'Producto14', 'description': 'Este es un producto14'},
+            {'name': 'Producto11', 'description': 'Este es un producto11'},
+            {'name': 'Producto12', 'description': 'Este es un producto12'},
+            {'name': 'Producto13', 'description': 'Este es un producto13'},
+            {'name': 'Producto14', 'description': 'Este es un producto14'},
+            {'name': 'Producto11', 'description': 'Este es un producto11'},
+            {'name': 'Producto12', 'description': 'Este es un producto12'},
+            {'name': 'Producto13', 'description': 'Este es un producto13'},
+            {'name': 'Producto14', 'description': 'Este es un producto14'},
+        ]
+
+        container_widget = QWidget()
+        grid_layout = QGridLayout(container_widget)
+
+        num_cols = 2
+        for i, product in enumerate(productos):
+            product_widget = FolderWidget(name=product['name'], description=product['description'])
+            row = i // num_cols
+            col = i % num_cols
+            grid_layout.addWidget(product_widget, row, col)
+
+        container_widget.setMinimumSize(0, len(productos) // num_cols * 50)
+        # Configurar el widget contenedor en el QScrollArea
+        self.ui.scrollArea.setWidget(container_widget)
+        self.ui.scrollArea.setWidgetResizable(True)
+
 class DatosView(QMainWindow):
     def __init__(self, context):
         QMainWindow.__init__(self)
@@ -667,7 +729,7 @@ class DatosView(QMainWindow):
 
     def data_table_controller(self):
         import math
-        ELEMENTS_NUMBER = 4
+        ELEMENTS_NUMBER = 5
         data_list = WaterDataBase.get_water_quality_params()
         result = []
         self.total_data_len = len(data_list)

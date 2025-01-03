@@ -84,11 +84,10 @@ class ButtonListener2(QThread):
                     if GPIO.input(self.button_pin) == GPIO.LOW:
                         time.sleep(0.3) 
                         if GPIO.input(self.button_pin) == GPIO.LOW:
-                            print('SE PRESIONO EL BOTON')
                             self.button_pressed.emit()
                     time.sleep(0.01)
             except GPIO.error as e:
-                print(f"Error con GPIO: {e}")
+                pass
             finally:
                 self.running = False
                 GPIO.cleanup()

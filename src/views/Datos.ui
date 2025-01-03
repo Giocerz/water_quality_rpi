@@ -37,13 +37,20 @@ QPushButton {
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>15</y>
+      <y>0</y>
       <width>481</width>
-      <height>181</height>
+      <height>191</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font-size: 12pt;</string>
+     <string notr="true">QTableWidget {
+	font-size: 10pt;
+}
+
+QHeaderView::section {
+	font-weight: bold;
+	border: 1px solid #d9d9d9;
+}</string>
     </property>
     <property name="horizontalScrollBarPolicy">
      <enum>Qt::ScrollBarAlwaysOff</enum>
@@ -315,14 +322,14 @@ QSlider{
    <widget class="QLabel" name="dataCountLbl">
     <property name="geometry">
      <rect>
-      <x>246</x>
-      <y>217</y>
-      <width>121</width>
+      <x>260</x>
+      <y>220</y>
+      <width>101</width>
       <height>41</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font-size: 12pt;</string>
+     <string notr="true">font-size: 10pt;</string>
     </property>
     <property name="text">
      <string>1-5 de 11</string>

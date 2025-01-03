@@ -8,7 +8,7 @@ from src.model.WaterQualityDB import WaterDataBase
 
 
 class DatosView(QMainWindow):
-    ELEMENTS_NUMBER = 4
+    ELEMENTS_NUMBER = 5
     def __init__(self, context):
         QMainWindow.__init__(self)
         self.context = context

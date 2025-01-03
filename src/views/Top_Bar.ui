@@ -20,8 +20,7 @@
 
 QWidget {
 	background-color: white;
-}
-</string>
+}</string>
   </property>
   <widget class="QLabel" name="label">
    <property name="geometry">
@@ -123,12 +122,29 @@ border-radius: 10px;</string>
     <string/>
    </property>
   </widget>
+  <widget class="QLabel" name="border">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>45</y>
+     <width>480</width>
+     <height>3</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(199, 199, 199);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
   <zorder>baterryLevel</zorder>
   <zorder>batteryExtBorder</zorder>
   <zorder>label</zorder>
   <zorder>batteryIntBorder</zorder>
   <zorder>batteryLbl</zorder>
   <zorder>chargeIndicator</zorder>
+  <zorder>border</zorder>
  </widget>
  <resources/>
  <connections/>

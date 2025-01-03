@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'Top_BarFfMPtv.ui'
+## Form generated from reading UI file 'Top_BaryBIEuD.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -24,8 +24,7 @@ class Ui_Form(object):
 "\n"
 "QWidget {\n"
 "	background-color: white;\n"
-"}\n"
-"")
+"}")
         self.label = QLabel(Form)
         self.label.setObjectName(u"label")
         self.label.setGeometry(QRect(20, 16, 191, 16))
@@ -60,12 +59,17 @@ class Ui_Form(object):
         self.chargeIndicator = QLabel(Form)
         self.chargeIndicator.setObjectName(u"chargeIndicator")
         self.chargeIndicator.setGeometry(QRect(350, 10, 26, 26))
+        self.border = QLabel(Form)
+        self.border.setObjectName(u"border")
+        self.border.setGeometry(QRect(0, 45, 480, 3))
+        self.border.setStyleSheet(u"background-color: rgb(199, 199, 199);")
         self.baterryLevel.raise_()
         self.batteryExtBorder.raise_()
         self.label.raise_()
         self.batteryIntBorder.raise_()
         self.batteryLbl.raise_()
         self.chargeIndicator.raise_()
+        self.border.raise_()
 
         self.retranslateUi(Form)
 
@@ -80,5 +84,6 @@ class Ui_Form(object):
         self.batteryIntBorder.setText("")
         self.batteryLbl.setText("")
         self.chargeIndicator.setText("")
+        self.border.setText("")
     # retranslateUi
 
