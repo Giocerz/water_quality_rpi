@@ -30,6 +30,7 @@ class WaterParametersService(Service):
         Service.__init__(self, index, SERVICE_UUID, True)
         self.add_characteristic(WQCharacteristic(self))
         self.add_characteristic(IDCharacteristic(self))
+        self.add_characteristic(CalibrationSaveCharacteristic(self))
 
 
 class WQCharacteristic(Characteristic):
