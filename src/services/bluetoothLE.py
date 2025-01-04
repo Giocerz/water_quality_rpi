@@ -137,22 +137,20 @@ class CalibrationSaveCharacteristic(Characteristic):
             self, CALIBRATION_SAVE_UUID,
             ["read", "write"], service)
         self.add_descriptor(CalibrationSaveDescriptor(self))
+        self.calibration_state = False
 
     def WriteValue(self, value, options):
         val = str(value[0])
         if val == "C":
-            self.service.set_farenheit(False)
-        elif val == "F":
-            self.service.set_farenheit(True)
+            self.calibration_state = True
 
     def ReadValue(self, options):
-        value = []
+        value = ''
 
-        if self.service.is_farenheit():
-            val = "F"
+        if self.calibration_state:
+            value = 'CALIBRADO'.encode()
         else:
-            val = "C"
-        value.append(dbus.Byte(val.encode()))
+            value = 'NO CALIBRADO'.encode()
 
         return value
 
