@@ -17,6 +17,7 @@ import src.views.ui_Datos as Datos_View
 import src.views.ui_Graphics_view as Graph_View
 from src.widgets.DialogWidget import DialogWidget, DialogWidgetInfo
 from src.widgets.FolderWidget import FolderWidget
+from src.logic.saveCalibration import SaveCalibration
 # from src.logic.adcModule import ParametersVoltages
 from src.logic.parametersCalc import *
 # from src.services.bluetoothLE import BluetoothWorker
@@ -893,6 +894,7 @@ class GraphView(QMainWindow):
         self.ui.graphWidget.setLayout(layout)
 
 if __name__ == '__main__':
+    save = SaveCalibration()
     app = QApplication(sys.argv)
     
     # Inicializar la aplicación

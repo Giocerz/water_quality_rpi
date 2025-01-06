@@ -8,6 +8,7 @@ from w1thermsensor import W1ThermSensor
 from src.logic.adcModule import ParametersVoltages
 from src.logic.parametersCalc import *
 from src.widgets.PopupWidget import PopupWidget, PopupWidgetInfo
+from src.logic.saveCalibration import SaveCalibration
 
 ########### VISTA DE CALIBRACION Y FUNCIONES#################
 
@@ -84,7 +85,8 @@ class CalibrationView(QMainWindow):
         self.ph_offset = None
         self.ph4 = None
         self.ph10 = None
-        self.phSlope = None
+        self.ph_slopeA = None
+        self.ph_slopeB = None
         self.turb1 = None
         self.turb2 = None
         self.turb3 = None
@@ -306,18 +308,17 @@ class CalibrationView(QMainWindow):
     def handle_ph10(self):
         ph10_voltage = self.parameters_volt.ph_volt()
         try:
-            slopeA = abs((self.ph_offset - self.ph4)/3)
-            slopeB = abs((ph10_voltage - self.ph_offset)/3)
+            slopeA = abs(3/(self.ph_offset - self.ph4))
+            slopeB = abs(3/(ph10_voltage - self.ph_offset))
 
-            slope_temp = (slopeA + slopeB)/2
-
-            if (slope_temp <= 0.01 or slope_temp >= 2.0):
+            if (slopeA <= 1 or slopeA >= 100 or slopeB <= 1 or slopeB >= 100):
                 self.ph_offset = None
                 self.calibration_step = 2
                 self.show_dialog_error('Error: pendiente fuera de rango')
                 return False
             else:
-                self.phSlope = slope_temp
+                self.ph_slopeA = slopeA
+                self.ph_slopeB = slopeB
                 return True
         except:
             self.ph_offset = None
@@ -372,25 +373,21 @@ class CalibrationView(QMainWindow):
 
     def save_calibration(self):
         params_save_flag = False
-        import pandas as pd
-        df = pd.read_csv('./src/config/calibrationSettings.txt')
+        save = SaveCalibration()
         if (self.kValue != None):
-            df.loc[0, 'calibration_values'] = self.kValue
+            save.add_kvalue(self.kValue)
             params_save_flag = True
         if (self.ph_offset != None):
-            df.loc[1, 'calibration_values'] = self.ph_offset
-            df.loc[2, 'calibration_values'] = self.phSlope
+            save.add_ph_offset(self.ph_offset)
+            save.add_ph_slopes([self.ph_slopeA, self.ph_slopeB])
             params_save_flag = True
         if (self.oxygenOffset != None):
-            df.loc[3, 'calibration_values'] = self.oxygenTemperature
-            df.loc[4, 'calibration_values'] = self.oxygenOffset
+            save.add_oxygen(self.oxygenTemperature, self.oxygenOffset)
             params_save_flag = True
         if (self.turb_coef_a != None):
-            df.loc[5, 'calibration_values'] = self.turb_coef_a
-            df.loc[6, 'calibration_values'] = self.turb_coef_b
-            df.loc[7, 'calibration_values'] = self.turb_coef_c
+            save.add_turbidity([self.turb_coef_a, self.turb_coef_b, self.turb_coef_c])
             params_save_flag = True
-        df.to_csv('./src/config/calibrationSettings.txt', index=False)
+        save.save()
 
         if (not params_save_flag):
             self.show_dialog_error('No realizo ninguna calibración')
