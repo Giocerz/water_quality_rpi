@@ -216,7 +216,7 @@ class CalibrationCharacteristic(Characteristic):
             except Exception as e:
                 print(e)
             strtemp = f"dt,{result},pg"
-        self.calibration_state = False
+        self.calibration_finish = False
         return strtemp.encode()
 
     def ReadValue(self, options):
