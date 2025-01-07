@@ -162,6 +162,7 @@ class CalibrationCharacteristic(Characteristic):
             l = len(value)
             init = str(value[0]) + str(value[1])
             finish = str(value[l - 2]) + str(value[l - 1])
+            print(f'FINISH: {init}-{finish}')
             if (init == 'ca' and finish == 'ac'):
                 result = ''
                 for i in range(l):
