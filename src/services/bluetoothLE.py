@@ -14,7 +14,7 @@ NOTIFY_TIMEOUT = 3000
 DEVICE_ID = "CAP0003-FC"
 SERVICE_UUID = "00000001-b149-430d-8d97-e2ed464102df"
 DEVICE_ID_UUID = "00000002-b149-430d-8d97-e2ed464102df"
-CALIBRATION_SAVE_UUID = "00000003-b149-430d-8d97-e2ed464102df"
+CALIBRATION_SAVE_UUID = "00000009-b149-430d-8d97-e2ed464102df"
 CALIBRATION_UUID = "00000003-b149-430d-8d97-e2ed464102df"
 MONITORING_UUID = "00000005-b149-430d-8d97-e2ed464102df"
 
@@ -32,7 +32,7 @@ class WaterParametersService(Service):
         Service.__init__(self, index, SERVICE_UUID, True)
         self.add_characteristic(WQCharacteristic(self))
         self.add_characteristic(IDCharacteristic(self))
-        self.add_characteristic(CalibrationSaveCharacteristic(self))
+        self.add_characteristic(CalibrationCharacteristic(self))
 
 
 class WQCharacteristic(Characteristic):

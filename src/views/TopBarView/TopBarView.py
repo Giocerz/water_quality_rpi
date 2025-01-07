@@ -40,7 +40,6 @@ class TopBarView(QMainWindow):
         self.charge_indicator(current= current)
     
     def charge_indicator(self, current):
-        print(current)
         if(current > 0):
             self.ui.chargeIndicator.show()
         else:
