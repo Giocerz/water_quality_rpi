@@ -217,6 +217,9 @@ class CalibrationCharacteristic(Characteristic):
                 print(e)
             strtemp = f"dt,{result},pg"
         self.calibration_finish = False
+        print('***********************************')
+        print(f'ESTADO: {self.calibration_state}')
+        print(f'DATOS: {strtemp}')
         return strtemp.encode()
 
     def ReadValue(self, options):
