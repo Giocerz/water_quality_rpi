@@ -153,6 +153,7 @@ class CalibrationCharacteristic(Characteristic):
         self.parameters_calc = ParametersCalculate()
 
     def WriteValue(self, value, options):
+        self.calibration_state = ''
         val = str(value[0])
         if val == "w":
             for i in range(len(value)):
