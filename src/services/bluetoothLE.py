@@ -185,6 +185,7 @@ class CalibrationCharacteristic(Characteristic):
             save.save()
             self.calibration_finish = True
         except Exception as e:
+            print(e)
             self.calibration_finish = False
 
     def get_parameters(self):
