@@ -175,13 +175,13 @@ class CalibrationCharacteristic(Characteristic):
             save = SaveCalibration()
             values = value.split(',')
             if (values[1] != 'nu'):
-                save.add_kvalue(self.kValue)
+                save.add_kvalue(float(values[1]))
             if (values[2] != 'nu'):
-                save.add_ph_offset(self.ph_offset)
+                save.add_ph_offset(float(values[2]))
                 if (values[3] != 'nu'):
-                    save.add_ph_slopes([self.ph_slopeA, self.ph_slopeB])
+                    save.add_ph_slopes([float(values[3]), float(values[4])])
             if (values[5] != 'nu'):
-                save.add_oxygen(self.oxygenTemperature, self.oxygenOffset)
+                save.add_oxygen(float(values[5]), float(values[6]))
             save.save()
             self.calibration_finish = True
         except Exception as e:
