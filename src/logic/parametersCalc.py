@@ -11,7 +11,8 @@ class ParametersCalculate():
 
         self.kValue = None
         self.phOffset = None
-        self.phSlope = None
+        self.phSlopeA = None
+        self.phSlopeB = None
         self.oxygenTempCal = None
         self.oxygenVoltCal = None
         self.turb_coef_a = None
@@ -57,7 +58,10 @@ class ParametersCalculate():
             return kValueTemp
 
     def calculatePh(self, voltage: float) -> float:
-        return (voltage - self.phOffset)/self.phSlope + 7
+        if(voltage < self.phOffset):
+            return (voltage - self.phOffset)/self.phSlopeA + 7
+        else:
+            return (voltage - self.phOffset)/self.phSlopeB + 7
 
     def calculateDo(self, voltage: float, temperature:float) -> float:
         if(temperature > 40.0):
