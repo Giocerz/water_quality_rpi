@@ -181,7 +181,9 @@ class CalibrationCharacteristic(Characteristic):
                 if (values[3] != 'nu'):
                     save.add_ph_slopes([float(values[3]), float(values[4])])
             if (values[5] != 'nu'):
-                save.add_oxygen(float(values[5]), float(values[6]))
+                save.add_turbidity([float(values[5]), float(values[6]), float(values[7])])
+            if (values[8] != 'nu'):
+                save.add_oxygen(float(values[8]), float(values[9]))
             save.save()
             self.calibration_finish = True
         except Exception as e:
