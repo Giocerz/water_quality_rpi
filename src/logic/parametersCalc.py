@@ -27,12 +27,13 @@ class ParametersCalculate():
         lista = df['calibration_values'].tolist()
         self.kValue = float(lista[0])
         self.phOffset = float(lista[1])
-        self.phSlope = float(lista[2])
-        self.oxygenTempCal = float(lista[3])
-        self.oxygenVoltCal = float(lista[4]) * 1000
-        self.turb_coef_a = float(lista[5])
-        self.turb_coef_b = float(lista[6])
-        self.turb_coef_c = float(lista[7])
+        self.phSlopeA = float(lista[2])
+        self.phSlopeB = float(lista[3])
+        self.oxygenTempCal = float(lista[4])
+        self.oxygenVoltCal = float(lista[5]) * 1000
+        self.turb_coef_a = float(lista[6])
+        self.turb_coef_b = float(lista[7])
+        self.turb_coef_c = float(lista[8])
 
     def calculateTds(self, temperature: float, voltage: float) -> float:
         kValue = self.kValue
