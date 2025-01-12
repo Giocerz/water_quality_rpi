@@ -74,6 +74,7 @@ class SaveDataView(QMainWindow):
 
         self.location_worker = LocationdWorker()
 
+
         self.ui.backBtn.clicked.connect(self.on_back_clicked)
         self.ui.gpsBtn.clicked.connect(self.on_gps_clicked)
         self.ui.saveBtn.clicked.connect(self.on_save_clicked)
@@ -87,15 +88,16 @@ class SaveDataView(QMainWindow):
         icon = QIcon('./src/resources/icons/back.png')
         self.ui.backBtn.setIcon(icon)
         self.ui.backBtn.setIconSize(QSize(30, 30))
+        self.ui.stackedWidget.setCurrentIndex(0)
 
     def on_back_clicked(self):
         self.context.removeWidget(self)
 
     def on_next_clicked(self):
-        self.ui.tabWidget.setCurrentIndex(0)
+        self.ui.stackedWidget.setCurrentIndex(0)
     
     def on_prev_clicked(self):
-        self.ui.tabWidget.setCurrentIndex(1)
+        self.ui.stackedWidget.setCurrentIndex(1)
 
     def on_gps_clicked(self):
         self.loading_popup = LoadingPopupWidget(context=self.context, text='Localizando...')

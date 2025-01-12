@@ -32,7 +32,7 @@ QWidget {
     </rect>
    </property>
    <property name="text">
-    <string>Citizen Aqua Probe V1.0</string>
+    <string>CAP1.0</string>
    </property>
   </widget>
   <widget class="QLabel" name="batteryExtBorder">

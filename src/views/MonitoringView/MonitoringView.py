@@ -1,7 +1,7 @@
 from PySide2 import QtCore
 from PySide2.QtWidgets import QMainWindow
 from PySide2.QtCore import QSize, QThread, Signal
-from PySide2.QtGui import QIcon, QPixmap
+from PySide2.QtGui import QIcon
 from src.views.ui_Monitoring3 import Ui_MainWindow
 import time
 from w1thermsensor import W1ThermSensor

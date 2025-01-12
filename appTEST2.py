@@ -3,7 +3,7 @@ import sys
 import time
 import random
 from PySide2 import QtWidgets, QtCore
-from PySide2.QtWidgets import QApplication, QMainWindow, QStackedLayout, QTableWidgetItem, QVBoxLayout, QWidget, QGridLayout
+from PySide2.QtWidgets import QApplication, QMainWindow, QStackedLayout, QTableWidgetItem, QVBoxLayout, QWidget, QGridLayout, QSizePolicy
 from PySide2.QtCore import QSize, QThread, Signal, Slot, QTimer
 from PySide2.QtGui import QIcon, QPixmap
 from src.views.ui_MainLayout import Ui_MainLayout
@@ -12,12 +12,13 @@ import src.views.ui_Monitoring3 as Monitoring3
 import src.views.ui_Top_Bar as TopBar
 import src.views.ui_Save as Save_View
 import src.views.ui_Calibration as Calibration_View
-import src.views.ui_Folders_view as Folders_view
-import src.views.ui_Datos as Datos_View
+from src.views.DatosView.DatosView import DatosView
 import src.views.ui_Graphics_view as Graph_View
 from src.widgets.DialogWidget import DialogWidget, DialogWidgetInfo
+from src.views.FoldersView.FoldersView import FoldersView
 from src.widgets.FolderWidget import FolderWidget
 from src.logic.saveCalibration import SaveCalibration
+from src.views.EditCalibrationValuesView.EditCalibrationValuesView import EditCalibrationValuesView
 # from src.logic.adcModule import ParametersVoltages
 from src.logic.parametersCalc import *
 # from src.services.bluetoothLE import BluetoothWorker
@@ -154,6 +155,7 @@ class MainView(QMainWindow):
         self.ui.calibrationBtn.clicked.connect(self.on_calibration_clicked)
         self.ui.dataBtn.clicked.connect(self.on_datos_clicked)
         self.ui.bluetoothBtn.clicked.connect(self.on_bluetooth_clicked)
+        self.ui.editVauesBtn.clicked.connect(self.on_edit_clicked)
 
     def on_monitoring_clicked(self):
         self.open_view(MonitoringView(context=self.context))
@@ -166,6 +168,9 @@ class MainView(QMainWindow):
 
     def on_bluetooth_clicked(self):
         print('ble')
+    
+    def on_edit_clicked(self):
+        self.open_view(EditCalibrationValuesView(context=self.context))
     
     def open_view(self, view):
         self.context.addWidget(view)
@@ -294,6 +299,7 @@ class SaveDataView(QMainWindow):
         icon = QIcon('./src/resources/icons/back.png')
         self.ui.backBtn.setIcon(icon)
         self.ui.backBtn.setIconSize(QSize(30, 30))
+        self.ui.stackedWidget.setCurrentIndex(0)
 
     def on_gps_clicked(self):
         self.loading_popup = LoadingPopupWidget(context=self.context,text='Localizando...')
@@ -310,10 +316,10 @@ class SaveDataView(QMainWindow):
         self.context.removeWidget(self)
 
     def on_next_clicked(self):
-        self.ui.tabWidget.setCurrentIndex(0)
+        self.ui.stackedWidget.setCurrentIndex(1)
     
     def on_prev_clicked(self):
-        self.ui.tabWidget.setCurrentIndex(1)
+        self.ui.stackedWidget.setCurrentIndex(0)
 
     def show_dialog_error(self, error: str):
         dialog = PopupWidgetInfo(context=self.context, text=error)
@@ -636,204 +642,6 @@ class CalibrationView(QMainWindow):
             self.show_dialog_error('No realizo ninguna calibración')
         else:
             self.show_dialog_error('Calibración exitosa')
-
-class FoldersView(QMainWindow):
-    def __init__(self, context):
-        QMainWindow.__init__(self)
-        self.context = context
-        self.ui = Folders_view.Ui_MainWindow()
-        self.ui.setupUi(self)
-        self.ui_components()
-        self.setup_list()
-
-        self.ui.backBtn.clicked.connect(self.on_back_clicked)
-
-    def ui_components(self):
-        icon = QIcon('./src/resources/icons/back.png')
-        self.ui.backBtn.setIcon(icon)
-        self.ui.backBtn.setIconSize(QSize(30, 30))
-
-    def on_back_clicked(self):
-        self.context.removeWidget(self)
-    
-    def setup_list(self):
-        productos = [
-            {'name': 'Producto1', 'description': 'Este es un producto'},
-            {'name': 'Producto2', 'description': 'Este es un producto2'},
-            {'name': 'Producto3', 'description': 'Este es un producto3'},
-            {'name': 'Producto4', 'description': 'Este es un producto4'},
-            {'name': 'Producto5', 'description': 'Este es un producto5'},
-            {'name': 'Producto6', 'description': 'Este es un producto6'},
-            {'name': 'Producto7', 'description': 'Este es un producto7'},
-            {'name': 'Producto8', 'description': 'Este es un producto8'},
-            {'name': 'Producto9', 'description': 'Este es un producto9'},
-            {'name': 'Producto10', 'description': 'Este es un producto10'},
-            {'name': 'Producto11', 'description': 'Este es un producto11'},
-            {'name': 'Producto12', 'description': 'Este es un producto12'},
-            {'name': 'Producto13', 'description': 'Este es un producto13'},
-            {'name': 'Producto14', 'description': 'Este es un producto14'},
-            {'name': 'Producto11', 'description': 'Este es un producto11'},
-            {'name': 'Producto12', 'description': 'Este es un producto12'},
-            {'name': 'Producto13', 'description': 'Este es un producto13'},
-            {'name': 'Producto14', 'description': 'Este es un producto14'},
-            {'name': 'Producto11', 'description': 'Este es un producto11'},
-            {'name': 'Producto12', 'description': 'Este es un producto12'},
-            {'name': 'Producto13', 'description': 'Este es un producto13'},
-            {'name': 'Producto14', 'description': 'Este es un producto14'},
-        ]
-
-        container_widget = QWidget()
-        grid_layout = QGridLayout(container_widget)
-
-        num_cols = 2
-        for i, product in enumerate(productos):
-            product_widget = FolderWidget(name=product['name'], description=product['description'])
-            row = i // num_cols
-            col = i % num_cols
-            grid_layout.addWidget(product_widget, row, col)
-
-        container_widget.setMinimumSize(0, len(productos) // num_cols * 50)
-        # Configurar el widget contenedor en el QScrollArea
-        self.ui.scrollArea.setWidget(container_widget)
-        self.ui.scrollArea.setWidgetResizable(True)
-
-class DatosView(QMainWindow):
-    def __init__(self, context):
-        QMainWindow.__init__(self)
-        self.context = context
-        self.ui = Datos_View.Ui_MainWindow()
-        self.ui.setupUi(self)
-        self.ui_components()
-
-        self.table_pages:int = 0
-        self.total_data_len:int = 0
-        self.current_page:int = 0
-
-        # Configurar la tabla
-        self.ui.tableWidget.setColumnCount(13)
-        self.ui.tableWidget.setHorizontalHeaderLabels(
-            ['Nombre', 'Fecha', 'Hora', 'Latitud', 'Longitud','Temperatura', 'Oxígeno', 'TDS', 'pH', 'Conductividad', 'Turbidez', 'Origen', '¿Llovió?'])
-
-        # Llenar la tabla con los datos de la base de datos
-        self.data_table_controller()
-
-        self.ui.backBtn.clicked.connect(self.on_back_clicked)
-        self.ui.actBtn.clicked.connect(self.open_graph_view)
-
-        self.ui.horizontalSlider.valueChanged.connect(self.slider_value_changed)
-
-        self.scrollBar.rangeChanged.connect(self.adjust_slider_range)
-        self.scrollBar.valueChanged.connect(self.scroll_value_changed)
-
-        self.ui.nextPageBtn.clicked.connect(self.handle_nextPageBtn)
-        self.ui.prevPageBtn.clicked.connect(self.handle_prevPageBtn)
-
-    def data_table_controller(self):
-        import math
-        ELEMENTS_NUMBER = 5
-        data_list = WaterDataBase.get_water_quality_params()
-        result = []
-        self.total_data_len = len(data_list)
-        self.table_pages = math.ceil((self.total_data_len / ELEMENTS_NUMBER))
-        for i in range(self.table_pages):
-            sub_list = []
-            for j in range(ELEMENTS_NUMBER*i, ELEMENTS_NUMBER*(i+1)):
-                if(j >= len(data_list)):
-                    break
-                sub_list.append(data_list[j])
-            result.append(sub_list)
-        self.data_pages = result
-        self.update_page(1)
-    
-    def handle_nextPageBtn(self):
-        self.update_page(self.current_page + 1)
-
-    def handle_prevPageBtn(self):
-        self.update_page(self.current_page - 1)
-        
-    def update_page(self, page):
-        ELEMENTS_NUMBER = 4
-        self.current_page = page
-        if(self.current_page >= len(self.data_pages)):
-            label_pages = f"{ELEMENTS_NUMBER*self.current_page - (ELEMENTS_NUMBER - 1)}-{(self.total_data_len)} de {self.total_data_len}"
-        else:
-            label_pages = f"{ELEMENTS_NUMBER*self.current_page - (ELEMENTS_NUMBER - 1)}-{(ELEMENTS_NUMBER*self.current_page)} de {self.total_data_len}"
-        self.ui.dataCountLbl.setText(label_pages)
-        self.ui.dataCountLbl.setAlignment(QtCore.Qt.AlignCenter)
-        self.ui.prevPageBtn.setEnabled(not(page == 1))
-        self.ui.nextPageBtn.setEnabled(not(page == len(self.data_pages)))
-        data = self.data_pages[self.current_page - 1]
-        self.load_table_data(data=data)
-
-    def ui_components(self):
-        icon = QIcon('./src/resources/icons/arrowr.png')
-        self.ui.nextPageBtn.setIcon(icon)
-        self.ui.nextPageBtn.setIconSize(QSize(30, 30))
-        icon = QIcon('./src/resources/icons/arrowl.png')
-        self.ui.prevPageBtn.setIcon(icon)
-        self.ui.prevPageBtn.setIconSize(QSize(30, 30))
-        icon = QIcon('./src/resources/icons/back.png')
-        self.ui.backBtn.setIcon(icon)
-        self.ui.backBtn.setIconSize(QSize(30, 30))
-
-        self.scrollBar = self.ui.tableWidget.horizontalScrollBar()
-        self.ui.horizontalSlider.setRange(self.scrollBar.minimum(), self.scrollBar.maximum())
-
-    def slider_value_changed(self, value):
-        self.scrollBar.setValue(value)
-
-    def adjust_slider_range(self, min, max):
-        self.ui.horizontalSlider.setRange(min, max)    
-
-    def scroll_value_changed(self, value):
-        self.ui.horizontalSlider.setValue(value) 
-
-    def on_back_clicked(self):
-        self.context.removeWidget(self)
-
-    def open_graph_view(self):
-        view = GraphView(context= self.context)
-        self.context.addWidget(view)
-        self.context.setCurrentIndex(self.context.currentIndex() + 1)
-
-    def load_table_data(self, data:list[list[WaterQualityParams]]):
-        data_list = data
-
-        self.ui.tableWidget.setRowCount(len(data_list))
-
-        for row_idx, data in enumerate(data_list):
-            self.ui.tableWidget.setItem(row_idx, 0, QTableWidgetItem(str(data.name)))
-            self.ui.tableWidget.setItem(row_idx, 1, QTableWidgetItem(str(data.date)))
-            self.ui.tableWidget.setItem(row_idx, 2, QTableWidgetItem(str(data.hour)))
-            self.ui.tableWidget.setItem(row_idx, 3, QTableWidgetItem(str(data.latitude)))
-            self.ui.tableWidget.setItem(row_idx, 4, QTableWidgetItem(str(data.longitude)))
-
-            # Temperatura (si no es None)
-            if data.temperature is not None:
-                self.ui.tableWidget.setItem(row_idx, 5, QTableWidgetItem(str(data.temperature)))
-
-            # Oxígeno (si no es None)
-            if data.oxygen is not None:
-                self.ui.tableWidget.setItem(row_idx, 6, QTableWidgetItem(str(data.oxygen)))
-
-            # TDS (si no es None)
-            if data.tds is not None:
-                self.ui.tableWidget.setItem(row_idx, 7, QTableWidgetItem(str(data.tds)))
-
-            # pH (si no es None)
-            if data.ph is not None:
-                self.ui.tableWidget.setItem(row_idx, 8, QTableWidgetItem(str(data.ph)))
-
-            # Conductividad (si no es None, calculada como el doble de TDS)
-            if data.tds is not None:
-                conductividad = data.tds * 2
-                self.ui.tableWidget.setItem(row_idx, 9, QTableWidgetItem(str(conductividad)))
-            
-            if data.turbidity is not None:
-                self.ui.tableWidget.setItem(row_idx, 10, QTableWidgetItem(str(data.turbidity)))
-
-            self.ui.tableWidget.setItem(row_idx, 11, QTableWidgetItem(str(data.sample_origin)))
-            self.ui.tableWidget.setItem(row_idx, 12, QTableWidgetItem(str(data.it_rained)))
 
 class MplCanvas(FigureCanvasQTAgg):
     def __init__(self, parent=None, width=5, height=4, dpi=100):

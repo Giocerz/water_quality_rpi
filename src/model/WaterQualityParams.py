@@ -18,7 +18,9 @@ class WaterQualityParams:
                  ph: Optional[float] = None,
                  tds: Optional[float] = None,
                  temperature: Optional[float] = None,
-                 turbidity: Optional[float] = None):
+                 turbidity: Optional[float] = None,
+                 battery: Optional[float] = None
+                 ):
         
         self.id: Optional[int] = id
         self.name: str = name
@@ -33,6 +35,7 @@ class WaterQualityParams:
         self.tds: Optional[float] = tds
         self.temperature: Optional[float] = temperature
         self.turbidity: Optional[float] = turbidity
+        self.battery: Optional[float] = battery
         self.sample_origin: str = sample_origin
         self.it_rained: str = it_rained
         self.upload_state: int = upload_state
@@ -53,6 +56,7 @@ class WaterQualityParams:
             'tds': self.tds,
             'temperature': self.temperature,
             'turbidity': self.turbidity,
+            'battery': self.battery,
             'sample_origin': self.sample_origin,
             'it_rained': self.it_rained,
             'upload_state': self.upload_state,

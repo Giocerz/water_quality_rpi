@@ -4,7 +4,6 @@ from src.views.ui_Keyboard import Ui_Keyboard
 
 class KeyboardWidget(QWidget):
     def __init__(self, focusLine):
-        print('Keybiard')
         QWidget.__init__(self)
         self.ui = Ui_Keyboard()
         self.ui.setupUi(self)
@@ -143,7 +142,7 @@ class KeyboardWidget(QWidget):
     def backspaceReleased(self):
         self.timerBackSpace.stop()
         button = self.sender()
-        button.setStyleSheet("border-radius: 10px; background-color: rgb(0, 98, 204); font: 12pt \"Poppins\"; color: rgb(255, 255, 255);")
+        button.setStyleSheet("border-radius: 10px; background-color: #00007F; font: 12pt \"Poppins\"; color: rgb(255, 255, 255);")
         self.focusLine.setFocus()   
 
     def backspaceHeld(self):
@@ -236,7 +235,7 @@ class KeyboardWidget(QWidget):
 
     def capReleased(self):
         button = self.sender()
-        button.setStyleSheet("border-radius: 10px; background-color: rgb(0, 98, 204); font: 11pt \"Poppins\"; color: rgb(255, 255, 255);")
+        button.setStyleSheet("border-radius: 10px; background-color: #00007F; font: 11pt \"Poppins\"; color: rgb(255, 255, 255);")
         self.focusLine.setFocus()   
 
     def numbersCharsPressed(self):
@@ -292,7 +291,7 @@ class KeyboardWidget(QWidget):
 
     def numbersCharsReleased(self):
         button = self.sender()
-        button.setStyleSheet("border-radius: 10px; background-color: rgb(0, 98, 204); font: 11pt \"Poppins\"; color: rgb(255, 255, 255);")
+        button.setStyleSheet("border-radius: 10px; background-color: #00007F; font: 11pt \"Poppins\"; color: rgb(255, 255, 255);")
         self.focusLine.setFocus()      
 
     def set_mayus(self):

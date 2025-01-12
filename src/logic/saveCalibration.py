@@ -1,6 +1,32 @@
 import pandas as pd
 import os
 
+class CalibrationTurbidityValues:
+    def __init__(self):
+        file_path = './src/config/calibrationTurbidityValues.txt'
+        if not os.path.exists(file_path):
+            os.makedirs(os.path.dirname(file_path), exist_ok=True)
+            default_content = """calibration_values
+0.28
+108
+287
+475
+"""
+            with open(file_path, 'w') as file:
+                file.write(default_content)
+        self.df = pd.read_csv(file_path)
+
+    def read_values(self) -> list[float]:
+        return self.df['calibration_values'].astype(float).tolist()
+
+    def save_values(self, newValues:list):
+        for i in range(len(newValues)):
+            self.df.loc[i, 'calibration_values'] = newValues[i]
+        self.df.to_csv('./src/config/calibrationTurbidityValues.txt', index=False)
+        self.df = None
+
+
+
 class SaveCalibration:
     def __init__(self):
         file_path = './src/config/calibrationSettings.txt'

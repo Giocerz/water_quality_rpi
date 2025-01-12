@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'SaveBEXHWf.ui'
+## Form generated from reading UI file 'SaveFaDctR.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -25,7 +25,7 @@ class Ui_MainWindow(object):
         self.centralwidget.setStyleSheet(u"")
         self.backBtn = QPushButton(self.centralwidget)
         self.backBtn.setObjectName(u"backBtn")
-        self.backBtn.setGeometry(QRect(20, 0, 41, 41))
+        self.backBtn.setGeometry(QRect(5, 0, 41, 41))
         self.backBtn.setStyleSheet(u"height: 40px;\n"
 "border-radius: 20px;\n"
 "border: 1px solid #00007f;\n"
@@ -33,28 +33,50 @@ class Ui_MainWindow(object):
 "color: #00007f;\n"
 "font-weight: 500;\n"
 "font-size: 11px;")
-        self.tabWidget = QTabWidget(self.centralwidget)
-        self.tabWidget.setObjectName(u"tabWidget")
-        self.tabWidget.setGeometry(QRect(0, 0, 481, 271))
-        self.tabWidget.setLayoutDirection(Qt.RightToLeft)
-        self.tabWidget.setTabPosition(QTabWidget.North)
-        self.tabWidget.setElideMode(Qt.ElideNone)
-        self.tab_2 = QWidget()
-        self.tab_2.setObjectName(u"tab_2")
-        self.label_4 = QLabel(self.tab_2)
-        self.label_4.setObjectName(u"label_4")
-        self.label_4.setGeometry(QRect(110, 90, 281, 21))
-        self.gpsBtn = QPushButton(self.tab_2)
-        self.gpsBtn.setObjectName(u"gpsBtn")
-        self.gpsBtn.setGeometry(QRect(160, 120, 180, 31))
-        self.gpsBtn.setStyleSheet(u"border-radius: 20px;\n"
+        self.stackedWidget = QStackedWidget(self.centralwidget)
+        self.stackedWidget.setObjectName(u"stackedWidget")
+        self.stackedWidget.setGeometry(QRect(0, 0, 481, 271))
+        self.page = QWidget()
+        self.page.setObjectName(u"page")
+        self.inputPlace = QLineEdit(self.page)
+        self.inputPlace.setObjectName(u"inputPlace")
+        self.inputPlace.setGeometry(QRect(140, 40, 180, 26))
+        self.inputPlace.setStyleSheet(u"border-color: rgb(0, 0, 0);\n"
+"border-style: solid;\n"
+"border-width: 1px;\n"
+"border-radius: 6px;\n"
+"font: 12pt \"Poppins\";\n"
+"background-color: rgb(234, 234, 234);")
+        self.inputPlace.setMaxLength(50)
+        self.widgetKeyboard = QWidget(self.page)
+        self.widgetKeyboard.setObjectName(u"widgetKeyboard")
+        self.widgetKeyboard.setGeometry(QRect(0, 140, 480, 135))
+        self.widgetKeyboard.setStyleSheet(u"background-color: rgb(234, 234, 234);")
+        self.checkBox = QCheckBox(self.page)
+        self.checkBox.setObjectName(u"checkBox")
+        self.checkBox.setGeometry(QRect(80, 90, 191, 16))
+        self.checkBox.setLayoutDirection(Qt.RightToLeft)
+        self.checkBox.setStyleSheet(u"font-size: 11pt;\n"
+"background-color: transparent;\n"
+"height: 21px;\n"
+"")
+        self.label = QLabel(self.page)
+        self.label.setObjectName(u"label")
+        self.label.setGeometry(QRect(140, 18, 61, 21))
+        self.nextBtn = QPushButton(self.page)
+        self.nextBtn.setObjectName(u"nextBtn")
+        self.nextBtn.setGeometry(QRect(350, 80, 111, 31))
+        self.nextBtn.setStyleSheet(u"border-radius: 20px;\n"
 "background-color: #00007f;\n"
 "color: white;\n"
 "border: none;\n"
 "border-radius: 15px;\n"
 "font-size: 11pt;\n"
 "")
-        self.comboBox = QComboBox(self.tab_2)
+        self.stackedWidget.addWidget(self.page)
+        self.page_2 = QWidget()
+        self.page_2.setObjectName(u"page_2")
+        self.comboBox = QComboBox(self.page_2)
         self.comboBox.addItem("")
         self.comboBox.addItem("")
         self.comboBox.addItem("")
@@ -73,27 +95,16 @@ class Ui_MainWindow(object):
         self.comboBox.addItem("")
         self.comboBox.addItem("")
         self.comboBox.setObjectName(u"comboBox")
-        self.comboBox.setGeometry(QRect(190, 40, 181, 26))
+        self.comboBox.setGeometry(QRect(170, 20, 233, 30))
+        self.comboBox.setLayoutDirection(Qt.LeftToRight)
         self.comboBox.setStyleSheet(u"border-color: rgb(0, 0, 0);\n"
 "border-style: solid;\n"
 "border-width: 1px;\n"
 "border-radius: 6px;")
-        self.label_2 = QLabel(self.tab_2)
-        self.label_2.setObjectName(u"label_2")
-        self.label_2.setGeometry(QRect(130, 40, 51, 21))
-        self.saveBtn = QPushButton(self.tab_2)
-        self.saveBtn.setObjectName(u"saveBtn")
-        self.saveBtn.setGeometry(QRect(350, 190, 111, 31))
-        self.saveBtn.setStyleSheet(u"border-radius: 20px;\n"
-"background-color: #00007f;\n"
-"color: white;\n"
-"border: none;\n"
-"border-radius: 15px;\n"
-"font-size: 11pt;\n"
-"")
-        self.prevBtn = QPushButton(self.tab_2)
+        self.comboBox.setSizeAdjustPolicy(QComboBox.AdjustToContents)
+        self.prevBtn = QPushButton(self.page_2)
         self.prevBtn.setObjectName(u"prevBtn")
-        self.prevBtn.setGeometry(QRect(30, 190, 111, 31))
+        self.prevBtn.setGeometry(QRect(30, 230, 111, 31))
         self.prevBtn.setStyleSheet(u"border-radius: 20px;\n"
 "background-color: #00007f;\n"
 "color: white;\n"
@@ -101,51 +112,138 @@ class Ui_MainWindow(object):
 "border-radius: 15px;\n"
 "font-size: 11pt;\n"
 "")
-        self.tabWidget.addTab(self.tab_2, "")
-        self.tab_1 = QWidget()
-        self.tab_1.setObjectName(u"tab_1")
-        self.widgetKeyboard = QWidget(self.tab_1)
-        self.widgetKeyboard.setObjectName(u"widgetKeyboard")
-        self.widgetKeyboard.setGeometry(QRect(0, 100, 480, 135))
-        self.widgetKeyboard.setStyleSheet(u"background-color: rgb(234, 234, 234);")
-        self.label = QLabel(self.tab_1)
-        self.label.setObjectName(u"label")
-        self.label.setGeometry(QRect(80, 26, 51, 21))
-        self.inputPlace = QLineEdit(self.tab_1)
-        self.inputPlace.setObjectName(u"inputPlace")
-        self.inputPlace.setGeometry(QRect(140, 22, 180, 26))
-        self.inputPlace.setStyleSheet(u"border-color: rgb(0, 0, 0);\n"
-"border-style: solid;\n"
-"border-width: 1px;\n"
-"border-radius: 6px;\n"
-"font: 12pt \"Poppins\";\n"
-"background-color: rgb(234, 234, 234);")
-        self.inputPlace.setMaxLength(30)
-        self.checkBox = QCheckBox(self.tab_1)
-        self.checkBox.setObjectName(u"checkBox")
-        self.checkBox.setGeometry(QRect(80, 70, 191, 16))
-        self.checkBox.setStyleSheet(u"font-size: 11pt;\n"
-"background-color: transparent;\n"
-"height: 21px;\n"
-"")
-        self.nextBtn = QPushButton(self.tab_1)
-        self.nextBtn.setObjectName(u"nextBtn")
-        self.nextBtn.setGeometry(QRect(350, 60, 111, 31))
-        self.nextBtn.setStyleSheet(u"border-radius: 20px;\n"
+        self.label_2 = QLabel(self.page_2)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setGeometry(QRect(110, 20, 51, 21))
+        self.gpsBtn = QPushButton(self.page_2)
+        self.gpsBtn.setObjectName(u"gpsBtn")
+        self.gpsBtn.setGeometry(QRect(160, 100, 180, 31))
+        self.gpsBtn.setStyleSheet(u"border-radius: 20px;\n"
 "background-color: #00007f;\n"
 "color: white;\n"
 "border: none;\n"
 "border-radius: 15px;\n"
 "font-size: 11pt;\n"
 "")
-        self.tabWidget.addTab(self.tab_1, "")
+        self.label_4 = QLabel(self.page_2)
+        self.label_4.setObjectName(u"label_4")
+        self.label_4.setGeometry(QRect(110, 70, 281, 21))
+        self.saveBtn = QPushButton(self.page_2)
+        self.saveBtn.setObjectName(u"saveBtn")
+        self.saveBtn.setGeometry(QRect(350, 230, 111, 31))
+        self.saveBtn.setStyleSheet(u"border-radius: 20px;\n"
+"background-color: #00007f;\n"
+"color: white;\n"
+"border: none;\n"
+"border-radius: 15px;\n"
+"font-size: 11pt;\n"
+"")
+        self.selectFolderBtn = QPushButton(self.page_2)
+        self.selectFolderBtn.setObjectName(u"selectFolderBtn")
+        self.selectFolderBtn.setGeometry(QRect(160, 180, 181, 31))
+        self.selectFolderBtn.setStyleSheet(u"border-radius: 20px;\n"
+"background-color: #00007f;\n"
+"color: white;\n"
+"border: none;\n"
+"border-radius: 15px;\n"
+"font-size: 11pt;\n"
+"")
+        self.folderLbl = QLabel(self.page_2)
+        self.folderLbl.setObjectName(u"folderLbl")
+        self.folderLbl.setGeometry(QRect(110, 150, 281, 21))
+        self.stackedWidget.addWidget(self.page_2)
+        self.page_3 = QWidget()
+        self.page_3.setObjectName(u"page_3")
+        self.saveBtn_2 = QPushButton(self.page_3)
+        self.saveBtn_2.setObjectName(u"saveBtn_2")
+        self.saveBtn_2.setGeometry(QRect(130, 240, 211, 31))
+        self.saveBtn_2.setStyleSheet(u"border-radius: 20px;\n"
+"background-color: #00007f;\n"
+"color: white;\n"
+"border: none;\n"
+"border-radius: 15px;\n"
+"font-size: 11pt;\n"
+"")
+        self.scrollArea = QScrollArea(self.page_3)
+        self.scrollArea.setObjectName(u"scrollArea")
+        self.scrollArea.setGeometry(QRect(50, 0, 431, 231))
+        self.scrollArea.setStyleSheet(u"border: opx;")
+        self.scrollArea.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.scrollArea.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.scrollArea.setWidgetResizable(True)
+        self.scrollAreaWidgetContents = QWidget()
+        self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 431, 231))
+        self.scrollArea.setWidget(self.scrollAreaWidgetContents)
+        self.verticalSlider = QSlider(self.page_3)
+        self.verticalSlider.setObjectName(u"verticalSlider")
+        self.verticalSlider.setGeometry(QRect(10, 50, 31, 181))
+        self.verticalSlider.setLayoutDirection(Qt.LeftToRight)
+        self.verticalSlider.setStyleSheet(u"QSlider::groove:vertical{ \n"
+"    background-color: rgb(234, 234, 234);\n"
+"    width: 30px;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"QSlider::handle:vertical { \n"
+"    background-color: #00007f;\n"
+"   	width: 20px;\n"
+"	height: 50px;\n"
+"	margin-top: 0px; \n"
+"	margin-bottom: 0px;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"QSlider{\n"
+"    background-color: rgb(234, 234, 234);\n"
+"    border-radius: 10px;\n"
+"}\n"
+"")
+        self.verticalSlider.setMinimum(0)
+        self.verticalSlider.setMaximum(99)
+        self.verticalSlider.setValue(0)
+        self.verticalSlider.setSliderPosition(0)
+        self.verticalSlider.setTracking(True)
+        self.verticalSlider.setOrientation(Qt.Vertical)
+        self.verticalSlider.setInvertedAppearance(True)
+        self.verticalSlider.setInvertedControls(True)
+        self.emptyFoldersNoticeLbl = QLabel(self.page_3)
+        self.emptyFoldersNoticeLbl.setObjectName(u"emptyFoldersNoticeLbl")
+        self.emptyFoldersNoticeLbl.setGeometry(QRect(90, 30, 351, 81))
+        self.emptyFoldersNoticeLbl.setStyleSheet(u"color: grey;\n"
+"font-size: 18pt;")
+        self.stackedWidget.addWidget(self.page_3)
+        self.page_4 = QWidget()
+        self.page_4.setObjectName(u"page_4")
+        self.label_7 = QLabel(self.page_4)
+        self.label_7.setObjectName(u"label_7")
+        self.label_7.setGeometry(QRect(90, 70, 61, 21))
+        self.inputPlace_3 = QLineEdit(self.page_4)
+        self.inputPlace_3.setObjectName(u"inputPlace_3")
+        self.inputPlace_3.setGeometry(QRect(160, 72, 241, 26))
+        self.inputPlace_3.setStyleSheet(u"border-color: rgb(0, 0, 0);\n"
+"border-style: solid;\n"
+"border-width: 1px;\n"
+"border-radius: 6px;\n"
+"font: 12pt \"Poppins\";\n"
+"background-color: rgb(234, 234, 234);")
+        self.inputPlace_3.setMaxLength(50)
+        self.label_8 = QLabel(self.page_4)
+        self.label_8.setObjectName(u"label_8")
+        self.label_8.setGeometry(QRect(190, 10, 111, 21))
+        self.label_8.setStyleSheet(u"")
+        self.widgetKeyboard_3 = QWidget(self.page_4)
+        self.widgetKeyboard_3.setObjectName(u"widgetKeyboard_3")
+        self.widgetKeyboard_3.setGeometry(QRect(0, 140, 480, 135))
+        self.widgetKeyboard_3.setStyleSheet(u"background-color: rgb(234, 234, 234);")
+        self.stackedWidget.addWidget(self.page_4)
         MainWindow.setCentralWidget(self.centralwidget)
-        self.tabWidget.raise_()
+        self.stackedWidget.raise_()
         self.backBtn.raise_()
 
         self.retranslateUi(MainWindow)
 
-        self.tabWidget.setCurrentIndex(1)
+        self.stackedWidget.setCurrentIndex(2)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -154,8 +252,10 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.backBtn.setText("")
-        self.label_4.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\">Latitud, longitud</p></body></html>", None))
-        self.gpsBtn.setText(QCoreApplication.translate("MainWindow", u"Localizar con GPS", None))
+        self.inputPlace.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Ej: Colegio La Rosa", None))
+        self.checkBox.setText(QCoreApplication.translate("MainWindow", u"\u00bfLlovi\u00f3 recientemente?", None))
+        self.label.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>Nombre</p></body></html>", None))
+        self.nextBtn.setText(QCoreApplication.translate("MainWindow", u"Siguiente", None))
         self.comboBox.setItemText(0, QCoreApplication.translate("MainWindow", u"Escoja una opci\u00f3n", None))
         self.comboBox.setItemText(1, QCoreApplication.translate("MainWindow", u"Acu\u00edfero", None))
         self.comboBox.setItemText(2, QCoreApplication.translate("MainWindow", u"Arroyo", None))
@@ -174,13 +274,18 @@ class Ui_MainWindow(object):
         self.comboBox.setItemText(15, QCoreApplication.translate("MainWindow", u"Torre de agua", None))
         self.comboBox.setItemText(16, QCoreApplication.translate("MainWindow", u"Otro", None))
 
-        self.label_2.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"right\"><span style=\" font-size:11pt;\">Fuente:</span></p></body></html>", None))
-        self.saveBtn.setText(QCoreApplication.translate("MainWindow", u"Guardar", None))
         self.prevBtn.setText(QCoreApplication.translate("MainWindow", u"Anterior", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("MainWindow", u"P\u00e1gina 2", None))
-        self.label.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"right\"><span style=\" font-size:11pt;\">Lugar:</span></p></body></html>", None))
-        self.checkBox.setText(QCoreApplication.translate("MainWindow", u"\u00bfLlovi\u00f3 recientemente?", None))
-        self.nextBtn.setText(QCoreApplication.translate("MainWindow", u"Siguiente", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_1), QCoreApplication.translate("MainWindow", u"P\u00e1gina 1", None))
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"right\"><span style=\" font-size:11pt;\">Fuente:</span></p></body></html>", None))
+        self.gpsBtn.setText(QCoreApplication.translate("MainWindow", u"Localizar con GPS", None))
+        self.label_4.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\">Latitud, longitud</p></body></html>", None))
+        self.saveBtn.setText(QCoreApplication.translate("MainWindow", u"Guardar", None))
+        self.selectFolderBtn.setText(QCoreApplication.translate("MainWindow", u"Seleccionar carpeta", None))
+        self.folderLbl.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\">Carpeta:</p></body></html>", None))
+        self.saveBtn_2.setText(QCoreApplication.translate("MainWindow", u"Crear una nueva carpeta", None))
+        self.emptyFoldersNoticeLbl.setText(QCoreApplication.translate("MainWindow", u"No hay carpetas guardadas", None))
+        self.label_7.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>Nombre</p></body></html>", None))
+        self.inputPlace_3.setText("")
+        self.inputPlace_3.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Ej: Muestras Colegio La Rosa", None))
+        self.label_8.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"right\">Nueva carpeta</p></body></html>", None))
     # retranslateUi
 

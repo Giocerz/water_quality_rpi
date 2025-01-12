@@ -8,7 +8,7 @@ from w1thermsensor import W1ThermSensor
 from src.logic.adcModule import ParametersVoltages
 from src.logic.parametersCalc import *
 from src.widgets.PopupWidget import PopupWidget, PopupWidgetInfo
-from src.logic.saveCalibration import SaveCalibration
+from src.logic.saveCalibration import SaveCalibration, CalibrationTurbidityValues
 
 ########### VISTA DE CALIBRACION Y FUNCIONES#################
 
@@ -20,71 +20,17 @@ class CalibrationView(QMainWindow):
 
     CALIBRATION_STEPS = ['tds', 'wash', 'ph7', 'wash', 'ph4',
                          'wash', 'ph10', 'wash', 'turb1', 'wash', 'turb2', 'wash', 'turb3', 'wash', 'turb4', 'wash', 'do', 'final']
-    STEPS_DESCRIPTION = {
-        'tds': {
-            'img': './src/resources/images/lab_glass',
-            'text': 'Sumerja la sonda en una solución con una<br><b>conductividad eléctrica</b> de <b>1413μS/cm</b>',
-            'skipButton': True
-        },
-        'ph7': {
-            'img': './src/resources/images/ph_glass',
-            'text': 'Sumerja la sonda en una solución<br>con un <b>ph</b> de <b>7.0</b>',
-            'skipButton': True
-        },
-        'ph4': {
-            'img': './src/resources/images/ph_glass',
-            'text': 'Sumerja la sonda en una solución<br>con un <b>ph</b> de <b/>4.0<b>',
-            'skipButton': False
-        },
-        'ph10': {
-            'img': './src/resources/images/ph_glass',
-            'text': 'Sumerja la sonda en una solución<br>con un <b>ph</b> de <b>10.0</b>',
-            'skipButton': False
-        },
-        'turb1': {
-            'img': './src/resources/images/lab_glass',
-            'text': 'Sumerja la sonda en una solución<br>con una <b>turbidez</b> de <b>0.28 NTU</b>',
-            'skipButton': True
-        },
-        'turb2': {
-            'img': './src/resources/images/lab_glass',
-            'text': 'Sumerja la sonda en una solución<br>con una <b>turbidez</b> de <b>108 NTU</b>',
-            'skipButton': False
-        },
-        'turb3': {
-            'img': './src/resources/images/lab_glass',
-            'text': 'Sumerja la sonda en una solución<br>con una <b>turbidez</b> de <b>287 NTU</b>',
-            'skipButton': False
-        },
-        'turb4': {
-            'img': './src/resources/images/lab_glass',
-            'text': 'Sumerja la sonda en una solución<br>con una <b>turbidez</b> de <b>475 NTU</b>',
-            'skipButton': False
-        },
-        'do': {
-            'img': './src/resources/images/oxygen_sensor',
-            'text': 'Mantenga la sonda en el <b>aire</b>',
-            'skipButton': True
-        },
-        'wash': {
-            'img': './src/resources/images/wash',
-            'text': 'Enjuague la sonda con agua<br>destilada y agite suavemente',
-            'skipButton': False
-        },
-        'final': {
-            'img': './src/resources/images/wash',
-            'text': 'Finalizó la calibración',
-            'skipButton': False
-        }
-    }
 
     def __init__(self, context):
         QMainWindow.__init__(self)
         self.context = context
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.init_step_views()
         self.calibration_step = 0
         self.timer_counter = 0
+        #Valores NTU turb
+        self.cal_turb_values = []
         # Parametros de calibracion
         self.kValue = None
         self.ph_offset = None
@@ -144,6 +90,67 @@ class CalibrationView(QMainWindow):
         self.ui.backBtn.setIcon(icon)
         self.ui.backBtn.setIconSize(QSize(30, 30))
         self.update_state()
+    
+    def init_step_views(self):
+        calibration_turbidity_values:CalibrationTurbidityValues = CalibrationTurbidityValues()
+        self.cal_turb_values = calibration_turbidity_values.read_values()
+        self.STEPS_DESCRIPTION = {
+        'tds': {
+            'img': './src/resources/images/lab_glass',
+            'text': 'Sumerja la sonda en una solución con una<br><b>conductividad eléctrica</b> de <b>1413μS/cm</b>',
+            'skipButton': True
+        },
+        'ph7': {
+            'img': './src/resources/images/ph_glass',
+            'text': 'Sumerja la sonda en una solución<br>con un <b>ph</b> de <b>7.0</b>',
+            'skipButton': True
+        },
+        'ph4': {
+            'img': './src/resources/images/ph_glass',
+            'text': 'Sumerja la sonda en una solución<br>con un <b>ph</b> de <b/>4.0<b>',
+            'skipButton': False
+        },
+        'ph10': {
+            'img': './src/resources/images/ph_glass',
+            'text': 'Sumerja la sonda en una solución<br>con un <b>ph</b> de <b>10.0</b>',
+            'skipButton': False
+        },
+        'turb1': {
+            'img': './src/resources/images/lab_glass',
+            'text': f'Sumerja la sonda en una solución<br>con una <b>turbidez</b> de <b>{self.cal_turb_values[0]} NTU</b>',
+            'skipButton': True
+        },
+        'turb2': {
+            'img': './src/resources/images/lab_glass',
+            'text': f'Sumerja la sonda en una solución<br>con una <b>turbidez</b> de <b>{self.cal_turb_values[1]} NTU</b>',
+            'skipButton': False
+        },
+        'turb3': {
+            'img': './src/resources/images/lab_glass',
+            'text': f'Sumerja la sonda en una solución<br>con una <b>turbidez</b> de <b>{self.cal_turb_values[2]} NTU</b>',
+            'skipButton': False
+        },
+        'turb4': {
+            'img': './src/resources/images/lab_glass',
+            'text': f'Sumerja la sonda en una solución<br>con una <b>turbidez</b> de <b>{self.cal_turb_values[3]} NTU</b>',
+            'skipButton': False
+        },
+        'do': {
+            'img': './src/resources/images/oxygen_sensor',
+            'text': 'Mantenga la sonda en el <b>aire</b>',
+            'skipButton': True
+        },
+        'wash': {
+            'img': './src/resources/images/wash',
+            'text': 'Enjuague la sonda con agua<br>destilada y agite suavemente',
+            'skipButton': False
+        },
+        'final': {
+            'img': './src/resources/images/wash',
+            'text': 'Finalizó la calibración',
+            'skipButton': False
+        }
+    }
 
     def update_state(self):
         self.ui.nextBtn.show()
@@ -367,7 +374,7 @@ class CalibrationView(QMainWindow):
             import numpy as np
             voltages = np.array(
                 [self.turb1, self.turb2, self.turb3, self.turb4])
-            ntu_values = np.array([0.28, 108, 287, 475])
+            ntu_values = np.array(self.cal_turb_values)
             coefficients = np.polyfit(voltages, ntu_values, 2)
             self.turb_coef_a, self.turb_coef_b, self.turb_coef_c = coefficients
             return True

@@ -4,8 +4,9 @@ from PySide2.QtCore import QThread, Signal
 from src.views.ui_MainMenu import Ui_MainWindow
 from src.views.MonitoringView.MonitoringView import MonitoringView
 from src.views.CalibrationView.CalibrationView import CalibrationView
-from src.views.DatosView.DatosView import DatosView
+from src.views.FoldersView import FoldersView
 from src.views.BluetoothView.BluetoothView import BluetoothView
+from src.views.EditCalibrationValuesView.EditCalibrationValuesView import EditCalibrationValuesView
 
 class MainMenuView(QMainWindow):
     def __init__(self, context):
@@ -26,10 +27,13 @@ class MainMenuView(QMainWindow):
         self.open_view(CalibrationView(context= self.context))
 
     def on_datos_clicked(self):
-        self.open_view(DatosView(context= self.context))
+        self.open_view(FoldersView(context= self.context))
 
     def on_bluetooth_clicked(self):
         self.open_view(BluetoothView(context= self.context))
+    
+    def on_edit_clicked(self):
+        self.open_view(EditCalibrationValuesView(context= self.context))
 
     def open_view(self, view):
         self.context.addWidget(view)

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>200</width>
+    <width>133</width>
     <height>100</height>
    </rect>
   </property>
@@ -14,32 +14,38 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">border: 2px solid grey;</string>
+   <string notr="true">QWidget {
+	background-color: white;
+}
+</string>
   </property>
   <widget class="QLabel" name="nameLbl">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>10</y>
-     <width>151</width>
+     <x>0</x>
+     <y>80</y>
+     <width>133</width>
      <height>20</height>
     </rect>
    </property>
    <property name="text">
-    <string>TextLabel</string>
+    <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="descriptionLbl">
+  <widget class="QPushButton" name="folderBtn">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>50</y>
-     <width>151</width>
-     <height>20</height>
+     <x>26</x>
+     <y>0</y>
+     <width>81</width>
+     <height>81</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">border: 0px;</string>
+   </property>
    <property name="text">
-    <string>TextLabel</string>
+    <string/>
    </property>
   </widget>
  </widget>

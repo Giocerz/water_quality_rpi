@@ -1,0 +1,5 @@
+calibration_values
+5.0
+108.0
+287.0
+475.0

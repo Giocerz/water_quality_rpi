@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'Top_BaryBIEuD.ui'
+## Form generated from reading UI file 'Top_BarCJfEiJ.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -78,7 +78,7 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
-        self.label.setText(QCoreApplication.translate("Form", u"Citizen Aqua Probe V1.0", None))
+        self.label.setText(QCoreApplication.translate("Form", u"CAP1.0", None))
         self.batteryExtBorder.setText("")
         self.baterryLevel.setText("")
         self.batteryIntBorder.setText("")

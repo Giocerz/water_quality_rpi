@@ -1,34 +1,48 @@
 import sqlite3
 from src.model.WaterQualityParams import WaterQualityParams
+from src.model.LoteModel import LoteModel
 
 class WaterDataBase:
-    table_name = "waterParams"
-    db_name = 'water_quality.db'
+    WATER_TABLE_NAME = "waterParams"
+    LOTE_TABLE_NAME = "lotesTable"
+    DB_NAME = 'water_quality.db'
+
 
     @staticmethod
     def _open_db():
-        # Abre la base de datos y crea la tabla si no existe
-        connection = sqlite3.connect(WaterDataBase.db_name)
+        connection = sqlite3.connect(WaterDataBase.DB_NAME)
         cursor = connection.cursor()
         cursor.execute(f'''
-            CREATE TABLE IF NOT EXISTS {WaterDataBase.table_name}(
+            CREATE TABLE IF NOT EXISTS {WaterDataBase.WATER_TABLE_NAME}(
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                name TEXT,
-                device_id TEXT,
+                name TEXT NOT NULL,
+                device_id TEXT NOT NULL,
                 latitude REAL,
                 longitude REAL,
-                date TEXT,
-                hour TEXT,
+                date TEXT NOT NULL,
+                hour TEXT NOT NULL,
                 conductivity REAL,
                 oxygen REAL,
                 ph REAL,
                 tds REAL,
                 temperature REAL,
                 turbidity REAL,
-                sample_origin TEXT,
-                it_rained TEXT,
-                upload_state INTEGER,
-                lote_id INTEGER
+                battery REAL,
+                sample_origin TEXT NOT NULL,
+                it_rained TEXT NOT NULL,
+                upload_state INTEGER NOT NULL,
+                lote_id INTEGER NOT NULL
+            )
+        ''')
+        cursor.execute(f'''
+            CREATE TABLE IF NOT EXISTS {WaterDataBase.LOTE_TABLE_NAME}(
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT NOT NULL,
+                creation_date TEXT NOT NULL,
+                creation_hour TEXT NOT NULL,
+                last_add_date TEXT NOT NULL,
+                last_add_hour TEXT NOT NULL,
+                description TEXT
             )
         ''')
         connection.commit()
@@ -39,7 +53,7 @@ class WaterDataBase:
         conn = WaterDataBase._open_db()
         cursor = conn.cursor()
         cursor.execute(f'''
-            INSERT INTO {WaterDataBase.table_name} 
+            INSERT INTO {WaterDataBase.WATER_TABLE_NAME} 
             (name, device_id, latitude, longitude, date, hour, conductivity, oxygen, ph, tds, temperature, turbidity, sample_origin, it_rained, upload_state, lote_id)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ''', (
@@ -64,10 +78,114 @@ class WaterDataBase:
         conn.close()
 
     @staticmethod
+    def get_lotes() -> list[LoteModel]:
+        conn = WaterDataBase._open_db()
+        cursor = conn.cursor()
+        cursor.execute(f"SELECT * FROM {WaterDataBase.LOTE_TABLE_NAME} ORDER BY id DESC")
+        rows = cursor.fetchall()
+        conn.close()
+        params_list = []
+        for row in rows:
+            params = LoteModel(
+                id=row[0], name=row[1], creation_date=[2], creation_hour=[3],
+                last_add_date=row[4], last_add_hour=row[5], description=row[6]
+            )
+            params_list.append(params)
+        return params_list
+    
+    @staticmethod
+    def get_lotes_by_id(lote_id:int) -> LoteModel:
+        conn = WaterDataBase._open_db()
+        cursor = conn.cursor()
+        cursor.execute(f"SELECT * FROM {WaterDataBase.LOTE_TABLE_NAME} WHERE id = {lote_id}")
+        row = cursor.fetchone()
+        conn.close()
+        param = LoteModel(
+            id=row[0], name=row[1], creation_date=[2], creation_hour=[3],
+            last_add_date=row[4], last_add_hour=row[5], description=row[6]
+        )
+        return param
+    
+    @staticmethod
+    def insert_lote(lote:LoteModel) -> int:
+        conn = WaterDataBase._open_db()
+        cursor = conn.cursor()
+        cursor.execute(f'''
+            INSERT INTO {WaterDataBase.LOTE_TABLE_NAME} 
+            (name, creation_date, creation_hour, last_add_date, last_add_hour, description)
+            VALUES (?, ?, ?, ?, ?, ?)
+            ''', (
+                lote.name,
+                lote.creation_date,
+                lote.creation_hour,
+                lote.last_add_date,
+                lote.last_add_hour,
+                lote.description
+        ))
+        conn.commit()
+        conn.close()
+        return cursor.lastrowid
+    
+    @staticmethod
+    def update_lote(lote_id:int, date:str, hour:str):
+        conn = WaterDataBase._open_db()
+        cursor = conn.cursor()
+        cursor.execute(f'''
+            UPDATE {WaterDataBase.LOTE_TABLE_NAME} 
+            SET last_add_date = ?, last_add_hour = ?
+            WHERE id = ?
+            ''', (
+                date,
+                hour,
+                lote_id
+        ))
+        conn.commit()
+        conn.close()
+
+    @staticmethod
+    def delete_lote(lote_id:int):
+        conn = WaterDataBase._open_db()
+        cursor = conn.cursor()
+        cursor.execute(f'''
+            DELETE {WaterDataBase.LOTE_TABLE_NAME} 
+            WHERE id = ?
+            ''', (
+                lote_id
+        ))
+        cursor.execute(f'''
+            DELETE {WaterDataBase.WATER_TABLE_NAME} 
+            WHERE lote_id = ?
+            ''', (
+                lote_id
+        ))
+        conn.commit()
+        conn.close()
+
+    
+    @staticmethod
+    def get_water_quality_params_by_lote(lote_id:int) -> list[WaterQualityParams]:
+        conn = WaterDataBase._open_db()
+        cursor = conn.cursor()
+        cursor.execute(f"SELECT * FROM {WaterDataBase.WATER_TABLE_NAME} WHERE lote_id = {lote_id} ORDER BY id DESC")
+        rows = cursor.fetchall()
+        conn.close()
+        params_list = []
+        for row in rows:
+            params = WaterQualityParams(
+                id=row[0], name=row[1], device_id=row[2], latitude=row[3], longitude=row[4],
+                date=row[5], hour=row[6], conductivity=row[7], oxygen=row[8], ph=row[9],
+                tds=row[10], temperature=row[11], turbidity=row[12], battery=row[13], sample_origin=row[14],
+                it_rained=row[15], upload_state=row[16], lote_id=row[17]
+            )
+            params_list.append(params)
+        return params_list
+
+
+    @staticmethod
     def get_water_quality_params() -> list[WaterQualityParams]:
         conn = WaterDataBase._open_db()
         cursor = conn.cursor()
-        cursor.execute(f"SELECT * FROM {WaterDataBase.table_name} ORDER BY id DESC")
+        cursor.execute(f"SELECT * FROM {WaterDataBase.WATER_TABLE_NAME} ORDER BY id DESC")
         rows = cursor.fetchall()
         conn.close()
 
@@ -76,8 +194,8 @@ class WaterDataBase:
             params = WaterQualityParams(
                 id=row[0], name=row[1], device_id=row[2], latitude=row[3], longitude=row[4],
                 date=row[5], hour=row[6], conductivity=row[7], oxygen=row[8], ph=row[9],
-                tds=row[10], temperature=row[11], turbidity=row[12], sample_origin=row[13],
-                it_rained=row[14], upload_state=row[15], lote_id=row[16]
+                tds=row[10], temperature=row[11], turbidity=row[12], battery=row[13], sample_origin=row[14],
+                it_rained=row[15], upload_state=row[16], lote_id=row[17]
             )
             params_list.append(params)
         return params_list
@@ -87,7 +205,7 @@ class WaterDataBase:
         conn = WaterDataBase._open_db()
         cursor = conn.cursor()
         cursor.execute(f'''
-            UPDATE {WaterDataBase.table_name}
+            UPDATE {WaterDataBase.WATER_TABLE_NAME}
             SET upload_state = ?
             WHERE id = ?
         ''', (new_state, id))

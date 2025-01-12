@@ -41,11 +41,12 @@ class DatosView(QMainWindow):
     def data_table_controller(self):
         import math
         data_list = WaterDataBase.get_water_quality_params()
+        if len(data_list) == 0:
+            return
         result = []
         self.total_data_len = len(data_list)
         self.table_pages = math.ceil(self.total_data_len / self.ELEMENTS_NUMBER)
         for i in range(self.table_pages):
-            print(i)
             sub_list = []
             for j in range(self.ELEMENTS_NUMBER*i, self.ELEMENTS_NUMBER*(i+1)):
                 if(j >= len(data_list)):
