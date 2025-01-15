@@ -20,7 +20,7 @@ class MainMenuView(QMainWindow):
         self.ui.calibrationBtn.clicked.connect(self.on_calibration_clicked)
         self.ui.dataBtn.clicked.connect(self.on_datos_clicked)
         self.ui.bluetoothBtn.clicked.connect(self.on_bluetooth_clicked)
-        self.ui.editVauesBtn.clicked.coonect(self.on_edit_clicked)
+        self.ui.editVauesBtn.clicked.connect(self.on_edit_clicked)
 
     def ui_components(self):
         icon = QIcon('./src/resources/icons/power_settings.png')
