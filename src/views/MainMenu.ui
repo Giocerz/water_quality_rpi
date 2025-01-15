@@ -32,18 +32,27 @@ font-weight: 500;</string>
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>29</x>
-      <y>-1</y>
+      <x>30</x>
+      <y>0</y>
       <width>421</width>
-      <height>286</height>
+      <height>281</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="spacing">
+      <number>0</number>
+     </property>
      <property name="leftMargin">
       <number>80</number>
      </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
      <property name="rightMargin">
       <number>80</number>
+     </property>
+     <property name="bottomMargin">
+      <number>6</number>
      </property>
      <item>
       <widget class="QPushButton" name="monitoringBtn">
@@ -93,6 +102,22 @@ font-weight: 500;</string>
     <property name="styleSheet">
      <string notr="true">border: 0px;
 background-color: white;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="powerBtn">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>212</y>
+      <width>50</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
     </property>
     <property name="text">
      <string/>

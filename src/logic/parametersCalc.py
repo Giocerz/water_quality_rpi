@@ -77,4 +77,6 @@ class ParametersCalculate():
         turb = self.turb_coef_a * voltage ** 2 + self.turb_coef_b * voltage + self.turb_coef_c
         if(turb >= 500.0):
             turb = 500.0
+        elif(turb < 0.0):
+            turb = 0.0
         return turb

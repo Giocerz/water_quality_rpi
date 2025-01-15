@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'MainMenuBkQNtH.ui'
+## Form generated from reading UI file 'MainMenuAozeeL.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -33,10 +33,11 @@ class Ui_MainWindow(object):
 "}")
         self.verticalLayoutWidget = QWidget(self.centralwidget)
         self.verticalLayoutWidget.setObjectName(u"verticalLayoutWidget")
-        self.verticalLayoutWidget.setGeometry(QRect(29, -1, 421, 286))
+        self.verticalLayoutWidget.setGeometry(QRect(30, 0, 421, 281))
         self.verticalLayout = QVBoxLayout(self.verticalLayoutWidget)
+        self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.verticalLayout.setContentsMargins(80, 0, 80, 0)
+        self.verticalLayout.setContentsMargins(80, 0, 80, 6)
         self.monitoringBtn = QPushButton(self.verticalLayoutWidget)
         self.monitoringBtn.setObjectName(u"monitoringBtn")
         self.monitoringBtn.setStyleSheet(u"")
@@ -64,6 +65,10 @@ class Ui_MainWindow(object):
         self.editVauesBtn.setGeometry(QRect(0, 190, 51, 81))
         self.editVauesBtn.setStyleSheet(u"border: 0px;\n"
 "background-color: white;")
+        self.powerBtn = QPushButton(self.centralwidget)
+        self.powerBtn.setObjectName(u"powerBtn")
+        self.powerBtn.setGeometry(QRect(420, 212, 50, 50))
+        self.powerBtn.setStyleSheet(u"")
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -78,5 +83,6 @@ class Ui_MainWindow(object):
         self.dataBtn.setText(QCoreApplication.translate("MainWindow", u"Datos", None))
         self.bluetoothBtn.setText(QCoreApplication.translate("MainWindow", u"Bluetooth", None))
         self.editVauesBtn.setText("")
+        self.powerBtn.setText("")
     # retranslateUi
 

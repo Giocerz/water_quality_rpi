@@ -5,352 +5,352 @@ from src.views.ui_Keyboard import Ui_Keyboard
 class KeyboardWidget(QWidget):
     def __init__(self, focusLine):
         QWidget.__init__(self)
-        self.ui = Ui_Keyboard()
-        self.ui.setupUi(self)
-        self.focusLine = focusLine 
-        self.focusLine.setFocus() 
+        self.__ui = Ui_Keyboard()
+        self.__ui.setupUi(self)
+        self.__focusLine = focusLine 
+        self.__focusLine.setFocus() 
 
-        self.capStatus = False 
-        self.numbersCharsStatus = False 
-        self.numberCharsStatus_2 = False 
+        self.__capStatus = False 
+        self.__numbersCharsStatus = False 
+        self.__numberCharsStatus_2 = False 
 
-        self.timerBackSpace = QTimer(self)
-        self.timerBackSpace.setInterval(1000)
-        self.timerBackSpace.setSingleShot(True)
-        self.timerBackSpace.timeout.connect(self.backspaceHeld)
+        self.__timerBackSpace = QTimer(self)
+        self.__timerBackSpace.setInterval(1000)
+        self.__timerBackSpace.setSingleShot(True)
+        self.__timerBackSpace.timeout.connect(self.__backspaceHeld)
 
-        self.set_minus()
+        self.__set_minus()
 
         #Eventos al presionar
-        self.ui.btn1.pressed.connect(self.btnPressed)
-        self.ui.btn2.pressed.connect(self.btnPressed)
-        self.ui.btn3.pressed.connect(self.btnPressed)
-        self.ui.btn4.pressed.connect(self.btnPressed)
-        self.ui.btn5.pressed.connect(self.btnPressed)
-        self.ui.btn6.pressed.connect(self.btnPressed)
-        self.ui.btn7.pressed.connect(self.btnPressed)
-        self.ui.btn8.pressed.connect(self.btnPressed)
-        self.ui.btn9.pressed.connect(self.btnPressed)
-        self.ui.btn10.pressed.connect(self.btnPressed)
-        self.ui.btn11.pressed.connect(self.btnPressed)
-        self.ui.btn12.pressed.connect(self.btnPressed)
-        self.ui.btn13.pressed.connect(self.btnPressed)
-        self.ui.btn14.pressed.connect(self.btnPressed)
-        self.ui.btn15.pressed.connect(self.btnPressed)
-        self.ui.btn16.pressed.connect(self.btnPressed)
-        self.ui.btn17.pressed.connect(self.btnPressed)
-        self.ui.btn18.pressed.connect(self.btnPressed)
-        self.ui.btn19.pressed.connect(self.btnPressed)
-        self.ui.btn20.pressed.connect(self.btnPressed)
-        self.ui.btn22.pressed.connect(self.btnPressed)
-        self.ui.btn23.pressed.connect(self.btnPressed)
-        self.ui.btn24.pressed.connect(self.btnPressed)
-        self.ui.btn25.pressed.connect(self.btnPressed)
-        self.ui.btn26.pressed.connect(self.btnPressed)
-        self.ui.btn27.pressed.connect(self.btnPressed)
-        self.ui.btn28.pressed.connect(self.btnPressed)
-        self.ui.btn31.pressed.connect(self.btnPressed)
-        self.ui.btn32.pressed.connect(self.btnPressed)
-        self.ui.btn34.pressed.connect(self.btnPressed)
+        self.__ui.btn1.pressed.connect(self.__btnPressed)
+        self.__ui.btn2.pressed.connect(self.__btnPressed)
+        self.__ui.btn3.pressed.connect(self.__btnPressed)
+        self.__ui.btn4.pressed.connect(self.__btnPressed)
+        self.__ui.btn5.pressed.connect(self.__btnPressed)
+        self.__ui.btn6.pressed.connect(self.__btnPressed)
+        self.__ui.btn7.pressed.connect(self.__btnPressed)
+        self.__ui.btn8.pressed.connect(self.__btnPressed)
+        self.__ui.btn9.pressed.connect(self.__btnPressed)
+        self.__ui.btn10.pressed.connect(self.__btnPressed)
+        self.__ui.btn11.pressed.connect(self.__btnPressed)
+        self.__ui.btn12.pressed.connect(self.__btnPressed)
+        self.__ui.btn13.pressed.connect(self.__btnPressed)
+        self.__ui.btn14.pressed.connect(self.__btnPressed)
+        self.__ui.btn15.pressed.connect(self.__btnPressed)
+        self.__ui.btn16.pressed.connect(self.__btnPressed)
+        self.__ui.btn17.pressed.connect(self.__btnPressed)
+        self.__ui.btn18.pressed.connect(self.__btnPressed)
+        self.__ui.btn19.pressed.connect(self.__btnPressed)
+        self.__ui.btn20.pressed.connect(self.__btnPressed)
+        self.__ui.btn22.pressed.connect(self.__btnPressed)
+        self.__ui.btn23.pressed.connect(self.__btnPressed)
+        self.__ui.btn24.pressed.connect(self.__btnPressed)
+        self.__ui.btn25.pressed.connect(self.__btnPressed)
+        self.__ui.btn26.pressed.connect(self.__btnPressed)
+        self.__ui.btn27.pressed.connect(self.__btnPressed)
+        self.__ui.btn28.pressed.connect(self.__btnPressed)
+        self.__ui.btn31.pressed.connect(self.__btnPressed)
+        self.__ui.btn32.pressed.connect(self.__btnPressed)
+        self.__ui.btn34.pressed.connect(self.__btnPressed)
 
         # Eventos al soltar
-        self.ui.btn1.released.connect(self.btnReleased)
-        self.ui.btn2.released.connect(self.btnReleased)
-        self.ui.btn3.released.connect(self.btnReleased)
-        self.ui.btn4.released.connect(self.btnReleased)
-        self.ui.btn5.released.connect(self.btnReleased)
-        self.ui.btn6.released.connect(self.btnReleased)
-        self.ui.btn7.released.connect(self.btnReleased)
-        self.ui.btn8.released.connect(self.btnReleased)
-        self.ui.btn9.released.connect(self.btnReleased)
-        self.ui.btn10.released.connect(self.btnReleased)
-        self.ui.btn11.released.connect(self.btnReleased)
-        self.ui.btn12.released.connect(self.btnReleased)
-        self.ui.btn13.released.connect(self.btnReleased)
-        self.ui.btn14.released.connect(self.btnReleased)
-        self.ui.btn15.released.connect(self.btnReleased)
-        self.ui.btn16.released.connect(self.btnReleased)
-        self.ui.btn17.released.connect(self.btnReleased)
-        self.ui.btn18.released.connect(self.btnReleased)
-        self.ui.btn19.released.connect(self.btnReleased)
-        self.ui.btn20.released.connect(self.btnReleased)
-        self.ui.btn22.released.connect(self.btnReleased)
-        self.ui.btn23.released.connect(self.btnReleased)
-        self.ui.btn24.released.connect(self.btnReleased)
-        self.ui.btn25.released.connect(self.btnReleased)
-        self.ui.btn26.released.connect(self.btnReleased)
-        self.ui.btn27.released.connect(self.btnReleased)
-        self.ui.btn28.released.connect(self.btnReleased)
-        self.ui.btn31.released.connect(self.btnReleased)
-        self.ui.btn32.released.connect(self.btnReleased)
-        self.ui.btn34.released.connect(self.btnReleased)
+        self.__ui.btn1.released.connect(self.__btnReleased)
+        self.__ui.btn2.released.connect(self.__btnReleased)
+        self.__ui.btn3.released.connect(self.__btnReleased)
+        self.__ui.btn4.released.connect(self.__btnReleased)
+        self.__ui.btn5.released.connect(self.__btnReleased)
+        self.__ui.btn6.released.connect(self.__btnReleased)
+        self.__ui.btn7.released.connect(self.__btnReleased)
+        self.__ui.btn8.released.connect(self.__btnReleased)
+        self.__ui.btn9.released.connect(self.__btnReleased)
+        self.__ui.btn10.released.connect(self.__btnReleased)
+        self.__ui.btn11.released.connect(self.__btnReleased)
+        self.__ui.btn12.released.connect(self.__btnReleased)
+        self.__ui.btn13.released.connect(self.__btnReleased)
+        self.__ui.btn14.released.connect(self.__btnReleased)
+        self.__ui.btn15.released.connect(self.__btnReleased)
+        self.__ui.btn16.released.connect(self.__btnReleased)
+        self.__ui.btn17.released.connect(self.__btnReleased)
+        self.__ui.btn18.released.connect(self.__btnReleased)
+        self.__ui.btn19.released.connect(self.__btnReleased)
+        self.__ui.btn20.released.connect(self.__btnReleased)
+        self.__ui.btn22.released.connect(self.__btnReleased)
+        self.__ui.btn23.released.connect(self.__btnReleased)
+        self.__ui.btn24.released.connect(self.__btnReleased)
+        self.__ui.btn25.released.connect(self.__btnReleased)
+        self.__ui.btn26.released.connect(self.__btnReleased)
+        self.__ui.btn27.released.connect(self.__btnReleased)
+        self.__ui.btn28.released.connect(self.__btnReleased)
+        self.__ui.btn31.released.connect(self.__btnReleased)
+        self.__ui.btn32.released.connect(self.__btnReleased)
+        self.__ui.btn34.released.connect(self.__btnReleased)
 
-        self.ui.btn21.pressed.connect(self.capPressed)  # Capitalize
-        self.ui.btn21.released.connect(self.capReleased)  # Capitalize
-        self.ui.btn30.pressed.connect(self.numbersCharsPressed)  # Números y caracteres
-        self.ui.btn30.released.connect(self.numbersCharsReleased)  # Números y caracteres
+        self.__ui.btn21.pressed.connect(self.__capPressed)  # Capitalize
+        self.__ui.btn21.released.connect(self.__capReleased)  # Capitalize
+        self.__ui.btn30.pressed.connect(self.__numbersCharsPressed)  # Números y caracteres
+        self.__ui.btn30.released.connect(self.__numbersCharsReleased)  # Números y caracteres
 
-        self.ui.btn29.pressed.connect(self.backspacePressed)  # Backspace
-        self.ui.btn29.released.connect(self.backspaceReleased)  # Backspace
+        self.__ui.btn29.pressed.connect(self.__backspacePressed)  # Backspace
+        self.__ui.btn29.released.connect(self.__backspaceReleased)  # Backspace
 
-        self.ui.btn33.setText(" ")
-        self.ui.btn33.pressed.connect(self.btnPressedSpace)  # Espacio
-        self.ui.btn33.released.connect(self.btnReleasedSpace)  # Espacio
+        self.__ui.btn33.setText(" ")
+        self.__ui.btn33.pressed.connect(self.__btnPressedSpace)  # Espacio
+        self.__ui.btn33.released.connect(self.__btnReleasedSpace)  # Espacio
 
 
     def changeFocusKeyboard(self, focus):
-        self.focusLine = focus
-        self.focusLine.setFocus()
+        self.__focusLine = focus
+        self.__focusLine.setFocus()
 
-    def btnPressed(self):
+    def __btnPressed(self):
         button = self.sender()
         buttonText = button.text()
         self.originalSize = button.size()
-        self.focusLine.setText(self.focusLine.text() + buttonText)
+        self.__focusLine.setText(self.__focusLine.text() + buttonText)
         button.raise_()
         button.setStyleSheet("border-radius: 10px; background-color: rgb(204, 204, 204); font: 18pt \"Poppins\";")
         button.setAutoFillBackground(False)
         button.resize(99,61) 
         button.move(button.x()-15,button.y()-15)
 
-    def btnReleased(self):
+    def __btnReleased(self):
         button = self.sender()
         button.setStyleSheet("border-radius: 10px; background-color: rgb(255, 255, 255); font: 11pt \"Poppins\";")
         button.resize(self.originalSize) 
         button.move(button.x() + 15,button.y() + 15)
-        self.focusLine.setFocus()
+        self.__focusLine.setFocus()
 
-    def btnPressedSpace(self):
+    def __btnPressedSpace(self):
         button = self.sender()
         buttonText = button.text()
         self.originalSize = button.size()
-        self.focusLine.setText(self.focusLine.text() + buttonText)
+        self.__focusLine.setText(self.__focusLine.text() + buttonText)
         button.setStyleSheet("border-radius: 10px; background-color: rgb(155, 155, 155); font: 11pt \"Poppins\";")
         #self.mainBtn.move(330, 10) #Titulo ajustes
 
-    def btnReleasedSpace(self):
+    def __btnReleasedSpace(self):
         button = self.sender()
         button.setStyleSheet("border-radius: 10px; background-color: rgb(255, 255, 255); font: 11pt \"Poppins\";")
-        self.focusLine.setFocus()  
+        self.__focusLine.setFocus()  
 
-    def backspacePressed(self):
-        self.timerBackSpace.start()
+    def __backspacePressed(self):
+        self.__timerBackSpace.start()
         button = self.sender()
-        self.focusLine.setText(self.focusLine.text()[:-1])
+        self.__focusLine.setText(self.__focusLine.text()[:-1])
         button.setStyleSheet("border-radius: 10px; background-color: rgb(0, 68, 141); font: 12pt \"Poppins\"; color: rgb(255, 255, 255);")
 
-    def backspaceReleased(self):
-        self.timerBackSpace.stop()
+    def __backspaceReleased(self):
+        self.__timerBackSpace.stop()
         button = self.sender()
         button.setStyleSheet("border-radius: 10px; background-color: #00007F; font: 12pt \"Poppins\"; color: rgb(255, 255, 255);")
-        self.focusLine.setFocus()   
+        self.__focusLine.setFocus()   
 
-    def backspaceHeld(self):
-        self.focusLine.clear()
-        self.focusLine.setFocus()    
+    def __backspaceHeld(self):
+        self.__focusLine.clear()
+        self.__focusLine.setFocus()    
 
-    def capPressed(self):
+    def __capPressed(self):
         button = self.sender()
         button.setStyleSheet("border-radius: 10px; background-color: rgb(0, 68, 141); font: 11pt \"Poppins\"; color: rgb(255, 255, 255);")
 
-        if not self.numbersCharsStatus:
-            if not self.capStatus:
-                self.capStatus = True #atributo booleano para conocer si el boton cap fue presionado
-                self.set_mayus()
+        if not self.__numbersCharsStatus:
+            if not self.__capStatus:
+                self.__capStatus = True #atributo booleano para conocer si el boton cap fue presionado
+                self.__set_mayus()
             
             else:
-                self.capStatus = False #atributo booleano para conocer si el boton cap fue presionado
-                self.set_minus()
+                self.__capStatus = False #atributo booleano para conocer si el boton cap fue presionado
+                self.__set_minus()
 
         else:
-            if not self.numberCharsStatus_2:
-                self.numberCharsStatus_2 = True
+            if not self.__numberCharsStatus_2:
+                self.__numberCharsStatus_2 = True
 
-                self.ui.btn21.setText("?123")
+                self.__ui.btn21.setText("?123")
 
-                self.ui.btn1.setText('~')
-                self.ui.btn2.setText("´")
-                self.ui.btn3.setText('|')
-                self.ui.btn4.setText('•')
-                self.ui.btn5.setText('√')
-                self.ui.btn6.setText('π')
-                self.ui.btn7.setText('÷')
-                self.ui.btn8.setText('×')
-                self.ui.btn9.setText('¶')
-                self.ui.btn10.setText('∆')
-                self.ui.btn11.setText('£')
-                self.ui.btn12.setText('¢')
-                self.ui.btn13.setText('€')
-                self.ui.btn14.setText('¥')
-                self.ui.btn15.setText('^')
-                self.ui.btn16.setText('°')
-                self.ui.btn17.setText('=')
-                self.ui.btn18.setText('{')
-                self.ui.btn19.setText('}')
-                self.ui.btn20.setText("\\")
+                self.__ui.btn1.setText('~')
+                self.__ui.btn2.setText("´")
+                self.__ui.btn3.setText('|')
+                self.__ui.btn4.setText('•')
+                self.__ui.btn5.setText('√')
+                self.__ui.btn6.setText('π')
+                self.__ui.btn7.setText('÷')
+                self.__ui.btn8.setText('×')
+                self.__ui.btn9.setText('¶')
+                self.__ui.btn10.setText('∆')
+                self.__ui.btn11.setText('£')
+                self.__ui.btn12.setText('¢')
+                self.__ui.btn13.setText('€')
+                self.__ui.btn14.setText('¥')
+                self.__ui.btn15.setText('^')
+                self.__ui.btn16.setText('°')
+                self.__ui.btn17.setText('=')
+                self.__ui.btn18.setText('{')
+                self.__ui.btn19.setText('}')
+                self.__ui.btn20.setText("\\")
 
-                self.ui.btn22.setText('%')
-                self.ui.btn23.setText('©')
-                self.ui.btn24.setText("®")
-                self.ui.btn25.setText('™')
-                self.ui.btn26.setText('✓')
-                self.ui.btn27.setText('[')
-                self.ui.btn28.setText(']')
+                self.__ui.btn22.setText('%')
+                self.__ui.btn23.setText('©')
+                self.__ui.btn24.setText("®")
+                self.__ui.btn25.setText('™')
+                self.__ui.btn26.setText('✓')
+                self.__ui.btn27.setText('[')
+                self.__ui.btn28.setText(']')
 
 
             else:
-                self.numberCharsStatus_2 = False
+                self.__numberCharsStatus_2 = False
 
-                self.ui.btn21.setText("=\\<")
+                self.__ui.btn21.setText("=\\<")
 
-                self.ui.btn1.setText('1')
-                self.ui.btn2.setText('2')
-                self.ui.btn3.setText('3')
-                self.ui.btn4.setText('4')
-                self.ui.btn5.setText('5')
-                self.ui.btn6.setText('6')
-                self.ui.btn7.setText('7')
-                self.ui.btn8.setText('8')
-                self.ui.btn9.setText('9')
-                self.ui.btn10.setText('0')
-                self.ui.btn11.setText('@')
-                self.ui.btn12.setText('#')
-                self.ui.btn13.setText('$')
-                self.ui.btn14.setText('_')
-                self.ui.btn15.setText('&')
-                self.ui.btn16.setText('-')
-                self.ui.btn17.setText('+')
-                self.ui.btn18.setText('(')
-                self.ui.btn19.setText(')')
-                self.ui.btn20.setText('/')
+                self.__ui.btn1.setText('1')
+                self.__ui.btn2.setText('2')
+                self.__ui.btn3.setText('3')
+                self.__ui.btn4.setText('4')
+                self.__ui.btn5.setText('5')
+                self.__ui.btn6.setText('6')
+                self.__ui.btn7.setText('7')
+                self.__ui.btn8.setText('8')
+                self.__ui.btn9.setText('9')
+                self.__ui.btn10.setText('0')
+                self.__ui.btn11.setText('@')
+                self.__ui.btn12.setText('#')
+                self.__ui.btn13.setText('$')
+                self.__ui.btn14.setText('_')
+                self.__ui.btn15.setText('&')
+                self.__ui.btn16.setText('-')
+                self.__ui.btn17.setText('+')
+                self.__ui.btn18.setText('(')
+                self.__ui.btn19.setText(')')
+                self.__ui.btn20.setText('/')
 
-                self.ui.btn22.setText('*')
-                self.ui.btn23.setText('"')
-                self.ui.btn24.setText("'")
-                self.ui.btn25.setText(':')
-                self.ui.btn26.setText(';')
-                self.ui.btn27.setText('!')
-                self.ui.btn28.setText('?')
+                self.__ui.btn22.setText('*')
+                self.__ui.btn23.setText('"')
+                self.__ui.btn24.setText("'")
+                self.__ui.btn25.setText(':')
+                self.__ui.btn26.setText(';')
+                self.__ui.btn27.setText('!')
+                self.__ui.btn28.setText('?')
 
 
-    def capReleased(self):
+    def __capReleased(self):
         button = self.sender()
         button.setStyleSheet("border-radius: 10px; background-color: #00007F; font: 11pt \"Poppins\"; color: rgb(255, 255, 255);")
-        self.focusLine.setFocus()   
+        self.__focusLine.setFocus()   
 
-    def numbersCharsPressed(self):
+    def __numbersCharsPressed(self):
         button = self.sender()
         button.setStyleSheet("border-radius: 10px; background-color: rgb(0, 68, 141); font: 11pt \"Poppins\"; color: rgb(255, 255, 255);")
 
-        if not self.numbersCharsStatus:
-            self.numbersCharsStatus = True #atributo booleano para conocer si el boton cap fue presionado
+        if not self.__numbersCharsStatus:
+            self.__numbersCharsStatus = True #atributo booleano para conocer si el boton cap fue presionado
 
-            self.ui.btn30.setText("ABC")
-            self.ui.btn21.setText("=\\<")
+            self.__ui.btn30.setText("ABC")
+            self.__ui.btn21.setText("=\\<")
 
-            self.ui.btn1.setText('1')
-            self.ui.btn2.setText('2')
-            self.ui.btn3.setText('3')
-            self.ui.btn4.setText('4')
-            self.ui.btn5.setText('5')
-            self.ui.btn6.setText('6')
-            self.ui.btn7.setText('7')
-            self.ui.btn8.setText('8')
-            self.ui.btn9.setText('9')
-            self.ui.btn10.setText('0')
-            self.ui.btn11.setText('@')
-            self.ui.btn12.setText('#')
-            self.ui.btn13.setText('$')
-            self.ui.btn14.setText('_')
-            self.ui.btn15.setText('&')
-            self.ui.btn16.setText('-')
-            self.ui.btn17.setText('+')
-            self.ui.btn18.setText('(')
-            self.ui.btn19.setText(')')
-            self.ui.btn20.setText('/')
+            self.__ui.btn1.setText('1')
+            self.__ui.btn2.setText('2')
+            self.__ui.btn3.setText('3')
+            self.__ui.btn4.setText('4')
+            self.__ui.btn5.setText('5')
+            self.__ui.btn6.setText('6')
+            self.__ui.btn7.setText('7')
+            self.__ui.btn8.setText('8')
+            self.__ui.btn9.setText('9')
+            self.__ui.btn10.setText('0')
+            self.__ui.btn11.setText('@')
+            self.__ui.btn12.setText('#')
+            self.__ui.btn13.setText('$')
+            self.__ui.btn14.setText('_')
+            self.__ui.btn15.setText('&')
+            self.__ui.btn16.setText('-')
+            self.__ui.btn17.setText('+')
+            self.__ui.btn18.setText('(')
+            self.__ui.btn19.setText(')')
+            self.__ui.btn20.setText('/')
 
-            self.ui.btn22.setText('*')
-            self.ui.btn23.setText('"')
-            self.ui.btn24.setText("'")
-            self.ui.btn25.setText(':')
-            self.ui.btn26.setText(';')
-            self.ui.btn27.setText('!')
-            self.ui.btn28.setText('?')
+            self.__ui.btn22.setText('*')
+            self.__ui.btn23.setText('"')
+            self.__ui.btn24.setText("'")
+            self.__ui.btn25.setText(':')
+            self.__ui.btn26.setText(';')
+            self.__ui.btn27.setText('!')
+            self.__ui.btn28.setText('?')
 
         
         else:
-            self.numbersCharsStatus = False #Cambia el estado del boton a no presionado
-            self.numberCharsStatus_2 = False #Cambia el estado del boton de caracteres extra a no presionado
-            self.ui.btn30.setText("?123")
-            self.ui.btn21.setText("Mayús")
+            self.__numbersCharsStatus = False #Cambia el estado del boton a no presionado
+            self.__numberCharsStatus_2 = False #Cambia el estado del boton de caracteres extra a no presionado
+            self.__ui.btn30.setText("?123")
+            self.__ui.btn21.setText("Mayús")
             #Devuelve las letras dependiendo el estad que tuviera el boton capitalizar
-            if not self.capStatus:
-                self.set_minus()
+            if not self.__capStatus:
+                self.__set_minus()
             else:
-                self.set_mayus()
+                self.__set_mayus()
 
-    def numbersCharsReleased(self):
+    def __numbersCharsReleased(self):
         button = self.sender()
         button.setStyleSheet("border-radius: 10px; background-color: #00007F; font: 11pt \"Poppins\"; color: rgb(255, 255, 255);")
-        self.focusLine.setFocus()      
+        self.__focusLine.setFocus()      
 
-    def set_mayus(self):
-        self.ui.btn1.setText('Q')
-        self.ui.btn2.setText('W')
-        self.ui.btn3.setText('E')
-        self.ui.btn4.setText('R')
-        self.ui.btn5.setText('T')
-        self.ui.btn6.setText('Y')
-        self.ui.btn7.setText('U')
-        self.ui.btn8.setText('I')
-        self.ui.btn9.setText('O')
-        self.ui.btn10.setText('P')
-        self.ui.btn11.setText('A')
-        self.ui.btn12.setText('S')
-        self.ui.btn13.setText('D')
-        self.ui.btn14.setText('F')
-        self.ui.btn15.setText('G')
-        self.ui.btn16.setText('H')
-        self.ui.btn17.setText('J')
-        self.ui.btn18.setText('K')
-        self.ui.btn19.setText('L')
-        self.ui.btn20.setText('Ñ')
+    def __set_mayus(self):
+        self.__ui.btn1.setText('Q')
+        self.__ui.btn2.setText('W')
+        self.__ui.btn3.setText('E')
+        self.__ui.btn4.setText('R')
+        self.__ui.btn5.setText('T')
+        self.__ui.btn6.setText('Y')
+        self.__ui.btn7.setText('U')
+        self.__ui.btn8.setText('I')
+        self.__ui.btn9.setText('O')
+        self.__ui.btn10.setText('P')
+        self.__ui.btn11.setText('A')
+        self.__ui.btn12.setText('S')
+        self.__ui.btn13.setText('D')
+        self.__ui.btn14.setText('F')
+        self.__ui.btn15.setText('G')
+        self.__ui.btn16.setText('H')
+        self.__ui.btn17.setText('J')
+        self.__ui.btn18.setText('K')
+        self.__ui.btn19.setText('L')
+        self.__ui.btn20.setText('Ñ')
 
-        self.ui.btn22.setText('Z')
-        self.ui.btn23.setText('X')
-        self.ui.btn24.setText('C')
-        self.ui.btn25.setText('V')
-        self.ui.btn26.setText('B')
-        self.ui.btn27.setText('N')
-        self.ui.btn28.setText('M')
+        self.__ui.btn22.setText('Z')
+        self.__ui.btn23.setText('X')
+        self.__ui.btn24.setText('C')
+        self.__ui.btn25.setText('V')
+        self.__ui.btn26.setText('B')
+        self.__ui.btn27.setText('N')
+        self.__ui.btn28.setText('M')
 
-    def set_minus(self):
-        self.ui.btn1.setText('q')
-        self.ui.btn2.setText('w')
-        self.ui.btn3.setText('e')
-        self.ui.btn4.setText('r')
-        self.ui.btn5.setText('t')
-        self.ui.btn6.setText('y')
-        self.ui.btn7.setText('u')
-        self.ui.btn8.setText('i')
-        self.ui.btn9.setText('o')
-        self.ui.btn10.setText('p')
-        self.ui.btn11.setText('a')
-        self.ui.btn12.setText('s')
-        self.ui.btn13.setText('d')
-        self.ui.btn14.setText('f')
-        self.ui.btn15.setText('g')
-        self.ui.btn16.setText('h')
-        self.ui.btn17.setText('j')
-        self.ui.btn18.setText('k')
-        self.ui.btn19.setText('l')
-        self.ui.btn20.setText('ñ')
+    def __set_minus(self):
+        self.__ui.btn1.setText('q')
+        self.__ui.btn2.setText('w')
+        self.__ui.btn3.setText('e')
+        self.__ui.btn4.setText('r')
+        self.__ui.btn5.setText('t')
+        self.__ui.btn6.setText('y')
+        self.__ui.btn7.setText('u')
+        self.__ui.btn8.setText('i')
+        self.__ui.btn9.setText('o')
+        self.__ui.btn10.setText('p')
+        self.__ui.btn11.setText('a')
+        self.__ui.btn12.setText('s')
+        self.__ui.btn13.setText('d')
+        self.__ui.btn14.setText('f')
+        self.__ui.btn15.setText('g')
+        self.__ui.btn16.setText('h')
+        self.__ui.btn17.setText('j')
+        self.__ui.btn18.setText('k')
+        self.__ui.btn19.setText('l')
+        self.__ui.btn20.setText('ñ')
 
-        self.ui.btn22.setText('z')
-        self.ui.btn23.setText('x')
-        self.ui.btn24.setText('c')
-        self.ui.btn25.setText('v')
-        self.ui.btn26.setText('b')
-        self.ui.btn27.setText('n')
-        self.ui.btn28.setText('m')
+        self.__ui.btn22.setText('z')
+        self.__ui.btn23.setText('x')
+        self.__ui.btn24.setText('c')
+        self.__ui.btn25.setText('v')
+        self.__ui.btn26.setText('b')
+        self.__ui.btn27.setText('n')
+        self.__ui.btn28.setText('m')
 
