@@ -1,6 +1,6 @@
-from PySide2 import QtWidgets, QtCore
-from PySide2.QtWidgets import QApplication, QMainWindow
-from PySide2.QtCore import QThread, Signal
+from PySide2.QtWidgets import QMainWindow
+from PySide2.QtCore import QSize
+from PySide2.QtGui import QIcon
 from src.views.ui_MainMenu import Ui_MainWindow
 from src.views.MonitoringView.MonitoringView import MonitoringView
 from src.views.CalibrationView.CalibrationView import CalibrationView
@@ -14,11 +14,18 @@ class MainMenuView(QMainWindow):
         self.context = context
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.ui_components()
 
         self.ui.monitoringBtn.clicked.connect(self.on_monitoring_clicked)
         self.ui.calibrationBtn.clicked.connect(self.on_calibration_clicked)
         self.ui.dataBtn.clicked.connect(self.on_datos_clicked)
         self.ui.bluetoothBtn.clicked.connect(self.on_bluetooth_clicked)
+        self.ui.editVauesBtn.clicked.coonect(self.on_edit_clicked)
+
+    def ui_components(self):
+        icon = QIcon('./src/resources/icons/power_settings.png')
+        self.ui.powerBtn.setIcon(icon)
+        self.ui.powerBtn.setIconSize(QSize(30, 30))
 
     def on_monitoring_clicked(self):
         self.open_view(MonitoringView(context= self.context))
