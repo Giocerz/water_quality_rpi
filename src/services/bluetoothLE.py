@@ -205,7 +205,7 @@ class CalibrationCharacteristic(Characteristic):
                     result = f'{temp},{volt_tds}'
                 elif (self.calibration_state == 'wq_c_p'):
                     volt_ph = round(self.parameters.ph_volt(), 2)
-                    result = f'{volt_ph}'
+                    result = f'-,{volt_ph}'
                 elif (self.calibration_state == 'wq_c_o'):
                     temp = round(self.temperature_sensor.get_temperature(), 2)
                     volt_do = round(self.parameters.oxygen_volt(), 2)
@@ -217,7 +217,7 @@ class CalibrationCharacteristic(Characteristic):
                     result = f'{temp},{volt_tds},{volt_ph}'
                 else:
                     volt_turb = round(self.parameters.turbidity_volt(), 2)
-                    result = f'{volt_turb}'
+                    result = f'-,{volt_turb}'
             except Exception as e:
                 print(e)
             strtemp = f"dt,{result},pg"
