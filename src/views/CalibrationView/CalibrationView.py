@@ -26,7 +26,6 @@ class CalibrationView(QMainWindow):
         self.context = context
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        self.init_step_views()
         self.calibration_step = 0
         self.timer_counter = 0
         #Valores NTU turb
@@ -77,6 +76,7 @@ class CalibrationView(QMainWindow):
         }
 
         self.ui_components()
+        self.init_step_views()
 
         self.stabilization_timer = QTimer()
         self.stabilization_timer.timeout.connect(self.update_time)
