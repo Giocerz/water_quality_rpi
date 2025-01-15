@@ -75,8 +75,8 @@ class CalibrationView(QMainWindow):
             'do': self.show_do_volt,
         }
 
-        self.ui_components()
         self.init_step_views()
+        self.ui_components()
 
         self.stabilization_timer = QTimer()
         self.stabilization_timer.timeout.connect(self.update_time)
