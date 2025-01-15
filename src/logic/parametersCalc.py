@@ -36,6 +36,7 @@ class ParametersCalculate():
         self.turb_coef_c = float(lista[8])
 
     def calculateTds(self, temperature: float, voltage: float) -> float:
+        print(f'TDS VOLTAGE: {voltage}')
         kValue = self.kValue
         if (voltage > 0.05):
             tdsFactor = 0.5
