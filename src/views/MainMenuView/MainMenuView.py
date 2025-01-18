@@ -4,7 +4,7 @@ from PySide2.QtGui import QIcon
 from src.views.ui_MainMenu import Ui_MainWindow
 from src.views.MonitoringView.MonitoringView import MonitoringView
 from src.views.CalibrationView.CalibrationView import CalibrationView
-from src.views.FoldersView import FoldersView
+from src.views.FoldersView.FoldersView import FoldersView
 from src.views.BluetoothView.BluetoothView import BluetoothView
 from src.views.EditCalibrationValuesView.EditCalibrationValuesView import EditCalibrationValuesView
 
