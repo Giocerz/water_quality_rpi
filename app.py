@@ -33,7 +33,6 @@ class ButtonListener(QThread):
                 elif self.pcf8574.read_P3():
                     print(f"Movimiento: Abajo ({self.distance}px)")
                     mouse_controller.move(0, self.distance)
-
                 elif self.pcf8574.read_P4():
                     print(f"Movimiento: Derecha ({self.distance}px)")
                     mouse_controller.move(self.distance, 0)
