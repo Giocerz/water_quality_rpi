@@ -17,25 +17,19 @@ class ButtonListener(QThread):
         self.distance = 1
 
     def run(self):
-        mouse_controller = Controller()  # Controlador de mouse
+        mouse_controller = Controller()
         try:
             while self.running:
-                print(f'PINES ACTIVOS: {self.pcf8574.read_all_pins()}')
                 if self.pcf8574.read_P0():
-                    print(f"Movimiento: Arriba ({self.distance}px)")
-                    mouse_controller.move(0, -self.distance)
-                elif self.pcf8574.read_P1():
-                    print(f"Movimiento: Izquierda ({self.distance}px)")
                     mouse_controller.move(-self.distance, 0)
+                elif self.pcf8574.read_P1():
+                    mouse_controller.move(0, self.distance)
                 elif self.pcf8574.read_P2():
-                    print("Clic Izquierdo")
                     mouse_controller.click(Button.left)
                 elif self.pcf8574.read_P3():
-                    print(f"Movimiento: Abajo ({self.distance}px)")
-                    mouse_controller.move(0, self.distance)
-                elif self.pcf8574.read_P4():
-                    print(f"Movimiento: Derecha ({self.distance}px)")
                     mouse_controller.move(self.distance, 0)
+                elif self.pcf8574.read_P4():
+                    mouse_controller.move(0, -self.distance)
                 time.sleep(0.01)
         except Exception as e:
             print(f"Error con GPIO: {e}")
