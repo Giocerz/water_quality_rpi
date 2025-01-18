@@ -17,7 +17,7 @@ class PCF8574:
             raise ValueError("El número de pin debe estar entre 0 y 7.")
 
         estado = self.read_all_pins()
-        return bool((estado >> pin) & 0x01)
+        return not bool((estado >> pin) & 0x01)
 
     def read_P0(self):
         return self.read_pin(0)
