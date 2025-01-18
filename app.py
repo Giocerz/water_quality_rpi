@@ -19,6 +19,7 @@ class ButtonListener(QThread):
     def run(self):
         mouse_controller = Controller()  # Controlador de mouse
         try:
+            print(f'PINES ACTIVOS: {self.pcf8574.read_all_pins()}')
             while self.running:
                 if self.pcf8574.read_P0():
                     print(f"Movimiento: Arriba ({self.distance}px)")
