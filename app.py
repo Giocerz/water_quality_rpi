@@ -71,8 +71,8 @@ class MyApp(QMainWindow):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     welcome = MyApp()
-    #button_listener = ButtonListener()
-    #button_listener.start()
+    button_listener = ButtonListener()
+    button_listener.start()
 
     widget = QtWidgets.QStackedWidget()
     widget.addWidget(welcome)
@@ -86,5 +86,5 @@ if __name__ == '__main__':
     except:
         print("Exit")
     finally:
-        #button_listener.stop()
+        button_listener.stop()
         pass
