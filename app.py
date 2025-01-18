@@ -25,17 +25,18 @@ class ButtonListener(QThread):
                     print(f"Movimiento: Arriba ({self.distance}px)")
                     mouse_controller.move(0, -self.distance)
                 elif self.pcf8574.read_P1():
-                    print(f"Movimiento: Abajo ({self.distance}px)")
-                    mouse_controller.move(0, self.distance)
-                elif self.pcf8574.read_P2():
                     print(f"Movimiento: Izquierda ({self.distance}px)")
                     mouse_controller.move(-self.distance, 0)
-                elif self.pcf8574.read_P3():
-                    print(f"Movimiento: Derecha ({self.distance}px)")
-                    mouse_controller.move(self.distance, 0)
-                elif self.pcf8574.read_P4():
+                elif self.pcf8574.read_P2():
                     print("Clic Izquierdo")
                     mouse_controller.click(Button.left)
+                elif self.pcf8574.read_P3():
+                    print(f"Movimiento: Abajo ({self.distance}px)")
+                    mouse_controller.move(0, self.distance)
+
+                elif self.pcf8574.read_P4():
+                    print(f"Movimiento: Derecha ({self.distance}px)")
+                    mouse_controller.move(self.distance, 0)
                 time.sleep(0.01)
         except Exception as e:
             print(f"Error con GPIO: {e}")
