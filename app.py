@@ -46,38 +46,6 @@ class ButtonListener(QThread):
         self.running = False
         self.wait()
 
-
-class ButtonListener2(QThread):
-    button_pressed = Signal()
-
-    def __init__(self, button_pin):
-        super(ButtonListener, self).__init__()
-        self.button_pin = button_pin
-        self.app = app
-        self.running = True
-
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(self.button_pin, GPIO.IN)
-
-    def run(self):
-            try:
-                while self.running:
-                    if GPIO.input(self.button_pin) == GPIO.LOW:
-                        time.sleep(0.3) 
-                        if GPIO.input(self.button_pin) == GPIO.LOW:
-                            self.button_pressed.emit()
-                    time.sleep(0.01)
-            except GPIO.error as e:
-                pass
-            finally:
-                self.running = False
-                GPIO.cleanup()
-
-    def stop(self):
-        self.running = False
-        GPIO.cleanup()
-
-
 class MyApp(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -109,8 +77,8 @@ class MyApp(QMainWindow):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     welcome = MyApp()
-    button_listener = ButtonListener()
-    button_listener.start()
+    #button_listener = ButtonListener()
+    #button_listener.start()
 
     widget = QtWidgets.QStackedWidget()
     widget.addWidget(welcome)
@@ -124,5 +92,5 @@ if __name__ == '__main__':
     except:
         print("Exit")
     finally:
-        button_listener.stop()
+        #button_listener.stop()
         pass
