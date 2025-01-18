@@ -15,6 +15,7 @@ class ButtonListener(QThread):
         self.running = True
         self.pcf8574 = PCF8574()
         self.distance = 1
+        self.flag_center_clicked = False
 
     def run(self):
         mouse_controller = Controller()
@@ -22,13 +23,16 @@ class ButtonListener(QThread):
             while self.running:
                 if self.pcf8574.read_P0():
                     mouse_controller.move(-self.distance, 0)
-                elif self.pcf8574.read_P1():
+                if self.pcf8574.read_P1():
                     mouse_controller.move(0, self.distance)
-                elif self.pcf8574.read_P2():
+                if self.pcf8574.read_P2() and not self.flag_center_clicked:
                     mouse_controller.click(Button.left)
-                elif self.pcf8574.read_P3():
+                    self.flag_center_clicked = True
+                else:
+                    self.flag_center_clicked = False
+                if self.pcf8574.read_P3():
                     mouse_controller.move(self.distance, 0)
-                elif self.pcf8574.read_P4():
+                if self.pcf8574.read_P4():
                     mouse_controller.move(0, -self.distance)
                 time.sleep(0.01)
         except Exception as e:
