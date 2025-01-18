@@ -1,68 +1,48 @@
 import sys
 import time
-import RPi.GPIO as GPIO
 from pynput.mouse import Controller, Button
 from PySide2 import QtWidgets, QtCore
 from PySide2.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
 from PySide2.QtCore import QThread, Signal
 from src.views.TopBarView.TopBarView import TopBarView
 from src.views.MainMenuView.MainMenuView import MainMenuView
+from src.logic.PCF8574 import PCF8574
 
 
 class ButtonListener(QThread):
-
-    def __init__(self, button_pins, parent=None):
+    def __init__(self, parent=None):
         super(ButtonListener, self).__init__(parent)
-        self.button_pins = button_pins
         self.running = True
-        self.pressed_times = {pin: None for pin in button_pins}
-        GPIO.setmode(GPIO.BCM)
-
-        for pin in self.button_pins:
-            GPIO.setup(pin, GPIO.IN)
+        self.pcf8574 = PCF8574()
+        self.distance = 1
 
     def run(self):
         mouse_controller = Controller()  # Controlador de mouse
         try:
             while self.running:
-                for i, pin in enumerate(self.button_pins):
-                    if GPIO.input(pin) == GPIO.LOW:
-                        if self.pressed_times[pin] is None:
-                            self.pressed_times[pin] = time.time()
-                        press_duration = time.time() - self.pressed_times[pin]
-                        base_speed = 10
-                        acceleration = min(press_duration * 10, 100) 
-                        distance = int(base_speed + acceleration)
-
-                        if i == 0:
-                            print(f"Movimiento: Arriba ({distance}px)")
-                            mouse_controller.move(0, -distance)
-                        elif i == 1:
-                            print(f"Movimiento: Abajo ({distance}px)")
-                            mouse_controller.move(0, distance)
-                        elif i == 2:
-                            print(f"Movimiento: Izquierda ({distance}px)")
-                            mouse_controller.move(-distance, 0)
-                        elif i == 3:
-                            print(f"Movimiento: Derecha ({distance}px)")
-                            mouse_controller.move(distance, 0)
-                        elif i == 4:
-                            print("Clic Izquierdo")
-                            mouse_controller.click(Button.left)
-
-                    else: 
-                        self.pressed_times[pin] = None
-
+                if self.pcf8574.read_P0:
+                    print(f"Movimiento: Arriba ({self.distance}px)")
+                    mouse_controller.move(0, -self.distance)
+                elif self.pcf8574.read_P1:
+                    print(f"Movimiento: Abajo ({self.distance}px)")
+                    mouse_controller.move(0, self.distance)
+                elif self.pcf8574.read_P2:
+                    print(f"Movimiento: Izquierda ({self.distance}px)")
+                    mouse_controller.move(-self.distance, 0)
+                elif self.pcf8574.read_P3:
+                    print(f"Movimiento: Derecha ({self.distance}px)")
+                    mouse_controller.move(self.distance, 0)
+                elif self.pcf8574.read_P4:
+                    print("Clic Izquierdo")
+                    mouse_controller.click(Button.left)
                 time.sleep(0.01)
         except Exception as e:
             print(f"Error con GPIO: {e}")
         finally:
             self.running = False
-            GPIO.cleanup()
 
     def stop(self):
         self.running = False
-        GPIO.cleanup()
         self.wait()
 
 
@@ -128,10 +108,8 @@ class MyApp(QMainWindow):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     welcome = MyApp()
-    button_pins = [5, 24, 22, 23, 27]
-
-    #button_listener = ButtonListener(button_pins)
-    #button_listener.start()
+    button_listener = ButtonListener(button_pins)
+    button_listener.start()
 
     widget = QtWidgets.QStackedWidget()
     widget.addWidget(welcome)
