@@ -1,9 +1,9 @@
-from PySide2.QtWidgets import QDialog, QApplication, QGraphicsOpacityEffect, QStackedLayout
+from PySide2.QtWidgets import QDialog, QApplication, QGraphicsOpacityEffect, QStackedLayout, QWidget
 from PySide2 import QtCore
 from src.views.ui_WifiConnect import Ui_Form
 from src.widgets.KeyboardWidget import KeyboardWidget
 
-class ConnectWifiWidget(QDialog):
+class ConnectWifiWidget(QWidget):
     def __init__(self, context, ssid:str, security:str, is_connect:bool):
         super().__init__()
         self.ui = Ui_Form()
@@ -29,7 +29,6 @@ class ConnectWifiWidget(QDialog):
         self.ui.widgetKeyboard.setLayout(layout)
         self.ui.Widget1.hide()
         self.ui.Widget2.hide()
-        self.ui.widgetKeyboard.hide()
         self.ui.ssidLbl.setText(self.ssid)
         self.ui.ssidLbl2.setText(self.ssid)
 
@@ -38,6 +37,7 @@ class ConnectWifiWidget(QDialog):
             self.ui.ssidLbl2.setText(self.ssid)
             self.ui.ssidLbl2.setAlignment(QtCore.Qt.AlignCenter)
             self.ui.firstBtn.setText("Desconectar")
+            self.ui.widgetKeyboard.hide()
         else:
             self.ui.Widget1.show()
             self.ui.ssidLbl.setText(self.ssid)
@@ -53,7 +53,6 @@ class ConnectWifiWidget(QDialog):
         y = (screen_height - dialog_height) / 2
         self.move(int(x), int(y))
 
-
-    def close_and_delete(self):
+    def close_and_delete(self, event):
         self.setParent(None)
         self.deleteLater()
