@@ -3,7 +3,7 @@ import time
 
 class WifiService:
     @staticmethod
-    def list_wifi_networks(self) -> dict:
+    def list_wifi_networks() -> dict:
         ok = subprocess.check_output(
             "sudo wpa_cli scan", shell=True).decode("utf-8")
         if 'OK' not in ok:
@@ -37,7 +37,7 @@ class WifiService:
         return list(networks_dict.values())
 
     @staticmethod
-    def connect_wifi(self, ssid, password=""):
+    def connect_wifi(ssid, password=""):
         time.sleep(2)
         if password == "@WATCH_DRIVE Proj" or password == "":
             return True

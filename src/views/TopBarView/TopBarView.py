@@ -39,6 +39,7 @@ class TopBarView(QMainWindow):
         self.ui.networkLbl.setPixmap(scaled_pixmap)
         _, signal = WifiService.get_essid_and_signal_level()
 
+        signal = int(signal)
         if not signal:
             pixmap = QPixmap('./src/resources/icons/wifi_icons/wifi_off.png')
         else:
@@ -50,7 +51,7 @@ class TopBarView(QMainWindow):
                 signal_quality = 2
             else:
                 signal_quality = 1
-        pixmap = QPixmap(f'./src/resources/icons/wifi_icons/wifi_0{signal_quality}.png')
+            pixmap = QPixmap(f'./src/resources/icons/wifi_icons/wifi_0{signal_quality}.png')
         scaled_pixmap = pixmap.scaled(QSize(31, 31))
         self.ui.networkLbl.setPixmap(scaled_pixmap)
             
