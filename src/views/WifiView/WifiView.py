@@ -1,11 +1,10 @@
-import subprocess
-import time
 from PySide2.QtWidgets import QMainWindow
 from PySide2.QtCore import QSize, Qt, QThread, Signal
 from PySide2.QtGui import QIcon, QStandardItemModel, QStandardItem
 from src.views.ui_WifiList import Ui_MainWindow
 from src.widgets.PopupWidget import LoadingPopupWidget
 from src.widgets.ConnectWifiWidget import ConnectWifiWidget
+from src.services.wifiService import WifiService
 
 
 class WifiView(QMainWindow):
@@ -126,72 +125,13 @@ class WifiWorkerFind(QThread):
 
     def __init__(self):
         super(WifiWorkerFind, self).__init__()
-        self.wifi = WifiControl()
 
     def run(self):
-        networks_list = self.wifi.list_wifi_networks()
+        networks_list = WifiService.list_wifi_networks()
         self.networks_result.emit(networks_list)
 
-
-class WifiWorkerConnect(QThread):
-    wifi_connected = Signal(bool)
-
-    def __init__(self, ssid="", password=""):
-        super(WifiWorkerConnect, self).__init__()
-        self.wifi = WifiControl()
-        self.ssid = ssid
-        self.password = password
-
-    def run(self):
-        result = self.wifi.connect_wifi(self.ssid, self.password)
-        self.wifi_connected.emit(result)
-
-
 # Objeto wifiControl
-class WifiControl:
-    def __init__(self):
-        pass
-    
-    def list_wifi_networks(self) -> dict:
-        time.sleep(1)
-        ok = subprocess.check_output(
-            "sudo wpa_cli scan", shell=True).decode("utf-8")
-        if 'OK' not in ok:
-            return []
-        lines = subprocess.check_output(
-            "sudo wpa_cli scan_results", shell=True).decode("utf-8")
-        current_network = subprocess.check_output(
-            "sudo iwgetid -r", shell=True).decode("utf-8").strip()
-        lines: list = lines.split("\n")[2:]
-        if len(lines) == 0:
-            return []
-        networks_dict = {}
-        for line in lines:
-            columns = line.split("\t")
-            if len(columns) >= 5:
-                bssid = columns[0]
-                frequency = int(columns[1])
-                signal_level = int(columns[2])
-                flags = columns[3]
-                ssid = columns[4]
 
-                if ssid not in networks_dict or signal_level > networks_dict[ssid]["signal"]:
-                    networks_dict[ssid] = {
-                        "BSSID": bssid,
-                        "frequency": frequency,
-                        "signal": signal_level,
-                        "security": flags,
-                        "ssid": ssid,
-                        "connect": ssid == current_network
-                    }
-        return list(networks_dict.values())
-
-    def connect_wifi(self, ssid, password=""):
-        time.sleep(2)
-        if password == "@WATCH_DRIVE Proj" or password == "":
-            return True
-        else:
-            return False
 
     """
     

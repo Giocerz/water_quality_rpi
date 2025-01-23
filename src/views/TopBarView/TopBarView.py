@@ -6,7 +6,7 @@ from src.views.ui_Top_Bar import Ui_Form
 from src.widgets.PopupWidget import PopupWidgetInfo
 from src.logic.INA219 import INA219
 from datetime import datetime
-
+from src.services.wifiService import WifiService
 
 class TopBarView(QMainWindow):
     def __init__(self, context):
@@ -25,7 +25,7 @@ class TopBarView(QMainWindow):
         self.ina219 = INA219(addr=0x42)
 
         self.timer = QTimer(self)
-        self.timer.timeout.connect(self.get_battery_level)
+        self.timer.timeout.connect(self.update_top_bar)
         self.timer.start(1000)
 
     def update_top_bar(self):
@@ -37,7 +37,24 @@ class TopBarView(QMainWindow):
         pixmap = QPixmap('./src/resources/icons/wifi_icons/wifi_off.png')
         scaled_pixmap = pixmap.scaled(QSize(31, 31))
         self.ui.networkLbl.setPixmap(scaled_pixmap)
-    
+        _, signal = WifiService.get_essid_and_signal_level()
+
+        if not signal:
+            pixmap = QPixmap('./src/resources/icons/wifi_icons/wifi_off.png')
+        else:
+            if (100 + signal > 75):
+                signal_quality = 4
+            elif (100 + signal > 50):
+                signal_quality = 3
+            elif (100 + signal > 25):
+                signal_quality = 2
+            else:
+                signal_quality = 1
+        pixmap = QPixmap(f'./src/resources/icons/wifi_icons/wifi_0{signal_quality}.png')
+        scaled_pixmap = pixmap.scaled(QSize(31, 31))
+        self.ui.networkLbl.setPixmap(scaled_pixmap)
+            
+
     def update_time(self):
         hour = datetime.now().strftime("%H:%M")
         self.ui.timeLbl.setText(hour)
