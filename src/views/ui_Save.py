@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'SaveFaDctR.ui'
+## Form generated from reading UI file 'SaverwxXur.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -40,7 +40,7 @@ class Ui_MainWindow(object):
         self.page.setObjectName(u"page")
         self.inputPlace = QLineEdit(self.page)
         self.inputPlace.setObjectName(u"inputPlace")
-        self.inputPlace.setGeometry(QRect(140, 40, 180, 26))
+        self.inputPlace.setGeometry(QRect(100, 40, 251, 26))
         self.inputPlace.setStyleSheet(u"border-color: rgb(0, 0, 0);\n"
 "border-style: solid;\n"
 "border-width: 1px;\n"
@@ -54,15 +54,31 @@ class Ui_MainWindow(object):
         self.widgetKeyboard.setStyleSheet(u"background-color: rgb(234, 234, 234);")
         self.checkBox = QCheckBox(self.page)
         self.checkBox.setObjectName(u"checkBox")
-        self.checkBox.setGeometry(QRect(80, 90, 191, 16))
+        self.checkBox.setGeometry(QRect(90, 90, 211, 21))
         self.checkBox.setLayoutDirection(Qt.RightToLeft)
-        self.checkBox.setStyleSheet(u"font-size: 11pt;\n"
-"background-color: transparent;\n"
-"height: 21px;\n"
-"")
+        self.checkBox.setStyleSheet(u"QCheckBox {\n"
+"	font-size: 12pt;\n"
+"	background-color: transparent;\n"
+"	height: 21px;\n"
+"}\n"
+"\n"
+"QCheckBox::indicator {\n"
+"    width: 15px; /* Ancho del indicador */\n"
+"    height: 15px; /* Alto del indicador */\n"
+"    border-radius: 4px; /* Bordes redondeados */\n"
+"    border: 2px solid #666; /* Borde del indicador */\n"
+"}\n"
+"\n"
+"QCheckBox::indicator:checked {\n"
+"    background-color: #00007f; /* Color de fondo cuando est\u00e1 marcado */\n"
+"}\n"
+"\n"
+"QCheckBox::indicator:unchecked {\n"
+"    background-color: transparent;\n"
+"}")
         self.label = QLabel(self.page)
         self.label.setObjectName(u"label")
-        self.label.setGeometry(QRect(140, 18, 61, 21))
+        self.label.setGeometry(QRect(100, 18, 61, 21))
         self.nextBtn = QPushButton(self.page)
         self.nextBtn.setObjectName(u"nextBtn")
         self.nextBtn.setGeometry(QRect(350, 80, 111, 31))
@@ -154,10 +170,10 @@ class Ui_MainWindow(object):
         self.stackedWidget.addWidget(self.page_2)
         self.page_3 = QWidget()
         self.page_3.setObjectName(u"page_3")
-        self.saveBtn_2 = QPushButton(self.page_3)
-        self.saveBtn_2.setObjectName(u"saveBtn_2")
-        self.saveBtn_2.setGeometry(QRect(130, 240, 211, 31))
-        self.saveBtn_2.setStyleSheet(u"border-radius: 20px;\n"
+        self.openCreateFolderBtn = QPushButton(self.page_3)
+        self.openCreateFolderBtn.setObjectName(u"openCreateFolderBtn")
+        self.openCreateFolderBtn.setGeometry(QRect(130, 240, 211, 31))
+        self.openCreateFolderBtn.setStyleSheet(u"border-radius: 20px;\n"
 "background-color: #00007f;\n"
 "color: white;\n"
 "border: none;\n"
@@ -217,25 +233,35 @@ class Ui_MainWindow(object):
         self.page_4.setObjectName(u"page_4")
         self.label_7 = QLabel(self.page_4)
         self.label_7.setObjectName(u"label_7")
-        self.label_7.setGeometry(QRect(90, 70, 61, 21))
-        self.inputPlace_3 = QLineEdit(self.page_4)
-        self.inputPlace_3.setObjectName(u"inputPlace_3")
-        self.inputPlace_3.setGeometry(QRect(160, 72, 241, 26))
-        self.inputPlace_3.setStyleSheet(u"border-color: rgb(0, 0, 0);\n"
+        self.label_7.setGeometry(QRect(90, 60, 61, 21))
+        self.folderName = QLineEdit(self.page_4)
+        self.folderName.setObjectName(u"folderName")
+        self.folderName.setGeometry(QRect(160, 60, 241, 26))
+        self.folderName.setStyleSheet(u"border-color: rgb(0, 0, 0);\n"
 "border-style: solid;\n"
 "border-width: 1px;\n"
 "border-radius: 6px;\n"
 "font: 12pt \"Poppins\";\n"
 "background-color: rgb(234, 234, 234);")
-        self.inputPlace_3.setMaxLength(50)
+        self.folderName.setMaxLength(50)
         self.label_8 = QLabel(self.page_4)
         self.label_8.setObjectName(u"label_8")
         self.label_8.setGeometry(QRect(190, 10, 111, 21))
         self.label_8.setStyleSheet(u"")
-        self.widgetKeyboard_3 = QWidget(self.page_4)
-        self.widgetKeyboard_3.setObjectName(u"widgetKeyboard_3")
-        self.widgetKeyboard_3.setGeometry(QRect(0, 140, 480, 135))
-        self.widgetKeyboard_3.setStyleSheet(u"background-color: rgb(234, 234, 234);")
+        self.widgetKeyboard2 = QWidget(self.page_4)
+        self.widgetKeyboard2.setObjectName(u"widgetKeyboard2")
+        self.widgetKeyboard2.setGeometry(QRect(0, 140, 480, 135))
+        self.widgetKeyboard2.setStyleSheet(u"background-color: rgb(234, 234, 234);")
+        self.createFolderBtn = QPushButton(self.page_4)
+        self.createFolderBtn.setObjectName(u"createFolderBtn")
+        self.createFolderBtn.setGeometry(QRect(360, 100, 111, 31))
+        self.createFolderBtn.setStyleSheet(u"border-radius: 20px;\n"
+"background-color: #00007f;\n"
+"color: white;\n"
+"border: none;\n"
+"border-radius: 15px;\n"
+"font-size: 11pt;\n"
+"")
         self.stackedWidget.addWidget(self.page_4)
         MainWindow.setCentralWidget(self.centralwidget)
         self.stackedWidget.raise_()
@@ -243,7 +269,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(2)
+        self.stackedWidget.setCurrentIndex(3)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -281,11 +307,12 @@ class Ui_MainWindow(object):
         self.saveBtn.setText(QCoreApplication.translate("MainWindow", u"Guardar", None))
         self.selectFolderBtn.setText(QCoreApplication.translate("MainWindow", u"Seleccionar carpeta", None))
         self.folderLbl.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\">Carpeta:</p></body></html>", None))
-        self.saveBtn_2.setText(QCoreApplication.translate("MainWindow", u"Crear una nueva carpeta", None))
+        self.openCreateFolderBtn.setText(QCoreApplication.translate("MainWindow", u"Crear una nueva carpeta", None))
         self.emptyFoldersNoticeLbl.setText(QCoreApplication.translate("MainWindow", u"No hay carpetas guardadas", None))
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>Nombre</p></body></html>", None))
-        self.inputPlace_3.setText("")
-        self.inputPlace_3.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Ej: Muestras Colegio La Rosa", None))
+        self.folderName.setText("")
+        self.folderName.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Ej: Muestras Colegio La Rosa", None))
         self.label_8.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"right\">Nueva carpeta</p></body></html>", None))
+        self.createFolderBtn.setText(QCoreApplication.translate("MainWindow", u"Crear", None))
     # retranslateUi
 

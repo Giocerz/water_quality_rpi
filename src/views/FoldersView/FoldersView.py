@@ -1,6 +1,6 @@
-from PySide2.QtWidgets import QMainWindow, QGridLayout, QWidget, QSizePolicy
+from PySide2.QtWidgets import QMainWindow, QGridLayout, QWidget, QSizePolicy, QVBoxLayout
 from PySide2.QtGui import QIcon
-from PySide2.QtCore import QSize
+from PySide2.QtCore import QSize, Qt
 from src.views.ui_Folders_view import Ui_MainWindow
 from src.widgets.FolderWidget import FolderWidget
 from src.model.LoteModel import LoteModel
@@ -30,6 +30,7 @@ class FoldersView(QMainWindow):
         self.scrollBar = self.ui.scrollArea.verticalScrollBar()
         self.ui.verticalSlider.setRange(self.scrollBar.minimum(), self.scrollBar.maximum())
         self.ui.emptyFoldersNoticeLbl.hide()
+        self.ui.verticalSlider.hide()
 
     def load_data(self):
         self.folders_list = WaterDataBase.get_lotes()
@@ -37,36 +38,46 @@ class FoldersView(QMainWindow):
     def on_back_clicked(self):
         self.context.removeWidget(self)
 
-    def on_push_folder_widget(self):
-        self.context.addWidget(DatosView(context=self.context))
+    def on_push_folder_widget(self, id:int):
+        self.context.addWidget(DatosView(context=self.context, lote_id=id))
         self.context.setCurrentIndex(self.context.currentIndex() + 1)
     
     def setup_list(self):
         self.load_data()
+        """
         self.folders_list = [
             LoteModel(name='Muestras Colegio', creation_date='2002-12-01', creation_hour='22:00', last_add_date='2002-12-01', last_add_hour='22:00'),
             LoteModel(name='Universidad', creation_date='2002-12-01', creation_hour='22:00', last_add_date='2002-12-01', last_add_hour='22:00'),
             LoteModel(name='La Paz', creation_date='2002-12-01', creation_hour='22:00', last_add_date='2002-12-01', last_add_hour='22:00'),
-            LoteModel(name='Jagua', creation_date='2002-12-01', creation_hour='22:00', last_add_date='2002-12-01', last_add_hour='22:00'),
-            LoteModel(name='Laguna María', creation_date='2002-12-01', creation_hour='22:00', last_add_date='2002-12-01', last_add_hour='22:00'),
-            LoteModel(name='Cerrito', creation_date='2002-12-01', creation_hour='22:00', last_add_date='2002-12-01', last_add_hour='22:00'),
-            LoteModel(name='Muestras Colegio', creation_date='2002-12-01', creation_hour='22:00', last_add_date='2002-12-01', last_add_hour='22:00'),
-            LoteModel(name='Universidad', creation_date='2002-12-01', creation_hour='22:00', last_add_date='2002-12-01', last_add_hour='22:00'),
+            LoteModel(name='La Paz', creation_date='2002-12-01', creation_hour='22:00', last_add_date='2002-12-01', last_add_hour='22:00'),
+            LoteModel(name='La Paz', creation_date='2002-12-01', creation_hour='22:00', last_add_date='2002-12-01', last_add_hour='22:00'),
+            LoteModel(name='La Paz', creation_date='2002-12-01', creation_hour='22:00', last_add_date='2002-12-01', last_add_hour='22:00'),
+            LoteModel(name='La Paz', creation_date='2002-12-01', creation_hour='22:00', last_add_date='2002-12-01', last_add_hour='22:00'),
+            LoteModel(name='La Paz', creation_date='2002-12-01', creation_hour='22:00', last_add_date='2002-12-01', last_add_hour='22:00'),
+            LoteModel(name='La Paz', creation_date='2002-12-01', creation_hour='22:00', last_add_date='2002-12-01', last_add_hour='22:00'),
             LoteModel(name='La Paz', creation_date='2002-12-01', creation_hour='22:00', last_add_date='2002-12-01', last_add_hour='22:00'),
         ]
-        if(len(self.folders_list) == 0):
+        """
+
+        if len(self.folders_list) == 0:
             self.ui.emptyFoldersNoticeLbl.show()
             self.ui.verticalSlider.hide()
             return
-        # Crear el contenedor y el layout
+
+        # Crear el contenedor principal y el layout vertical
         container_widget = QWidget()
-        grid_layout = QGridLayout(container_widget)
+        main_layout = QVBoxLayout(container_widget)
+        main_layout.setAlignment(Qt.AlignTop)  # Alinear contenido en la parte superior
+        main_layout.setSpacing(10)
+
+        # Crear el layout en cuadrícula
+        grid_layout = QGridLayout()
         grid_layout.setSpacing(10)
 
         num_cols = 3  # Número de columnas
         for i, product in enumerate(self.folders_list):
             # Crear y configurar el widget
-            product_widget = FolderWidget(name=product.name, description=product.description, on_push=self.on_push_folder_widget)
+            product_widget = FolderWidget(id=product.id, name=product.name, description=product.description, on_push=self.on_push_folder_widget)
             product_widget.setFixedSize(133, 100)  # Fijar tamaño del widget
             product_widget.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
 
@@ -81,6 +92,9 @@ class FoldersView(QMainWindow):
             # Agregar el widget al layout
             grid_layout.addWidget(product_widget, row, col)
 
+        # Agregar el layout en cuadrícula al layout principal
+        main_layout.addLayout(grid_layout)
+
         # Ajustar el contenedor dentro del ScrollArea
         self.ui.scrollArea.setWidget(container_widget)
         self.ui.scrollArea.setWidgetResizable(True)
@@ -90,10 +104,8 @@ class FoldersView(QMainWindow):
         self.scrollBar.setValue(value)
 
     def adjust_slider_range(self, min, max):
-        if(min == max):
-            self.ui.verticalSlider.hide()
-        else:
-            self.ui.verticalSlider.setRange(min, max)    
+        self.ui.verticalSlider.show()
+        self.ui.verticalSlider.setRange(min, max)    
 
     def scroll_value_changed(self, value):
         self.ui.verticalSlider.setValue(value) 

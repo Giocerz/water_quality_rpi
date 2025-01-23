@@ -9,9 +9,10 @@ from src.model.WaterQualityDB import WaterDataBase
 
 class DatosView(QMainWindow):
     ELEMENTS_NUMBER = 5
-    def __init__(self, context):
+    def __init__(self, context, lote_id:int):
         QMainWindow.__init__(self)
         self.context = context
+        self.lote_id:int = lote_id
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.ui_components()
@@ -40,7 +41,7 @@ class DatosView(QMainWindow):
 
     def data_table_controller(self):
         import math
-        data_list = WaterDataBase.get_water_quality_params()
+        data_list = WaterDataBase.get_water_quality_params_by_lote(self.lote_id)
         if len(data_list) == 0:
             return
         result = []

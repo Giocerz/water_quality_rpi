@@ -49,7 +49,7 @@ class WaterDataBase:
         return connection
 
     @staticmethod
-    def insert(water_quality_params: WaterQualityParams):
+    def insert_water_param(water_quality_params: WaterQualityParams):
         conn = WaterDataBase._open_db()
         cursor = conn.cursor()
         cursor.execute(f'''
@@ -94,7 +94,7 @@ class WaterDataBase:
         return params_list
     
     @staticmethod
-    def get_lotes_by_id(lote_id:int) -> LoteModel:
+    def get_lote_by_id(lote_id:int) -> LoteModel:
         conn = WaterDataBase._open_db()
         cursor = conn.cursor()
         cursor.execute(f"SELECT * FROM {WaterDataBase.LOTE_TABLE_NAME} WHERE id = {lote_id}")

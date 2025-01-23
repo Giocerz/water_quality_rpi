@@ -6,6 +6,7 @@ from src.views.MonitoringView.MonitoringView import MonitoringView
 from src.views.CalibrationView.CalibrationView import CalibrationView
 from src.views.FoldersView.FoldersView import FoldersView
 from src.views.BluetoothView.BluetoothView import BluetoothView
+from src.views.WifiView.WifiView import WifiView
 from src.views.EditCalibrationValuesView.EditCalibrationValuesView import EditCalibrationValuesView
 
 class MainMenuView(QMainWindow):
@@ -21,6 +22,7 @@ class MainMenuView(QMainWindow):
         self.ui.dataBtn.clicked.connect(self.on_datos_clicked)
         self.ui.bluetoothBtn.clicked.connect(self.on_bluetooth_clicked)
         self.ui.editVauesBtn.clicked.connect(self.on_edit_clicked)
+        self.ui.wifiBtn.clicked.connect(self.on_wifi_clicked)
 
     def ui_components(self):
         icon = QIcon('./src/resources/icons/power_settings.png')
@@ -38,6 +40,9 @@ class MainMenuView(QMainWindow):
 
     def on_bluetooth_clicked(self):
         self.open_view(BluetoothView(context= self.context))
+    
+    def on_wifi_clicked(self):
+        self.open_view(WifiView(context=self.context))
     
     def on_edit_clicked(self):
         self.open_view(EditCalibrationValuesView(context= self.context))

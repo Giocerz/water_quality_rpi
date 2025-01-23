@@ -45,7 +45,7 @@ QLabel {
       <x>0</x>
       <y>0</y>
       <width>481</width>
-      <height>221</height>
+      <height>322</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout" rowstretch="1,0,0,0,0,0" columnstretch="0,0">

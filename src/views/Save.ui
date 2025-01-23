@@ -53,15 +53,15 @@ font-size: 11px;</string>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="page">
      <widget class="QLineEdit" name="inputPlace">
       <property name="geometry">
        <rect>
-        <x>140</x>
+        <x>100</x>
         <y>40</y>
-        <width>180</width>
+        <width>251</width>
         <height>26</height>
        </rect>
       </property>
@@ -96,20 +96,36 @@ background-color: rgb(234, 234, 234);</string>
      <widget class="QCheckBox" name="checkBox">
       <property name="geometry">
        <rect>
-        <x>80</x>
+        <x>90</x>
         <y>90</y>
-        <width>191</width>
-        <height>16</height>
+        <width>211</width>
+        <height>21</height>
        </rect>
       </property>
       <property name="layoutDirection">
        <enum>Qt::RightToLeft</enum>
       </property>
       <property name="styleSheet">
-       <string notr="true">font-size: 11pt;
-background-color: transparent;
-height: 21px;
-</string>
+       <string notr="true">QCheckBox {
+	font-size: 12pt;
+	background-color: transparent;
+	height: 21px;
+}
+
+QCheckBox::indicator {
+    width: 15px; /* Ancho del indicador */
+    height: 15px; /* Alto del indicador */
+    border-radius: 4px; /* Bordes redondeados */
+    border: 2px solid #666; /* Borde del indicador */
+}
+
+QCheckBox::indicator:checked {
+    background-color: #00007f; /* Color de fondo cuando está marcado */
+}
+
+QCheckBox::indicator:unchecked {
+    background-color: transparent;
+}</string>
       </property>
       <property name="text">
        <string>¿Llovió recientemente?</string>
@@ -118,7 +134,7 @@ height: 21px;
      <widget class="QLabel" name="label">
       <property name="geometry">
        <rect>
-        <x>140</x>
+        <x>100</x>
         <y>18</y>
         <width>61</width>
         <height>21</height>
@@ -388,7 +404,7 @@ font-size: 11pt;
      </widget>
     </widget>
     <widget class="QWidget" name="page_3">
-     <widget class="QPushButton" name="saveBtn_2">
+     <widget class="QPushButton" name="openCreateFolderBtn">
       <property name="geometry">
        <rect>
         <x>130</x>
@@ -524,7 +540,7 @@ font-size: 18pt;</string>
       <property name="geometry">
        <rect>
         <x>90</x>
-        <y>70</y>
+        <y>60</y>
         <width>61</width>
         <height>21</height>
        </rect>
@@ -533,11 +549,11 @@ font-size: 18pt;</string>
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Nombre&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="inputPlace_3">
+     <widget class="QLineEdit" name="folderName">
       <property name="geometry">
        <rect>
         <x>160</x>
-        <y>72</y>
+        <y>60</y>
         <width>241</width>
         <height>26</height>
        </rect>
@@ -576,7 +592,7 @@ background-color: rgb(234, 234, 234);</string>
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Nueva carpeta&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
-     <widget class="QWidget" name="widgetKeyboard_3" native="true">
+     <widget class="QWidget" name="widgetKeyboard2" native="true">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -587,6 +603,28 @@ background-color: rgb(234, 234, 234);</string>
       </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(234, 234, 234);</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="createFolderBtn">
+      <property name="geometry">
+       <rect>
+        <x>360</x>
+        <y>100</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-radius: 20px;
+background-color: #00007f;
+color: white;
+border: none;
+border-radius: 15px;
+font-size: 11pt;
+</string>
+      </property>
+      <property name="text">
+       <string>Crear</string>
       </property>
      </widget>
     </widget>

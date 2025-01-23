@@ -6,10 +6,12 @@ from PySide2.QtCore import QTimer
 
 
 class FolderWidget(QWidget):
-    def __init__(self, name:str, description:str, on_push):
+    def __init__(self, id:int, name:str, description:str, on_push:callable, type:str = "open"):
         super().__init__()
-        self.name = name
-        self.on_push = on_push
+        self.id:int = id
+        self.name:str = name
+        self.on_push:callable = on_push
+        self.type:str = type
         self.ui = Ui_Form()
         self.ui.setupUi(self)
         self.__ui_components()
@@ -30,7 +32,10 @@ class FolderWidget(QWidget):
         QTimer.singleShot(200, self.__on_push_finsih_anim)
     
     def __on_push_finsih_anim(self):
-        self.on_push()
+        if(self.type == "open"):
+            self.on_push(self.id)
+        else:
+            self.on_push()
         icon = QIcon('./src/resources/icons/folder.png')
         self.ui.folderBtn.setIcon(icon)
         self.ui.folderBtn.setIconSize(QSize(81, 81))

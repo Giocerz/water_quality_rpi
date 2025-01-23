@@ -1,6 +1,6 @@
 from PySide2.QtWidgets import QGraphicsOpacityEffect, QWidget
-from PySide2.QtCore import QTimer
-from PySide2.QtGui import QTransform
+from PySide2.QtCore import QTimer, QSize
+from PySide2.QtGui import QTransform, QPixmap
 from PySide2 import QtCore
 from src.views.ui_PopupWidget import Ui_Form as Ui_Popup
 from src.views.ui_LoadingPopupWidget import Ui_Form as Ui_Loading
@@ -20,6 +20,9 @@ class PopupWidget(QWidget):
         self.opacity.setOpacity(0.2)
         self.ui.lblOpacity.setGraphicsEffect(self.opacity)
         self.ui.LabelInfo.setText(text)
+        pixmap = QPixmap('./src/resources/icons/warning.png')
+        pixmap = pixmap.scaled(61,61)
+        self.ui.IconInfo.setPixmap(pixmap)
 
         self.ui.si.clicked.connect(self.yes_clicked)
         self.ui.no.clicked.connect(self.no_clicked)
@@ -45,9 +48,10 @@ class PopupWidget(QWidget):
 
 
 class PopupWidgetInfo(QWidget):
-    def __init__(self, context, text, button = True):
+    def __init__(self, context, text:str, button:bool = True, on_click:callable = None):
         super().__init__()
         self.context = context
+        self.on_click:callable = on_click
         self.ui = Ui_Popup()
         self.ui.setupUi(self)
 
@@ -57,6 +61,10 @@ class PopupWidgetInfo(QWidget):
         self.opacity.setOpacity(0.2)
         self.ui.lblOpacity.setGraphicsEffect(self.opacity)
         self.ui.LabelInfo.setText(text)
+        pixmap = QPixmap('./src/resources/icons/warning.png')
+        pixmap = pixmap.scaled(61,61)
+        self.ui.IconInfo.setPixmap(pixmap)
+
         self.ui.si.hide()
         self.ui.no.hide()
         if(button):
@@ -69,6 +77,8 @@ class PopupWidgetInfo(QWidget):
 
 
     def ok_clicked(self):
+        if self.on_click:
+            self.on_click()
         self.close_and_delete()
     
     def close_and_delete(self):
