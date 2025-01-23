@@ -122,9 +122,9 @@ class WifiView(QMainWindow):
         for item in self.items:
             if item['ssid'] == ssid:
                 security= item['security']
-                is_connect = item['is_connect']
+                is_connect = item['connect']
                 break
-        self.connect_popup = ConnectWifiWidget(ssid=ssid, security=security, is_connect=is_connect)
+        self.connect_popup = ConnectWifiWidget(context=self.context, ssid=ssid, security=security, is_connect=is_connect)
         self.connect_popup.show()
 
 
