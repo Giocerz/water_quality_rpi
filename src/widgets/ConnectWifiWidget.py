@@ -14,7 +14,6 @@ class ConnectWifiWidget(QWidget):
         self.is_connect:bool = is_connect
         self.init_ui_components()
 
-        self.adjust_size_and_center()
         self.ui.lblOpacity.mousePressEvent = self.close_and_delete
 
     def init_ui_components(self):
@@ -42,16 +41,6 @@ class ConnectWifiWidget(QWidget):
             self.ui.Widget1.show()
             self.ui.ssidLbl.setText(self.ssid)
             self.ui.ssidLbl.setAlignment(QtCore.Qt.AlignCenter)
-
-    def adjust_size_and_center(self):
-        screen_rect = QApplication.desktop().availableGeometry()
-        screen_width = screen_rect.width()
-        screen_height = screen_rect.height()
-        dialog_width = 480
-        dialog_height = 320
-        x = (screen_width - dialog_width) / 2
-        y = (screen_height - dialog_height) / 2
-        self.move(int(x), int(y))
 
     def close_and_delete(self, event):
         self.setParent(None)
