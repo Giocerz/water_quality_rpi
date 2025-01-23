@@ -1,3 +1,6 @@
+import subprocess
+import time
+import random
 from PySide2 import QtCore
 from PySide2.QtWidgets import QMainWindow
 from PySide2.QtCore import QTimer, QSize, Qt, QThread, Signal
@@ -15,7 +18,7 @@ class WifiView(QMainWindow):
         self.ui.setupUi(self)
         self.ui_components()
 
-        #Inicializacion del hilo del wifi
+        # Inicializacion del hilo del wifi
         self.wifi_thread_find = WifiWorkerFind()
 
         self.wifi_thread_find.networks_result.connect(self.actualizar_redes)
@@ -31,15 +34,16 @@ class WifiView(QMainWindow):
         self.ui.backBtn.setIcon(icon)
         self.ui.backBtn.setIconSize(QSize(30, 30))
         self.scrollBar = self.ui.networkList.verticalScrollBar()
-        self.ui.verticalSlider.setRange(self.scrollBar.minimum(), self.scrollBar.maximum())
+        self.ui.verticalSlider.setRange(
+            self.scrollBar.minimum(), self.scrollBar.maximum())
         self.ui.verticalSlider.hide()
         self.ui.infoLbl.hide()
-    
 
     def showEvent(self, event):
         """Muestra el popup de carga después de que la ventana principal sea visible."""
         super(WifiView, self).showEvent(event)
-        self.loading_popup = LoadingPopupWidget(context=self.context, text='Buscando redes...')
+        self.loading_popup = LoadingPopupWidget(
+            context=self.context, text='Buscando redes...')
         self.loading_popup.show()
         self.wifi_thread_find_start()
 
@@ -56,32 +60,33 @@ class WifiView(QMainWindow):
         if self.elementos != []:
             self.model = QStandardItemModel()
             for elemento in self.elementos:
-                if(elemento['security'] != ''):
+                if (elemento['security'] != ''):
                     seguridad = 1
                 else:
-                    seguridad = 0   
+                    seguridad = 0
 
-                if(int(elemento['signal'])>75):
+                if (int(elemento['signal']) > 75):
                     signal_quality = 4
-                elif(int(elemento['signal'])>50):
+                elif (int(elemento['signal']) > 50):
                     signal_quality = 3
-                elif(int(elemento['signal'])>25):
+                elif (int(elemento['signal']) > 25):
                     signal_quality = 2
                 else:
                     signal_quality = 1
 
-                if(int(str(elemento['frequency']).split(" ")[0]) > 5000):
+                if (int(str(elemento['frequency']).split(" ")[0]) > 5000):
                     frec = 1
                 else:
-                    frec = 0            
+                    frec = 0
 
                 cadenaElemento = elemento['ssid']
-                item = QStandardItem(cadenaElemento)   
+                item = QStandardItem(cadenaElemento)
                 item.setFlags(item.flags() & ~Qt.ItemIsEditable)
 
-                #Combinacion del icono
+                # Combinacion del icono
                 # wifi_### Primer valor: seguridad, segundo: Frec, tercero: señal
-                icon_path_name = "./src/resources/icons/wifi_icons/wifi_{}{}".format(seguridad, signal_quality)
+                icon_path_name = "./src/resources/icons/wifi_icons/wifi_{}{}".format(
+                    seguridad, signal_quality)
                 icon = QIcon(icon_path_name)
                 item.setIcon(icon)
                 self.model.appendRow(item)
@@ -91,7 +96,6 @@ class WifiView(QMainWindow):
         else:
             self.ui.infoLbl.show()
         self.loading_popup.close_and_delete()
-        
 
     def slider_value_changed(self, value):
         self.scrollBar.setValue(value)
@@ -99,17 +103,14 @@ class WifiView(QMainWindow):
     def adjust_slider_range(self, min, max):
         print(f'MAX: {max} MIN: {min}')
         self.ui.verticalSlider.show()
-        self.ui.verticalSlider.setRange(min, max)   
+        self.ui.verticalSlider.setRange(min, max)
 
     def scroll_value_changed(self, value):
-        self.ui.verticalSlider.setValue(value) 
+        self.ui.verticalSlider.setValue(value)
 
 
-import random
-import time
-import subprocess
+# Hilo wifi
 
-#Hilo wifi
 class WifiWorkerFind(QThread):
     networks_result = Signal(list)
 
@@ -120,12 +121,12 @@ class WifiWorkerFind(QThread):
     def run(self):
         networks_list = self.wifi.list_wifi_networks()
         self.networks_result.emit(networks_list)
-            
+
 
 class WifiWorkerConnect(QThread):
     wifi_connected = Signal(bool)
 
-    def __init__(self, ssid = "", password = ""):
+    def __init__(self, ssid="", password=""):
         super(WifiWorkerConnect, self).__init__()
         self.wifi = WifiControl()
         self.ssid = ssid
@@ -133,36 +134,36 @@ class WifiWorkerConnect(QThread):
 
     def run(self):
         result = self.wifi.connect_wifi(self.ssid, self.password)
-        self.wifi_connected.emit(result)           
-        
+        self.wifi_connected.emit(result)
 
-#Objeto wifiControl
+
+# Objeto wifiControl
 class WifiControl:
     def __init__(self):
         pass
 
     def list_wifi_networks(self) -> dict:
         time.sleep(1)
-        ok = subprocess.check_output("sudo wpa_cli scan", shell=True).decode("utf-8")
-        networks:list = []
+        ok = subprocess.check_output(
+            "sudo wpa_cli scan", shell=True).decode("utf-8")
+        networks: list = []
         if 'OK' not in ok:
             return networks
-        results = subprocess.check_output("sudo wpa_cli scan_results", shell=True).decode("utf-8")
-        results_lines:list = results.split('\n')
-        results_lines.pop(0)
-        results_lines.pop(1)
-        if(len(results_lines) == 0):
+        lines = subprocess.check_output(
+            "sudo wpa_cli scan_results", shell=True).decode("utf-8")
+        lines: list = lines.split("\n")[2:]
+        if len(lines) == 0:
             return networks
-        for line in results_lines:
-            columns =  line.split(' ')
-            network = {
-                'bssid': columns[0].strip(),
-                'frecuency': columns[1].strip(),
-                'signal': columns[2].strip(),
-                'flags': columns[3].strip(),
-                'ssid': columns[4].strip()
-            }
-            networks.append(network)
+        for line in lines:
+            columns = line.split("\t")
+            if len(columns) >= 5:
+                networks.append({
+                    'bssid': columns[0],
+                    'frecuency': columns[1],
+                    'signal': columns[2],
+                    'flags': columns[3],
+                    'ssid': columns[4]
+                })
         return networks
 
     def connect_wifi(self, ssid, password=""):
@@ -171,6 +172,7 @@ class WifiControl:
             return True
         else:
             return False
+
 
 """
 import random
