@@ -65,16 +65,16 @@ class WifiView(QMainWindow):
                 else:
                     seguridad = 0
 
-                if (int(elemento['signal']) > 75):
+                if (elemento['signal'] > 75):
                     signal_quality = 4
-                elif (int(elemento['signal']) > 50):
+                elif (elemento['signal'] > 50):
                     signal_quality = 3
-                elif (int(elemento['signal']) > 25):
+                elif (elemento['signal'] > 25):
                     signal_quality = 2
                 else:
                     signal_quality = 1
 
-                if (int(elemento['frequency']) > 5000):
+                if (elemento['frequency'] > 5000):
                     frec = 1
                 else:
                     frec = 0
@@ -146,25 +146,32 @@ class WifiControl:
         time.sleep(1)
         ok = subprocess.check_output(
             "sudo wpa_cli scan", shell=True).decode("utf-8")
-        networks: list = []
         if 'OK' not in ok:
-            return networks
+            return []
         lines = subprocess.check_output(
             "sudo wpa_cli scan_results", shell=True).decode("utf-8")
         lines: list = lines.split("\n")[2:]
         if len(lines) == 0:
-            return networks
+            return []
+        networks_dict = {}
         for line in lines:
             columns = line.split("\t")
             if len(columns) >= 5:
-                networks.append({
-                    'bssid': columns[0],
-                    'frequency': columns[1],
-                    'signal': columns[2],
-                    'security': columns[3],
-                    'ssid': columns[4]
-                })
-        return networks
+                bssid = columns[0]
+                frequency = int(columns[1])
+                signal_level = int(columns[2])
+                flags = columns[3]
+                ssid = columns[4]
+                
+                if ssid not in networks_dict or signal_level > networks_dict[ssid]["signal"]:
+                    networks_dict[ssid] = {
+                        "BSSID": bssid,
+                        "frequency": frequency,
+                        "signal": signal_level,
+                        "security": flags,
+                        "ssid": ssid
+                    }
+        return list(networks_dict.values())
 
     def connect_wifi(self, ssid, password=""):
         time.sleep(2)
