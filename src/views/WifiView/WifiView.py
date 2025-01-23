@@ -65,11 +65,11 @@ class WifiView(QMainWindow):
                 else:
                     seguridad = 0
 
-                if (100 - elemento['signal'] > 75):
+                if (100 + elemento['signal'] > 75):
                     signal_quality = 4
-                elif (100 - elemento['signal'] > 50):
+                elif (100 + elemento['signal'] > 50):
                     signal_quality = 3
-                elif (100 - elemento['signal'] > 25):
+                elif (100 + elemento['signal'] > 25):
                     signal_quality = 2
                 else:
                     signal_quality = 1
