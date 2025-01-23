@@ -156,11 +156,11 @@ class WifiControl:
         for line in results_lines:
             columns =  line.split('')
             network = {
-                'bssid': columns[0],
-                'frecuency': columns[1],
-                'signal': columns[2],
-                'flags': columns[3],
-                'ssid': columns[4]
+                'bssid': columns[0].strip(),
+                'frecuency': columns[1].strip(),
+                'signal': columns[2].strip(),
+                'flags': columns[3].strip(),
+                'ssid': columns[4].strip()
             }
             networks.append(network)
         return networks
