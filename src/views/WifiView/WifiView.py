@@ -161,7 +161,7 @@ class WifiControl:
                     'bssid': columns[0],
                     'frecuency': columns[1],
                     'signal': columns[2],
-                    'flags': columns[3],
+                    'security': columns[3],
                     'ssid': columns[4]
                 })
         return networks
