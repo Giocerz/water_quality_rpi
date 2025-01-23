@@ -10,8 +10,8 @@ def get_essid_and_signal_level():
         for line in result.stdout.splitlines():
             line = line.strip()
             if "ESSID" in line:
-                essid_start = line.find('ESSID:"') + len('ESSID:"')
-                essid_end = line.find('"', essid_start)
+                essid_start = line.find('ESSID:') + len('ESSID:')
+                essid_end = line.find('\n', essid_start)
                 essid = line[essid_start:essid_end]
             elif "Signal level" in line:
                 signal_start = line.find('Signal level=') + len('Signal level=')
