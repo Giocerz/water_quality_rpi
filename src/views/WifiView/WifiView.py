@@ -25,6 +25,7 @@ class WifiView(QMainWindow):
         self.wifi_thread_find.networks_result.connect(self.actualizar_redes)
         self.ui.backBtn.clicked.connect(self.on_back_clicked)
         self.ui.verticalSlider.valueChanged.connect(self.slider_value_changed)
+        self.ui.networkList.clicked.connect(self.select_network)
 
         self.scrollBar.rangeChanged.connect(self.adjust_slider_range)
         self.scrollBar.valueChanged.connect(self.scroll_value_changed)
