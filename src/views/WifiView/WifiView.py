@@ -154,7 +154,7 @@ class WifiControl:
         if(len(results_lines) == 0):
             return networks
         for line in results_lines:
-            columns =  line.split('')
+            columns =  line.split(' ')
             network = {
                 'bssid': columns[0].strip(),
                 'frecuency': columns[1].strip(),
