@@ -74,7 +74,7 @@ class WifiView(QMainWindow):
                 else:
                     signal_quality = 1
 
-                if (int(str(elemento['frequency']).split(" ")[0]) > 5000):
+                if (int(elemento['frequency']) > 5000):
                     frec = 1
                 else:
                     frec = 0
@@ -159,7 +159,7 @@ class WifiControl:
             if len(columns) >= 5:
                 networks.append({
                     'bssid': columns[0],
-                    'frecuency': columns[1],
+                    'frequency': columns[1],
                     'signal': columns[2],
                     'security': columns[3],
                     'ssid': columns[4]
