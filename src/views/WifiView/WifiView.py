@@ -1,11 +1,8 @@
 import subprocess
 import time
-import random
-from PySide2 import QtCore
 from PySide2.QtWidgets import QMainWindow
-from PySide2.QtCore import QTimer, QSize, Qt, QThread, Signal
-from PySide2.QtGui import QPixmap, QIcon, QStandardItemModel, QStandardItem
-from src.views.ui_Top_Bar import Ui_Form
+from PySide2.QtCore import QSize, Qt, QThread, Signal
+from PySide2.QtGui import QIcon, QStandardItemModel, QStandardItem
 from src.views.ui_WifiList import Ui_MainWindow
 from src.widgets.PopupWidget import LoadingPopupWidget
 from src.widgets.ConnectWifiWidget import ConnectWifiWidget
@@ -82,19 +79,19 @@ class WifiView(QMainWindow):
                     frec = 0
 
                 if item["connect"]:
-                    cadenaElemento = item['ssid'] + " - Conectada"
+                    cadenaElemento = item['ssid'] + "-Conectada"
                 else:
                     cadenaElemento = item['ssid']
-                item = QStandardItem(cadenaElemento)
-                item.setFlags(item.flags() & ~Qt.ItemIsEditable)
+                standard_item = QStandardItem(cadenaElemento)
+                standard_item.setFlags(standard_item.flags() & ~Qt.ItemIsEditable)
 
                 # Combinacion del icono
                 # wifi_### Primer valor: seguridad, segundo: Frec, tercero: señal
                 icon_path_name = "./src/resources/icons/wifi_icons/wifi_{}{}".format(
                     seguridad, signal_quality)
                 icon = QIcon(icon_path_name)
-                item.setIcon(icon)
-                self.model.appendRow(item)
+                standard_item.setIcon(icon)
+                self.model.appendRow(standard_item)
             self.ui.networkList.setModel(self.model)
             self.ui.networkList.setIconSize(QSize(26, 26))
             numRedes = len(self.items)
@@ -106,7 +103,6 @@ class WifiView(QMainWindow):
         self.scrollBar.setValue(value)
 
     def adjust_slider_range(self, min, max):
-        print(f'MAX: {max} MIN: {min}')
         self.ui.verticalSlider.show()
         self.ui.verticalSlider.setRange(min, max)
 
@@ -115,15 +111,10 @@ class WifiView(QMainWindow):
     
     def select_network(self):
         indexes = self.ui.networkList.selectedIndexes()
-        self.index = indexes[0]
-        ssid = str(self.model.data(self.index))
-        security = ''
-        is_connect = False
-        for item in self.items:
-            if item['ssid'] == ssid:
-                security= item['security']
-                is_connect = item['connect']
-                break
+        index = indexes[0].row()
+        ssid = self.items[index]["ssid"]
+        security = self.items[index]["security"]
+        is_connect = self.items[index]["connect"]
         self.connect_popup = ConnectWifiWidget(context=self.context, ssid=ssid, security=security, is_connect=is_connect)
         self.connect_popup.show()
 
@@ -160,7 +151,7 @@ class WifiWorkerConnect(QThread):
 class WifiControl:
     def __init__(self):
         pass
-
+    
     def list_wifi_networks(self) -> dict:
         time.sleep(1)
         ok = subprocess.check_output(
@@ -202,63 +193,33 @@ class WifiControl:
         else:
             return False
 
-
-"""
-import random
-import time
-
-#Hilo wifi
-class WifiWorkerFind(QThread):
-    networks_result = Signal(list)
-
-    def __init__(self):
-        super(WifiWorkerFind, self).__init__()
-        self.wifi = WifiControl()
-
-    def run(self):
-        networks_list = self.wifi.list_wifi_networks()
-        self.networks_result.emit(networks_list)
-            
-
-class WifiWorkerConnect(QThread):
-    wifi_connected = Signal(bool)
-
-    def __init__(self, ssid = "", password = ""):
-        super(WifiWorkerConnect, self).__init__()
-        self.wifi = WifiControl()
-        self.ssid = ssid
-        self.password = password
-
-    def run(self):
-        result = self.wifi.connect_wifi(self.ssid, self.password)
-        self.wifi_connected.emit(result)           
-        
-
-#Objeto wifiControl
-class WifiControl:
-    def __init__(self):
-        pass
-
-    def list_wifi_networks(self):
+    """
+    
+    def list_wifi_networks(self) -> dict:
         time.sleep(1)
-        proveedores_internet = ['Estudiantes', 'Unicesar_docentes', 'DSP-ASIC-BUILDER', 'ERES POBRE', 'Iphone de Marie Curie', 'Wifi_Del_vecino']
-        arreglo_diccionarios = []
-        rango = random.randint(0,15)
-        for i in range(rango):
-            ssid = random.choice(proveedores_internet)
-            proveedores_internet.remove(ssid)
-            signal = random.randint(1, 100)
-            security = random.choice(['wp2', ''])
-            frequency = random.choice(['5400 MHz', '2400 MHz'])
-            diccionario = {'ssid': ssid, 'signal': signal, 'security': security, 'frequency': frequency}
-            arreglo_diccionarios.append(diccionario)
-        
-        return arreglo_diccionarios
-
-    def connect_wifi(self, ssid, password=""):
-        time.sleep(2)
-        if password == "@WATCH_DRIVE Proj" or password == "":
-            return True
-        else:
-            return False
+        return [
+            {
+                'ssid': "WIFI DE SUS",
+                'security': "WPA",
+                'signal': -56,
+                'frequency': 5463,
+                'connect': True
+            },
+            {
+                'ssid': "VECINO",
+                'security': "WPA",
+                'signal': -76,
+                'frequency': 5463,
+                'connect': False
+            },
+            {
+                'ssid': "Xsudhw",
+                'security': "",
+                'signal': -26,
+                'frequency': 5463,
+                'connect': False
+            },
+        ]
 """
+
+

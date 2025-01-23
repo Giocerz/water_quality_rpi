@@ -1,10 +1,11 @@
 from PySide2 import QtCore
 from PySide2.QtWidgets import QMainWindow
-from PySide2.QtCore import QTimer
+from PySide2.QtCore import QTimer, QSize
 from PySide2.QtGui import QPixmap
 from src.views.ui_Top_Bar import Ui_Form
 from src.widgets.PopupWidget import PopupWidgetInfo
 from src.logic.INA219 import INA219
+from datetime import datetime
 
 
 class TopBarView(QMainWindow):
@@ -27,6 +28,19 @@ class TopBarView(QMainWindow):
         self.timer.timeout.connect(self.get_battery_level)
         self.timer.start(1000)
 
+    def update_top_bar(self):
+        self.get_battery_level()
+        self.update_time()
+        self.update_wifi_state()
+
+    def update_wifi_state(self):
+        pixmap = QPixmap('./src/resources/icons/wifi_icons/wifi_off.png')
+        scaled_pixmap = pixmap.scaled(QSize(31, 31))
+        self.ui.networkLbl.setPixmap(scaled_pixmap)
+    
+    def update_time(self):
+        hour = datetime.now().strftime("%H:%M")
+        self.ui.timeLbl.setText(hour)
 
     def get_battery_level(self):
         bus_voltage = self.ina219.getBusVoltage_V()

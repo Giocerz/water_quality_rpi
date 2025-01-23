@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'WifiConnectMMrqZJ.ui'
+## Form generated from reading UI file 'WifiConnectzxSfOI.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -25,12 +25,12 @@ class Ui_Form(object):
         self.Widget1 = QWidget(Form)
         self.Widget1.setObjectName(u"Widget1")
         self.Widget1.setEnabled(True)
-        self.Widget1.setGeometry(QRect(80, 10, 351, 171))
+        self.Widget1.setGeometry(QRect(65, 10, 351, 171))
         self.Widget1.setStyleSheet(u"border-radius: 20px;\n"
 "background-color: white;")
         self.connectBtn = QPushButton(self.Widget1)
         self.connectBtn.setObjectName(u"connectBtn")
-        self.connectBtn.setGeometry(QRect(200, 90, 122, 31))
+        self.connectBtn.setGeometry(QRect(174, 90, 122, 31))
         self.connectBtn.setStyleSheet(u"font: 500 18px \"Poppins\";\n"
 "border-radius: 10px;\n"
 "border: 1px solid #00007f;\n"
@@ -42,13 +42,9 @@ class Ui_Form(object):
         self.ssidLbl.setStyleSheet(u"font: 12pt \"Poppins\";\n"
 "background-color: transparent;\n"
 "")
-        self.IconInfo = QLabel(self.Widget1)
-        self.IconInfo.setObjectName(u"IconInfo")
-        self.IconInfo.setGeometry(QRect(10, 30, 61, 61))
-        self.IconInfo.setStyleSheet(u"background-color: transparent;")
         self.inputPlace = QLineEdit(self.Widget1)
         self.inputPlace.setObjectName(u"inputPlace")
-        self.inputPlace.setGeometry(QRect(49, 50, 241, 26))
+        self.inputPlace.setGeometry(QRect(55, 50, 241, 26))
         self.inputPlace.setStyleSheet(u"border-color: rgb(0, 0, 0);\n"
 "border-style: solid;\n"
 "border-width: 1px;\n"
@@ -64,7 +60,7 @@ class Ui_Form(object):
         self.Widget2 = QWidget(Form)
         self.Widget2.setObjectName(u"Widget2")
         self.Widget2.setEnabled(True)
-        self.Widget2.setGeometry(QRect(80, 60, 351, 171))
+        self.Widget2.setGeometry(QRect(65, 51, 351, 171))
         self.Widget2.setStyleSheet(u"border-radius: 20px;\n"
 "background-color: white;")
         self.secondBtn = QPushButton(self.Widget2)
@@ -100,7 +96,6 @@ class Ui_Form(object):
         self.lblOpacity.setText("")
         self.connectBtn.setText(QCoreApplication.translate("Form", u"Conectar", None))
         self.ssidLbl.setText(QCoreApplication.translate("Form", u"titulo", None))
-        self.IconInfo.setText("")
         self.inputPlace.setPlaceholderText(QCoreApplication.translate("Form", u"Contrase\u00f1a", None))
         self.secondBtn.setText(QCoreApplication.translate("Form", u"Olvidar", None))
         self.ssidLbl2.setText(QCoreApplication.translate("Form", u"titulo", None))

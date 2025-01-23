@@ -25,7 +25,7 @@ QWidget {
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>20</x>
+     <x>10</x>
      <y>1</y>
      <width>61</width>
      <height>41</height>
@@ -147,7 +147,7 @@ border-radius: 10px;</string>
   <widget class="QLabel" name="timeLbl">
    <property name="geometry">
     <rect>
-     <x>90</x>
+     <x>120</x>
      <y>1</y>
      <width>91</width>
      <height>41</height>
@@ -162,6 +162,22 @@ font-size: 14pt;</string>
     <string>10:34</string>
    </property>
   </widget>
+  <widget class="QLabel" name="networkLbl">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>5</y>
+     <width>31</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">	font-size: 14pt;</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
   <zorder>baterryLevel</zorder>
   <zorder>batteryExtBorder</zorder>
   <zorder>label</zorder>
@@ -170,6 +186,7 @@ font-size: 14pt;</string>
   <zorder>chargeIndicator</zorder>
   <zorder>border</zorder>
   <zorder>timeLbl</zorder>
+  <zorder>networkLbl</zorder>
  </widget>
  <resources/>
  <connections/>

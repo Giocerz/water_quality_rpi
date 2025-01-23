@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'Top_BarxbwzxO.ui'
+## Form generated from reading UI file 'Top_BarTnEOoS.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -27,7 +27,7 @@ class Ui_Form(object):
 "}")
         self.label = QLabel(Form)
         self.label.setObjectName(u"label")
-        self.label.setGeometry(QRect(20, 1, 61, 41))
+        self.label.setGeometry(QRect(10, 1, 61, 41))
         self.label.setStyleSheet(u"	font-size: 14pt;")
         self.batteryExtBorder = QLabel(Form)
         self.batteryExtBorder.setObjectName(u"batteryExtBorder")
@@ -67,10 +67,14 @@ class Ui_Form(object):
         self.border.setStyleSheet(u"background-color: rgb(199, 199, 199);")
         self.timeLbl = QLabel(Form)
         self.timeLbl.setObjectName(u"timeLbl")
-        self.timeLbl.setGeometry(QRect(90, 1, 91, 41))
+        self.timeLbl.setGeometry(QRect(120, 1, 91, 41))
         self.timeLbl.setStyleSheet(u"color: #00007f;\n"
 "font-weight: bold;\n"
 "font-size: 14pt;")
+        self.networkLbl = QLabel(Form)
+        self.networkLbl.setObjectName(u"networkLbl")
+        self.networkLbl.setGeometry(QRect(80, 5, 31, 31))
+        self.networkLbl.setStyleSheet(u"	font-size: 14pt;")
         self.baterryLevel.raise_()
         self.batteryExtBorder.raise_()
         self.label.raise_()
@@ -79,6 +83,7 @@ class Ui_Form(object):
         self.chargeIndicator.raise_()
         self.border.raise_()
         self.timeLbl.raise_()
+        self.networkLbl.raise_()
 
         self.retranslateUi(Form)
 
@@ -95,5 +100,6 @@ class Ui_Form(object):
         self.chargeIndicator.setText("")
         self.border.setText("")
         self.timeLbl.setText(QCoreApplication.translate("Form", u"10:34", None))
+        self.networkLbl.setText("")
     # retranslateUi
 

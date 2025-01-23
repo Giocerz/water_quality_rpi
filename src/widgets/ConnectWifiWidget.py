@@ -18,7 +18,6 @@ class ConnectWifiWidget(QWidget):
 
     def init_ui_components(self):
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-        self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         self.opacity = QGraphicsOpacityEffect()
         self.opacity.setOpacity(0.2)
         self.ui.lblOpacity.setGraphicsEffect(self.opacity)
@@ -26,6 +25,7 @@ class ConnectWifiWidget(QWidget):
         layout = QStackedLayout(self.ui.widgetKeyboard)
         layout.addWidget(self.keyboard)
         self.ui.widgetKeyboard.setLayout(layout)
+        self.ui.widgetKeyboard.hide()
         self.ui.Widget1.hide()
         self.ui.Widget2.hide()
         self.ui.ssidLbl.setText(self.ssid)
@@ -36,11 +36,13 @@ class ConnectWifiWidget(QWidget):
             self.ui.ssidLbl2.setText(self.ssid)
             self.ui.ssidLbl2.setAlignment(QtCore.Qt.AlignCenter)
             self.ui.firstBtn.setText("Desconectar")
-            self.ui.widgetKeyboard.hide()
         else:
+            self.ui.widgetKeyboard.show()
             self.ui.Widget1.show()
             self.ui.ssidLbl.setText(self.ssid)
             self.ui.ssidLbl.setAlignment(QtCore.Qt.AlignCenter)
+        
+        self.setParent(self.context)
 
     def close_and_delete(self, event):
         self.setParent(None)

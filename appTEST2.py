@@ -106,6 +106,9 @@ class TopBarView(QMainWindow):
         scaled_pixmap = pixmap.scaled(
             26, 26, QtCore.Qt.IgnoreAspectRatio, QtCore.Qt.SmoothTransformation)
         self.ui.chargeIndicator.setPixmap(scaled_pixmap)
+        pixmap = QPixmap('./src/resources/icons/wifi_icons/wifi_off.png')
+        scaled_pixmap = pixmap.scaled(QSize(31, 31))
+        self.ui.networkLbl.setPixmap(scaled_pixmap)
 
         self.low_battery_flag = False
 
@@ -178,6 +181,10 @@ class MainView(QMainWindow):
         icon = QIcon('./src/resources/icons/power_settings.png')
         self.ui.powerBtn.setIcon(icon)
         self.ui.powerBtn.setIconSize(QSize(30, 30))
+        icon = QIcon('./src/resources/icons/wifi.png')
+        self.ui.wifiBtn.setIcon(icon)
+        self.ui.wifiBtn.setIconSize(QSize(30, 30))
+
 
     def on_monitoring_clicked(self):
         self.open_view(MonitoringView(context=self.context))

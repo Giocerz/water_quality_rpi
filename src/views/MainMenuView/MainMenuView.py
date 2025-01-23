@@ -28,6 +28,9 @@ class MainMenuView(QMainWindow):
         icon = QIcon('./src/resources/icons/power_settings.png')
         self.ui.powerBtn.setIcon(icon)
         self.ui.powerBtn.setIconSize(QSize(30, 30))
+        icon = QIcon('./src/resources/icons/wifi.png')
+        self.ui.wifiBtn.setIcon(icon)
+        self.ui.wifiBtn.setIconSize(QSize(30, 30))
 
     def on_monitoring_clicked(self):
         self.open_view(MonitoringView(context= self.context))
