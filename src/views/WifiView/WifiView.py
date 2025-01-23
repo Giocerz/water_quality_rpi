@@ -105,7 +105,74 @@ class WifiView(QMainWindow):
         self.ui.verticalSlider.setValue(value) 
 
 
+import random
+import time
+import subprocess
 
+#Hilo wifi
+class WifiWorkerFind(QThread):
+    networks_result = Signal(list)
+
+    def __init__(self):
+        super(WifiWorkerFind, self).__init__()
+        self.wifi = WifiControl()
+
+    def run(self):
+        networks_list = self.wifi.list_wifi_networks()
+        self.networks_result.emit(networks_list)
+            
+
+class WifiWorkerConnect(QThread):
+    wifi_connected = Signal(bool)
+
+    def __init__(self, ssid = "", password = ""):
+        super(WifiWorkerConnect, self).__init__()
+        self.wifi = WifiControl()
+        self.ssid = ssid
+        self.password = password
+
+    def run(self):
+        result = self.wifi.connect_wifi(self.ssid, self.password)
+        self.wifi_connected.emit(result)           
+        
+
+#Objeto wifiControl
+class WifiControl:
+    def __init__(self):
+        pass
+
+    def list_wifi_networks(self) -> dict:
+        time.sleep(1)
+        ok = subprocess.check_output("sudo wpa_cli scan", shell=True).decode("utf-8")
+        networks:list = []
+        if 'OK' not in ok:
+            return networks
+        results = subprocess.check_output("sudo wpa_cli scan_results", shell=True).decode("utf-8")
+        results_lines:list = results.split('\n')
+        results_lines.pop(0)
+        results_lines.pop(1)
+        if(len(results_lines) == 0):
+            return networks
+        for line in results_lines:
+            columns =  line.split('')
+            network = {
+                'bssid': columns[0],
+                'frecuency': columns[1],
+                'signal': columns[2],
+                'flags': columns[3],
+                'ssid': columns[4]
+            }
+            networks.append(network)
+        return networks
+
+    def connect_wifi(self, ssid, password=""):
+        time.sleep(2)
+        if password == "@WATCH_DRIVE Proj" or password == "":
+            return True
+        else:
+            return False
+
+"""
 import random
 import time
 
@@ -143,8 +210,7 @@ class WifiControl:
 
     def list_wifi_networks(self):
         time.sleep(1)
-        proveedores_internet = ['Estudiantes', 'Unicesar_docentes', 'DSP-ASIC-BUILDER', 'ERES POBRE', 'Iphone de Marie Curie', 'Wifi_Del_vecino',
-                                'flia ortega']
+        proveedores_internet = ['Estudiantes', 'Unicesar_docentes', 'DSP-ASIC-BUILDER', 'ERES POBRE', 'Iphone de Marie Curie', 'Wifi_Del_vecino']
         arreglo_diccionarios = []
         rango = random.randint(0,15)
         for i in range(rango):
@@ -164,3 +230,4 @@ class WifiControl:
             return True
         else:
             return False
+"""
