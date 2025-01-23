@@ -79,7 +79,10 @@ class WifiView(QMainWindow):
                 else:
                     frec = 0
 
-                cadenaElemento = elemento['ssid']
+                if elemento["connect"]:
+                    cadenaElemento = elemento['ssid'] + " - Conectada"
+                else:
+                    cadenaElemento = elemento['ssid']
                 item = QStandardItem(cadenaElemento)
                 item.setFlags(item.flags() & ~Qt.ItemIsEditable)
 
@@ -150,6 +153,8 @@ class WifiControl:
             return []
         lines = subprocess.check_output(
             "sudo wpa_cli scan_results", shell=True).decode("utf-8")
+        current_network = subprocess.check_output(
+            "sudo iwgetid -r", shell=True).decode("utf-8").strip()
         lines: list = lines.split("\n")[2:]
         if len(lines) == 0:
             return []
@@ -169,7 +174,8 @@ class WifiControl:
                         "frequency": frequency,
                         "signal": signal_level,
                         "security": flags,
-                        "ssid": ssid
+                        "ssid": ssid,
+                        "connect": ssid == current_network
                     }
         return list(networks_dict.values())
 
