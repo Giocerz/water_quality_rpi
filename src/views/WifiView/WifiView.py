@@ -8,6 +8,7 @@ from PySide2.QtGui import QPixmap, QIcon, QStandardItemModel, QStandardItem
 from src.views.ui_Top_Bar import Ui_Form
 from src.views.ui_WifiList import Ui_MainWindow
 from src.widgets.PopupWidget import LoadingPopupWidget
+from src.widgets.ConnectWifiWidget import ConnectWifiWidget
 
 
 class WifiView(QMainWindow):
@@ -56,33 +57,33 @@ class WifiView(QMainWindow):
 
     def actualizar_redes(self, new_result):
         self.ui.infoLbl.hide()
-        self.elementos = new_result
-        if self.elementos != []:
+        self.items = new_result
+        if self.items != []:
             self.model = QStandardItemModel()
-            for elemento in self.elementos:
-                if (elemento['security'] != ''):
+            for item in self.items:
+                if (item['security'] != ''):
                     seguridad = 1
                 else:
                     seguridad = 0
 
-                if (100 + elemento['signal'] > 75):
+                if (100 + item['signal'] > 75):
                     signal_quality = 4
-                elif (100 + elemento['signal'] > 50):
+                elif (100 + item['signal'] > 50):
                     signal_quality = 3
-                elif (100 + elemento['signal'] > 25):
+                elif (100 + item['signal'] > 25):
                     signal_quality = 2
                 else:
                     signal_quality = 1
 
-                if (elemento['frequency'] > 5000):
+                if (item['frequency'] > 5000):
                     frec = 1
                 else:
                     frec = 0
 
-                if elemento["connect"]:
-                    cadenaElemento = elemento['ssid'] + " - Conectada"
+                if item["connect"]:
+                    cadenaElemento = item['ssid'] + " - Conectada"
                 else:
-                    cadenaElemento = elemento['ssid']
+                    cadenaElemento = item['ssid']
                 item = QStandardItem(cadenaElemento)
                 item.setFlags(item.flags() & ~Qt.ItemIsEditable)
 
@@ -95,7 +96,7 @@ class WifiView(QMainWindow):
                 self.model.appendRow(item)
             self.ui.networkList.setModel(self.model)
             self.ui.networkList.setIconSize(QSize(26, 26))
-            numRedes = len(self.elementos)
+            numRedes = len(self.items)
         else:
             self.ui.infoLbl.show()
         self.loading_popup.close_and_delete()
@@ -110,6 +111,20 @@ class WifiView(QMainWindow):
 
     def scroll_value_changed(self, value):
         self.ui.verticalSlider.setValue(value)
+    
+    def select_network(self):
+        indexes = self.ui.networkList.selectedIndexes()
+        self.index = indexes[0]
+        ssid = str(self.model.data(self.index))
+        security = ''
+        is_connect = False
+        for item in self.items:
+            if item['ssid'] == ssid:
+                security= item['security']
+                is_connect = item['is_connect']
+                break
+        self.connect_popup = ConnectWifiWidget(ssid=ssid, security=security, is_connect=is_connect)
+        self.connect_popup.show()
 
 
 # Hilo wifi
@@ -167,7 +182,7 @@ class WifiControl:
                 signal_level = int(columns[2])
                 flags = columns[3]
                 ssid = columns[4]
-                
+
                 if ssid not in networks_dict or signal_level > networks_dict[ssid]["signal"]:
                     networks_dict[ssid] = {
                         "BSSID": bssid,

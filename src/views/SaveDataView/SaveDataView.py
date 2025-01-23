@@ -75,16 +75,6 @@ class SaveDataView(QMainWindow):
         self.loading_popup = None
         self.location_worker = LocationdWorker()
 
-        self.keyboard = KeyboardWidget(self.ui.inputPlace)
-        layout = QStackedLayout(self.ui.widgetKeyboard)
-        layout.addWidget(self.keyboard)
-        self.ui.widgetKeyboard.setLayout(layout)
-
-        self.keyboard2 = KeyboardWidget(self.ui.folderName)
-        layout = QStackedLayout(self.ui.widgetKeyboard2)
-        layout.addWidget(self.keyboard2)
-        self.ui.widgetKeyboard2.setLayout(layout)
-
         self.ui.backBtn.clicked.connect(self.on_back_clicked)
         self.ui.gpsBtn.clicked.connect(self.on_gps_clicked)
         self.ui.saveBtn.clicked.connect(self.on_save_clicked)
@@ -102,6 +92,16 @@ class SaveDataView(QMainWindow):
         self.ui.backBtn.setIcon(icon)
         self.ui.backBtn.setIconSize(QSize(30, 30))
         self.ui.stackedWidget.setCurrentIndex(0)
+
+        self.keyboard = KeyboardWidget(self.ui.inputPlace)
+        layout = QStackedLayout(self.ui.widgetKeyboard)
+        layout.addWidget(self.keyboard)
+        self.ui.widgetKeyboard.setLayout(layout)
+
+        self.keyboard2 = KeyboardWidget(self.ui.folderName)
+        layout = QStackedLayout(self.ui.widgetKeyboard2)
+        layout.addWidget(self.keyboard2)
+        self.ui.widgetKeyboard2.setLayout(layout)
 
     def on_gps_clicked(self):
         self.loading_popup = LoadingPopupWidget(context=self.context, text='Localizando...')
