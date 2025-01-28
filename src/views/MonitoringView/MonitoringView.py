@@ -8,6 +8,7 @@ from w1thermsensor import W1ThermSensor
 from src.logic.adcModule import ParametersVoltages
 from src.logic.parametersCalc import *
 from src.views.SaveDataView.SaveDataView import SaveDataView
+from src.package.Navigator import Navigator
 from src.logic.INA219 import INA219
 
 class ParametersMeasuredWorker(QThread):
@@ -100,7 +101,7 @@ class MonitoringView(QMainWindow):
     def on_back_clicked(self):
         if self.parameters_worker.isRunning():
             self.parameters_worker.stop()
-        self.context.removeWidget(self)
+        Navigator.pop(context=self.context, view= self)
     
     def on_pause_clicked(self):
         if(self.isPause):

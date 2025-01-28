@@ -1,10 +1,11 @@
 from PySide2.QtWidgets import QMainWindow
-from PySide2.QtCore import QSize, Qt, QThread, Signal
+from PySide2.QtCore import QSize, Qt, QThread, Signal, QTimer
 from PySide2.QtGui import QIcon, QStandardItemModel, QStandardItem
 from src.views.ui_WifiList import Ui_MainWindow
 from src.widgets.PopupWidget import LoadingPopupWidget
 from src.widgets.ConnectWifiWidget import ConnectWifiWidget
 from src.services.wifiService import WifiService
+from src.package.Navigator import Navigator
 
 
 class WifiView(QMainWindow):
@@ -15,17 +16,12 @@ class WifiView(QMainWindow):
         self.ui.setupUi(self)
         self.ui_components()
 
-        # Inicializacion del hilo del wifi
-        self.wifi_thread_find = WifiWorkerFind()
-
-        self.wifi_thread_find.networks_result.connect(self.actualizar_redes)
         self.ui.backBtn.clicked.connect(self.on_back_clicked)
         self.ui.verticalSlider.valueChanged.connect(self.slider_value_changed)
         self.ui.networkList.clicked.connect(self.select_network)
 
         self.scrollBar.rangeChanged.connect(self.adjust_slider_range)
         self.scrollBar.valueChanged.connect(self.scroll_value_changed)
-        self.wifi_thread_find_start()
 
     def ui_components(self):
         icon = QIcon('./src/resources/icons/back.png')
@@ -43,18 +39,16 @@ class WifiView(QMainWindow):
         self.loading_popup = LoadingPopupWidget(
             context=self.context, text='Buscando redes...')
         self.loading_popup.show()
-        self.wifi_thread_find_start()
+        WifiService.scan()
+        QTimer.singleShot(3000, self.update_networks)
+
 
     def on_back_clicked(self):
-        self.context.removeWidget(self)
+        Navigator.pop(context= self.context, view=self)
 
-    def wifi_thread_find_start(self):
-        if not self.wifi_thread_find.isRunning():
-            self.wifi_thread_find.start()
-
-    def actualizar_redes(self, new_result):
+    def update_networks(self):
         self.ui.infoLbl.hide()
-        self.items = new_result
+        self.items = WifiService.scan_results()
         if self.items != []:
             self.model = QStandardItemModel()
             for item in self.items:

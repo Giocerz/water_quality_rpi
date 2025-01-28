@@ -5,6 +5,8 @@ from src.views.ui_Cal_Value_Edit import Ui_MainWindow
 from src.widgets.PopupWidget import PopupWidget, PopupWidgetInfo
 from src.logic.saveCalibration import CalibrationTurbidityValues
 from src.widgets.KeyboardWidget import KeyboardWidget
+from src.package.Navigator import Navigator
+
 
 class EditCalibrationValuesView(QMainWindow):
     def __init__(self, context):
@@ -43,7 +45,7 @@ class EditCalibrationValuesView(QMainWindow):
         self.ui.doubleSPinVal4.setValue(self.cal_turb_values[3])
         
     def on_back_clicked(self):
-        self.context.removeWidget(self)
+        Navigator.pop(context= self.context, view= self)
 
     def on_save_clicked(self):
         value1 = self.ui.doubleSPinVal1.value()

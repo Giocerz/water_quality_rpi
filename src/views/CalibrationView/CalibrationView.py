@@ -9,6 +9,7 @@ from src.logic.adcModule import ParametersVoltages
 from src.logic.parametersCalc import *
 from src.widgets.PopupWidget import PopupWidget, PopupWidgetInfo
 from src.logic.saveCalibration import SaveCalibration, CalibrationTurbidityValues
+from src.package.Navigator import Navigator
 
 ########### VISTA DE CALIBRACION Y FUNCIONES#################
 
@@ -204,7 +205,7 @@ class CalibrationView(QMainWindow):
 
     def on_back_clicked(self):
         if self.calibration_step == len(self.CALIBRATION_STEPS) - 1:
-            self.context.removeWidget(self)
+            Navigator.pop(context=self.context, view= self)
         else:
             self.show_dialog()
 

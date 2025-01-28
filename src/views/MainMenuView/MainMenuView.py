@@ -8,6 +8,7 @@ from src.views.FoldersView.FoldersView import FoldersView
 from src.views.BluetoothView.BluetoothView import BluetoothView
 from src.views.WifiView.WifiView import WifiView
 from src.views.EditCalibrationValuesView.EditCalibrationValuesView import EditCalibrationValuesView
+from src.package.Navigator import Navigator
 
 class MainMenuView(QMainWindow):
     def __init__(self, context):
@@ -33,30 +34,19 @@ class MainMenuView(QMainWindow):
         self.ui.wifiBtn.setIconSize(QSize(30, 30))
 
     def on_monitoring_clicked(self):
-        self.open_view(MonitoringView(context= self.context))
+        Navigator.push(context= self.context, view= MonitoringView(context= self.context))
 
     def on_calibration_clicked(self):
-        self.open_view(CalibrationView(context= self.context))
+        Navigator.push(context= self.context, view= CalibrationView(context= self.context))
 
     def on_datos_clicked(self):
-        self.open_view(FoldersView(context= self.context))
+        Navigator.push(context= self.context, view= FoldersView(context= self.context))
 
     def on_bluetooth_clicked(self):
-        self.open_view(BluetoothView(context= self.context))
+        Navigator.push(context= self.context, view= BluetoothView(context= self.context))
     
     def on_wifi_clicked(self):
-        self.open_view(WifiView(context=self.context))
+        Navigator.push(context= self.context, view= WifiView(context= self.context))
     
     def on_edit_clicked(self):
-        self.open_view(EditCalibrationValuesView(context= self.context))
-
-    def open_view(self, view):
-        self.context.addWidget(view)
-        self.context.setCurrentIndex(self.context.currentIndex() + 1)
-    
-    def switch_to_bluetooth_view(self):
-        if self.context.currentIndex() > 0:
-            current_widget = self.context.currentWidget()
-            self.context.removeWidget(current_widget)
-            current_widget.deleteLater()
-        self.on_bluetooth_clicked()
+        Navigator.push(context= self.context, view= EditCalibrationValuesView(context= self.context))

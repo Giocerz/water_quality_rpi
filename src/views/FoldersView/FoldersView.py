@@ -6,6 +6,7 @@ from src.widgets.FolderWidget import FolderWidget
 from src.model.LoteModel import LoteModel
 from src.model.WaterQualityDB import WaterDataBase
 from src.views.DatosView.DatosView import DatosView
+from src.package.Navigator import Navigator
 
 class FoldersView(QMainWindow):
     def __init__(self, context):
@@ -36,11 +37,10 @@ class FoldersView(QMainWindow):
         self.folders_list = WaterDataBase.get_lotes()
 
     def on_back_clicked(self):
-        self.context.removeWidget(self)
+        Navigator.pop(context=self.context, view= self)
 
     def on_push_folder_widget(self, id:int):
-        self.context.addWidget(DatosView(context=self.context, lote_id=id))
-        self.context.setCurrentIndex(self.context.currentIndex() + 1)
+        Navigator.push(context= self.context, view= DatosView(context=self.context, lote_id=id))
     
     def setup_list(self):
         self.load_data()

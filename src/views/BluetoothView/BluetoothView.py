@@ -3,6 +3,7 @@ from PySide2.QtCore import QSize
 from PySide2.QtGui import QIcon
 from src.views.ui_Bluetooth_Connected import Ui_MainWindow
 from src.services.bluetoothLE import BluetoothWorker
+from src.package.Navigator import Navigator
 
 class BluetoothView(QMainWindow):
     def __init__(self, context):
@@ -23,4 +24,4 @@ class BluetoothView(QMainWindow):
 
     def on_back_clicked(self):
         self.bluetooth_worker.stop()
-        self.context.removeWidget(self)
+        Navigator.pop(context= self.context, view= self)

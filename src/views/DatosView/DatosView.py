@@ -5,7 +5,7 @@ from PySide2.QtGui import QIcon
 from src.views.ui_Datos import Ui_MainWindow
 from src.model.WaterQualityParams import WaterQualityParams
 from src.model.WaterQualityDB import WaterDataBase
-
+from src.package.Navigator import Navigator
 
 class DatosView(QMainWindow):
     ELEMENTS_NUMBER = 5
@@ -100,7 +100,7 @@ class DatosView(QMainWindow):
         self.ui.horizontalSlider.setValue(value) 
 
     def on_back_clicked(self):
-        self.context.removeWidget(self)
+        Navigator.pop(context=self.context, view= self)
 
     def load_table_data(self, data:list[list[WaterQualityParams]]):
         data_list = data
