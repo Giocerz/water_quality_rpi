@@ -7,10 +7,12 @@ class Navigator:
     @staticmethod
     def pop(context, view):
         context.removeWidget(view)
+        view.deleteLater()  
 
     @staticmethod
     def pushReplacement(context, view):
         current_widget = context.currentWidget()
         context.addWidget(view)
         context.setCurrentIndex(context.count() - 1)
-        context.removeWidget(current_widget) 
+        context.removeWidget(current_widget)
+        current_widget.deleteLater()  
