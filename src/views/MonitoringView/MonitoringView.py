@@ -118,11 +118,9 @@ class MonitoringView(QMainWindow):
     def on_save_clicked(self):
         if(not self.receive_parameters):
             return
-        view = SaveDataView(context= self.context, oxygen=self.oxygen, ph=self.ph, temperature=self.temperature, tds=self.tds, turbidity=self.turbidity)
-        self.context.addWidget(view)
-        self.context.setCurrentIndex(self.context.currentIndex() + 1)
         self.parameters_worker.stop()
-        self.context.removeWidget(self)
+        view = SaveDataView(context= self.context, oxygen=self.oxygen, ph=self.ph, temperature=self.temperature, tds=self.tds, turbidity=self.turbidity)
+        Navigator.pushReplacement(context=self.context, view=view)
 
     def handle_parameters_result(self, parameters):
         self.receive_parameters = True
