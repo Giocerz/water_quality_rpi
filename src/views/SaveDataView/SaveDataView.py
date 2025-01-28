@@ -5,8 +5,7 @@ from PySide2 import QtCore
 from src.views.ui_Save import Ui_MainWindow
 from src.widgets.KeyboardWidget import KeyboardWidget
 from src.widgets.PopupWidget import PopupWidgetInfo, LoadingPopupWidget, PopupWidget
-from src.model.WaterQualityParams import WaterQualityParams
-from src.model.LoteModel import LoteModel
+from src.model.Models import LoteModel, WaterQualityParams
 from src.model.WaterQualityDB import WaterDataBase
 from datetime import datetime
 import time

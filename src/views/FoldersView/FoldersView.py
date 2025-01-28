@@ -3,7 +3,7 @@ from PySide2.QtGui import QIcon
 from PySide2.QtCore import QSize, Qt
 from src.views.ui_Folders_view import Ui_MainWindow
 from src.widgets.FolderWidget import FolderWidget
-from src.model.LoteModel import LoteModel
+from src.model.Models import LoteModel
 from src.model.WaterQualityDB import WaterDataBase
 from src.views.DatosView.DatosView import DatosView
 from src.package.Navigator import Navigator

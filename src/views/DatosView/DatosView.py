@@ -3,7 +3,7 @@ from PySide2.QtWidgets import QMainWindow, QTableWidgetItem
 from PySide2.QtCore import QSize
 from PySide2.QtGui import QIcon
 from src.views.ui_Datos import Ui_MainWindow
-from src.model.WaterQualityParams import WaterQualityParams
+from src.model.Models import WaterQualityParams
 from src.model.WaterQualityDB import WaterDataBase
 from src.package.Navigator import Navigator
 

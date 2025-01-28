@@ -26,12 +26,11 @@ from src.logic.parametersCalc import *
 # from src.services.bluetoothLE import BluetoothWorker
 from src.widgets.KeyboardWidget import KeyboardWidget
 from src.widgets.PopupWidget import PopupWidget, PopupWidgetInfo, LoadingPopupWidget
-from src.model.WaterQualityParams import WaterQualityParams
-from src.model.LoteModel import LoteModel
+from src.model.Models import LoteModel, WaterQualityParams
 from src.model.WaterQualityDB import WaterDataBase
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg, NavigationToolbar2QT as NavigationToolbar
 from matplotlib.figure import Figure
-
+from src.package.Navigator import Navigator
 
 class ParametersMeasuredWorker(QThread):
     parameters_result = Signal(list)
