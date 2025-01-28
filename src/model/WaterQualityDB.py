@@ -1,6 +1,5 @@
 import sqlite3
-from src.model.WaterQualityParams import WaterQualityParams
-from src.model.LoteModel import LoteModel
+from src.model.Models import LoteModel, WaterQualityParams
 
 class WaterDataBase:
     WATER_TABLE_NAME = "waterParams"

@@ -184,28 +184,24 @@ class MainView(QMainWindow):
         self.ui.wifiBtn.setIcon(icon)
         self.ui.wifiBtn.setIconSize(QSize(30, 30))
 
-
     def on_monitoring_clicked(self):
-        self.open_view(MonitoringView(context=self.context))
+        Navigator.push(context= self.context, view= MonitoringView(context=self.context))
 
     def on_calibration_clicked(self):
-        self.open_view(CalibrationView(context=self.context))
+        Navigator.push(context= self.context, view= CalibrationView(context=self.context))
 
     def on_datos_clicked(self):
-        self.open_view(FoldersView(context=self.context))
+        Navigator.push(context= self.context, view= FoldersView(context=self.context))
 
     def on_bluetooth_clicked(self):
         print('ble')
 
     def on_wifi_clicked(self):
-        self.open_view(WifiView(context=self.context))
+        Navigator.push(context= self.context, view= WifiView(context=self.context))
 
     def on_edit_clicked(self):
-        self.open_view(EditCalibrationValuesView(context=self.context))
+        Navigator.push(context= self.context, view= EditCalibrationValuesView(context=self.context))
 
-    def open_view(self, view):
-        self.context.addWidget(view)
-        self.context.setCurrentIndex(self.context.currentIndex() + 1)
 
 
 class MonitoringView(QMainWindow):
@@ -249,7 +245,7 @@ class MonitoringView(QMainWindow):
     def on_back_clicked(self):
         if self.parameters_worker.isRunning():
             self.parameters_worker.stop()
-        self.context.removeWidget(self)
+        Navigator.pop(context= self.context, view= self)
 
     def on_save_clicked(self):
         if (not self.receive_parameters):
@@ -384,7 +380,7 @@ class SaveDataView(QMainWindow):
 
     def show_dialog(self):
         def on_yes():
-            self.context.removeWidget(self)
+            Navigator.pop(context=self.context, view=self)
 
         def on_no():
             pass
@@ -599,7 +595,7 @@ class CalibrationView(QMainWindow):
 
     def on_back_clicked(self):
         if self.calibration_step == len(self.CALIBRATION_STEPS) - 1:
-            self.context.removeWidget(self)
+            Navigator.pop(context=self.context, view=self)
         else:
             self.show_dialog()
 
