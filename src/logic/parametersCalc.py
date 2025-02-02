@@ -54,11 +54,12 @@ class ParametersCalculate():
         else:
             return self.__tds_calibration_with_df0300(temperature, voltage)
 
+    #The sensor used is SEN0161
     def calculatePh(self, voltage: float) -> float:
         if(voltage < self.phOffset):
-            return (voltage - self.phOffset)/self.phSlopeA + 7
+            return (voltage - self.phOffset)*self.phSlopeA + 7
         else:
-            return (voltage - self.phOffset)/self.phSlopeB + 7
+            return (voltage - self.phOffset)*self.phSlopeB + 7
 
     def calculateDo(self, voltage: float, temperature:float) -> float:
         if(temperature > 40.0):
