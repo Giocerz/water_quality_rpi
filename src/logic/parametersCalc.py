@@ -49,15 +49,10 @@ class ParametersCalculate():
             return self.__calculate_tds_with_dfr0300(temperature, voltage)
 
     def tds_calibration(self, temperature: float, voltage: float) -> float:
-        solution = 1413
-        rawECsolution = solution * (1.0 + 0.02 * (temperature - 25.0))
-        kValueTemp = rawECsolution / \
-            (133.42 * voltage * voltage * voltage -
-             255.86 * voltage * voltage + 857.39 * voltage)
-        if (kValueTemp > 10.0):
-            return 0.0
+        if self.tds_sensor_code == Constants.SEN0244:
+            return self.__tds_calibration_with_sen0244(temperature, voltage)
         else:
-            return kValueTemp
+            return self.__tds_calibration_with_df0300(temperature, voltage)
 
     def calculatePh(self, voltage: float) -> float:
         if(voltage < self.phOffset):
@@ -83,7 +78,7 @@ class ParametersCalculate():
         return turb
     
 
-    def __calculate_tds_with_dfr0300(self, temperature: float, voltage: float) -> float:
+    def __calculate_tds_with_sen0244(self, temperature: float, voltage: float) -> float:
         kValue = self.kValue
         if (voltage > 0.05):
             tdsFactor = 0.5
@@ -94,7 +89,7 @@ class ParametersCalculate():
             return tdsValue
         return 0.0
 
-    def __calculate_tds_with_sen0244(self, temperature: float, voltage: float) -> float:
+    def __calculate_tds_with_dfr0300(self, temperature: float, voltage: float) -> float:
         if (voltage > 0.01):
             kValue = self.kValue
             tdsFactor = 0.5
@@ -105,3 +100,22 @@ class ParametersCalculate():
             return tdsValue
         else:
             return 0.0
+
+    def __tds_calibration_with_sen0244(self, temperature: float, voltage: float) -> float:
+        solution = 1413
+        rawECsolution = solution * (1.0 + 0.02 * (temperature - 25.0))
+        kValueTemp = rawECsolution /(133.42 * voltage * voltage * voltage -
+             255.86 * voltage * voltage + 857.39 * voltage)
+        if (kValueTemp > 10.0):
+            return 0.0
+        else:
+            return kValueTemp
+    
+    def __tds_calibration_with_df0300(self, temperature: float, voltage: float) -> float:
+        solution = 1413.0 / 1000.0
+        compECsolution = solution*(1.0+0.0185*(temperature-25.0))
+        kValueTemp = self.RES2*self.ECREF*compECsolution/voltage; 
+        if (kValueTemp > 10.0):
+            return 0.0
+        else:
+            return kValueTemp
