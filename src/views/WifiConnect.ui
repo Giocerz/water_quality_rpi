@@ -75,7 +75,7 @@ color: #00007f;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 12pt &quot;Poppins&quot;;
+     <string notr="true">font: 16px &quot;Poppins&quot;;
 background-color: transparent;
 </string>
     </property>
@@ -170,7 +170,7 @@ color: #00007f;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 12pt &quot;Poppins&quot;;
+     <string notr="true">font: 16px &quot;Poppins&quot;;
 background-color: transparent;
 </string>
     </property>

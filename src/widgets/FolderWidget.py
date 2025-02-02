@@ -19,7 +19,7 @@ class FolderWidget(QWidget):
         
 
     def __ui_components(self):
-        self.ui.nameLbl.setText(self.name)
+        self.ui.nameLbl.setText(self.__reduce_text(self.name))
         self.ui.nameLbl.setAlignment(Qt.AlignCenter)
         icon = QIcon('./src/resources/icons/folder.png')
         self.ui.folderBtn.setIcon(icon)
@@ -39,3 +39,9 @@ class FolderWidget(QWidget):
         icon = QIcon('./src/resources/icons/folder.png')
         self.ui.folderBtn.setIcon(icon)
         self.ui.folderBtn.setIconSize(QSize(81, 81))
+
+    def __reduce_text(self, text:str) -> str:
+        if len(text) <= 15:
+            return text
+        result = text[:11] + "..."
+        return result

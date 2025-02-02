@@ -1,11 +1,11 @@
 from PySide2.QtWidgets import QWidget
 from PySide2.QtCore import QTimer
-from src.views.ui_Keyboard import Ui_Keyboard
+from src.views.ui_Keyboard import Ui_Form
 
 class KeyboardWidget(QWidget):
     def __init__(self, focusLine):
         QWidget.__init__(self)
-        self.__ui = Ui_Keyboard()
+        self.__ui = Ui_Form()
         self.__ui.setupUi(self)
         self.__focusLine = focusLine 
         self.__focusLine.setFocus() 

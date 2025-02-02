@@ -1,0 +1,5 @@
+class Constants:
+    DFR0300 = 'DFR0300'
+    SEN0244 = 'SEN0244'
+    #EC SENSOR "SEN0244" OR "DFR0300"
+    TDS_EC_SENSOR = 'DFR0300'

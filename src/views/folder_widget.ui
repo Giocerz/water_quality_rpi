@@ -16,6 +16,7 @@
   <property name="styleSheet">
    <string notr="true">QWidget {
 	background-color: white;
+	font: 14px &quot;Poppins&quot;;
 }
 </string>
   </property>

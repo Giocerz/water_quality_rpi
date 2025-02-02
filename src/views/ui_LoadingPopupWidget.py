@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'LoadingPopupWidgetpMihYW.ui'
+## Form generated from reading UI file 'LoadingPopupWidgetevkEoE.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -31,7 +31,7 @@ class Ui_Form(object):
         self.LabelInfo = QLabel(self.WidgetInfo)
         self.LabelInfo.setObjectName(u"LabelInfo")
         self.LabelInfo.setGeometry(QRect(140, 40, 241, 91))
-        self.LabelInfo.setStyleSheet(u"font: 12pt \"Poppins\";\n"
+        self.LabelInfo.setStyleSheet(u"font: 16px \"Poppins\";\n"
 "background-color: transparent;\n"
 "")
         self.IconInfo = QLabel(self.WidgetInfo)

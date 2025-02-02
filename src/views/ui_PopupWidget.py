@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PopupWidgetCmAlFC.ui'
+## Form generated from reading UI file 'PopupWidgetQwKYmK.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -31,7 +31,7 @@ class Ui_Form(object):
         self.si = QPushButton(self.WidgetInfo)
         self.si.setObjectName(u"si")
         self.si.setGeometry(QRect(220, 110, 122, 41))
-        self.si.setStyleSheet(u"font: 500 18px \"Poppins\";\n"
+        self.si.setStyleSheet(u"font: 500 16px \"Poppins\";\n"
 "border-radius: 10px;\n"
 "border: 1px solid #00007f;\n"
 "background-color: white;\n"
@@ -39,7 +39,7 @@ class Ui_Form(object):
         self.LabelInfo = QLabel(self.WidgetInfo)
         self.LabelInfo.setObjectName(u"LabelInfo")
         self.LabelInfo.setGeometry(QRect(80, 10, 331, 91))
-        self.LabelInfo.setStyleSheet(u"font: 12pt \"Poppins\";\n"
+        self.LabelInfo.setStyleSheet(u"font: 16px \"Poppins\";\n"
 "background-color: transparent;\n"
 "")
         self.IconInfo = QLabel(self.WidgetInfo)
@@ -49,7 +49,7 @@ class Ui_Form(object):
         self.no = QPushButton(self.WidgetInfo)
         self.no.setObjectName(u"no")
         self.no.setGeometry(QRect(60, 110, 122, 41))
-        self.no.setStyleSheet(u"font: 500 18px \"Poppins\";\n"
+        self.no.setStyleSheet(u"font: 500 16px \"Poppins\";\n"
 "border-radius: 10px;\n"
 "border: 1px solid #00007f;\n"
 "background-color: white;\n"

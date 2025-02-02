@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'WifiConnectzxSfOI.ui'
+## Form generated from reading UI file 'WifiConnecttuOyYV.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -39,7 +39,7 @@ class Ui_Form(object):
         self.ssidLbl = QLabel(self.Widget1)
         self.ssidLbl.setObjectName(u"ssidLbl")
         self.ssidLbl.setGeometry(QRect(30, 10, 301, 31))
-        self.ssidLbl.setStyleSheet(u"font: 12pt \"Poppins\";\n"
+        self.ssidLbl.setStyleSheet(u"font: 16px \"Poppins\";\n"
 "background-color: transparent;\n"
 "")
         self.inputPlace = QLineEdit(self.Widget1)
@@ -74,7 +74,7 @@ class Ui_Form(object):
         self.ssidLbl2 = QLabel(self.Widget2)
         self.ssidLbl2.setObjectName(u"ssidLbl2")
         self.ssidLbl2.setGeometry(QRect(30, 10, 301, 31))
-        self.ssidLbl2.setStyleSheet(u"font: 12pt \"Poppins\";\n"
+        self.ssidLbl2.setStyleSheet(u"font: 16px \"Poppins\";\n"
 "background-color: transparent;\n"
 "")
         self.firstBtn = QPushButton(self.Widget2)

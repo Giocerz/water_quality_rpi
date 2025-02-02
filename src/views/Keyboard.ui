@@ -16,6 +16,13 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QPushButton {
+	border-radius: 10px;
+	background-color: rgb(255, 255, 255);
+	font: 14px &quot;Poppins&quot;;
+}</string>
+  </property>
   <widget class="QPushButton" name="btn33">
    <property name="geometry">
     <rect>
@@ -26,10 +33,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
-background-color: rgb(255, 255, 255);
-font: 11pt &quot;Poppins&quot;;
-</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string/>
@@ -45,10 +49,7 @@ font: 11pt &quot;Poppins&quot;;
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
-background-color: rgb(255, 255, 255);
-font: 11pt &quot;Poppins&quot;;
-</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>f</string>
@@ -64,10 +65,7 @@ font: 11pt &quot;Poppins&quot;;
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
-background-color: rgb(255, 255, 255);
-font: 11pt &quot;Poppins&quot;;
-</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>l</string>
@@ -83,10 +81,7 @@ font: 11pt &quot;Poppins&quot;;
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
-background-color: rgb(255, 255, 255);
-font: 11pt &quot;Poppins&quot;;
-</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>p</string>
@@ -102,10 +97,7 @@ font: 11pt &quot;Poppins&quot;;
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
-background-color: rgb(255, 255, 255);
-font: 11pt &quot;Poppins&quot;;
-</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>,</string>
@@ -121,10 +113,7 @@ font: 11pt &quot;Poppins&quot;;
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
-background-color: rgb(255, 255, 255);
-font: 11pt &quot;Poppins&quot;;
-</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>z</string>
@@ -140,10 +129,7 @@ font: 11pt &quot;Poppins&quot;;
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
-background-color: rgb(255, 255, 255);
-font: 11pt &quot;Poppins&quot;;
-</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>e</string>
@@ -159,10 +145,7 @@ font: 11pt &quot;Poppins&quot;;
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
-background-color: rgb(255, 255, 255);
-font: 11pt &quot;Poppins&quot;;
-</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>y</string>
@@ -180,7 +163,7 @@ font: 11pt &quot;Poppins&quot;;
    <property name="styleSheet">
     <string notr="true">border-radius: 10px;
 background-color: #00007f;
-font: 12pt &quot;Poppins&quot;;
+font: 18px;
 color: rgb(255, 255, 255);
 </string>
    </property>
@@ -198,10 +181,7 @@ color: rgb(255, 255, 255);
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
-background-color: rgb(255, 255, 255);
-font: 11pt &quot;Poppins&quot;;
-</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>k</string>
@@ -217,10 +197,7 @@ font: 11pt &quot;Poppins&quot;;
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
-background-color: rgb(255, 255, 255);
-font: 11pt &quot;Poppins&quot;;
-</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>n</string>
@@ -236,10 +213,7 @@ font: 11pt &quot;Poppins&quot;;
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
-background-color: rgb(255, 255, 255);
-font: 11pt &quot;Poppins&quot;;
-</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>w</string>
@@ -255,10 +229,7 @@ font: 11pt &quot;Poppins&quot;;
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
-background-color: rgb(255, 255, 255);
-font: 11pt &quot;Poppins&quot;;
-</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>ñ</string>
@@ -274,10 +245,7 @@ font: 11pt &quot;Poppins&quot;;
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
-background-color: rgb(255, 255, 255);
-font: 11pt &quot;Poppins&quot;;
-</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>q</string>
@@ -293,10 +261,7 @@ font: 11pt &quot;Poppins&quot;;
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
-background-color: rgb(255, 255, 255);
-font: 11pt &quot;Poppins&quot;;
-</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>o</string>
@@ -312,10 +277,7 @@ font: 11pt &quot;Poppins&quot;;
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
-background-color: rgb(255, 255, 255);
-font: 11pt &quot;Poppins&quot;;
-</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>x</string>
@@ -331,9 +293,8 @@ font: 11pt &quot;Poppins&quot;;
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
-background-color: #00007f;
-font: 20pt &quot;MS Shell Dlg 2&quot;;
+    <string notr="true">background-color: #00007f;
+font: 32px &quot;MS Shell Dlg 2&quot;;
 color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
@@ -350,9 +311,7 @@ color: rgb(255, 255, 255);</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
-background-color: #00007f;
-font: 11pt &quot;Poppins&quot;;
+    <string notr="true">background-color: #00007f;
 color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
@@ -369,10 +328,7 @@ color: rgb(255, 255, 255);</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
-background-color: rgb(255, 255, 255);
-font: 11pt &quot;Poppins&quot;;
-</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>j</string>
@@ -388,10 +344,7 @@ font: 11pt &quot;Poppins&quot;;
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
-background-color: rgb(255, 255, 255);
-font: 11pt &quot;Poppins&quot;;
-</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>g</string>
@@ -407,10 +360,7 @@ font: 11pt &quot;Poppins&quot;;
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
-background-color: rgb(255, 255, 255);
-font: 11pt &quot;Poppins&quot;;
-</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>m</string>
@@ -426,10 +376,7 @@ font: 11pt &quot;Poppins&quot;;
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
-background-color: rgb(255, 255, 255);
-font: 11pt &quot;Poppins&quot;;
-</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>u</string>
@@ -445,10 +392,7 @@ font: 11pt &quot;Poppins&quot;;
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
-background-color: rgb(255, 255, 255);
-font: 11pt &quot;Poppins&quot;;
-</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>v</string>
@@ -464,10 +408,7 @@ font: 11pt &quot;Poppins&quot;;
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
-background-color: rgb(255, 255, 255);
-font: 11pt &quot;Poppins&quot;;
-</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>h</string>
@@ -483,9 +424,7 @@ font: 11pt &quot;Poppins&quot;;
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
-background-color: #00007f;
-font: 11pt &quot;Poppins&quot;;
+    <string notr="true">background-color: #00007f;
 color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
@@ -502,10 +441,7 @@ color: rgb(255, 255, 255);</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
-background-color: rgb(255, 255, 255);
-font: 11pt &quot;Poppins&quot;;
-</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>/</string>
@@ -521,10 +457,7 @@ font: 11pt &quot;Poppins&quot;;
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
-background-color: rgb(255, 255, 255);
-font: 11pt &quot;Poppins&quot;;
-</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>b</string>
@@ -540,10 +473,7 @@ font: 11pt &quot;Poppins&quot;;
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
-background-color: rgb(255, 255, 255);
-font: 11pt &quot;Poppins&quot;;
-</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>.</string>
@@ -559,10 +489,7 @@ font: 11pt &quot;Poppins&quot;;
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
-background-color: rgb(255, 255, 255);
-font: 11pt &quot;Poppins&quot;;
-</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>d</string>
@@ -578,10 +505,7 @@ font: 11pt &quot;Poppins&quot;;
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
-background-color: rgb(255, 255, 255);
-font: 11pt &quot;Poppins&quot;;
-</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>s</string>
@@ -597,10 +521,7 @@ font: 11pt &quot;Poppins&quot;;
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
-background-color: rgb(255, 255, 255);
-font: 11pt &quot;Poppins&quot;;
-</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>t</string>
@@ -616,10 +537,7 @@ font: 11pt &quot;Poppins&quot;;
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
-background-color: rgb(255, 255, 255);
-font: 11pt &quot;Poppins&quot;;
-</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>c</string>
@@ -635,10 +553,7 @@ font: 11pt &quot;Poppins&quot;;
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
-background-color: rgb(255, 255, 255);
-font: 11pt &quot;Poppins&quot;;
-</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>i</string>
@@ -654,10 +569,7 @@ font: 11pt &quot;Poppins&quot;;
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
-background-color: rgb(255, 255, 255);
-font: 11pt &quot;Poppins&quot;;
-</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>r</string>
@@ -673,10 +585,7 @@ font: 11pt &quot;Poppins&quot;;
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
-background-color: rgb(255, 255, 255);
-font: 11pt &quot;Poppins&quot;;
-</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>a</string>

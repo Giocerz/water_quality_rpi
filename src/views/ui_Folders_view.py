@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'Folders_viewZRfzys.ui'
+## Form generated from reading UI file 'Folders_viewWDxdZb.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -25,7 +25,7 @@ class Ui_MainWindow(object):
         self.centralwidget.setStyleSheet(u"")
         self.backBtn = QPushButton(self.centralwidget)
         self.backBtn.setObjectName(u"backBtn")
-        self.backBtn.setGeometry(QRect(435, 0, 41, 41))
+        self.backBtn.setGeometry(QRect(435, 2, 41, 41))
         self.backBtn.setStyleSheet(u"	height: 40px;\n"
 "	border-radius: 20px;\n"
 "	border: 1px solid #00007f;\n"
@@ -36,7 +36,7 @@ class Ui_MainWindow(object):
         self.scrollArea = QScrollArea(self.centralwidget)
         self.scrollArea.setObjectName(u"scrollArea")
         self.scrollArea.setGeometry(QRect(0, 0, 431, 272))
-        self.scrollArea.setStyleSheet(u"border: opx;")
+        self.scrollArea.setStyleSheet(u"border: none;")
         self.scrollArea.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.scrollArea.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.scrollArea.setWidgetResizable(True)
@@ -46,7 +46,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.verticalSlider = QSlider(self.centralwidget)
         self.verticalSlider.setObjectName(u"verticalSlider")
-        self.verticalSlider.setGeometry(QRect(440, 49, 31, 211))
+        self.verticalSlider.setGeometry(QRect(440, 52, 31, 211))
         self.verticalSlider.setLayoutDirection(Qt.LeftToRight)
         self.verticalSlider.setStyleSheet(u"QSlider::groove:vertical{ \n"
 "    background-color: rgb(234, 234, 234);\n"
@@ -80,7 +80,7 @@ class Ui_MainWindow(object):
         self.emptyFoldersNoticeLbl.setObjectName(u"emptyFoldersNoticeLbl")
         self.emptyFoldersNoticeLbl.setGeometry(QRect(50, 40, 341, 81))
         self.emptyFoldersNoticeLbl.setStyleSheet(u"color: grey;\n"
-"font-size: 18pt;")
+"font-size: 24px;")
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)

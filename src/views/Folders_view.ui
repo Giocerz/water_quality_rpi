@@ -25,7 +25,7 @@ font: 11pt Poppins;</string>
     <property name="geometry">
      <rect>
       <x>435</x>
-      <y>0</y>
+      <y>2</y>
       <width>41</width>
       <height>41</height>
      </rect>
@@ -53,7 +53,7 @@ font: 11pt Poppins;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border: opx;</string>
+     <string notr="true">border: none;</string>
     </property>
     <property name="verticalScrollBarPolicy">
      <enum>Qt::ScrollBarAlwaysOff</enum>
@@ -79,7 +79,7 @@ font: 11pt Poppins;</string>
     <property name="geometry">
      <rect>
       <x>440</x>
-      <y>49</y>
+      <y>52</y>
       <width>31</width>
       <height>211</height>
      </rect>
@@ -145,7 +145,7 @@ QSlider{
     </property>
     <property name="styleSheet">
      <string notr="true">color: grey;
-font-size: 18pt;</string>
+font-size: 24px;</string>
     </property>
     <property name="text">
      <string>No hay carpetas guardadas</string>

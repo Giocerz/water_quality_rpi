@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'SaverwxXur.ui'
+## Form generated from reading UI file 'SaveYqEnEn.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -19,13 +19,13 @@ class Ui_MainWindow(object):
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(480, 272)
         MainWindow.setStyleSheet(u"background-color: white;\n"
-"font: 11pt Poppins;")
+"font: 14px Poppins;")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.centralwidget.setStyleSheet(u"")
         self.backBtn = QPushButton(self.centralwidget)
         self.backBtn.setObjectName(u"backBtn")
-        self.backBtn.setGeometry(QRect(5, 0, 41, 41))
+        self.backBtn.setGeometry(QRect(5, 5, 41, 41))
         self.backBtn.setStyleSheet(u"height: 40px;\n"
 "border-radius: 20px;\n"
 "border: 1px solid #00007f;\n"
@@ -45,7 +45,6 @@ class Ui_MainWindow(object):
 "border-style: solid;\n"
 "border-width: 1px;\n"
 "border-radius: 6px;\n"
-"font: 12pt \"Poppins\";\n"
 "background-color: rgb(234, 234, 234);")
         self.inputPlace.setMaxLength(50)
         self.widgetKeyboard = QWidget(self.page)
@@ -57,7 +56,6 @@ class Ui_MainWindow(object):
         self.checkBox.setGeometry(QRect(90, 90, 211, 21))
         self.checkBox.setLayoutDirection(Qt.RightToLeft)
         self.checkBox.setStyleSheet(u"QCheckBox {\n"
-"	font-size: 12pt;\n"
 "	background-color: transparent;\n"
 "	height: 21px;\n"
 "}\n"
@@ -86,9 +84,7 @@ class Ui_MainWindow(object):
 "background-color: #00007f;\n"
 "color: white;\n"
 "border: none;\n"
-"border-radius: 15px;\n"
-"font-size: 11pt;\n"
-"")
+"border-radius: 15px;")
         self.stackedWidget.addWidget(self.page)
         self.page_2 = QWidget()
         self.page_2.setObjectName(u"page_2")
@@ -111,7 +107,7 @@ class Ui_MainWindow(object):
         self.comboBox.addItem("")
         self.comboBox.addItem("")
         self.comboBox.setObjectName(u"comboBox")
-        self.comboBox.setGeometry(QRect(170, 20, 233, 30))
+        self.comboBox.setGeometry(QRect(132, 40, 218, 29))
         self.comboBox.setLayoutDirection(Qt.LeftToRight)
         self.comboBox.setStyleSheet(u"border-color: rgb(0, 0, 0);\n"
 "border-style: solid;\n"
@@ -126,24 +122,20 @@ class Ui_MainWindow(object):
 "color: white;\n"
 "border: none;\n"
 "border-radius: 15px;\n"
-"font-size: 11pt;\n"
 "")
-        self.label_2 = QLabel(self.page_2)
-        self.label_2.setObjectName(u"label_2")
-        self.label_2.setGeometry(QRect(110, 20, 51, 21))
         self.gpsBtn = QPushButton(self.page_2)
         self.gpsBtn.setObjectName(u"gpsBtn")
-        self.gpsBtn.setGeometry(QRect(160, 100, 180, 31))
+        self.gpsBtn.setGeometry(QRect(160, 120, 180, 31))
         self.gpsBtn.setStyleSheet(u"border-radius: 20px;\n"
 "background-color: #00007f;\n"
 "color: white;\n"
 "border: none;\n"
 "border-radius: 15px;\n"
-"font-size: 11pt;\n"
+"\n"
 "")
         self.label_4 = QLabel(self.page_2)
         self.label_4.setObjectName(u"label_4")
-        self.label_4.setGeometry(QRect(110, 70, 281, 21))
+        self.label_4.setGeometry(QRect(110, 90, 281, 21))
         self.saveBtn = QPushButton(self.page_2)
         self.saveBtn.setObjectName(u"saveBtn")
         self.saveBtn.setGeometry(QRect(350, 230, 111, 31))
@@ -152,21 +144,24 @@ class Ui_MainWindow(object):
 "color: white;\n"
 "border: none;\n"
 "border-radius: 15px;\n"
-"font-size: 11pt;\n"
+"\n"
 "")
         self.selectFolderBtn = QPushButton(self.page_2)
         self.selectFolderBtn.setObjectName(u"selectFolderBtn")
-        self.selectFolderBtn.setGeometry(QRect(160, 180, 181, 31))
+        self.selectFolderBtn.setGeometry(QRect(160, 190, 181, 31))
         self.selectFolderBtn.setStyleSheet(u"border-radius: 20px;\n"
 "background-color: #00007f;\n"
 "color: white;\n"
 "border: none;\n"
 "border-radius: 15px;\n"
-"font-size: 11pt;\n"
+"\n"
 "")
         self.folderLbl = QLabel(self.page_2)
         self.folderLbl.setObjectName(u"folderLbl")
-        self.folderLbl.setGeometry(QRect(110, 150, 281, 21))
+        self.folderLbl.setGeometry(QRect(110, 160, 281, 21))
+        self.label_2 = QLabel(self.page_2)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setGeometry(QRect(132, 20, 55, 16))
         self.stackedWidget.addWidget(self.page_2)
         self.page_3 = QWidget()
         self.page_3.setObjectName(u"page_3")
@@ -178,7 +173,6 @@ class Ui_MainWindow(object):
 "color: white;\n"
 "border: none;\n"
 "border-radius: 15px;\n"
-"font-size: 11pt;\n"
 "")
         self.scrollArea = QScrollArea(self.page_3)
         self.scrollArea.setObjectName(u"scrollArea")
@@ -227,21 +221,21 @@ class Ui_MainWindow(object):
         self.emptyFoldersNoticeLbl.setObjectName(u"emptyFoldersNoticeLbl")
         self.emptyFoldersNoticeLbl.setGeometry(QRect(90, 30, 351, 81))
         self.emptyFoldersNoticeLbl.setStyleSheet(u"color: grey;\n"
-"font-size: 18pt;")
+"font-size: 24px;")
         self.stackedWidget.addWidget(self.page_3)
         self.page_4 = QWidget()
         self.page_4.setObjectName(u"page_4")
         self.label_7 = QLabel(self.page_4)
         self.label_7.setObjectName(u"label_7")
-        self.label_7.setGeometry(QRect(90, 60, 61, 21))
+        self.label_7.setGeometry(QRect(120, 38, 61, 21))
         self.folderName = QLineEdit(self.page_4)
         self.folderName.setObjectName(u"folderName")
-        self.folderName.setGeometry(QRect(160, 60, 241, 26))
+        self.folderName.setGeometry(QRect(120, 60, 241, 26))
         self.folderName.setStyleSheet(u"border-color: rgb(0, 0, 0);\n"
 "border-style: solid;\n"
 "border-width: 1px;\n"
 "border-radius: 6px;\n"
-"font: 12pt \"Poppins\";\n"
+"font: 14px \"Poppins\";\n"
 "background-color: rgb(234, 234, 234);")
         self.folderName.setMaxLength(50)
         self.label_8 = QLabel(self.page_4)
@@ -260,7 +254,6 @@ class Ui_MainWindow(object):
 "color: white;\n"
 "border: none;\n"
 "border-radius: 15px;\n"
-"font-size: 11pt;\n"
 "")
         self.stackedWidget.addWidget(self.page_4)
         MainWindow.setCentralWidget(self.centralwidget)
@@ -301,12 +294,12 @@ class Ui_MainWindow(object):
         self.comboBox.setItemText(16, QCoreApplication.translate("MainWindow", u"Otro", None))
 
         self.prevBtn.setText(QCoreApplication.translate("MainWindow", u"Anterior", None))
-        self.label_2.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"right\"><span style=\" font-size:11pt;\">Fuente:</span></p></body></html>", None))
         self.gpsBtn.setText(QCoreApplication.translate("MainWindow", u"Localizar con GPS", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\">Latitud, longitud</p></body></html>", None))
         self.saveBtn.setText(QCoreApplication.translate("MainWindow", u"Guardar", None))
         self.selectFolderBtn.setText(QCoreApplication.translate("MainWindow", u"Seleccionar carpeta", None))
         self.folderLbl.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\">Carpeta:</p></body></html>", None))
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"Fuente", None))
         self.openCreateFolderBtn.setText(QCoreApplication.translate("MainWindow", u"Crear una nueva carpeta", None))
         self.emptyFoldersNoticeLbl.setText(QCoreApplication.translate("MainWindow", u"No hay carpetas guardadas", None))
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>Nombre</p></body></html>", None))

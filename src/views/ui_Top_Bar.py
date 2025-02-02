@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'Top_BarTnEOoS.ui'
+## Form generated from reading UI file 'Top_BarbRdIWi.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -28,7 +28,7 @@ class Ui_Form(object):
         self.label = QLabel(Form)
         self.label.setObjectName(u"label")
         self.label.setGeometry(QRect(10, 1, 61, 41))
-        self.label.setStyleSheet(u"	font-size: 14pt;")
+        self.label.setStyleSheet(u"font-size: 18px;")
         self.batteryExtBorder = QLabel(Form)
         self.batteryExtBorder.setObjectName(u"batteryExtBorder")
         self.batteryExtBorder.setGeometry(QRect(380, 11, 60, 26))
@@ -70,7 +70,7 @@ class Ui_Form(object):
         self.timeLbl.setGeometry(QRect(120, 1, 91, 41))
         self.timeLbl.setStyleSheet(u"color: #00007f;\n"
 "font-weight: bold;\n"
-"font-size: 14pt;")
+"font-size: 18px;")
         self.networkLbl = QLabel(Form)
         self.networkLbl.setObjectName(u"networkLbl")
         self.networkLbl.setGeometry(QRect(80, 5, 31, 31))

@@ -19,7 +19,8 @@ from src.widgets.DialogWidget import DialogWidget, DialogWidgetInfo
 from src.views.FoldersView.FoldersView import FoldersView
 from src.widgets.FolderWidget import FolderWidget
 from src.logic.saveCalibration import SaveCalibration
-from src.views.EditCalibrationValuesView.EditCalibrationValuesView import EditCalibrationValuesView
+import src.views.ui_timer_test as TimerTest
+#from src.views.EditCalibrationValuesView.EditCalibrationValuesView import EditCalibrationValuesView
 from src.views.WifiView.WifiView import WifiView
 # from src.logic.adcModule import ParametersVoltages
 from src.logic.parametersCalc import *
@@ -31,6 +32,7 @@ from src.model.WaterQualityDB import WaterDataBase
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg, NavigationToolbar2QT as NavigationToolbar
 from matplotlib.figure import Figure
 from src.package.Navigator import Navigator
+from src.package.Timer import Timer
 
 class ParametersMeasuredWorker(QThread):
     parameters_result = Signal(list)
@@ -200,9 +202,41 @@ class MainView(QMainWindow):
         Navigator.push(context= self.context, view= WifiView(context=self.context))
 
     def on_edit_clicked(self):
-        Navigator.push(context= self.context, view= EditCalibrationValuesView(context=self.context))
+        Navigator.push(context= self.context, view= TimerTestView(context=self.context))
 
 
+class TimerTestView(QMainWindow):
+    def __init__(self, context):
+        QMainWindow.__init__(self)
+        self.context = context
+        self.timer = None
+        self.ui = TimerTest.Ui_MainWindow()
+        self.ui.setupUi(self)
+        self.ui_components()
+        self.ui.backBtn.clicked.connect(self.on_back_clicked)
+        self.ui.startBtn.clicked.connect(self.start)
+        self.ui.pushButton_2.clicked.connect(self.stop)
+
+    def ui_components(self):
+        icon = QIcon('./src/resources/icons/back.png')
+        self.ui.backBtn.setIcon(icon)
+        self.ui.backBtn.setIconSize(QSize(30, 30))
+    
+    def on_back_clicked(self):
+        if self.timer:
+            self.timer.cancel()
+        Navigator.pop(context= self.context, view= self)
+
+    def call_back(self):
+        print("TIMER REPETITIVO")
+
+    def start(self):
+        self.timer =  Timer.periodic(duration= 2000, callback= self.call_back)
+        self.timer.start()
+    
+    def stop(self):
+        if self.timer:
+            self.timer.cancel()
 
 class MonitoringView(QMainWindow):
     def __init__(self, context):
@@ -351,6 +385,9 @@ class SaveDataView(QMainWindow):
 
     def on_back_clicked(self):
         self.show_dialog()
+    
+    def close_view(self):
+        Navigator.pop(context= self.context, view= self)
 
     def on_next_clicked(self):
         self.ui.stackedWidget.setCurrentIndex(1)
@@ -360,6 +397,7 @@ class SaveDataView(QMainWindow):
 
     def on_select_folder_clicked(self):
         self.ui.stackedWidget.setCurrentIndex(2)
+        self.ui.backBtn.hide()
 
     def on_open_create_folder_clicked(self):
         self.ui.stackedWidget.setCurrentIndex(3)
@@ -380,7 +418,7 @@ class SaveDataView(QMainWindow):
 
     def show_dialog(self):
         def on_yes():
-            Navigator.pop(context=self.context, view=self)
+            self.close_view()
 
         def on_no():
             pass
@@ -430,7 +468,7 @@ class SaveDataView(QMainWindow):
         )
         WaterDataBase.insert_water_param(params)
         finish_popup = PopupWidgetInfo(
-            context=self.context, text="La muestra se guardó exitosamente", on_click=self.on_back_clicked)
+            context=self.context, text="La muestra se guardó exitosamente", on_click=self.close_view)
         finish_popup.show()
 
 

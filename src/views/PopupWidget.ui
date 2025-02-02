@@ -55,7 +55,7 @@ background-color: white;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 500 18px &quot;Poppins&quot;;
+     <string notr="true">font: 500 16px &quot;Poppins&quot;;
 border-radius: 10px;
 border: 1px solid #00007f;
 background-color: white;
@@ -75,7 +75,7 @@ color: #00007f;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 12pt &quot;Poppins&quot;;
+     <string notr="true">font: 16px &quot;Poppins&quot;;
 background-color: transparent;
 </string>
     </property>
@@ -109,7 +109,7 @@ background-color: transparent;
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 500 18px &quot;Poppins&quot;;
+     <string notr="true">font: 500 16px &quot;Poppins&quot;;
 border-radius: 10px;
 border: 1px solid #00007f;
 background-color: white;

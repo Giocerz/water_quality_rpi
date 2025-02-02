@@ -1,3 +1,5 @@
+from src.logic.Constants import Constants
+
 class ParametersCalculate():
     DO_TABLE = [
         14460, 14220, 13820, 13440, 13090, 12740, 12420, 12110, 11810, 11530,
@@ -5,6 +7,9 @@ class ParametersCalculate():
         9080, 8900, 8730, 8570, 8410, 8250, 8110, 7960, 7820, 7690,
         7560, 7430, 7300, 7180, 7070, 6950, 6840, 6730, 6630, 6530, 6410
     ]
+
+    RES2 = 820.0
+    ECREF = 200.0
 
     def __init__(self):
         super(ParametersCalculate, self).__init__()
@@ -18,6 +23,7 @@ class ParametersCalculate():
         self.turb_coef_a = None
         self.turb_coef_b = None
         self.turb_coef_c = None
+        self.tds_sensor_code = Constants.TDS_EC_SENSOR
 
         self.set_calibration_values()
 
@@ -37,16 +43,10 @@ class ParametersCalculate():
 
     def calculateTds(self, temperature: float, voltage: float) -> float:
         print(f'TDS VOLTAGE: {voltage}')
-        kValue = self.kValue
-        if (voltage > 0.05):
-            tdsFactor = 0.5
-            ecValue = (133.42 * voltage * voltage * voltage - 255.86 *
-                       voltage * voltage + 857.39 * voltage) * kValue
-            ecValue25 = ecValue / (1.0 + 0.02 * (temperature - 25.0))
-            tdsValue = ecValue25 * tdsFactor
-            return tdsValue
+        if self.tds_sensor_code == Constants.SEN0244:
+            return self.__calculate_tds_with_sen0244(temperature, voltage)
         else:
-            return 0.0
+            return self.__calculate_tds_with_dfr0300(temperature, voltage)
 
     def tds_calibration(self, temperature: float, voltage: float) -> float:
         solution = 1413
@@ -81,3 +81,27 @@ class ParametersCalculate():
         elif(turb < 0.0):
             turb = 0.0
         return turb
+    
+
+    def __calculate_tds_with_dfr0300(self, temperature: float, voltage: float) -> float:
+        kValue = self.kValue
+        if (voltage > 0.05):
+            tdsFactor = 0.5
+            ecValue = (133.42 * voltage * voltage * voltage - 255.86 *
+                       voltage * voltage + 857.39 * voltage) * kValue
+            ecValue25 = ecValue / (1.0 + 0.02 * (temperature - 25.0))
+            tdsValue = ecValue25 * tdsFactor
+            return tdsValue
+        return 0.0
+
+    def __calculate_tds_with_sen0244(self, temperature: float, voltage: float) -> float:
+        if (voltage > 0.01):
+            kValue = self.kValue
+            tdsFactor = 0.5
+            rawEC = 1000*voltage/self.RES2/self.ECREF
+            value = rawEC * kValue
+            value = value / (1.0+0.0185*(temperature-25.0))
+            tdsValue = value * tdsFactor
+            return tdsValue
+        else:
+            return 0.0

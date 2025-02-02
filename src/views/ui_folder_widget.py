@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'folder_widgettOPzhx.ui'
+## Form generated from reading UI file 'folder_widgetGuarqd.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -20,6 +20,7 @@ class Ui_Form(object):
         Form.resize(133, 100)
         Form.setStyleSheet(u"QWidget {\n"
 "	background-color: white;\n"
+"	font: 14px \"Poppins\";\n"
 "}\n"
 "")
         self.nameLbl = QLabel(Form)
