@@ -2,16 +2,16 @@ import dbus
 import random
 from .advertisement import Advertisement
 from .service import Application, Service, Characteristic, Descriptor
-from PySide2.QtCore import QSize, QThread, Signal, Slot
+from PySide2.QtCore import QThread
 from src.logic.saveCalibration import SaveCalibration
 from w1thermsensor import W1ThermSensor
 from src.logic.adcModule import ParametersVoltages
 from src.logic.parametersCalc import *
 from src.logic.INA219 import INA219
+from src.config.Constants import Constants
 
 GATT_CHRC_IFACE = "org.bluez.GattCharacteristic1"
 NOTIFY_TIMEOUT = 3000
-DEVICE_ID = "CAP0003-FC"
 SERVICE_UUID = "00000001-b149-430d-8d97-e2ed464102df"
 DEVICE_ID_UUID = "00000002-b149-430d-8d97-e2ed464102df"
 CALIBRATION_SAVE_UUID = "00000009-b149-430d-8d97-e2ed464102df"
@@ -22,7 +22,7 @@ MONITORING_UUID = "00000005-b149-430d-8d97-e2ed464102df"
 class WaterQualityAdvertisement(Advertisement):
     def __init__(self, index):
         Advertisement.__init__(self, index, "peripheral")
-        self.add_local_name("CitizenAP0003")
+        self.add_local_name(Constants.BLE_ID)
         self.include_tx_power = True
 
 
@@ -109,7 +109,7 @@ class IDCharacteristic(Characteristic):
         self.add_descriptor(IDDescriptor(self))
 
     def get_id(self):
-        strtemp = DEVICE_ID
+        strtemp = Constants.DEVICE_ID
         return strtemp.encode()
 
     def ReadValue(self, options):

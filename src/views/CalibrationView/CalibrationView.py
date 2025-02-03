@@ -297,7 +297,7 @@ class CalibrationView(QMainWindow):
             self.tds_voltage = self.parameters_volt.tds_volt()
             kValue_temp = self.parameters_calc.tds_calibration(
                 temp, self.tds_voltage)
-            if (kValue_temp <= 0.0 or kValue_temp >= 10.0):
+            if (kValue_temp == 0.0):
                 self.show_dialog_error('Error: kValue fuera de rango')
                 return False
             else:

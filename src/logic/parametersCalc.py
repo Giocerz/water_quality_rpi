@@ -1,4 +1,4 @@
-from src.logic.Constants import Constants
+from src.config.Constants import Constants
 
 class ParametersCalculate():
     DO_TABLE = [
@@ -91,10 +91,10 @@ class ParametersCalculate():
         return 0.0
 
     def __calculate_tds_with_dfr0300(self, temperature: float, voltage: float) -> float:
-        if (voltage > 0.01):
+        if (voltage > 0.0099):
             kValue = self.kValue
             tdsFactor = 0.5
-            rawEC = 1000*voltage/self.RES2/self.ECREF
+            rawEC = voltage/self.RES2/self.ECREF
             value = rawEC * kValue
             value = value / (1.0+0.0185*(temperature-25.0))
             tdsValue = value * tdsFactor
@@ -115,8 +115,5 @@ class ParametersCalculate():
     def __tds_calibration_with_df0300(self, temperature: float, voltage: float) -> float:
         solution = 1413.0 / 1000.0
         compECsolution = solution*(1.0+0.0185*(temperature-25.0))
-        kValueTemp = self.RES2*self.ECREF*compECsolution/voltage; 
-        if (kValueTemp > 10.0):
-            return 0.0
-        else:
-            return kValueTemp
+        kValueTemp = self.RES2*self.ECREF*compECsolution/1000.0/voltage; 
+        return kValueTemp
