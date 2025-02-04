@@ -10,6 +10,7 @@ from src.logic.parametersCalc import *
 from src.views.SaveDataView.SaveDataView import SaveDataView
 from src.package.Navigator import Navigator
 from src.logic.INA219 import INA219
+from src.logic.filters import MovingAverageFilter
 
 class ParametersMeasuredWorker(QThread):
     parameters_result = Signal(list)
@@ -24,6 +25,7 @@ class ParametersMeasuredWorker(QThread):
         parameters = ParametersVoltages()
         parameters_calc = ParametersCalculate()
         ina219 = INA219(addr=0x42)
+        turb_filter = MovingAverageFilter(10)
 
         while self.running_state:
             try:
@@ -41,8 +43,8 @@ class ParametersMeasuredWorker(QThread):
                     parameters.oxygen_volt(), temp), 2)
                 tds = round(parameters_calc.calculateTds(
                     temp, parameters.tds_volt()), 2)
-                turb = round(parameters_calc.calculateTurb(
-                    parameters.turbidity_volt()), 2)
+                turb_voltage = turb_filter.add_value(parameters.turbidity_volt())
+                turb = round(parameters_calc.calculateTurb(turb_voltage), 2)
                 
                 bus_voltage = ina219.getBusVoltage_V()
                 p = int((bus_voltage - 6)/2.4*100)

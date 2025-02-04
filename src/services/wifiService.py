@@ -129,3 +129,23 @@ class WifiService:
             return essid, signal_level
         except subprocess.CalledProcessError as e:
             return None, None
+        
+
+    @staticmethod
+    def scan_results_mocker():
+        import random
+        networks = []
+        current_network_index = random.randint(0, 5)  # Solo una red tendrá connect=True
+        
+        for i in range(6):
+            network = {
+                "BSSID": f"00:1A:2B:3C:4D:{random.randint(10, 99)}",
+                "frequency": random.choice([2400, 5400]),
+                "signal": random.randint(-100, 0),
+                "security": random.choice(["WPA", ""]),
+                "ssid": f"Network_{i+1}",
+                "connect": i == current_network_index
+            }
+            networks.append(network)
+        
+        return networks
