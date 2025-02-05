@@ -129,7 +129,28 @@ class WifiService:
             return essid, signal_level
         except subprocess.CalledProcessError as e:
             return None, None
+
+    def is_network_saved(ssid):
+        """
+        Verifica si una red con el SSID dado está guardada en wpa_supplicant.
         
+        :param ssid: El SSID de la red a verificar.
+        :return: True si la red está guardada, False si no lo está.
+        """
+        try:
+            # Obtener la lista de redes configuradas
+            saved_networks = subprocess.check_output(
+                "sudo wpa_cli list_networks", text=True
+            )
+            
+            # Verificar si el SSID está en la lista de redes guardadas
+            if ssid in saved_networks:
+                return True
+            else:
+                return False
+        except subprocess.CalledProcessError as e:
+            print(f"Error al ejecutar wpa_cli: {e}")
+            return False
 
     @staticmethod
     def scan_results_mocker():

@@ -2,10 +2,11 @@ from PySide2.QtWidgets import QMainWindow
 from PySide2.QtCore import QSize, Qt, QThread, Signal, QTimer
 from PySide2.QtGui import QIcon, QStandardItemModel, QStandardItem
 from src.views.ui_WifiList import Ui_MainWindow
-from src.widgets.PopupWidget import LoadingPopupWidget
+from src.widgets.PopupWidget import LoadingPopupWidget, PopupWidgetInfo
 from src.widgets.ConnectWifiWidget import ConnectWifiWidget
 from src.services.wifiService import WifiService
 from src.package.Navigator import Navigator
+from src.package.Timer import Timer
 
 
 class WifiView(QMainWindow):
@@ -15,6 +16,9 @@ class WifiView(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.ui_components()
+        self.timer:Timer = None
+        self.current_index:int = 0
+        self.try_connect_id:int = 0
 
         self.ui.backBtn.clicked.connect(self.on_back_clicked)
         self.ui.verticalSlider.valueChanged.connect(self.slider_value_changed)
@@ -40,18 +44,24 @@ class WifiView(QMainWindow):
             context=self.context, text='Buscando redes...')
         self.loading_popup.show()
         WifiService.scan()
-        QTimer.singleShot(3000, self.update_networks)
+        self.timer = Timer(3000, self.update_networks)
+        self.timer.start()
 
 
     def on_back_clicked(self):
+        self.timer.cancel()
         Navigator.pop(context= self.context, view=self)
 
     def update_networks(self):
         self.ui.infoLbl.hide()
         self.items = WifiService.scan_results()
-        if self.items != []:
+        self.update_wifi_list(self.items)
+        
+    
+    def update_wifi_list(self, items:list):
+        if items != []:
             self.model = QStandardItemModel()
-            for item in self.items:
+            for item in items:
                 if (item['security'] != ''):
                     seguridad = 1
                 else:
@@ -87,7 +97,7 @@ class WifiView(QMainWindow):
                 self.model.appendRow(standard_item)
             self.ui.networkList.setModel(self.model)
             self.ui.networkList.setIconSize(QSize(26, 26))
-            numRedes = len(self.items)
+            numRedes = len(items)
         else:
             self.ui.infoLbl.show()
         self.loading_popup.close_and_delete()
@@ -104,56 +114,30 @@ class WifiView(QMainWindow):
     
     def select_network(self):
         indexes = self.ui.networkList.selectedIndexes()
-        index = indexes[0].row()
-        ssid = self.items[index]["ssid"]
-        security = self.items[index]["security"]
-        is_connect = self.items[index]["connect"]
+        self.current_index = indexes[0].row()
+        self.open_connection_widget()
+        
+    
+    def open_connection_widget(self):
+        ssid = self.items[self.current_index]["ssid"]
+        security = self.items[self.current_index]["security"]
+        is_connect = self.items[self.current_index]["connect"]
         self.connect_popup = ConnectWifiWidget(context=self.context, ssid=ssid, security=security, is_connect=is_connect)
         self.connect_popup.show()
-
-
-# Hilo wifi
-
-class WifiWorkerFind(QThread):
-    networks_result = Signal(list)
-
-    def __init__(self):
-        super(WifiWorkerFind, self).__init__()
-
-    def run(self):
-        networks_list = WifiService.list_wifi_networks()
-        self.networks_result.emit(networks_list)
-
-# Objeto wifiControl
-
-
-    """
     
-    def list_wifi_networks(self) -> dict:
-        time.sleep(1)
-        return [
-            {
-                'ssid': "WIFI DE SUS",
-                'security': "WPA",
-                'signal': -56,
-                'frequency': 5463,
-                'connect': True
-            },
-            {
-                'ssid': "VECINO",
-                'security': "WPA",
-                'signal': -76,
-                'frequency': 5463,
-                'connect': False
-            },
-            {
-                'ssid': "Xsudhw",
-                'security': "",
-                'signal': -26,
-                'frequency': 5463,
-                'connect': False
-            },
-        ]
-"""
+    def connect_network_result(self):
+        result = WifiService.verify_network_and_save(self.try_connect_id)
+        if result:
+            self.items[0]["connect"] = False
+            self.items[self.current_index]["connect"] = True
+            self.update_wifi_list(self.items)
+            self.loading_popup.close_and_delete()
+        else:
+            self.open_connection_widget()
+            popup = PopupWidgetInfo(context=self.context, text="Error de conexión")
+            popup.show()
 
-
+    def connect_network(self, ssid:str, psk:str):
+        self.loading_popup = LoadingPopupWidget(context=self.context, text="Conectando")
+        self.try_connect_id = WifiService.add_network(ssid, psk)
+        self.timer = Timer(duration=4000, )
