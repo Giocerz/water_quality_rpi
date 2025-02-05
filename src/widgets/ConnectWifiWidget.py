@@ -17,7 +17,7 @@ class ConnectWifiWidget(QWidget):
         self.connect_callback = connect_callback
         self.init_ui_components()
 
-        self.ui.lblOpacity.mousePressEvent = self.close_and_delete
+        self.ui.lblOpacity.mousePressEvent = self.background_clicked
         self.ui.connectBtn.clicked.connect(self.connect_is_clicked)
 
     def init_ui_components(self):
@@ -65,8 +65,9 @@ class ConnectWifiWidget(QWidget):
         self.connect_callback(self.ssid, pwd)
         self.close_and_delete()
         
-        
+    def background_clicked(self, event):
+        self.close_and_delete()  
 
-    def close_and_delete(self, event):
+    def close_and_delete(self):
         self.setParent(None)
         self.deleteLater()
