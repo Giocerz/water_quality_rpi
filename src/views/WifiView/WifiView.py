@@ -116,12 +116,11 @@ class WifiView(QMainWindow):
         self.current_index = indexes[0].row()
         self.open_connection_widget()
         
-    
     def open_connection_widget(self):
         ssid = self.items[self.current_index]["ssid"]
         security = self.items[self.current_index]["security"]
         is_connect = self.items[self.current_index]["connect"]
-        self.connect_popup = ConnectWifiWidget(context=self.context, ssid=ssid, security=security, is_connect=is_connect)
+        self.connect_popup = ConnectWifiWidget(context=self.context, ssid=ssid, security=security, is_connect=is_connect, connect_callback=self.connect_network)
         self.connect_popup.show()
     
     def connect_network_result(self):
