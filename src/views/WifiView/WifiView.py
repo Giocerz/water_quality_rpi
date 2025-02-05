@@ -141,3 +141,4 @@ class WifiView(QMainWindow):
         self.loading_popup.show()
         self.try_connect_id = WifiService.add_network(ssid, psk)
         self.timer = Timer(duration=4000, callback= self.connect_network_result)
+        self.timer.start()
