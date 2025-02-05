@@ -48,7 +48,7 @@ class WifiService:
             network_id = subprocess.check_output(
                 ["sudo", "wpa_cli", "add_network"], text=True
             ).strip()
-            print(f"NETWORK_ID: {network_id}")
+            print(f"NETWORK_ID: {network_id} ZZZZZZZZZ")
             network_id = int(network_id) if network_id.isdigit() else -1
             if network_id == -1:
                 return -1
