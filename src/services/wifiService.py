@@ -3,7 +3,7 @@ import subprocess
 class WifiService:
     @staticmethod
     def scan():
-        subprocess.run(["sudo", "wpa_cli", "scan"], check=True)
+        subprocess.run(["sudo", "wpa_cli", "scan"])
     
     @staticmethod
     def scan_results() -> list:
@@ -47,8 +47,9 @@ class WifiService:
         try:
             network_id = subprocess.check_output(
                 ["sudo", "wpa_cli", "add_network"], text=True
-            ).strip()
+            ).strip().split("\n")[-1]
             print(f"NETWORK_ID: {network_id} ZZZZZZZZZ")
+            return -1
             network_id = int(network_id) if network_id.isdigit() else -1
             if network_id == -1:
                 return -1
