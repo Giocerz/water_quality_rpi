@@ -49,7 +49,8 @@ class WifiView(QMainWindow):
 
 
     def on_back_clicked(self):
-        self.timer.cancel()
+        if self.timer:
+            self.timer.cancel()
         Navigator.pop(context= self.context, view=self)
 
     def update_networks(self):
@@ -141,4 +142,4 @@ class WifiView(QMainWindow):
     def connect_network(self, ssid:str, psk:str):
         self.loading_popup = LoadingPopupWidget(context=self.context, text="Conectando")
         self.try_connect_id = WifiService.add_network(ssid, psk)
-        self.timer = Timer(duration=4000, )
+        self.timer = Timer(duration=4000, callback= self.connect_network_result)
