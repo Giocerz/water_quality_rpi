@@ -138,5 +138,6 @@ class WifiView(QMainWindow):
 
     def connect_network(self, ssid:str, psk:str):
         self.loading_popup = LoadingPopupWidget(context=self.context, text="Conectando")
+        self.loading_popup.show()
         self.try_connect_id = WifiService.add_network(ssid, psk)
         self.timer = Timer(duration=4000, callback= self.connect_network_result)
