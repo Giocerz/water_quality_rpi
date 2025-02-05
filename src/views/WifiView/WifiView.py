@@ -47,7 +47,6 @@ class WifiView(QMainWindow):
         self.timer = Timer(3000, self.update_networks)
         self.timer.start()
 
-
     def on_back_clicked(self):
         if self.timer:
             self.timer.cancel()
@@ -57,7 +56,6 @@ class WifiView(QMainWindow):
         self.ui.infoLbl.hide()
         self.items = WifiService.scan_results()
         self.update_wifi_list(self.items)
-        
     
     def update_wifi_list(self, items:list):
         if items != []:
