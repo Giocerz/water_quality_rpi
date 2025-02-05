@@ -133,6 +133,7 @@ class WifiView(QMainWindow):
             self.update_wifi_list(self.items)
             self.loading_popup.close_and_delete()
         else:
+            self.loading_popup.close_and_delete()
             self.open_connection_widget()
             popup = PopupWidgetInfo(context=self.context, text="Error de conexión")
             popup.show()
