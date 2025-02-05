@@ -140,5 +140,11 @@ class WifiView(QMainWindow):
         self.loading_popup = LoadingPopupWidget(context=self.context, text="Conectando")
         self.loading_popup.show()
         self.try_connect_id = WifiService.add_network(ssid, psk)
-        self.timer = Timer(duration=4000, callback= self.connect_network_result)
-        self.timer.start()
+        if self.try_connect_id != -1:
+            self.timer = Timer(duration=4000, callback= self.connect_network_result)
+            self.timer.start()
+        else:
+            self.loading_popup.close_and_delete()
+            self.open_connection_widget()
+            popup = PopupWidgetInfo(context=self.context, text="Error de conexión")
+            popup.show()
