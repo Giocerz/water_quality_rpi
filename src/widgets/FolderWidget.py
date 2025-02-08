@@ -2,7 +2,7 @@ from PySide2.QtWidgets import QWidget
 from PySide2.QtGui import QIcon
 from PySide2.QtCore import QSize, Qt
 from src.views.ui_folder_widget import Ui_Form
-from PySide2.QtCore import QTimer
+from src.package.Timer import Timer
 
 
 class FolderWidget(QWidget):
@@ -29,11 +29,12 @@ class FolderWidget(QWidget):
         icon = QIcon('./src/resources/icons/open_folder.png')
         self.ui.folderBtn.setIcon(icon)
         self.ui.folderBtn.setIconSize(QSize(81, 81))
-        QTimer.singleShot(200, self.__on_push_finsih_anim)
+        self.timer = Timer(200, self.__on_push_finsih_anim)
+        self.timer.start()
     
     def __on_push_finsih_anim(self):
         if(self.type == "open"):
-            self.on_push(self.id)
+            self.on_push(self.id, self.name)
         else:
             self.on_push()
         icon = QIcon('./src/resources/icons/folder.png')

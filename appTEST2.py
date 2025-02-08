@@ -11,7 +11,7 @@ from src.views.ui_MainLayout import Ui_MainLayout
 import src.views.ui_MainMenu as MainMenu
 import src.views.ui_Monitoring3 as Monitoring3
 import src.views.ui_Top_Bar as TopBar
-import src.views.ui_Save as Save_View
+from src.views.SaveDataView.SaveDataView import SaveDataView
 import src.views.ui_Calibration as Calibration_View
 from src.views.DatosView.DatosView import DatosView
 import src.views.ui_Graphics_view as Graph_View
@@ -330,7 +330,7 @@ class MonitoringView(QMainWindow):
         self.ui.turbLbl.setAlignment(QtCore.Qt.AlignCenter)
 
 
-class SaveDataView(QMainWindow):
+class SaveDataView222(QMainWindow):
     def __init__(self, context, oxygen, ph, temperature, tds, turbidity):
         QMainWindow.__init__(self)
         self.context = context

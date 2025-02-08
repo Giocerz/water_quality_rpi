@@ -1,3 +1,4 @@
+import os
 from PySide2.QtWidgets import QMainWindow
 from PySide2.QtCore import QSize
 from PySide2.QtGui import QIcon
@@ -24,6 +25,7 @@ class MainMenuView(QMainWindow):
         self.ui.bluetoothBtn.clicked.connect(self.on_bluetooth_clicked)
         self.ui.editVauesBtn.clicked.connect(self.on_edit_clicked)
         self.ui.wifiBtn.clicked.connect(self.on_wifi_clicked)
+        self.ui.powerBtn.clicked.connect(self.on_power_clicked)
 
     def ui_components(self):
         icon = QIcon('./src/resources/icons/power_settings.png')
@@ -50,3 +52,6 @@ class MainMenuView(QMainWindow):
     
     def on_edit_clicked(self):
         Navigator.push(context= self.context, view= EditCalibrationValuesView(context= self.context))
+
+    def on_power_clicked(self):
+        os.system("sudo poweroff")   

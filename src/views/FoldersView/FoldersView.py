@@ -39,7 +39,7 @@ class FoldersView(QMainWindow):
     def on_back_clicked(self):
         Navigator.pop(context=self.context, view= self)
 
-    def on_push_folder_widget(self, id:int):
+    def on_push_folder_widget(self, id:int, name:str):
         Navigator.push(context= self.context, view= DatosView(context=self.context, lote_id=id))
     
     def setup_list(self):
@@ -75,9 +75,9 @@ class FoldersView(QMainWindow):
         grid_layout.setSpacing(10)
 
         num_cols = 3  # Número de columnas
-        for i, product in enumerate(self.folders_list):
+        for i, folder in enumerate(self.folders_list):
             # Crear y configurar el widget
-            product_widget = FolderWidget(id=product.id, name=product.name, description=product.description, on_push=self.on_push_folder_widget)
+            product_widget = FolderWidget(id=folder.id, name=folder.name, description=folder.description, on_push=self.on_push_folder_widget)
             product_widget.setFixedSize(133, 100)  # Fijar tamaño del widget
             product_widget.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
 
