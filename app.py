@@ -16,6 +16,7 @@ class ButtonListener(QThread):
         self.pcf8574 = PCF8574()
         self.distance = 1
         self.flag_center_clicked = False
+        self.tick = time.time_ns() / 1e6
 
     def run(self):
         mouse_controller = Controller()
@@ -25,15 +26,20 @@ class ButtonListener(QThread):
                     mouse_controller.move(-self.distance, 0)
                 if self.pcf8574.read_P1():
                     mouse_controller.move(0, self.distance)
-                if self.pcf8574.read_P2() and not self.flag_center_clicked:
-                    mouse_controller.click(Button.left)
-                    self.flag_center_clicked = True
-                else:
-                    self.flag_center_clicked = False
                 if self.pcf8574.read_P3():
                     mouse_controller.move(self.distance, 0)
                 if self.pcf8574.read_P4():
                     mouse_controller.move(0, -self.distance)
+                
+
+                tock = time.time_ns() / 1e6
+                if not self.flag_center_clicked and self.pcf8574.read_P2():
+                    mouse_controller.click(Button.left)
+                    self.flag_center_clicked = True
+                    self.tick = tock
+                elif self.flag_center_clicked and tock - self.tick >= 300:
+                    self.flag_center_clicked = False
+
                 time.sleep(0.01)
         except Exception as e:
             print(f"Error con GPIO: {e}")
