@@ -42,7 +42,6 @@ class ParametersCalculate():
         self.turb_coef_c = float(lista[8])
 
     def calculateTds(self, temperature: float, voltage: float) -> float:
-        print(f'TDS VOLTAGE: {voltage}')
         if self.tds_sensor_code == Constants.SEN0244:
             return self.__calculate_tds_with_sen0244(temperature, voltage)
         else:
@@ -95,7 +94,7 @@ class ParametersCalculate():
             kValue = self.kValue
             tdsFactor = 0.5
             rawEC = voltage/self.RES2/self.ECREF
-            value = rawEC * kValue
+            value = rawEC * kValue * 1e6
             value = value / (1.0+0.0185*(temperature-25.0))
             tdsValue = value * tdsFactor
             return tdsValue
