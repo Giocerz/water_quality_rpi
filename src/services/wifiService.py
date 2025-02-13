@@ -2,18 +2,14 @@ import subprocess
 
 class WifiService:
     @staticmethod
-    def init_wpa():
-        subprocess.run(["sudo", "systemctl", "restart", "dhcpcd"])
-
-    @staticmethod
     def scan():
-        subprocess.run(["sudo", "wpa_cli", "scan"])
+        subprocess.run(["sudo", "-i", "wlan0","wpa_cli", "scan"])
     
     @staticmethod
     def scan_results() -> list:
         try:
             lines = subprocess.check_output(
-                ["sudo", "wpa_cli", "scan_results"], text=True
+                ["sudo", "wpa_cli", "-i", "wlan0", "scan_results"], text=True
             ).split("\n")[2:]
 
             current_network = subprocess.check_output(
