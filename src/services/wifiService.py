@@ -77,9 +77,7 @@ class WifiService:
     def verify_network(ssid: str) -> bool:
         try:
             result = subprocess.run(["iwconfig"], capture_output=True, text=True, check=True)
-            if ssid in result:
-                return True
-            return False
+            return ssid in result.stdout
         except subprocess.CalledProcessError:
             return False
 
