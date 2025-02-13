@@ -1,6 +1,16 @@
 import subprocess
 
 class WifiService:
+    def start_wifi_services():
+        commands = [
+            ["sudo", "systemctl", "start", "wpa_supplicant"],
+            ["sudo", "systemctl", "enable", "wpa_supplicant"],
+            ["sudo", "ip", "link", "set", "wlan0", "up"]
+        ]
+
+        for cmd in commands:
+            subprocess.run(cmd)
+
     @staticmethod
     def scan():
         subprocess.run(["sudo", "-i", "wlan0","wpa_cli", "scan"])
