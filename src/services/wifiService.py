@@ -3,8 +3,7 @@ import subprocess
 class WifiService:
     @staticmethod
     def init_wpa():
-        subprocess.run(["sudo", "systemctl", "restart", "wpa_supplicant"])
-        subprocess.run(["sudo", "ifconfig", "wlan0", "up"])
+        subprocess.run(["sudo", "systemctl", "restart", "dhcpcd"])
 
     @staticmethod
     def scan():
