@@ -16,7 +16,7 @@ class WifiView(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.ui_components()
-        self.connected_item_id:int = None #Saber que item de la lista esta conectado
+        self.connected_item_index:int = None #Saber que item de la lista esta conectado
         self.timer:Timer = None
         self.current_index:int = 0 #Saber que item se selecciono
         self.current_ssid: str = None
@@ -26,6 +26,7 @@ class WifiView(QMainWindow):
         self.max_checks = 30 // 2 
 
         self.ui.backBtn.clicked.connect(self.on_back_clicked)
+        self.ui.refreshBtn.clicked.connect(self.scan_networks)
         self.ui.verticalSlider.valueChanged.connect(self.slider_value_changed)
         self.ui.networkList.clicked.connect(self.select_network)
 
@@ -36,6 +37,9 @@ class WifiView(QMainWindow):
         icon = QIcon('./src/resources/icons/back.png')
         self.ui.backBtn.setIcon(icon)
         self.ui.backBtn.setIconSize(QSize(30, 30))
+        icon = QIcon('./src/resources/icons/refresh.png')
+        self.ui.refreshBtn.setIcon(icon)
+        self.ui.refreshBtn.setIconSize(QSize(30, 30))
         self.scrollBar = self.ui.networkList.verticalScrollBar()
         self.ui.verticalSlider.setRange(
             self.scrollBar.minimum(), self.scrollBar.maximum())
@@ -45,11 +49,14 @@ class WifiView(QMainWindow):
     def showEvent(self, event):
         """Muestra el popup de carga después de que la ventana principal sea visible."""
         super(WifiView, self).showEvent(event)
+        self.scan_networks()
+    
+    def scan_networks(self):
         self.loading_popup = LoadingPopupWidget(
             context=self.context, text='Buscando redes...')
         self.loading_popup.show()
         WifiService.scan()
-        self.timer = Timer(3000, self.update_networks)
+        self.timer = Timer(6000, self.update_networks)
         self.timer.start()
 
     def on_back_clicked(self):
@@ -71,11 +78,12 @@ class WifiView(QMainWindow):
                 else:
                     seguridad = 0
 
-                if (100 + item['signal'] > 75):
+                signal = item['signal']
+                if signal > -50:
                     signal_quality = 4
-                elif (100 + item['signal'] > 50):
+                elif signal > -65:
                     signal_quality = 3
-                elif (100 + item['signal'] > 25):
+                elif signal > -80:
                     signal_quality = 2
                 else:
                     signal_quality = 1
@@ -87,7 +95,7 @@ class WifiView(QMainWindow):
 
                 if item["connect"]:
                     cadenaElemento = item['ssid'] + "-Conectada"
-                    self.connected_item_id = index
+                    self.connected_item_index = index
                 else:
                     cadenaElemento = item['ssid']
                 standard_item = QStandardItem(cadenaElemento)
@@ -145,10 +153,10 @@ class WifiView(QMainWindow):
         result = WifiService.verify_network(self.current_ssid)
         if result:
             self.timer.cancel()  # Detener el timer si se conectó
-            if self.connected_item_id:
-                self.items[self.connected_item_id]["connect"] = False
+            if self.connected_item_index != None:
+                self.items[self.connected_item_index]["connect"] = False
             self.items[self.current_index]["connect"] = True
-            self.connected_item_id = self.current_index
+            self.connected_item_index = self.current_index
             self.update_wifi_list(self.items)
             self.loading_popup.close_and_delete()
         else:
@@ -178,22 +186,56 @@ class WifiView(QMainWindow):
     
     #FUNCIONES SI LA RED ESTA GUARDADA
     #Olvidar red
+    def forget_network_result(self):
+        self.timer.cancel()
+        if self.connected_item_index != None:
+                self.items[self.connected_item_index]["connect"] = False
+        self.connected_item_index = None
+        self.update_wifi_list(self.items)
+        self.loading_popup.close_and_delete()
+        popup = PopupWidgetInfo(context=self.context, text="Red eliminada")
+        popup.show()
+
+
     def forget_network(self, ssid:str):
-        result = WifiService.delete_network(ssid)
+        is_connected = self.connected_item_index == self.current_index
+        result = WifiService.delete_network(ssid, is_connected)
         if result:
-            popup = PopupWidgetInfo(context=self.context, text="Red eliminada")
+            if is_connected:
+                self.loading_popup = LoadingPopupWidget(context=self.context, text="Procesando")
+                self.loading_popup.show()
+                self.timer = Timer(duration=10000, callback= self.forget_network_result)
+                self.timer.start()
+            else:
+                popup = PopupWidgetInfo(context=self.context, text="Red eliminada")
+                popup.show()
         else:
             popup = PopupWidgetInfo(context=self.context, text="Error al eliminar")
-        popup.show()
+            popup.show()
+        
     
     def disconnect_network(self, ssid:str):
+        self.loading_popup = LoadingPopupWidget(context=self.context, text="Desconectando")
+        self.loading_popup.show()
         result = WifiService.disconnect_network(ssid)
         if result:
-            popup = PopupWidgetInfo(context=self.context, text="Red desconectada")
+            self.timer = Timer(duration=10000, callback= self.disconnect_network_result)
+            self.timer.start()
         else:
+            self.loading_popup.close_and_delete()
             popup = PopupWidgetInfo(context=self.context, text="Error al desconectar")
+            popup.show()
+
+    def disconnect_network_result(self):
+        self.timer.cancel()
+        if self.connected_item_index != None:
+                self.items[self.connected_item_index]["connect"] = False
+        self.connected_item_index = None
+        self.update_wifi_list(self.items)
+        self.loading_popup.close_and_delete()
+        popup = PopupWidgetInfo(context=self.context, text="Red desconectada")
         popup.show()
-    
+
     def connect_saved_network(self, ssid:str):
         self.loading_popup = LoadingPopupWidget(context=self.context, text="Conectando")
         self.loading_popup.show()
@@ -203,7 +245,6 @@ class WifiView(QMainWindow):
             self.timer.start()
         else:
             self.loading_popup.close_and_delete()
-            self.open_connection_widget()
             popup = PopupWidgetInfo(context=self.context, text="Error de conexión")
             popup.show()
 
@@ -212,10 +253,10 @@ class WifiView(QMainWindow):
         result = WifiService.verify_network(self.current_ssid)
         if result:
             self.timer.cancel()  # Detener el timer si se conectó
-            if self.connected_item_id:
-                self.items[self.connected_item_id]["connect"] = False
+            if self.connected_item_index != None:
+                self.items[self.connected_item_index]["connect"] = False
             self.items[self.current_index]["connect"] = True
-            self.connected_item_id = self.current_index
+            self.connected_item_index = self.current_index
             self.update_wifi_list(self.items)
             self.loading_popup.close_and_delete()
         else:
@@ -226,6 +267,5 @@ class WifiView(QMainWindow):
                 self.timer.cancel()
                 WifiService.disconnect_network(self.current_ssid)
                 self.loading_popup.close_and_delete()
-                self.open_connection_widget()
                 popup = PopupWidgetInfo(context=self.context, text="No se pudo conectar")
                 popup.show()

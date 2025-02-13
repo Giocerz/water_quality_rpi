@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'WifiListQUuiWz.ui'
+## Form generated from reading UI file 'WifiListjQrgbi.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -77,6 +77,10 @@ class Ui_MainWindow(object):
         self.infoLbl.setGeometry(QRect(80, 90, 321, 81))
         self.infoLbl.setStyleSheet(u"color: grey;\n"
 "font-size: 18pt;")
+        self.refreshBtn = QPushButton(self.centralwidget)
+        self.refreshBtn.setObjectName(u"refreshBtn")
+        self.refreshBtn.setGeometry(QRect(10, 60, 41, 41))
+        self.refreshBtn.setStyleSheet(u"")
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -88,5 +92,6 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.backBtn.setText("")
         self.infoLbl.setText(QCoreApplication.translate("MainWindow", u"No se encontraron redes", None))
+        self.refreshBtn.setText("")
     # retranslateUi
 

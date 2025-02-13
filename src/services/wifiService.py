@@ -155,7 +155,7 @@ class WifiService:
             return False
 
     @staticmethod
-    def delete_network(ssid: str) -> bool:
+    def delete_network(ssid: str, is_connected: bool) -> bool:
         try:
             lines = subprocess.check_output(
                 ["sudo", "wpa_cli", "list_networks"], text=True
@@ -179,7 +179,8 @@ class WifiService:
                 ["sudo", "wpa_cli", "save_config"]
             ]:
                 subprocess.run(cmd, check=True)
-            subprocess.run(["sudo", "systemctl", "restart", "dhcpcd"])
+            if is_connected:
+                subprocess.run(["sudo", "systemctl", "restart", "dhcpcd"])
             return True
         except subprocess.CalledProcessError:
             return False
