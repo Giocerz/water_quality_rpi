@@ -29,14 +29,14 @@
     <string/>
    </property>
   </widget>
-  <widget class="QWidget" name="Widget1" native="true">
+  <widget class="QWidget" name="Widget2" native="true">
    <property name="enabled">
     <bool>true</bool>
    </property>
    <property name="geometry">
     <rect>
      <x>65</x>
-     <y>10</y>
+     <y>51</y>
      <width>351</width>
      <height>171</height>
     </rect>
@@ -45,10 +45,10 @@
     <string notr="true">border-radius: 20px;
 background-color: white;</string>
    </property>
-   <widget class="QPushButton" name="connectBtn">
+   <widget class="QPushButton" name="forgetBtn">
     <property name="geometry">
      <rect>
-      <x>174</x>
+      <x>200</x>
       <y>90</y>
       <width>122</width>
       <height>31</height>
@@ -62,7 +62,7 @@ background-color: white;
 color: #00007f;</string>
     </property>
     <property name="text">
-     <string>Conectar</string>
+     <string>Olvidar</string>
     </property>
    </widget>
    <widget class="QLabel" name="ssidLbl">
@@ -83,46 +83,46 @@ background-color: transparent;
      <string>titulo</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="inputPlace">
+   <widget class="QPushButton" name="disconnectBtn">
     <property name="geometry">
      <rect>
-      <x>55</x>
-      <y>50</y>
-      <width>241</width>
-      <height>26</height>
+      <x>20</x>
+      <y>90</y>
+      <width>141</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-color: rgb(0, 0, 0);
-border-style: solid;
-border-width: 1px;
-border-radius: 6px;
-font: 12pt &quot;Poppins&quot;;
-background-color: rgb(234, 234, 234);</string>
+     <string notr="true">font: 500 18px &quot;Poppins&quot;;
+border-radius: 10px;
+border: 1px solid #00007f;
+background-color: white;
+color: #00007f;</string>
     </property>
-    <property name="maxLength">
-     <number>50</number>
-    </property>
-    <property name="echoMode">
-     <enum>QLineEdit::Password</enum>
-    </property>
-    <property name="placeholderText">
-     <string>Contraseña</string>
+    <property name="text">
+     <string>Desconectar</string>
     </property>
    </widget>
-  </widget>
-  <widget class="QWidget" name="widgetKeyboard" native="true">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>140</y>
-     <width>480</width>
-     <height>135</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(234, 234, 234);</string>
-   </property>
+   <widget class="QPushButton" name="connectBtn">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>90</y>
+      <width>141</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 500 18px &quot;Poppins&quot;;
+border-radius: 10px;
+border: 1px solid #00007f;
+background-color: white;
+color: #00007f;</string>
+    </property>
+    <property name="text">
+     <string>Conectar</string>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>

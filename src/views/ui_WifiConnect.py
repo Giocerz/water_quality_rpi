@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'WifiConnecttuOyYV.ui'
+## Form generated from reading UI file 'WifiConnectkxSfig.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -57,34 +57,6 @@ class Ui_Form(object):
         self.widgetKeyboard.setObjectName(u"widgetKeyboard")
         self.widgetKeyboard.setGeometry(QRect(0, 140, 480, 135))
         self.widgetKeyboard.setStyleSheet(u"background-color: rgb(234, 234, 234);")
-        self.Widget2 = QWidget(Form)
-        self.Widget2.setObjectName(u"Widget2")
-        self.Widget2.setEnabled(True)
-        self.Widget2.setGeometry(QRect(65, 51, 351, 171))
-        self.Widget2.setStyleSheet(u"border-radius: 20px;\n"
-"background-color: white;")
-        self.secondBtn = QPushButton(self.Widget2)
-        self.secondBtn.setObjectName(u"secondBtn")
-        self.secondBtn.setGeometry(QRect(200, 90, 122, 31))
-        self.secondBtn.setStyleSheet(u"font: 500 18px \"Poppins\";\n"
-"border-radius: 10px;\n"
-"border: 1px solid #00007f;\n"
-"background-color: white;\n"
-"color: #00007f;")
-        self.ssidLbl2 = QLabel(self.Widget2)
-        self.ssidLbl2.setObjectName(u"ssidLbl2")
-        self.ssidLbl2.setGeometry(QRect(30, 10, 301, 31))
-        self.ssidLbl2.setStyleSheet(u"font: 16px \"Poppins\";\n"
-"background-color: transparent;\n"
-"")
-        self.firstBtn = QPushButton(self.Widget2)
-        self.firstBtn.setObjectName(u"firstBtn")
-        self.firstBtn.setGeometry(QRect(20, 90, 141, 31))
-        self.firstBtn.setStyleSheet(u"font: 500 18px \"Poppins\";\n"
-"border-radius: 10px;\n"
-"border: 1px solid #00007f;\n"
-"background-color: white;\n"
-"color: #00007f;")
 
         self.retranslateUi(Form)
 
@@ -97,8 +69,5 @@ class Ui_Form(object):
         self.connectBtn.setText(QCoreApplication.translate("Form", u"Conectar", None))
         self.ssidLbl.setText(QCoreApplication.translate("Form", u"titulo", None))
         self.inputPlace.setPlaceholderText(QCoreApplication.translate("Form", u"Contrase\u00f1a", None))
-        self.secondBtn.setText(QCoreApplication.translate("Form", u"Olvidar", None))
-        self.ssidLbl2.setText(QCoreApplication.translate("Form", u"titulo", None))
-        self.firstBtn.setText(QCoreApplication.translate("Form", u"Desconectar", None))
     # retranslateUi
 

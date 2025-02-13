@@ -58,11 +58,12 @@ class WifiService:
             for cmd in [
                 ["sudo", "wpa_cli", "set_network", str(network_id), "ssid", f'"{ssid}"'],
                 ["sudo", "wpa_cli", "set_network", str(network_id), "psk", f'"{psk}"'],
-                ["sudo", "wpa_cli", "set_network", str(network_id), "key_mgmt", "WPA_PSK"],
+                ["sudo", "wpa_cli", "set_network", str(network_id), "key_mgmt", "WPA-PSK"],
                 ["sudo", "wpa_cli", "enable_network", str(network_id)],
                 ["sudo", "wpa_cli", "select_network", str(network_id)],
                 ["sudo", "wpa_cli", "save_config"],
             ]:
+                
                 result = subprocess.check_output(cmd, text=True).strip()
                 if "OK" not in result:
                     return -1
@@ -73,19 +74,12 @@ class WifiService:
             return -1
 
     @staticmethod
-    def verify_network(network_id: int) -> bool:
+    def verify_network(ssid: str) -> bool:
         try:
-            result = subprocess.check_output(["sudo", "wpa_cli", "status"], text=True)
-            if "COMPLETED" not in result:
-                for cmd in [
-                    ["sudo", "wpa_cli", "disable_network", str(network_id)],
-                    ["sudo", "wpa_cli", "remove_network", str(network_id)],
-                    ["sudo", "wpa_cli", "save_config"]
-                ]:
-                    subprocess.run(cmd, check=True)
-                subprocess.run(["sudo", "systemctl", "restart", "dhcpcd"])
-                return False
-            return True
+            result = subprocess.run(["iwconfig"], capture_output=True, text=True, check=True)
+            if ssid in result:
+                return True
+            return False
         except subprocess.CalledProcessError:
             return False
 
@@ -143,6 +137,20 @@ class WifiService:
                 ["sudo", "wpa_cli", "save_config"]
             ]:
                 subprocess.run(cmd, check=True)
+            subprocess.run(["sudo", "systemctl", "restart", "dhcpcd"])
+            return True
+        except subprocess.CalledProcessError:
+            return False
+
+    @staticmethod
+    def delete_network_by_id(network_id: int) -> bool:
+        try:
+            for cmd in [
+                    ["sudo", "wpa_cli", "disable_network", str(network_id)],
+                    ["sudo", "wpa_cli", "remove_network", str(network_id)],
+                    ["sudo", "wpa_cli", "save_config"]
+                ]:
+                    subprocess.run(cmd, check=True)
             subprocess.run(["sudo", "systemctl", "restart", "dhcpcd"])
             return True
         except subprocess.CalledProcessError:
