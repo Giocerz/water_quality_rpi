@@ -6,6 +6,7 @@ from PySide2.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
 from PySide2.QtCore import QThread, Signal
 from src.views.TopBarView.TopBarView import TopBarView
 from src.views.MainMenuView.MainMenuView import MainMenuView
+from src.services.wifiService import WifiService
 from src.logic.PCF8574 import PCF8574
 
 
@@ -83,6 +84,7 @@ if __name__ == '__main__':
     welcome = MyApp()
     button_listener = ButtonListener()
     button_listener.start()
+    WifiService.init_wpa()
 
     widget = QtWidgets.QStackedWidget()
     widget.addWidget(welcome)
