@@ -27,7 +27,14 @@ class WifiService:
                     frequency = int(columns[1])
                     signal_level = int(columns[2])
                     flags = columns[3]
-                    ssid = columns[4]
+
+                    try:
+                        ssid = columns[4].encode('latin1').decode('utf-8')
+                    except UnicodeDecodeError:
+                        ssid = columns[4]
+
+                    if ssid == "":
+                        continue
 
                     if ssid not in networks_dict or signal_level > networks_dict[ssid]["signal"]:
                         networks_dict[ssid] = {
