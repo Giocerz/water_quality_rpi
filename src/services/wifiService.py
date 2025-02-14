@@ -9,7 +9,7 @@ class WifiScanner(QThread):
         networks = self.scan_wifi()
         if self.running_state:
             self.results_wifi_scan_ready.emit(networks)
-            
+
     def scan_wifi(self):
         try:
             cmd = ("sudo iw dev wlan0 scan | awk '"
@@ -37,10 +37,10 @@ class WifiScanner(QThread):
                     security = parts[3].split(": ")[1]
                     
                     networks.append({
-                        "SSID": ssid,
-                        "Frequency": freq,
-                        "Signal": signal,
-                        "Security": security
+                        "ssid": ssid,
+                        "frequency": freq,
+                        "signal": signal,
+                        "security": security
                     })
             
             return networks
