@@ -12,7 +12,9 @@ class WifiScanner(QThread):
 
     def scan_wifi(self):
         try:
+            # Obtener la red a la que estamos conectados
             connected_ssid = subprocess.check_output(["iwgetid", "-r"], text=True).strip()
+
             cmd = ("sudo iw dev wlan0 scan | awk '"
                 "/freq:/ {freq=$2} "
                 "/signal:/ {signal=$2 \" \" $3} "
@@ -24,32 +26,37 @@ class WifiScanner(QThread):
                 "security=\"Open\" }' | sort -u")
 
             result = subprocess.check_output(cmd, shell=True, text=True)
-            
+
             if not result.strip():
                 return []
 
-            networks = []
+            networks = {}
             for line in result.strip().split("\n"):
                 parts = line.split(" | ")
                 if len(parts) == 4:
-                    ssid = parts[0].split(": ")[1]
-                    freq = int(parts[1].split(": ")[1])
-                    signal = float(parts[2].split(": ")[1].split(' ')[0])
-                    security = parts[3].split(": ")[1]
+                    ssid = parts[0].split(": ")[1].strip()
+                    freq = int(parts[1].split(": ")[1].strip())
+                    signal = float(parts[2].split(": ")[1].split(' ')[0].strip())
+                    security = parts[3].split(": ")[1].strip()
 
+                    # Verificar si es la red conectada
                     is_connected = ssid == connected_ssid
-                    
-                    networks.append({
-                        "ssid": ssid,
-                        "frequency": freq,
-                        "signal": signal,
-                        "security": security,
-                        "connect": is_connected
-                    })
-            
-            return networks
+
+                    # Agregar la red solo si no ha sido registrada antes
+                    if ssid not in networks:
+                        networks[ssid] = {
+                            "ssid": ssid,
+                            "frequency": freq,
+                            "signal": signal,
+                            "security": security,
+                            "connect": is_connected
+                        }
+
+            return list(networks.values())
+
         except subprocess.CalledProcessError:
             return []
+
         
     def stop(self):
         self.running_state = False
