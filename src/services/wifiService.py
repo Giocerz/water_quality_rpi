@@ -12,6 +12,7 @@ class WifiScanner(QThread):
 
     def scan_wifi(self):
         try:
+            connected_ssid = subprocess.check_output(["iwgetid", "-r"], text=True).strip()
             cmd = ("sudo iw dev wlan0 scan | awk '"
                 "/freq:/ {freq=$2} "
                 "/signal:/ {signal=$2 \" \" $3} "
@@ -35,12 +36,15 @@ class WifiScanner(QThread):
                     freq = int(parts[1].split(": ")[1])
                     signal = float(parts[2].split(": ")[1].split(' ')[0])
                     security = parts[3].split(": ")[1]
+
+                    is_connected = ssid == connected_ssid
                     
                     networks.append({
                         "ssid": ssid,
                         "frequency": freq,
                         "signal": signal,
-                        "security": security
+                        "security": security,
+                        "connect": is_connected
                     })
             
             return networks
