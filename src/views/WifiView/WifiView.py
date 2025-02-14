@@ -4,7 +4,7 @@ from PySide2.QtGui import QIcon, QStandardItemModel, QStandardItem
 from src.views.ui_WifiList import Ui_MainWindow
 from src.widgets.PopupWidget import LoadingPopupWidget, PopupWidgetInfo
 from src.widgets.ConnectWifiWidget import ConnectWifiWidget, SavedWifiWidget
-from src.services.wifiService import WifiService
+from src.services.wifiService import WifiService, WifiScanner
 from src.package.Navigator import Navigator
 from src.package.Timer import Timer
 
@@ -25,6 +25,10 @@ class WifiView(QMainWindow):
         self.check_count = 0  # Contador de intentos
         self.max_checks = 30 // 2 
 
+        self.wifi_scanner_worker = WifiScanner()
+        self.wifi_scanner_worker.results_wifi_scan_ready.connect(
+            self.update_networks)
+
         self.ui.backBtn.clicked.connect(self.on_back_clicked)
         self.ui.refreshBtn.clicked.connect(self.scan_networks)
         self.ui.verticalSlider.valueChanged.connect(self.slider_value_changed)
@@ -32,6 +36,7 @@ class WifiView(QMainWindow):
 
         self.scrollBar.rangeChanged.connect(self.adjust_slider_range)
         self.scrollBar.valueChanged.connect(self.scroll_value_changed)
+
 
     def ui_components(self):
         icon = QIcon('./src/resources/icons/back.png')
@@ -55,18 +60,18 @@ class WifiView(QMainWindow):
         self.loading_popup = LoadingPopupWidget(
             context=self.context, text='Buscando redes...')
         self.loading_popup.show()
-        WifiService.scan()
-        self.timer = Timer(6000, self.update_networks)
-        self.timer.start()
+        self.wifi_scanner_worker.start()
 
     def on_back_clicked(self):
         if self.timer:
             self.timer.cancel()
+        if self.wifi_scanner_worker.isRunning():
+            self.wifi_scanner_worker.stop()
         Navigator.pop(context= self.context, view=self)
 
-    def update_networks(self):
+    def update_networks(self, result):
         self.ui.infoLbl.hide()
-        self.items = WifiService.scan_results()
+        self.items = result
         self.update_wifi_list(self.items)
     
     def update_wifi_list(self, items:list):

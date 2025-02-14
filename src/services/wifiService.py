@@ -1,4 +1,52 @@
 import subprocess
+from PySide2.QtCore import QThread, Signal
+
+class WifiScanner(QThread):
+    results_wifi_scan_ready = Signal(list)
+
+    def run(self):
+        self.running_state = True
+        networks = self.scan_wifi()
+        if self.running_state:
+            self.results_wifi_scan_ready.emit(networks)
+
+    def scan_wifi(self):
+        try:
+            cmd = ["sudo", "iw", "dev", "wlan0", "scan"]
+            awk_script = (
+                "awk '/freq:/ {freq=$2} /signal:/ {signal=$2 \" \" $3} /SSID:/ "
+                "{ssid=\"\"; for (i=2; i<=NF; i++) ssid = ssid $i \" \"; ssid=substr(ssid, 1, length(ssid)-1)} "
+                "/RSN|WPA/ {security=\"WPA/WPA2\"} /SSID:/ && ssid !~ /00:00:00:00:00:00/ "
+                "{ if (ssid == \"\") ssid=\"[Oculto]\"; print \"SSID:\", ssid, \"| Freq:\", freq, \"| Signal:\", signal, \"| Security:\", security; security=\"Open\" }'"
+            )
+            result = subprocess.check_output(["bash", "-c", f"{cmd[0]} {cmd[1]} {cmd[2]} {cmd[3]} | {awk_script}"], text=True)
+            
+            if not result.strip():
+                return []
+
+            networks = []
+            for line in result.strip().split("\n"):
+                parts = line.split(" | ")
+                if len(parts) == 4:
+                    ssid = parts[0].split(": ")[1]
+                    freq = int(parts[1].split(": ")[1])
+                    signal = parts[2].split(": ")[1]
+                    security = parts[3].split(": ")[1]
+                    
+                    networks.append({
+                        "SSID": ssid,
+                        "Frequency": freq,
+                        "Signal": signal,
+                        "Security": security
+                    })
+            
+            return networks
+        except subprocess.CalledProcessError:
+            return []
+        
+    def stop(self):
+        self.running_state = False
+        self.wait()
 
 class WifiService:
     def start_wifi_services():
@@ -10,7 +58,7 @@ class WifiService:
 
         for cmd in commands:
             subprocess.run(cmd)
-            
+
     @staticmethod
     def scan():
         subprocess.run(["sudo", "-i", "p2p-dev-wlan0","wpa_cli", "scan"])
