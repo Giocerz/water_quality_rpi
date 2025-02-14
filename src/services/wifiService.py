@@ -9,17 +9,20 @@ class WifiScanner(QThread):
         networks = self.scan_wifi()
         if self.running_state:
             self.results_wifi_scan_ready.emit(networks)
-
+            
     def scan_wifi(self):
         try:
-            cmd = ["sudo", "iw", "dev", "wlan0", "scan"]
-            awk_script = (
-                "awk '/freq:/ {freq=$2} /signal:/ {signal=$2 \" \" $3} /SSID:/ "
-                "{ssid=\"\"; for (i=2; i<=NF; i++) ssid = ssid $i \" \"; ssid=substr(ssid, 1, length(ssid)-1)} "
-                "/RSN|WPA/ {security=\"WPA/WPA2\"} /SSID:/ && ssid !~ /00:00:00:00:00:00/ "
-                "{ if (ssid == \"\") ssid=\"[Oculto]\"; print \"SSID:\", ssid, \"| Freq:\", freq, \"| Signal:\", signal, \"| Security:\", security; security=\"Open\" }'"
-            )
-            result = subprocess.check_output(["bash", "-c", f"{cmd[0]} {cmd[1]} {cmd[2]} {cmd[3]} | {awk_script}"], text=True)
+            cmd = ("sudo iw dev wlan0 scan | awk '"
+                "/freq:/ {freq=$2} "
+                "/signal:/ {signal=$2 \" \" $3} "
+                "/SSID:/ {ssid=\"\"; for (i=2; i<=NF; i++) ssid = ssid $i \" \"; ssid=substr(ssid, 1, length(ssid)-1)} "
+                "/RSN|WPA/ {security=\"WPA/WPA2\"} "
+                "/SSID:/ && ssid !~ /00:00:00:00:00:00/ { "
+                "if (ssid == \"\") ssid=\"[Oculto]\"; "
+                "print \"SSID:\", ssid, \"| Freq:\", freq, \"| Signal:\", signal, \"| Security:\", security; "
+                "security=\"Open\" }' | sort -u")
+
+            result = subprocess.check_output(cmd, shell=True, text=True)
             
             if not result.strip():
                 return []
