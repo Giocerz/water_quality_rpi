@@ -33,7 +33,7 @@ class WifiScanner(QThread):
                 if len(parts) == 4:
                     ssid = parts[0].split(": ")[1]
                     freq = int(parts[1].split(": ")[1])
-                    signal = int(parts[2].split(": ")[1].split(' ')[0])
+                    signal = float(parts[2].split(": ")[1].split(' ')[0])
                     security = parts[3].split(": ")[1]
                     
                     networks.append({
