@@ -74,16 +74,16 @@ class WifiView(QMainWindow):
         self.items = result
         self.update_wifi_list(self.items)
     
-    def update_wifi_list(self, items:list):
-        if items != []:
+    def update_wifi_list(self, items: list):
+        if items:
             self.model = QStandardItemModel()
             for index, item in enumerate(items):
-                if (item['security'] != ''):
+                if item.get('security', '') != '':
                     seguridad = 1
                 else:
                     seguridad = 0
 
-                signal = item['signal']
+                signal = item["signal"]
                 if signal > -50:
                     signal_quality = 4
                 elif signal > -65:
@@ -93,32 +93,34 @@ class WifiView(QMainWindow):
                 else:
                     signal_quality = 1
 
-                if (item['frequency'] > 5000):
+                if item["frequency"] > 5000:
                     frec = 1
                 else:
                     frec = 0
 
-                if item["connect"]:
-                    cadenaElemento = item['ssid'] + "-Conectada"
+                if item.get("connect", False):
+                    cadenaElemento = item["ssid"] + "-Conectada"
                     self.connected_item_index = index
                 else:
-                    cadenaElemento = item['ssid']
+                    cadenaElemento = item["ssid"]
+
                 standard_item = QStandardItem(cadenaElemento)
                 standard_item.setFlags(standard_item.flags() & ~Qt.ItemIsEditable)
 
-                # Combinacion del icono
-                # wifi_### Primer valor: seguridad, segundo: Frec, tercero: señal
                 icon_path_name = "./src/resources/icons/wifi_icons/wifi_{}{}".format(
-                    seguridad, signal_quality)
+                    seguridad, signal_quality
+                )
                 icon = QIcon(icon_path_name)
                 standard_item.setIcon(icon)
                 self.model.appendRow(standard_item)
+
             self.ui.networkList.setModel(self.model)
             self.ui.networkList.setIconSize(QSize(26, 26))
             numRedes = len(items)
         else:
             self.ui.infoLbl.show()
         self.loading_popup.close_and_delete()
+
 
     def slider_value_changed(self, value):
         self.scrollBar.setValue(value)
