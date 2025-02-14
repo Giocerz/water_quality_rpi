@@ -84,6 +84,7 @@ if __name__ == '__main__':
     welcome = MyApp()
     button_listener = ButtonListener()
     button_listener.start()
+    WifiService.reset_wifi_interface()
 
     widget = QtWidgets.QStackedWidget()
     widget.addWidget(welcome)

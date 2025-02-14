@@ -63,15 +63,21 @@ class WifiScanner(QThread):
         self.wait()
 
 class WifiService:
-    def start_wifi_services():
-        commands = [
-            ["sudo", "systemctl", "start", "wpa_supplicant"],
-            ["sudo", "systemctl", "enable", "wpa_supplicant"],
-            ["sudo", "ip", "link", "set", "wlan0", "up"]
-        ]
-
-        for cmd in commands:
-            subprocess.run(cmd)
+    @staticmethod
+    def reset_wifi_interface(interface="wlan0"):
+        try:
+            # Apagar la interfaz WiFi
+            subprocess.run(["sudo", "ip", "link", "set", interface, "down"], check=True)
+            
+            # Encender la interfaz WiFi
+            subprocess.run(["sudo", "ip", "link", "set", interface, "up"], check=True)
+            
+            # Establecer el modo de la interfaz a station
+            subprocess.run(["sudo", "iw", "dev", interface, "set", "type", "station"], check=True)
+            
+            print(f"Interfaz {interface} reiniciada y configurada en modo station correctamente.")
+        except subprocess.CalledProcessError as e:
+            print(f"Error al reiniciar la interfaz {interface}: {e}")
 
     @staticmethod
     def scan():
