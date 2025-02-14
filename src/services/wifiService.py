@@ -66,16 +66,26 @@ class WifiService:
     @staticmethod
     def reset_wifi_interface(interface="wlan0"):
         try:
+            # Verificar el estado de la interfaz antes de reiniciar
+            subprocess.run(["sudo", "ip", "link", "show", interface], check=True)
+
             # Apagar la interfaz WiFi
             subprocess.run(["sudo", "ip", "link", "set", interface, "down"], check=True)
-            
+
             # Encender la interfaz WiFi
             subprocess.run(["sudo", "ip", "link", "set", interface, "up"], check=True)
-            
-            # Establecer el modo de la interfaz a station
+
+            # Establecer el modo de la interfaz a station (managed)
             subprocess.run(["sudo", "iw", "dev", interface, "set", "type", "station"], check=True)
-            
-            print(f"Interfaz {interface} reiniciada y configurada en modo station correctamente.")
+
+            # Reiniciar wpa_supplicant para asegurar que gestione la interfaz correctamente
+            print(f"Reiniciando wpa_supplicant para la interfaz {interface}...")
+            subprocess.run(["sudo", "systemctl", "restart", "wpa_supplicant"], check=True)
+
+            # Verificar que la interfaz esté en modo "managed"
+            result = subprocess.run(["iw", "dev", interface, "info"], capture_output=True, text=True)
+            if "type managed" not in result.stdout:
+                subprocess.run(["sudo", "iwconfig", interface, "mode", "managed"], check=True)
         except subprocess.CalledProcessError as e:
             print(f"Error al reiniciar la interfaz {interface}: {e}")
 
