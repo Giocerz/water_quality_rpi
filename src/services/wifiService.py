@@ -65,13 +65,13 @@ class WifiScanner(QThread):
 class WifiService:
     @staticmethod
     def scan():
-        subprocess.run(["sudo", "-i", "p2p-dev-wlan0","wpa_cli", "scan"])
+        subprocess.run(["sudo","wpa_cli", "scan"])
     
     @staticmethod
     def scan_results() -> list:
         try:
             lines = subprocess.check_output(
-                ["sudo", "wpa_cli", "-i", "p2p-dev-wlan0", "scan_results"], text=True
+                ["sudo", "wpa_cli", "scan_results"], text=True
             ).split("\n")[2:]
 
             try:
