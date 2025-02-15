@@ -1,12 +1,13 @@
 from PySide2 import QtCore
 from PySide2.QtWidgets import QMainWindow
-from PySide2.QtCore import QTimer, QSize
+from PySide2.QtCore import QSize
 from PySide2.QtGui import QPixmap
 from src.views.ui_Top_Bar import Ui_Form
 from src.widgets.PopupWidget import PopupWidgetInfo
 from src.logic.INA219 import INA219
 from datetime import datetime
 from src.services.wifiService import WifiService
+from src.package.Timer import Timer
 
 class TopBarView(QMainWindow):
     def __init__(self, context):
@@ -24,9 +25,8 @@ class TopBarView(QMainWindow):
 
         self.ina219 = INA219(addr=0x42)
 
-        self.timer = QTimer(self)
-        self.timer.timeout.connect(self.update_top_bar)
-        self.timer.start(1000)
+        self.timer = Timer.periodic(duration=1000, callback=self.update_top_bar)
+        self.timer.start()
 
     def update_top_bar(self):
         self.get_battery_level()

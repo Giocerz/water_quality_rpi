@@ -1,9 +1,9 @@
 from PySide2.QtWidgets import QGraphicsOpacityEffect, QWidget
-from PySide2.QtCore import QTimer, QSize
-from PySide2.QtGui import QTransform, QPixmap
+from PySide2.QtGui import QPixmap
 from PySide2 import QtCore
 from src.views.ui_PopupWidget import Ui_Form as Ui_Popup
 from src.views.ui_LoadingPopupWidget import Ui_Form as Ui_Loading
+from src.package.Timer import Timer
 
 
 class PopupWidget(QWidget):
@@ -103,9 +103,8 @@ class LoadingPopupWidget(QWidget):
         self.ui.LabelInfo.setText(text)
 
         self.rotation_step = 0
-        self.timer = QTimer(self)
-        self.timer.timeout.connect(self.update_border_style)
-        self.timer.start(100)
+        self.timer = Timer.periodic(duration= 300, callback= self.update_border_style)
+        self.timer.start()
 
         self.setParent(self.context)
     
@@ -128,5 +127,6 @@ class LoadingPopupWidget(QWidget):
         
 
     def close_and_delete(self):
+        self.timer.cancel()
         self.setParent(None)
         self.deleteLater()
