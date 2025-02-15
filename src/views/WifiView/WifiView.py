@@ -25,10 +25,6 @@ class WifiView(QMainWindow):
         self.check_count = 0  # Contador de intentos
         self.max_checks = 30 // 2 
 
-        self.wifi_scanner_worker = WifiScanner()
-        self.wifi_scanner_worker.results_wifi_scan_ready.connect(
-            self.update_networks)
-
         self.ui.backBtn.clicked.connect(self.on_back_clicked)
         self.ui.refreshBtn.clicked.connect(self.scan_networks)
         self.ui.verticalSlider.valueChanged.connect(self.slider_value_changed)
@@ -60,18 +56,16 @@ class WifiView(QMainWindow):
         self.loading_popup = LoadingPopupWidget(
             context=self.context, text='Buscando redes...')
         self.loading_popup.show()
-        self.wifi_scanner_worker.start()
+        self.timer = Timer(duration=7000, callback=self.update_networks)
 
     def on_back_clicked(self):
         if self.timer:
             self.timer.cancel()
-        if self.wifi_scanner_worker.isRunning():
-            self.wifi_scanner_worker.stop()
         Navigator.pop(context= self.context, view=self)
 
-    def update_networks(self, result):
+    def update_networks(self):
         self.ui.infoLbl.hide()
-        self.items = result
+        self.items = WifiService.scan_results()
         self.update_wifi_list(self.items)
     
     def update_wifi_list(self, items:list):
