@@ -56,6 +56,7 @@ class WifiView(QMainWindow):
         self.loading_popup = LoadingPopupWidget(
             context=self.context, text='Buscando redes...')
         self.loading_popup.show()
+        WifiService.scan()
         self.timer = Timer(duration=7000, callback=self.update_networks)
 
     def on_back_clicked(self):
