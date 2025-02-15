@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'MainMenusGzEDw.ui'
+## Form generated from reading UI file 'MainMenugxUzlY.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -73,6 +73,10 @@ class Ui_MainWindow(object):
         self.wifiBtn.setObjectName(u"wifiBtn")
         self.wifiBtn.setGeometry(QRect(420, 150, 50, 50))
         self.wifiBtn.setStyleSheet(u"")
+        self.updateBtn = QPushButton(self.centralwidget)
+        self.updateBtn.setObjectName(u"updateBtn")
+        self.updateBtn.setGeometry(QRect(420, 90, 50, 50))
+        self.updateBtn.setStyleSheet(u"")
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -89,5 +93,6 @@ class Ui_MainWindow(object):
         self.editVauesBtn.setText("")
         self.powerBtn.setText("")
         self.wifiBtn.setText("")
+        self.updateBtn.setText("")
     # retranslateUi
 
