@@ -58,6 +58,7 @@ class WifiView(QMainWindow):
         self.loading_popup.show()
         WifiService.scan()
         self.timer = Timer(duration=7000, callback=self.update_networks)
+        self.timer.start()
 
     def on_back_clicked(self):
         if self.timer:
