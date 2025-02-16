@@ -8,6 +8,7 @@ from src.logic.INA219 import INA219
 from datetime import datetime
 from src.services.wifiService import WifiService
 from src.package.Timer import Timer
+from src.logic.batteryLevel import BatteryProvider
 
 class TopBarView(QMainWindow):
     def __init__(self, context):
@@ -24,6 +25,8 @@ class TopBarView(QMainWindow):
         self.ui.chargeIndicator.hide()
 
         self.ina219 = INA219(addr=0x42)
+
+        self.battery_provider = BatteryProvider()
 
         self.timer = Timer.periodic(duration=1000, callback=self.update_top_bar)
         self.timer.start()
@@ -67,7 +70,8 @@ class TopBarView(QMainWindow):
             p = 100
         if (p < 0):
             p = 0
-        self.update_battery(battery_level= p)
+        self.battery_provider.setBatteryLevel(p)
+        self.update_battery()
         self.charge_indicator(current= current)
     
     def charge_indicator(self, current):
@@ -77,8 +81,9 @@ class TopBarView(QMainWindow):
             self.ui.chargeIndicator.hide()
 
 
-    def update_battery(self, battery_level):
-        self.ui.batteryLbl.setText(f'{round(battery_level)}%')
+    def update_battery(self):
+        battery_level = self.battery_provider.getBatteryLevel()
+        self.ui.batteryLbl.setText(f'{battery_level}%')
         self.ui.batteryLbl.setAlignment(QtCore.Qt.AlignLeft)
 
         if(battery_level < 25 and battery_level >= 10):

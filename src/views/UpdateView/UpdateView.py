@@ -33,6 +33,7 @@ class UpdateView(QMainWindow):
     def showEvent(self, event):
         """Muestra el popup de carga después de que la ventana principal sea visible."""
         super(UpdateView, self).showEvent(event)
+        self.init_internet_check()
     
     def init_internet_check(self):
         self.loading_popup = LoadingPopupWidget(context=self.context, text="Verificando conexión")
