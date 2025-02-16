@@ -8,7 +8,7 @@ class BatteryProvider:
         if cls._instance is None:
             cls._instance = super(BatteryProvider, cls).__new__(cls)
             cls._instance._battery_level = None  # Inicialmente sin valor
-            cls._instance.filter = MovingAverageFilter(num=5)  # Filtro con 5 valores
+            cls._instance.filter = MovingAverageFilter(num=12)  # Filtro con 5 valores
         return cls._instance
 
     def getBatteryLevel(self):
