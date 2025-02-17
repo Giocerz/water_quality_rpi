@@ -9,7 +9,7 @@ from src.logic.adcModule import ParametersVoltages
 from src.logic.parametersCalc import *
 from src.views.SaveDataView.SaveDataView import SaveDataView
 from src.package.Navigator import Navigator
-from src.logic.INA219 import INA219
+from src.logic.batteryLevel import BatteryProvider
 from src.logic.filters import MovingAverageFilter
 
 class ParametersMeasuredWorker(QThread):
@@ -24,7 +24,7 @@ class ParametersMeasuredWorker(QThread):
         temperature_sensor = W1ThermSensor()
         parameters = ParametersVoltages()
         parameters_calc = ParametersCalculate()
-        ina219 = INA219(addr=0x42)
+        battery_provider = BatteryProvider()
         turb_filter = MovingAverageFilter(10)
 
         while self.running_state:
@@ -45,15 +45,10 @@ class ParametersMeasuredWorker(QThread):
                     temp, parameters.tds_volt()), 2)
                 turb_voltage = turb_filter.add_value(parameters.turbidity_volt())
                 turb = round(parameters_calc.calculateTurb(turb_voltage), 2)
+                battery = battery_provider.getBatteryLevel()
                 
-                bus_voltage = ina219.getBusVoltage_V()
-                p = int((bus_voltage - 6)/2.4*100)
-                if(p > 100):
-                    p = 100
-                if(p < 0):
-                    p = 0
 
-                self.parameters_result.emit([ph, do, tds, temp, turb, p])
+                self.parameters_result.emit([ph, do, tds, temp, turb, battery])
                 time.sleep(1)
             except Exception as e:
                 print(e)
@@ -76,6 +71,7 @@ class MonitoringView(QMainWindow):
         self.temperature = None
         self.tds = None
         self.turbidity = None
+        self.battery = None
 
         self.receive_parameters = False
         
@@ -121,7 +117,7 @@ class MonitoringView(QMainWindow):
         if(not self.receive_parameters):
             return
         self.parameters_worker.stop()
-        view = SaveDataView(context= self.context, oxygen=self.oxygen, ph=self.ph, temperature=self.temperature, tds=self.tds, turbidity=self.turbidity)
+        view = SaveDataView(context= self.context, oxygen=self.oxygen, ph=self.ph, temperature=self.temperature, tds=self.tds, turbidity=self.turbidity, battery_level=self.battery)
         Navigator.pushReplacement(context=self.context, view=view)
 
     def handle_parameters_result(self, parameters):
@@ -149,3 +145,5 @@ class MonitoringView(QMainWindow):
         self.turbidity = parameters[4]
         self.ui.turbLbl.setText(str(self.turbidity))
         self.ui.turbLbl.setAlignment(QtCore.Qt.AlignCenter)
+
+        self.battery = parameters[5]

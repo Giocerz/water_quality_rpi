@@ -7,7 +7,7 @@ from src.logic.saveCalibration import SaveCalibration
 from w1thermsensor import W1ThermSensor
 from src.logic.adcModule import ParametersVoltages
 from src.logic.parametersCalc import *
-from src.logic.INA219 import INA219
+from src.logic.batteryLevel import BatteryProvider
 from src.config.Constants import Constants
 
 GATT_CHRC_IFACE = "org.bluez.GattCharacteristic1"
@@ -48,7 +48,7 @@ class WQCharacteristic(Characteristic):
         self.temperature_sensor = W1ThermSensor()
         self.parameters = ParametersVoltages()
         self.parameters_calc = ParametersCalculate()
-        self.ina219 = INA219(addr=0x42)
+        self.battery_provider = BatteryProvider()
 
     def get_parameters(self):
         try:
@@ -62,18 +62,12 @@ class WQCharacteristic(Characteristic):
             turb = round(self.parameters_calc.calculateTurb(
                 self.parameters.turbidity_volt()), 2)
 
-            bus_voltage = self.ina219.getBusVoltage_V()
-
-            p = int((bus_voltage - 6)/2.4*100)
-            if (p > 100):
-                p = 100
-            if (p < 0):
-                p = 0
+            battery = self.battery_provider.getBatteryLevel()
 
         except Exception as e:
             print(e)
 
-        strtemp = f"dt,{temp},{do},{tds},{ph},{turb},{p},pg"
+        strtemp = f"dt,{temp},{do},{tds},{ph},{turb},{battery},pg"
         return strtemp.encode()
 
     def ReadValue(self, options):

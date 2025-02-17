@@ -14,6 +14,7 @@ from datetime import datetime
 import time
 import subprocess
 
+
 class LocationdWorker(QThread):
     location_result = Signal(list)
 
@@ -25,20 +26,21 @@ class LocationdWorker(QThread):
         try:
             subprocess.run("sudo systemctl stop gpsd.socket", shell=True)
             time.sleep(0.5)
-            subprocess.run("sudo gpsd /dev/ttyS0 -F /var/run/gpsd.sock", shell=True)
+            subprocess.run(
+                "sudo gpsd /dev/ttyS0 -F /var/run/gpsd.sock", shell=True)
             time.sleep(0.5)
             import gps
             session = gps.gps(mode=gps.WATCH_ENABLE)
         except:
             self.location_result.emit(['error'])
             self.running_state = False
-        latitude:float = None
-        longitude:float = None
+        latitude: float = None
+        longitude: float = None
         time_count = 0
         time_period = 2
         while self.running_state:
             try:
-                if(time_count * time_period >= 60):
+                if (time_count * time_period >= 60):
                     self.location_result.emit(['time'])
                 report = session.next()
 
@@ -58,7 +60,7 @@ class LocationdWorker(QThread):
 
 
 class SaveDataView(QMainWindow):
-    def __init__(self, context, oxygen, ph, temperature, tds, turbidity):
+    def __init__(self, context, oxygen, ph, temperature, tds, turbidity, battery_level):
         QMainWindow.__init__(self)
         self.context = context
         self.oxygen = oxygen
@@ -66,10 +68,11 @@ class SaveDataView(QMainWindow):
         self.temperature = temperature
         self.tds = tds
         self.turbidity = turbidity
+        self.battery_level = battery_level
         self.latitude = None
         self.longitude = None
         self.folder_name: str = None
-        self.folder_id : int = None
+        self.folder_id: int = None
         self.folders_list: list[LoteModel] = []
 
         self.ui = Ui_MainWindow()
@@ -114,25 +117,28 @@ class SaveDataView(QMainWindow):
         self.ui.widgetKeyboard2.setLayout(layout)
 
         self.scrollBar = self.ui.scrollArea.verticalScrollBar()
-        self.ui.verticalSlider.setRange(self.scrollBar.minimum(), self.scrollBar.maximum())
+        self.ui.verticalSlider.setRange(
+            self.scrollBar.minimum(), self.scrollBar.maximum())
         self.ui.emptyFoldersNoticeLbl.hide()
         self.ui.verticalSlider.hide()
 
     def on_gps_clicked(self):
-        self.loading_popup = LoadingPopupWidget(context=self.context, text='Localizando...')
+        self.loading_popup = LoadingPopupWidget(
+            context=self.context, text='Localizando...')
         self.loading_popup.show()
         if not self.location_worker.isRunning():
             self.location_worker.start()
-        
+
     def handle_location_result(self, location):
         self.location_worker.stop()
         self.loading_popup.close_and_delete()
-        if(len(location) == 1):
-            if(location[0] == 'error'):
+        if (len(location) == 1):
+            if (location[0] == 'error'):
                 self.show_dialog_error('Error al intentar localizar.')
                 return
-            elif(location[0] == 'time'):
-                self.show_dialog_error('Tiempo de espera de localización expirado.')
+            elif (location[0] == 'time'):
+                self.show_dialog_error(
+                    'Tiempo de espera de localización expirado.')
                 return
         self.latitude = location[0]
         self.longitude = location[1]
@@ -146,7 +152,7 @@ class SaveDataView(QMainWindow):
 
     def on_back_clicked(self):
         self.show_dialog()
-    
+
     def close_view(self):
         Navigator.pop(context=self.context, view=self)
 
@@ -234,7 +240,7 @@ class SaveDataView(QMainWindow):
             name=place, device_id=Constants.DEVICE_ID, latitude=self.latitude, longitude=-self.longitude,
             date=format_date, hour=str(hour), sample_origin=sample_origin, it_rained=it_rained,
             upload_state=1, lote_id=lote_id, conductivity=self.tds * 2, oxygen=self.oxygen, ph=self.ph,
-            temperature=self.temperature, tds=self.tds, turbidity=self.turbidity
+            temperature=self.temperature, tds=self.tds, turbidity=self.turbidity, battery=self.battery_level
         )
         WaterDataBase.insert_water_param(params)
         finish_popup = PopupWidgetInfo(
@@ -243,16 +249,18 @@ class SaveDataView(QMainWindow):
 
 
 ###### FUNCIONES DE SELECCION DE LOTES ################
+
+
     def load_data(self):
         self.folders_list = WaterDataBase.get_lotes()
 
-    def on_push_folder_widget(self, id:int, name:str):
+    def on_push_folder_widget(self, id: int, name: str):
         self.folder_id = id
         self.folder_name = name
         self.ui.folderLbl.setText(name)
         self.ui.folderLbl.setAlignment(QtCore.Qt.AlignCenter)
         self.ui.stackedWidget.setCurrentIndex(1)
-    
+
     def setup_list(self):
         self.load_data()
         """
@@ -278,7 +286,8 @@ class SaveDataView(QMainWindow):
         # Crear el contenedor principal y el layout vertical
         container_widget = QWidget()
         main_layout = QVBoxLayout(container_widget)
-        main_layout.setAlignment(Qt.AlignTop)  # Alinear contenido en la parte superior
+        # Alinear contenido en la parte superior
+        main_layout.setAlignment(Qt.AlignTop)
         main_layout.setSpacing(10)
 
         # Crear el layout en cuadrícula
@@ -288,7 +297,8 @@ class SaveDataView(QMainWindow):
         num_cols = 3  # Número de columnas
         for i, product in enumerate(self.folders_list):
             # Crear y configurar el widget
-            product_widget = FolderWidget(id=product.id, name=product.name, description=product.description, on_push=self.on_push_folder_widget)
+            product_widget = FolderWidget(
+                id=product.id, name=product.name, description=product.description, on_push=self.on_push_folder_widget)
             product_widget.setFixedSize(133, 100)  # Fijar tamaño del widget
             product_widget.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
 
@@ -310,13 +320,12 @@ class SaveDataView(QMainWindow):
         self.ui.scrollArea.setWidget(container_widget)
         self.ui.scrollArea.setWidgetResizable(True)
 
-
     def slider_value_changed(self, value):
         self.scrollBar.setValue(value)
 
     def adjust_slider_range(self, min, max):
         self.ui.verticalSlider.show()
-        self.ui.verticalSlider.setRange(min, max)    
+        self.ui.verticalSlider.setRange(min, max)
 
     def scroll_value_changed(self, value):
         self.ui.verticalSlider.setValue(value)
