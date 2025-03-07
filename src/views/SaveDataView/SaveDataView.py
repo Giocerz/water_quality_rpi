@@ -239,9 +239,11 @@ class SaveDataView(QMainWindow):
             )
             lote_id = WaterDataBase.insert_lote(lote)
 
+        counter = 0
         for sample in self.capture_samples:
+            sample_name = place if counter == 0 else f"{place} {counter}"
             params = WaterQualityParams(
-                name=place,
+                name=sample_name,
                 device_id=Constants.DEVICE_ID,
                 latitude=self.latitude,
                 longitude=self.longitude,
@@ -253,13 +255,15 @@ class SaveDataView(QMainWindow):
                 lote_id=lote_id,
                 conductivity=sample.conductivity,
                 oxygen=sample.oxygen,
-                ph=sample.pH,
+                ph=sample.ph,
                 temperature=sample.temperature,
-                tds=sample.TDS,
+                tds=sample.tds,
                 turbidity=sample.turbidity,
                 battery=sample.battery
             )
             WaterDataBase.insert_water_param(params)
+            counter += 1
+
         message = "La muestra se guardó exitosamente" if len(self.capture_samples) == 1 else "Las muestras se guardaron exitosamente"
         finish_popup = PopupWidgetInfo(
             context=self.context, text=message, on_click=self.close_view)
@@ -281,20 +285,6 @@ class SaveDataView(QMainWindow):
 
     def setup_list(self):
         self.load_data()
-        """
-        self.folders_list = [
-            LoteModel(name='Muestras Colegio', creation_date='2002-12-01', creation_hour='22:00', last_add_date='2002-12-01', last_add_hour='22:00'),
-            LoteModel(name='Universidad', creation_date='2002-12-01', creation_hour='22:00', last_add_date='2002-12-01', last_add_hour='22:00'),
-            LoteModel(name='La Paz', creation_date='2002-12-01', creation_hour='22:00', last_add_date='2002-12-01', last_add_hour='22:00'),
-            LoteModel(name='La Paz', creation_date='2002-12-01', creation_hour='22:00', last_add_date='2002-12-01', last_add_hour='22:00'),
-            LoteModel(name='La Paz', creation_date='2002-12-01', creation_hour='22:00', last_add_date='2002-12-01', last_add_hour='22:00'),
-            LoteModel(name='La Paz', creation_date='2002-12-01', creation_hour='22:00', last_add_date='2002-12-01', last_add_hour='22:00'),
-            LoteModel(name='La Paz', creation_date='2002-12-01', creation_hour='22:00', last_add_date='2002-12-01', last_add_hour='22:00'),
-            LoteModel(name='La Paz', creation_date='2002-12-01', creation_hour='22:00', last_add_date='2002-12-01', last_add_hour='22:00'),
-            LoteModel(name='La Paz', creation_date='2002-12-01', creation_hour='22:00', last_add_date='2002-12-01', last_add_hour='22:00'),
-            LoteModel(name='La Paz', creation_date='2002-12-01', creation_hour='22:00', last_add_date='2002-12-01', last_add_hour='22:00'),
-        ]
-        """
 
         if len(self.folders_list) == 0:
             self.ui.emptyFoldersNoticeLbl.show()

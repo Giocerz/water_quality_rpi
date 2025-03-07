@@ -4,8 +4,8 @@ from typing import Optional
 @dataclass
 class SensorData:
     temperature: Optional[float] = None
-    pH: Optional[float] = None
-    TDS: Optional[float] = None
+    ph: Optional[float] = None
+    tds: Optional[float] = None
     conductivity: Optional[float] = None
     oxygen: Optional[float] = None
     turbidity: Optional[float] = None

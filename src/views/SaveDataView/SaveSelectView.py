@@ -33,14 +33,14 @@ class SaveSelectView(QMainWindow):
         if self.averaged_samples.oxygen is not None:
             text += f", OD: {self.averaged_samples.oxygen}"
 
-        if self.averaged_samples.TDS is not None:
-            text += f", TDS: {self.averaged_samples.TDS}"
+        if self.averaged_samples.tds is not None:
+            text += f", TDS: {self.averaged_samples.tds}"
 
         if self.averaged_samples.conductivity is not None:
             text += f", CE: {self.averaged_samples.conductivity}"
 
-        if self.averaged_samples.pH is not None:
-            text += f", pH: {self.averaged_samples.pH}"
+        if self.averaged_samples.ph is not None:
+            text += f", pH: {self.averaged_samples.ph}"
 
         if self.averaged_samples.turbidity is not None:
             text += f", Turbidez: {self.averaged_samples.turbidity}"
@@ -84,8 +84,8 @@ class SaveSelectView(QMainWindow):
 
         return SensorData(
             temperature=average([sample.temperature for sample in self.capture_samples]),
-            pH=average([sample.pH for sample in self.capture_samples]),
-            TDS=average([sample.TDS for sample in self.capture_samples]),
+            ph=average([sample.pH for sample in self.capture_samples]),
+            tds=average([sample.TDS for sample in self.capture_samples]),
             conductivity=average([sample.conductivity for sample in self.capture_samples]),
             oxygen=average([sample.oxygen for sample in self.capture_samples]),
             turbidity=average([sample.turbidity for sample in self.capture_samples]),
