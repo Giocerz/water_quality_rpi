@@ -131,9 +131,7 @@ class MonitoringView(QMainWindow):
                 self.isPause = True
 
     def on_save_clicked(self):
-        if(not self.receive_parameters):
-            return
-        self.parameters_worker.stop()
+        self.pause_monitoring()
         if len(self.capture_samples) > 1:
             view = SaveSelectView(context=self.context, capture_samples=self.capture_samples, close_monitoring_callback=self.on_back_clicked)
         elif len(self.capture_samples) > 0:

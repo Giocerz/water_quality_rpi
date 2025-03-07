@@ -182,6 +182,7 @@ class SaveDataView(QMainWindow):
         self.folder_name = name
         self.ui.folderLbl.setText(name)
         self.ui.folderLbl.setAlignment(QtCore.Qt.AlignCenter)
+        self.folder_id = None
         self.ui.stackedWidget.setCurrentIndex(1)
 
     def show_dialog_error(self, error: str):
