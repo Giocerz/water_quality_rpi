@@ -369,8 +369,6 @@ class NumericKeyboardWidget(QWidget):
         self.__timerBackSpace.setSingleShot(True)
         self.__timerBackSpace.timeout.connect(self.__backspaceHeld)
 
-        self.__set_minus()
-
         #Eventos al presionar
         self.__ui.btn1.pressed.connect(self.__btnPressed)
         self.__ui.btn2.pressed.connect(self.__btnPressed)
