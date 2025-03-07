@@ -86,7 +86,7 @@ class SaveDataView(QMainWindow):
 
         self.ui.backBtn.clicked.connect(self.on_back_clicked)
         self.ui.gpsBtn.clicked.connect(self.on_gps_clicked)
-        self.ui.setManualLocationBtn.clickec.connect(self.on_set_manual_location_clicked)
+        self.ui.setManualLocationBtn.clicked.connect(self.on_set_manual_location_clicked)
         self.ui.saveBtn.clicked.connect(self.on_save_clicked)
         self.ui.nextBtn.clicked.connect(self.on_next_clicked)
         self.ui.prevBtn.clicked.connect(self.on_prev_clicked)
@@ -154,7 +154,7 @@ class SaveDataView(QMainWindow):
     def on_set_manual_location_clicked(self):
         set_location_popup = SetManualLocationWidget(context=self.context, set_location=self.set_location)
         set_location_popup.show()
-        
+
     def finish_loading(self):
         self.loading_popup.close_and_delete()
         self.timer.stop()
