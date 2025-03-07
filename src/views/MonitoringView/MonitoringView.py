@@ -168,7 +168,7 @@ class MonitoringView(QMainWindow):
             popup = PopupWidgetInfo(context=self.context, text=f'Solo puededs capturar un<br>máximo de {self.MAX_SAMPLES} muestras')
             popup.show()
             return
-        self.capture_samples.append(SensorData(self.temperature, self.ph, self.tds, self.tds * 2,
+        self.capture_samples.append(SensorData(self.temperature, self.ph, self.tds, self.tds == None and None or self.tds * 2,
                                                self.oxygen, self.turbidity, self.battery))
         self.start_animation()
 
