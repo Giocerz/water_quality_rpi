@@ -242,3 +242,5 @@ class MonitoringView(QMainWindow):
         if self.turbidity_check:
             self.turbidity = parameters[4]
             self.indicators['turbidity'].setValue(self.turbidity)
+        
+        self.battery = parameters[5]

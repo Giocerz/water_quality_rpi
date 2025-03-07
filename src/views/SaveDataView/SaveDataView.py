@@ -204,8 +204,6 @@ class SaveDataView(QMainWindow):
         dialog.show()
 
     def on_save_clicked(self):
-        self.latitude = -10
-        self.longitude = 11
         place = self.ui.inputPlace.text().strip()
         sample_origin = self.ui.comboBox.currentText()
         dtatetime_now = datetime.now()

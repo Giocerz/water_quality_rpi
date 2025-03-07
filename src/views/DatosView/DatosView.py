@@ -129,7 +129,7 @@ class DatosView(QMainWindow):
             # Turbidez
             self.ui.tableWidget.setItem(row_idx, col := col + 1, QTableWidgetItem(str(data.turbidity) if data.turbidity is not None else ""))
             
-            self.ui.tableWidget.setItem(row_idx, col := col + 1, QTableWidgetItem(str(data.battery)))
+            self.ui.tableWidget.setItem(row_idx, col := col + 1, QTableWidgetItem(str(data.battery) if data.battery is not None else ""))
             self.ui.tableWidget.setItem(row_idx, col := col + 1, QTableWidgetItem(str(data.date)))
             self.ui.tableWidget.setItem(row_idx, col := col + 1, QTableWidgetItem(str(data.hour)))
             self.ui.tableWidget.setItem(row_idx, col := col + 1, QTableWidgetItem(str(data.latitude)))
