@@ -128,9 +128,9 @@ class MonitoringView(QMainWindow):
         if(not self.receive_parameters):
             return
         self.parameters_worker.stop()
-        if self.capture_samples > 1:
+        if len(self.capture_samples) > 1:
             view = SaveSelectView(context=self.context, capture_samples=self.capture_samples)
-        elif self.capture_samples > 0:
+        elif len(self.capture_samples) > 0:
             view = SaveDataView(context=self.context, capture_samples=self.capture_samples)
         else:
             sample = SensorData(self.temperature, self.ph, self.tds, self.tds * 2,
