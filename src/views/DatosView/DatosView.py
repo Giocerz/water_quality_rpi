@@ -152,7 +152,7 @@ class DatosView(QMainWindow):
     
     def show_dialog(self):
         def on_yes():
-            WaterDataBase.delete_lote()
+            WaterDataBase.delete_lote(self.lote_id)
             self.update_folder_view()
             self.on_back_clicked()
 
