@@ -63,7 +63,7 @@ background-color: transparent;
      <string>Ingrese la ubicación</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="latitudInput">
+   <widget class="QLineEdit" name="latitudeInput">
     <property name="geometry">
      <rect>
       <x>220</x>
@@ -135,7 +135,7 @@ background-color: transparent;
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Escanea el QR&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="initBtn">
+   <widget class="QPushButton" name="confirmBtn">
     <property name="geometry">
      <rect>
       <x>260</x>

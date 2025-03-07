@@ -1,11 +1,12 @@
 from PySide2.QtWidgets import QWidget
 from PySide2.QtCore import QTimer
-from src.views.ui_Keyboard import Ui_Form
+from src.views.ui_Keyboard import Ui_Form as Standard_Keyboard
+from src.views.ui_NumericKeyboard import Ui_Form as Numeric_Keyboard
 
 class KeyboardWidget(QWidget):
     def __init__(self, focusLine):
         QWidget.__init__(self)
-        self.__ui = Ui_Form()
+        self.__ui = Standard_Keyboard()
         self.__ui.setupUi(self)
         self.__focusLine = focusLine 
         self.__focusLine.setFocus() 
@@ -354,3 +355,86 @@ class KeyboardWidget(QWidget):
         self.__ui.btn27.setText('n')
         self.__ui.btn28.setText('m')
 
+
+class NumericKeyboardWidget(QWidget):
+    def __init__(self, focusLine):
+        QWidget.__init__(self)
+        self.__ui = Numeric_Keyboard()
+        self.__ui.setupUi(self)
+        self.__focusLine = focusLine 
+        self.__focusLine.setFocus() 
+
+        self.__timerBackSpace = QTimer(self)
+        self.__timerBackSpace.setInterval(1000)
+        self.__timerBackSpace.setSingleShot(True)
+        self.__timerBackSpace.timeout.connect(self.__backspaceHeld)
+
+        self.__set_minus()
+
+        #Eventos al presionar
+        self.__ui.btn1.pressed.connect(self.__btnPressed)
+        self.__ui.btn2.pressed.connect(self.__btnPressed)
+        self.__ui.btn3.pressed.connect(self.__btnPressed)
+        self.__ui.btn4.pressed.connect(self.__btnPressed)
+        self.__ui.btn5.pressed.connect(self.__btnPressed)
+        self.__ui.btn6.pressed.connect(self.__btnPressed)
+        self.__ui.btn7.pressed.connect(self.__btnPressed)
+        self.__ui.btn8.pressed.connect(self.__btnPressed)
+        self.__ui.btn9.pressed.connect(self.__btnPressed)
+        self.__ui.btn10.pressed.connect(self.__btnPressed)
+        self.__ui.btn11.pressed.connect(self.__btnPressed)
+
+        # Eventos al soltar
+        self.__ui.btn1.released.connect(self.__btnReleased)
+        self.__ui.btn2.released.connect(self.__btnReleased)
+        self.__ui.btn3.released.connect(self.__btnReleased)
+        self.__ui.btn4.released.connect(self.__btnReleased)
+        self.__ui.btn5.released.connect(self.__btnReleased)
+        self.__ui.btn6.released.connect(self.__btnReleased)
+        self.__ui.btn7.released.connect(self.__btnReleased)
+        self.__ui.btn8.released.connect(self.__btnReleased)
+        self.__ui.btn9.released.connect(self.__btnReleased)
+        self.__ui.btn10.released.connect(self.__btnReleased)
+        self.__ui.btn11.released.connect(self.__btnReleased)
+
+
+        self.__ui.btn12.pressed.connect(self.__backspacePressed)  # Backspace
+        self.__ui.btn12.released.connect(self.__backspaceReleased)  # Backspace
+
+    def changeFocusKeyboard(self, focus):
+        self.__focusLine = focus
+        self.__focusLine.setFocus()
+
+    def __btnPressed(self):
+        button = self.sender()
+        buttonText = button.text()
+        self.originalSize = button.size()
+        self.__focusLine.setText(self.__focusLine.text() + buttonText)
+        button.raise_()
+        button.setStyleSheet("border-radius: 10px; background-color: rgb(204, 204, 204); font: 18pt \"Poppins\";")
+        button.setAutoFillBackground(False)
+        button.resize(99,61) 
+        button.move(button.x()-15,button.y()-15)
+
+    def __btnReleased(self):
+        button = self.sender()
+        button.setStyleSheet("border-radius: 10px; background-color: rgb(255, 255, 255); font: 11pt \"Poppins\";")
+        button.resize(self.originalSize) 
+        button.move(button.x() + 15,button.y() + 15)
+        self.__focusLine.setFocus()
+
+    def __backspacePressed(self):
+        self.__timerBackSpace.start()
+        button = self.sender()
+        self.__focusLine.setText(self.__focusLine.text()[:-1])
+        button.setStyleSheet("border-radius: 10px; background-color: rgb(0, 68, 141); font: 12pt \"Poppins\"; color: rgb(255, 255, 255);")
+
+    def __backspaceReleased(self):
+        self.__timerBackSpace.stop()
+        button = self.sender()
+        button.setStyleSheet("border-radius: 10px; background-color: #00007F; font: 12pt \"Poppins\"; color: rgb(255, 255, 255);")
+        self.__focusLine.setFocus()   
+
+    def __backspaceHeld(self):
+        self.__focusLine.clear()
+        self.__focusLine.setFocus()

@@ -31,13 +31,6 @@ class ParametersMeasuredWorker(QThread):
 
         while self.running_state:
             try:
-                '''
-                temp = round(random.uniform(29, 33), 2)
-                ph = round(random.uniform(6.1, 7.32), 2)
-                do = round(random.uniform(4.55, 5.89), 2)
-                tds = round(random.uniform(724.23, 892.23), 2)
-                turb = round(random.uniform(56.23, 203.23), 2)
-                '''
                 temp = round(temperature_sensor.get_temperature(), 2)
                 ph = round(parameters_calc.calculatePh(
                     parameters.ph_volt()), 2)
@@ -81,9 +74,12 @@ class MonitoringView(QMainWindow):
         self.turbidity = None
         self.battery = None
 
+        self.capture_samples = []
+
         self.receive_parameters = False
         
         self.isPause = False
+
 
         self.parameters_worker = ParametersMeasuredWorker()
         if not self.parameters_worker.isRunning():

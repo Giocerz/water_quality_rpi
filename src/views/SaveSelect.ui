@@ -40,7 +40,7 @@ QLabel {
    <property name="styleSheet">
     <string notr="true"/>
    </property>
-   <widget class="QPushButton" name="initBtn">
+   <widget class="QPushButton" name="continueBtn">
     <property name="geometry">
      <rect>
       <x>140</x>
@@ -53,7 +53,7 @@ QLabel {
      <string notr="true">border-radius: 20px;</string>
     </property>
     <property name="text">
-     <string>Iniciar</string>
+     <string>Continuar</string>
     </property>
    </widget>
    <widget class="QPushButton" name="backBtn">
@@ -78,90 +78,12 @@ QLabel {
      <string/>
     </property>
    </widget>
-   <widget class="QCheckBox" name="tdsCheckBox">
-    <property name="geometry">
-     <rect>
-      <x>140</x>
-      <y>50</y>
-      <width>141</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="layoutDirection">
-     <enum>Qt::RightToLeft</enum>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QCheckBox {
-	background-color: transparent;
-	height: 21px;
-	font-family: Poppins;
-	font-size: 14px;
-}
-
-QCheckBox::indicator {
-    width: 15px; /* Ancho del indicador */
-    height: 15px; /* Alto del indicador */
-    border-radius: 4px; /* Bordes redondeados */
-    border: 2px solid #666; /* Borde del indicador */
-}
-
-QCheckBox::indicator:checked {
-    background-color: #00007f; /* Color de fondo cuando está marcado */
-}
-
-QCheckBox::indicator:unchecked {
-    background-color: transparent;
-}</string>
-    </property>
-    <property name="text">
-     <string>TDS/CE</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="phCheckBox">
-    <property name="geometry">
-     <rect>
-      <x>140</x>
-      <y>80</y>
-      <width>141</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="layoutDirection">
-     <enum>Qt::RightToLeft</enum>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QCheckBox {
-	background-color: transparent;
-	height: 21px;
-	font-family: Poppins;
-	font-size: 14px;
-}
-
-QCheckBox::indicator {
-    width: 15px; /* Ancho del indicador */
-    height: 15px; /* Alto del indicador */
-    border-radius: 4px; /* Bordes redondeados */
-    border: 2px solid #666; /* Borde del indicador */
-}
-
-QCheckBox::indicator:checked {
-    background-color: #00007f; /* Color de fondo cuando está marcado */
-}
-
-QCheckBox::indicator:unchecked {
-    background-color: transparent;
-}</string>
-    </property>
-    <property name="text">
-     <string>pH</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="oxygenCheckBox">
+   <widget class="QCheckBox" name="allCheckBox">
     <property name="geometry">
      <rect>
       <x>110</x>
-      <y>110</y>
-      <width>171</width>
+      <y>40</y>
+      <width>211</width>
       <height>21</height>
      </rect>
     </property>
@@ -173,7 +95,7 @@ QCheckBox::indicator:unchecked {
 	background-color: transparent;
 	height: 21px;
 	font-family: Poppins;
-	font-size: 14px;
+	font-size: 16px;
 }
 
 QCheckBox::indicator {
@@ -192,15 +114,15 @@ QCheckBox::indicator:unchecked {
 }</string>
     </property>
     <property name="text">
-     <string>Oxígeno Disuelto</string>
+     <string>Todas las muestras</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="turbidityCheckBox">
+   <widget class="QCheckBox" name="deleteCheckBox">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>140</y>
-      <width>141</width>
+      <x>90</x>
+      <y>100</y>
+      <width>231</width>
       <height>21</height>
      </rect>
     </property>
@@ -212,7 +134,7 @@ QCheckBox::indicator:unchecked {
 	background-color: transparent;
 	height: 21px;
 	font-family: Poppins;
-	font-size: 14px;
+	font-size: 16px;
 }
 
 QCheckBox::indicator {
@@ -231,7 +153,46 @@ QCheckBox::indicator:unchecked {
 }</string>
     </property>
     <property name="text">
-     <string>Turbidez</string>
+     <string>Eliminar valores atípicos</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="meanCheckBox">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>160</y>
+      <width>211</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::RightToLeft</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QCheckBox {
+	background-color: transparent;
+	height: 21px;
+	font-family: Poppins;
+	font-size: 16px;
+}
+
+QCheckBox::indicator {
+    width: 15px; /* Ancho del indicador */
+    height: 15px; /* Alto del indicador */
+    border-radius: 4px; /* Bordes redondeados */
+    border: 2px solid #666; /* Borde del indicador */
+}
+
+QCheckBox::indicator:checked {
+    background-color: #00007f; /* Color de fondo cuando está marcado */
+}
+
+QCheckBox::indicator:unchecked {
+    background-color: transparent;
+}</string>
+    </property>
+    <property name="text">
+     <string>Promedio</string>
     </property>
    </widget>
    <widget class="QLabel" name="label">
@@ -247,43 +208,52 @@ QCheckBox::indicator:unchecked {
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;¿Como desea guardar las muestras?&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="allCheckBox">
+   <widget class="QLabel" name="allLbl">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>170</y>
-      <width>141</width>
-      <height>21</height>
+      <x>100</x>
+      <y>60</y>
+      <width>211</width>
+      <height>31</height>
      </rect>
     </property>
-    <property name="layoutDirection">
-     <enum>Qt::RightToLeft</enum>
-    </property>
     <property name="styleSheet">
-     <string notr="true">QCheckBox {
-	background-color: transparent;
-	height: 21px;
-	font-family: Poppins;
-	font-size: 14px;
-}
-
-QCheckBox::indicator {
-    width: 15px; /* Ancho del indicador */
-    height: 15px; /* Alto del indicador */
-    border-radius: 4px; /* Bordes redondeados */
-    border: 2px solid #666; /* Borde del indicador */
-}
-
-QCheckBox::indicator:checked {
-    background-color: #00007f; /* Color de fondo cuando está marcado */
-}
-
-QCheckBox::indicator:unchecked {
-    background-color: transparent;
-}</string>
+     <string notr="true">font-size: 14px;</string>
     </property>
     <property name="text">
-     <string>Marcar todos</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Total de muestras: &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="deleteLbl">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>120</y>
+      <width>211</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font-size: 14px;</string>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Muestras eliminadas:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="meanLbl">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>180</y>
+      <width>211</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font-size: 14px;</string>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Promedio de las muestras:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
   </widget>

@@ -6,6 +6,7 @@ from src.views.ui_Save import Ui_MainWindow
 from src.widgets.KeyboardWidget import KeyboardWidget
 from src.widgets.PopupWidget import PopupWidgetInfo, LoadingPopupWidget, PopupWidget
 from src.widgets.FolderWidget import FolderWidget
+from src.widgets.ManualGPSPopup import SetManualLocationWidget
 from src.model.Models import LoteModel, WaterQualityParams
 from src.model.WaterQualityDB import WaterDataBase
 from src.config.Constants import Constants
@@ -85,6 +86,7 @@ class SaveDataView(QMainWindow):
 
         self.ui.backBtn.clicked.connect(self.on_back_clicked)
         self.ui.gpsBtn.clicked.connect(self.on_gps_clicked)
+        self.ui.setManualLocationBtn.clickec.connect(self.on_set_manual_location_clicked)
         self.ui.saveBtn.clicked.connect(self.on_save_clicked)
         self.ui.nextBtn.clicked.connect(self.on_next_clicked)
         self.ui.prevBtn.clicked.connect(self.on_prev_clicked)
@@ -140,12 +142,19 @@ class SaveDataView(QMainWindow):
                 self.show_dialog_error(
                     'Tiempo de espera de<br>localización expirado.')
                 return
-        self.latitude = location[0]
-        self.longitude = location[1]
-        self.ui.label_4.setText(f'{self.latitude} , {self.longitude}')
-        self.ui.label_4.setAlignment(QtCore.Qt.AlignCenter)
+        self.set_location(location[0], location[1])
         self.show_dialog_error('Localización completada.')
 
+    def set_location(self, latitude:float, longitude:float):
+        self.latitude = latitude
+        self.longitude = longitude
+        self.ui.label_4.setText(f'{self.latitude} , {self.longitude}')
+        self.ui.label_4.setAlignment(QtCore.Qt.AlignCenter)
+    
+    def on_set_manual_location_clicked(self):
+        set_location_popup = SetManualLocationWidget(context=self.context, set_location=self.set_location)
+        set_location_popup.show()
+        
     def finish_loading(self):
         self.loading_popup.close_and_delete()
         self.timer.stop()

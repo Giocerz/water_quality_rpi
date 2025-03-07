@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'SaveKejeAT.ui'
+## Form generated from reading UI file 'SaveNoWviz.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -162,10 +162,10 @@ class Ui_MainWindow(object):
         self.label_2 = QLabel(self.page_2)
         self.label_2.setObjectName(u"label_2")
         self.label_2.setGeometry(QRect(132, 10, 55, 16))
-        self.gpsManualBtn = QPushButton(self.page_2)
-        self.gpsManualBtn.setObjectName(u"gpsManualBtn")
-        self.gpsManualBtn.setGeometry(QRect(260, 100, 180, 31))
-        self.gpsManualBtn.setStyleSheet(u"border-radius: 20px;\n"
+        self.setManualLocationBtn = QPushButton(self.page_2)
+        self.setManualLocationBtn.setObjectName(u"setManualLocationBtn")
+        self.setManualLocationBtn.setGeometry(QRect(260, 100, 180, 31))
+        self.setManualLocationBtn.setStyleSheet(u"border-radius: 20px;\n"
 "background-color: #00007f;\n"
 "color: white;\n"
 "border: none;\n"
@@ -193,7 +193,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 431, 231))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 429, 229))
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.verticalSlider = QSlider(self.page_3)
         self.verticalSlider.setObjectName(u"verticalSlider")
@@ -310,7 +310,7 @@ class Ui_MainWindow(object):
         self.selectFolderBtn.setText(QCoreApplication.translate("MainWindow", u"Seleccionar carpeta", None))
         self.folderLbl.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\">Carpeta:</p></body></html>", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Fuente", None))
-        self.gpsManualBtn.setText(QCoreApplication.translate("MainWindow", u"Ingresar manualmente", None))
+        self.setManualLocationBtn.setText(QCoreApplication.translate("MainWindow", u"Ingresar manualmente", None))
         self.openCreateFolderBtn.setText(QCoreApplication.translate("MainWindow", u"Crear una nueva carpeta", None))
         self.emptyFoldersNoticeLbl.setText(QCoreApplication.translate("MainWindow", u"No hay carpetas guardadas", None))
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>Nombre</p></body></html>", None))
