@@ -133,8 +133,14 @@ class MonitoringView(QMainWindow):
         elif len(self.capture_samples) > 0:
             view = SaveDataView(context=self.context, capture_samples=self.capture_samples)
         else:
-            sample = SensorData(self.temperature, self.ph, self.tds, self.tds * 2,
-                                               self.oxygen, self.turbidity, self.battery)
+            sample = SensorData(
+                    temperature=self.temperature,
+                    ph=self.ph,
+                    tds=self.tds,
+                    conductivity=None if self.tds is None else self.tds * 2,
+                    oxygen=self.oxygen,
+                    turbidity=self.turbidity,
+                    battery=self.battery)
             view = SaveDataView(context=self.context, capture_samples=[sample])
         Navigator.pushReplacement(context=self.context, view=view)
     
