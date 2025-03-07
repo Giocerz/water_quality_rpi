@@ -13,6 +13,7 @@ from src.views.SaveDataView.SaveDataView import SaveDataView
 from src.package.Navigator import Navigator
 from src.logic.batteryLevel import BatteryProvider
 from src.logic.filters import MovingAverageFilter
+from src.widgets.PopupWidget import PopupWidgetInfo
 
 class ParametersMeasuredWorker(QThread):
     parameters_result = Signal(list)
@@ -54,6 +55,7 @@ class ParametersMeasuredWorker(QThread):
     
 
 class MonitoringView(QMainWindow):
+    MAX_SAMPLES = 30
     def __init__(self, context, tds_check:bool, ph_check:bool, oxygen_check:bool, turbidity_check:bool):
         QMainWindow.__init__(self)
         self.context = context
@@ -85,7 +87,7 @@ class MonitoringView(QMainWindow):
         if not self.parameters_worker.isRunning():
             self.parameters_worker.start()
 
-        self.ui.captureBtn.clicked.connect(self.start_animation)
+        self.ui.captureBtn.clicked.connect(self.on_capture_clicked)
         self.ui.backBtn.clicked.connect(self.on_back_clicked)
         self.ui.saveBtn.clicked.connect(self.on_save_clicked)
         self.ui.pauseBtn.clicked.connect(self.on_pause_clicked)
@@ -100,6 +102,8 @@ class MonitoringView(QMainWindow):
         icon = QIcon('./src/resources/icons/save.png')
         self.ui.saveBtn.setIcon(icon)
         self.ui.saveBtn.setIconSize(QSize(30, 30))
+        self.ui.captureCountLbl.setText('')
+        self.ui.captureCountLbl.hide()
 
     def on_back_clicked(self):
         if self.parameters_worker.isRunning():
@@ -148,7 +152,19 @@ class MonitoringView(QMainWindow):
         self.animation_group.addAnimation(self.up_animation)
         self.animation_group.addAnimation(self.down_animation)
 
+    def on_capture_clicked(self):
+        if not self.receive_parameters:
+            return
+        if len(self.capture_samples) >= self.MAX_SAMPLES:
+            popup = PopupWidgetInfo(context=self.context, text=f'Solo puededs capturar un<br>máximo de {self.MAX_SAMPLES} muestras')
+            popup.show()
+            return
+        self.capture_samples.append([self.temperature, self.oxygen, self.tds, self.ph, self.turbidity])
+        self.start_animation()
+
     def start_animation(self):
+        self.ui.captureCountLbl.setText(f'+{len(self.capture_samples)}')
+        self.ui.captureCountLbl.show()
         """Inicia la animación completa al presionar el botón."""
         self.animation_group.start()
 

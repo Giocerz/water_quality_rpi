@@ -82,7 +82,7 @@ QLabel {
     <property name="geometry">
      <rect>
       <x>110</x>
-      <y>40</y>
+      <y>70</y>
       <width>211</width>
       <height>21</height>
      </rect>
@@ -117,50 +117,11 @@ QCheckBox::indicator:unchecked {
      <string>Todas las muestras</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="deleteCheckBox">
-    <property name="geometry">
-     <rect>
-      <x>90</x>
-      <y>100</y>
-      <width>231</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="layoutDirection">
-     <enum>Qt::RightToLeft</enum>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QCheckBox {
-	background-color: transparent;
-	height: 21px;
-	font-family: Poppins;
-	font-size: 16px;
-}
-
-QCheckBox::indicator {
-    width: 15px; /* Ancho del indicador */
-    height: 15px; /* Alto del indicador */
-    border-radius: 4px; /* Bordes redondeados */
-    border: 2px solid #666; /* Borde del indicador */
-}
-
-QCheckBox::indicator:checked {
-    background-color: #00007f; /* Color de fondo cuando está marcado */
-}
-
-QCheckBox::indicator:unchecked {
-    background-color: transparent;
-}</string>
-    </property>
-    <property name="text">
-     <string>Eliminar valores atípicos</string>
-    </property>
-   </widget>
    <widget class="QCheckBox" name="meanCheckBox">
     <property name="geometry">
      <rect>
       <x>110</x>
-      <y>160</y>
+      <y>130</y>
       <width>211</width>
       <height>21</height>
      </rect>
@@ -212,7 +173,7 @@ QCheckBox::indicator:unchecked {
     <property name="geometry">
      <rect>
       <x>100</x>
-      <y>60</y>
+      <y>90</y>
       <width>211</width>
       <height>31</height>
      </rect>
@@ -224,28 +185,12 @@ QCheckBox::indicator:unchecked {
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Total de muestras: &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
-   <widget class="QLabel" name="deleteLbl">
-    <property name="geometry">
-     <rect>
-      <x>100</x>
-      <y>120</y>
-      <width>211</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font-size: 14px;</string>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Muestras eliminadas:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="meanLbl">
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>180</y>
-      <width>211</width>
+      <x>20</x>
+      <y>150</y>
+      <width>451</width>
       <height>31</height>
      </rect>
     </property>
@@ -253,7 +198,7 @@ QCheckBox::indicator:unchecked {
      <string notr="true">font-size: 14px;</string>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Promedio de las muestras:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Promedio: Temp: 123.22, OD: 23.2, pH: 7.2, Turb: 22.2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
   </widget>

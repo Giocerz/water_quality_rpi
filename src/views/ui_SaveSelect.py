@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'SaveSelecttcQboy.ui'
+## Form generated from reading UI file 'SaveSelectrJMuQv.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -58,7 +58,7 @@ class Ui_MainWindow(object):
 "	font-size: 16px;")
         self.allCheckBox = QCheckBox(self.centralwidget)
         self.allCheckBox.setObjectName(u"allCheckBox")
-        self.allCheckBox.setGeometry(QRect(110, 40, 211, 21))
+        self.allCheckBox.setGeometry(QRect(110, 70, 211, 21))
         self.allCheckBox.setLayoutDirection(Qt.RightToLeft)
         self.allCheckBox.setStyleSheet(u"QCheckBox {\n"
 "	background-color: transparent;\n"
@@ -81,34 +81,9 @@ class Ui_MainWindow(object):
 "QCheckBox::indicator:unchecked {\n"
 "    background-color: transparent;\n"
 "}")
-        self.deleteCheckBox = QCheckBox(self.centralwidget)
-        self.deleteCheckBox.setObjectName(u"deleteCheckBox")
-        self.deleteCheckBox.setGeometry(QRect(90, 100, 231, 21))
-        self.deleteCheckBox.setLayoutDirection(Qt.RightToLeft)
-        self.deleteCheckBox.setStyleSheet(u"QCheckBox {\n"
-"	background-color: transparent;\n"
-"	height: 21px;\n"
-"	font-family: Poppins;\n"
-"	font-size: 16px;\n"
-"}\n"
-"\n"
-"QCheckBox::indicator {\n"
-"    width: 15px; /* Ancho del indicador */\n"
-"    height: 15px; /* Alto del indicador */\n"
-"    border-radius: 4px; /* Bordes redondeados */\n"
-"    border: 2px solid #666; /* Borde del indicador */\n"
-"}\n"
-"\n"
-"QCheckBox::indicator:checked {\n"
-"    background-color: #00007f; /* Color de fondo cuando est\u00e1 marcado */\n"
-"}\n"
-"\n"
-"QCheckBox::indicator:unchecked {\n"
-"    background-color: transparent;\n"
-"}")
         self.meanCheckBox = QCheckBox(self.centralwidget)
         self.meanCheckBox.setObjectName(u"meanCheckBox")
-        self.meanCheckBox.setGeometry(QRect(110, 160, 211, 21))
+        self.meanCheckBox.setGeometry(QRect(110, 130, 211, 21))
         self.meanCheckBox.setLayoutDirection(Qt.RightToLeft)
         self.meanCheckBox.setStyleSheet(u"QCheckBox {\n"
 "	background-color: transparent;\n"
@@ -136,15 +111,11 @@ class Ui_MainWindow(object):
         self.label.setGeometry(QRect(100, 10, 301, 31))
         self.allLbl = QLabel(self.centralwidget)
         self.allLbl.setObjectName(u"allLbl")
-        self.allLbl.setGeometry(QRect(100, 60, 211, 31))
+        self.allLbl.setGeometry(QRect(100, 90, 211, 31))
         self.allLbl.setStyleSheet(u"font-size: 14px;")
-        self.deleteLbl = QLabel(self.centralwidget)
-        self.deleteLbl.setObjectName(u"deleteLbl")
-        self.deleteLbl.setGeometry(QRect(100, 120, 211, 31))
-        self.deleteLbl.setStyleSheet(u"font-size: 14px;")
         self.meanLbl = QLabel(self.centralwidget)
         self.meanLbl.setObjectName(u"meanLbl")
-        self.meanLbl.setGeometry(QRect(100, 180, 211, 31))
+        self.meanLbl.setGeometry(QRect(20, 150, 451, 31))
         self.meanLbl.setStyleSheet(u"font-size: 14px;")
         MainWindow.setCentralWidget(self.centralwidget)
 
@@ -158,11 +129,9 @@ class Ui_MainWindow(object):
         self.continueBtn.setText(QCoreApplication.translate("MainWindow", u"Continuar", None))
         self.backBtn.setText("")
         self.allCheckBox.setText(QCoreApplication.translate("MainWindow", u"Todas las muestras", None))
-        self.deleteCheckBox.setText(QCoreApplication.translate("MainWindow", u"Eliminar valores at\u00edpicos", None))
         self.meanCheckBox.setText(QCoreApplication.translate("MainWindow", u"Promedio", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>\u00bfComo desea guardar las muestras?</p></body></html>", None))
         self.allLbl.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>Total de muestras: </p></body></html>", None))
-        self.deleteLbl.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>Muestras eliminadas:</p></body></html>", None))
-        self.meanLbl.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>Promedio de las muestras:</p></body></html>", None))
+        self.meanLbl.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>Promedio: Temp: 123.22, OD: 23.2, pH: 7.2, Turb: 22.2</p></body></html>", None))
     # retranslateUi
 
