@@ -142,23 +142,23 @@ class WaterDataBase:
         conn.close()
 
     @staticmethod
-    def delete_lote(lote_id:int):
+    def delete_lote(lote_id: int):
         conn = WaterDataBase._open_db()
         cursor = conn.cursor()
+        
         cursor.execute(f'''
-            DELETE {WaterDataBase.LOTE_TABLE_NAME} 
+            DELETE FROM {WaterDataBase.LOTE_TABLE_NAME} 
             WHERE id = ?
-            ''', (
-                lote_id
-        ))
+        ''', (lote_id,))  # Asegurar que el tuple tenga una coma
+
         cursor.execute(f'''
-            DELETE {WaterDataBase.WATER_TABLE_NAME} 
+            DELETE FROM {WaterDataBase.WATER_TABLE_NAME} 
             WHERE lote_id = ?
-            ''', (
-                lote_id
-        ))
+        ''', (lote_id,))  # Asegurar que el tuple tenga una coma
+        
         conn.commit()
         conn.close()
+
 
     
     @staticmethod
