@@ -84,8 +84,8 @@ class SaveSelectView(QMainWindow):
 
         return SensorData(
             temperature=average([sample.temperature for sample in self.capture_samples]),
-            ph=average([sample.pH for sample in self.capture_samples]),
-            tds=average([sample.TDS for sample in self.capture_samples]),
+            ph=average([sample.ph for sample in self.capture_samples]),
+            tds=average([sample.tds for sample in self.capture_samples]),
             conductivity=average([sample.conductivity for sample in self.capture_samples]),
             oxygen=average([sample.oxygen for sample in self.capture_samples]),
             turbidity=average([sample.turbidity for sample in self.capture_samples]),
