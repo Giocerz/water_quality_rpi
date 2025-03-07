@@ -10,10 +10,12 @@ from w1thermsensor import W1ThermSensor
 from src.logic.adcModule import ParametersVoltages
 from src.logic.parametersCalc import *
 from src.views.SaveDataView.SaveDataView import SaveDataView
+from src.views.SaveDataView.SaveSelectView import SaveSelectView
 from src.package.Navigator import Navigator
 from src.logic.batteryLevel import BatteryProvider
 from src.logic.filters import MovingAverageFilter
 from src.widgets.PopupWidget import PopupWidgetInfo
+from src.model.SensorData import SensorData
 
 class ParametersMeasuredWorker(QThread):
     parameters_result = Signal(list)
@@ -76,7 +78,7 @@ class MonitoringView(QMainWindow):
         self.turbidity = None
         self.battery = None
 
-        self.capture_samples = []
+        self.capture_samples:list[SensorData] = []
 
         self.receive_parameters = False
         
@@ -126,7 +128,14 @@ class MonitoringView(QMainWindow):
         if(not self.receive_parameters):
             return
         self.parameters_worker.stop()
-        view = SaveDataView(context= self.context, oxygen=self.oxygen, ph=self.ph, temperature=self.temperature, tds=self.tds, turbidity=self.turbidity, battery_level=self.battery)
+        if self.capture_samples > 1:
+            view = SaveSelectView(context=self.context, capture_samples=self.capture_samples)
+        elif self.capture_samples > 0:
+            view = SaveDataView(context=self.context, capture_samples=self.capture_samples)
+        else:
+            sample = SensorData(self.temperature, self.ph, self.tds, self.tds * 2,
+                                               self.oxygen, self.turbidity, self.battery)
+            view = SaveDataView(context=self.context, capture_samples=[sample])
         Navigator.pushReplacement(context=self.context, view=view)
     
     def init_animation(self):
@@ -159,7 +168,8 @@ class MonitoringView(QMainWindow):
             popup = PopupWidgetInfo(context=self.context, text=f'Solo puededs capturar un<br>máximo de {self.MAX_SAMPLES} muestras')
             popup.show()
             return
-        self.capture_samples.append([self.temperature, self.oxygen, self.tds, self.ph, self.turbidity])
+        self.capture_samples.append(SensorData(self.temperature, self.ph, self.tds, self.tds * 2,
+                                               self.oxygen, self.turbidity, self.battery))
         self.start_animation()
 
     def start_animation(self):

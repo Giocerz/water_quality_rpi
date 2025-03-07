@@ -44,19 +44,32 @@ QPushButton {
     </property>
     <property name="styleSheet">
      <string notr="true">QTableWidget {
-	font-size: 10pt;
+	font-size: 14px;
 }
 
 QHeaderView::section {
+	font-size: 14px;
 	font-weight: bold;
 	border: 1px solid #d9d9d9;
 }</string>
     </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
     <property name="horizontalScrollBarPolicy">
      <enum>Qt::ScrollBarAlwaysOff</enum>
     </property>
+    <property name="sizeAdjustPolicy">
+     <enum>QAbstractScrollArea::AdjustToContents</enum>
+    </property>
     <property name="editTriggers">
      <set>QAbstractItemView::NoEditTriggers</set>
+    </property>
+    <property name="showDropIndicator" stdset="0">
+     <bool>false</bool>
+    </property>
+    <property name="dragDropOverwriteMode">
+     <bool>false</bool>
     </property>
     <property name="selectionMode">
      <enum>QAbstractItemView::NoSelection</enum>
@@ -67,12 +80,18 @@ QHeaderView::section {
     <property name="gridStyle">
      <enum>Qt::SolidLine</enum>
     </property>
+    <property name="sortingEnabled">
+     <bool>false</bool>
+    </property>
     <property name="rowCount">
      <number>3</number>
     </property>
     <property name="columnCount">
      <number>13</number>
     </property>
+    <attribute name="horizontalHeaderVisible">
+     <bool>true</bool>
+    </attribute>
     <attribute name="verticalHeaderVisible">
      <bool>false</bool>
     </attribute>
@@ -239,19 +258,6 @@ QHeaderView::section {
      <string/>
     </property>
    </widget>
-   <widget class="QPushButton" name="actBtn">
-    <property name="geometry">
-     <rect>
-      <x>70</x>
-      <y>220</y>
-      <width>161</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Ver gráficas</string>
-    </property>
-   </widget>
    <widget class="QSlider" name="horizontalSlider">
     <property name="geometry">
      <rect>
@@ -324,7 +330,7 @@ QSlider{
      <rect>
       <x>260</x>
       <y>220</y>
-      <width>101</width>
+      <width>111</width>
       <height>41</height>
      </rect>
     </property>
@@ -333,6 +339,39 @@ QSlider{
     </property>
     <property name="text">
      <string>1-5 de 11</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="graphBtn">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>220</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="deleteBtn">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>220</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #e63946;
+border: 0px;</string>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
   </widget>

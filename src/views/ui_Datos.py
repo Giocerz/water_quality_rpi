@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'DatosZSnhfx.ui'
+## Form generated from reading UI file 'DatosXnpflS.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -99,28 +99,32 @@ class Ui_MainWindow(object):
         self.tableWidget.setObjectName(u"tableWidget")
         self.tableWidget.setGeometry(QRect(0, 0, 481, 191))
         self.tableWidget.setStyleSheet(u"QTableWidget {\n"
-"	font-size: 10pt;\n"
+"	font-size: 14px;\n"
 "}\n"
 "\n"
 "QHeaderView::section {\n"
+"	font-size: 14px;\n"
 "	font-weight: bold;\n"
 "	border: 1px solid #d9d9d9;\n"
 "}")
+        self.tableWidget.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.tableWidget.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.tableWidget.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
         self.tableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.tableWidget.setProperty("showDropIndicator", False)
+        self.tableWidget.setDragDropOverwriteMode(False)
         self.tableWidget.setSelectionMode(QAbstractItemView.NoSelection)
         self.tableWidget.setShowGrid(True)
         self.tableWidget.setGridStyle(Qt.SolidLine)
+        self.tableWidget.setSortingEnabled(False)
         self.tableWidget.setRowCount(3)
         self.tableWidget.setColumnCount(13)
+        self.tableWidget.horizontalHeader().setVisible(True)
         self.tableWidget.verticalHeader().setVisible(False)
         self.backBtn = QPushButton(self.centralwidget)
         self.backBtn.setObjectName(u"backBtn")
         self.backBtn.setGeometry(QRect(10, 220, 41, 41))
         self.backBtn.setStyleSheet(u"")
-        self.actBtn = QPushButton(self.centralwidget)
-        self.actBtn.setObjectName(u"actBtn")
-        self.actBtn.setGeometry(QRect(70, 220, 161, 41))
         self.horizontalSlider = QSlider(self.centralwidget)
         self.horizontalSlider.setObjectName(u"horizontalSlider")
         self.horizontalSlider.setGeometry(QRect(10, 195, 461, 21))
@@ -155,8 +159,17 @@ class Ui_MainWindow(object):
         self.prevPageBtn.setStyleSheet(u"")
         self.dataCountLbl = QLabel(self.centralwidget)
         self.dataCountLbl.setObjectName(u"dataCountLbl")
-        self.dataCountLbl.setGeometry(QRect(260, 220, 101, 41))
+        self.dataCountLbl.setGeometry(QRect(260, 220, 111, 41))
         self.dataCountLbl.setStyleSheet(u"font-size: 10pt;")
+        self.graphBtn = QPushButton(self.centralwidget)
+        self.graphBtn.setObjectName(u"graphBtn")
+        self.graphBtn.setGeometry(QRect(70, 220, 41, 41))
+        self.graphBtn.setStyleSheet(u"")
+        self.deleteBtn = QPushButton(self.centralwidget)
+        self.deleteBtn.setObjectName(u"deleteBtn")
+        self.deleteBtn.setGeometry(QRect(130, 220, 41, 41))
+        self.deleteBtn.setStyleSheet(u"background-color: #e63946;\n"
+"border: 0px;")
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -222,9 +235,10 @@ class Ui_MainWindow(object):
         self.tableWidget.setSortingEnabled(__sortingEnabled)
 
         self.backBtn.setText("")
-        self.actBtn.setText(QCoreApplication.translate("MainWindow", u"Ver gr\u00e1ficas", None))
         self.nextPageBtn.setText("")
         self.prevPageBtn.setText("")
         self.dataCountLbl.setText(QCoreApplication.translate("MainWindow", u"1-5 de 11", None))
+        self.graphBtn.setText("")
+        self.deleteBtn.setText("")
     # retranslateUi
 

@@ -9,6 +9,7 @@ from src.widgets.FolderWidget import FolderWidget
 from src.widgets.ManualGPSPopup import SetManualLocationWidget
 from src.model.Models import LoteModel, WaterQualityParams
 from src.model.WaterQualityDB import WaterDataBase
+from src.model.SensorData import SensorData
 from src.config.Constants import Constants
 from src.package.Navigator import Navigator
 from datetime import datetime
@@ -61,15 +62,10 @@ class LocationdWorker(QThread):
 
 
 class SaveDataView(QMainWindow):
-    def __init__(self, context, oxygen, ph, temperature, tds, turbidity, battery_level):
+    def __init__(self, context, capture_samples: list[SensorData]):
         QMainWindow.__init__(self)
         self.context = context
-        self.oxygen = oxygen
-        self.ph = ph
-        self.temperature = temperature
-        self.tds = tds
-        self.turbidity = turbidity
-        self.battery_level = battery_level
+        self.capture_samples: list[SensorData] = capture_samples
         self.latitude = None
         self.longitude = None
         self.folder_name: str = None
@@ -243,15 +239,30 @@ class SaveDataView(QMainWindow):
             )
             lote_id = WaterDataBase.insert_lote(lote)
 
-        params = WaterQualityParams(
-            name=place, device_id=Constants.DEVICE_ID, latitude=self.latitude, longitude=-self.longitude,
-            date=format_date, hour=str(hour), sample_origin=sample_origin, it_rained=it_rained,
-            upload_state=1, lote_id=lote_id, conductivity=self.tds * 2, oxygen=self.oxygen, ph=self.ph,
-            temperature=self.temperature, tds=self.tds, turbidity=self.turbidity, battery=self.battery_level
-        )
-        WaterDataBase.insert_water_param(params)
+        for sample in self.capture_samples:
+            params = WaterQualityParams(
+                name=place,
+                device_id=Constants.DEVICE_ID,
+                latitude=self.latitude,
+                longitude=self.longitude,
+                date=format_date,
+                hour=str(hour),
+                sample_origin=sample_origin,
+                it_rained=it_rained,
+                upload_state=1,
+                lote_id=lote_id,
+                conductivity=sample.conductivity,
+                oxygen=sample.oxygen,
+                ph=sample.pH,
+                temperature=sample.temperature,
+                tds=sample.TDS,
+                turbidity=sample.turbidity,
+                battery=sample.battery
+            )
+            WaterDataBase.insert_water_param(params)
+        message = "La muestra se guardó exitosamente" if len(self.capture_samples) == 1 else "Las muestras se guardaron exitosamente"
         finish_popup = PopupWidgetInfo(
-            context=self.context, text="La muestra se guardó exitosamente", on_click=self.close_view)
+            context=self.context, text=message, on_click=self.close_view)
         finish_popup.show()
 
 
