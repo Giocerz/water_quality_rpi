@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ManualGPSPopupVAvGiZ.ui'
+## Form generated from reading UI file 'ManualGPSPopupSqDtmA.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -44,7 +44,7 @@ class Ui_Form(object):
 "font: 16px \"Poppins\";\n"
 "background-color: rgb(234, 234, 234);")
         self.latitudeInput.setMaxLength(50)
-        self.latitudeInput.setEchoMode(QLineEdit.Password)
+        self.latitudeInput.setEchoMode(QLineEdit.Normal)
         self.longitudeInput = QLineEdit(self.Widget1)
         self.longitudeInput.setObjectName(u"longitudeInput")
         self.longitudeInput.setGeometry(QRect(220, 90, 201, 26))
@@ -55,7 +55,7 @@ class Ui_Form(object):
 "font: 16px \"Poppins\";\n"
 "background-color: rgb(234, 234, 234);")
         self.longitudeInput.setMaxLength(50)
-        self.longitudeInput.setEchoMode(QLineEdit.Password)
+        self.longitudeInput.setEchoMode(QLineEdit.Normal)
         self.lbl_2 = QLabel(self.Widget1)
         self.lbl_2.setObjectName(u"lbl_2")
         self.lbl_2.setGeometry(QRect(60, 10, 131, 31))

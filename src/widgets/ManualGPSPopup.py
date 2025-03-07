@@ -29,7 +29,7 @@ class SetManualLocationWidget(QWidget):
         layout = QStackedLayout(self.ui.widgetKeyboard)
         layout.addWidget(self.keyboard)
         self.ui.widgetKeyboard.setLayout(layout)
-        pixmap = QPixmap('./src/resources/images/location_page_qr.png')
+        pixmap = QPixmap('./src/resources/images/location_page_qr.jpg')
         self.ui.QRLbl.setPixmap(pixmap)
         self.setParent(self.context)
 

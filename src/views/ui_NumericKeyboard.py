@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'NumericKeyboardQRPmOM.ui'
+## Form generated from reading UI file 'NumericKeyboardxaAcnG.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -40,10 +40,10 @@ class Ui_Form(object):
 "background-color: rgb(255, 255, 255);\n"
 "font: 11pt \"Poppins\";\n"
 "")
-        self.btn12 = QPushButton(Form)
-        self.btn12.setObjectName(u"btn12")
-        self.btn12.setGeometry(QRect(210, 40, 63, 21))
-        self.btn12.setStyleSheet(u"border-radius: 10px;\n"
+        self.btn13 = QPushButton(Form)
+        self.btn13.setObjectName(u"btn13")
+        self.btn13.setGeometry(QRect(210, 40, 63, 21))
+        self.btn13.setStyleSheet(u"border-radius: 10px;\n"
 "background-color: #00007f;\n"
 "font: 12pt \"Poppins\";\n"
 "color: rgb(255, 255, 255);\n"
@@ -69,10 +69,10 @@ class Ui_Form(object):
 "background-color: rgb(255, 255, 255);\n"
 "font: 11pt \"Poppins\";\n"
 "")
-        self.btn13 = QPushButton(Form)
-        self.btn13.setObjectName(u"btn13")
-        self.btn13.setGeometry(QRect(280, 40, 63, 21))
-        self.btn13.setStyleSheet(u"border-radius: 10px;\n"
+        self.btn14 = QPushButton(Form)
+        self.btn14.setObjectName(u"btn14")
+        self.btn14.setGeometry(QRect(280, 40, 63, 21))
+        self.btn14.setStyleSheet(u"border-radius: 10px;\n"
 "background-color: #00007f;\n"
 "font: 20pt \"MS Shell Dlg 2\";\n"
 "color: rgb(255, 255, 255);")
@@ -83,10 +83,10 @@ class Ui_Form(object):
 "background-color: rgb(255, 255, 255);\n"
 "font: 11pt \"Poppins\";\n"
 "")
-        self.btn11 = QPushButton(Form)
-        self.btn11.setObjectName(u"btn11")
-        self.btn11.setGeometry(QRect(160, 40, 37, 21))
-        self.btn11.setStyleSheet(u"border-radius: 10px;\n"
+        self.btn12 = QPushButton(Form)
+        self.btn12.setObjectName(u"btn12")
+        self.btn12.setGeometry(QRect(160, 40, 37, 21))
+        self.btn12.setStyleSheet(u"border-radius: 10px;\n"
 "background-color: rgb(255, 255, 255);\n"
 "font: 11pt \"Poppins\";\n"
 "")
@@ -111,6 +111,13 @@ class Ui_Form(object):
 "background-color: rgb(255, 255, 255);\n"
 "font: 11pt \"Poppins\";\n"
 "")
+        self.btn11 = QPushButton(Form)
+        self.btn11.setObjectName(u"btn11")
+        self.btn11.setGeometry(QRect(110, 40, 37, 21))
+        self.btn11.setStyleSheet(u"border-radius: 10px;\n"
+"background-color: rgb(255, 255, 255);\n"
+"font: 11pt \"Poppins\";\n"
+"")
 
         self.retranslateUi(Form)
 
@@ -122,15 +129,16 @@ class Ui_Form(object):
         self.btn10.setText(QCoreApplication.translate("Form", u"0", None))
         self.btn3.setText(QCoreApplication.translate("Form", u"3", None))
         self.btn6.setText(QCoreApplication.translate("Form", u"6", None))
-        self.btn12.setText(QCoreApplication.translate("Form", u"\u232b", None))
+        self.btn13.setText(QCoreApplication.translate("Form", u"\u232b", None))
         self.btn2.setText(QCoreApplication.translate("Form", u"2", None))
         self.btn1.setText(QCoreApplication.translate("Form", u"1", None))
         self.btn9.setText(QCoreApplication.translate("Form", u"9", None))
-        self.btn13.setText(QCoreApplication.translate("Form", u"\u21e8", None))
+        self.btn14.setText(QCoreApplication.translate("Form", u"\u21e8", None))
         self.btn7.setText(QCoreApplication.translate("Form", u"7", None))
-        self.btn11.setText(QCoreApplication.translate("Form", u".", None))
+        self.btn12.setText(QCoreApplication.translate("Form", u".", None))
         self.btn5.setText(QCoreApplication.translate("Form", u"5", None))
         self.btn8.setText(QCoreApplication.translate("Form", u"8", None))
         self.btn4.setText(QCoreApplication.translate("Form", u"4", None))
+        self.btn11.setText(QCoreApplication.translate("Form", u"-", None))
     # retranslateUi
 

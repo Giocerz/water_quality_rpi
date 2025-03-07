@@ -381,6 +381,7 @@ class NumericKeyboardWidget(QWidget):
         self.__ui.btn9.pressed.connect(self.__btnPressed)
         self.__ui.btn10.pressed.connect(self.__btnPressed)
         self.__ui.btn11.pressed.connect(self.__btnPressed)
+        self.__ui.btn12.pressed.connect(self.__btnPressed)
 
         # Eventos al soltar
         self.__ui.btn1.released.connect(self.__btnReleased)
@@ -394,10 +395,11 @@ class NumericKeyboardWidget(QWidget):
         self.__ui.btn9.released.connect(self.__btnReleased)
         self.__ui.btn10.released.connect(self.__btnReleased)
         self.__ui.btn11.released.connect(self.__btnReleased)
+        self.__ui.btn12.released.connect(self.__btnReleased)
 
 
-        self.__ui.btn12.pressed.connect(self.__backspacePressed)  # Backspace
-        self.__ui.btn12.released.connect(self.__backspaceReleased)  # Backspace
+        self.__ui.btn13.pressed.connect(self.__backspacePressed)  # Backspace
+        self.__ui.btn13.released.connect(self.__backspaceReleased)  # Backspace
 
     def changeFocusKeyboard(self, focus):
         self.__focusLine = focus

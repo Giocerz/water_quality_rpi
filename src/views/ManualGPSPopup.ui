@@ -84,7 +84,7 @@ background-color: rgb(234, 234, 234);</string>
      <number>50</number>
     </property>
     <property name="echoMode">
-     <enum>QLineEdit::Password</enum>
+     <enum>QLineEdit::Normal</enum>
     </property>
     <property name="placeholderText">
      <string>Latitud</string>
@@ -111,7 +111,7 @@ background-color: rgb(234, 234, 234);</string>
      <number>50</number>
     </property>
     <property name="echoMode">
-     <enum>QLineEdit::Password</enum>
+     <enum>QLineEdit::Normal</enum>
     </property>
     <property name="placeholderText">
      <string>Longitud</string>

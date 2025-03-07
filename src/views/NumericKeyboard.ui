@@ -73,7 +73,7 @@ font: 11pt &quot;Poppins&quot;;
     <string>6</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="btn12">
+  <widget class="QPushButton" name="btn13">
    <property name="geometry">
     <rect>
      <x>210</x>
@@ -150,7 +150,7 @@ font: 11pt &quot;Poppins&quot;;
     <string>9</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="btn13">
+  <widget class="QPushButton" name="btn14">
    <property name="geometry">
     <rect>
      <x>280</x>
@@ -188,7 +188,7 @@ font: 11pt &quot;Poppins&quot;;
     <string>7</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="btn11">
+  <widget class="QPushButton" name="btn12">
    <property name="geometry">
     <rect>
      <x>160</x>
@@ -262,6 +262,25 @@ font: 11pt &quot;Poppins&quot;;
    </property>
    <property name="text">
     <string>4</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn11">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>40</y>
+     <width>37</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 10px;
+background-color: rgb(255, 255, 255);
+font: 11pt &quot;Poppins&quot;;
+</string>
+   </property>
+   <property name="text">
+    <string>-</string>
    </property>
   </widget>
  </widget>
