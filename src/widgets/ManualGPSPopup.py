@@ -1,5 +1,6 @@
 from PySide2.QtWidgets import QGraphicsOpacityEffect, QStackedLayout, QWidget
 from PySide2 import QtCore
+from PySide2.QtGui import QPixmap
 from src.views.ui_ManualGPSPopup import Ui_Form
 from src.widgets.KeyboardWidget import NumericKeyboardWidget
 from src.widgets.PopupWidget import PopupWidgetInfo
@@ -28,6 +29,8 @@ class SetManualLocationWidget(QWidget):
         layout = QStackedLayout(self.ui.widgetKeyboard)
         layout.addWidget(self.keyboard)
         self.ui.widgetKeyboard.setLayout(layout)
+        pixmap = QPixmap('./src/resources/images/location_page_qr.png')
+        self.ui.QRLbl.setPixmap(pixmap)
         self.setParent(self.context)
 
     def set_latitude_focus(self, event):
