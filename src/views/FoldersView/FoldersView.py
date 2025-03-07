@@ -40,24 +40,10 @@ class FoldersView(QMainWindow):
         Navigator.pop(context=self.context, view= self)
 
     def on_push_folder_widget(self, id:int, name:str):
-        Navigator.push(context= self.context, view= DatosView(context=self.context, lote_id=id))
+        Navigator.push(context= self.context, view= DatosView(context=self.context, lote_id=id, update_folder_view = self.setup_list))
     
     def setup_list(self):
         self.load_data()
-        """
-        self.folders_list = [
-            LoteModel(name='Muestras Colegio', creation_date='2002-12-01', creation_hour='22:00', last_add_date='2002-12-01', last_add_hour='22:00'),
-            LoteModel(name='Universidad', creation_date='2002-12-01', creation_hour='22:00', last_add_date='2002-12-01', last_add_hour='22:00'),
-            LoteModel(name='La Paz', creation_date='2002-12-01', creation_hour='22:00', last_add_date='2002-12-01', last_add_hour='22:00'),
-            LoteModel(name='La Paz', creation_date='2002-12-01', creation_hour='22:00', last_add_date='2002-12-01', last_add_hour='22:00'),
-            LoteModel(name='La Paz', creation_date='2002-12-01', creation_hour='22:00', last_add_date='2002-12-01', last_add_hour='22:00'),
-            LoteModel(name='La Paz', creation_date='2002-12-01', creation_hour='22:00', last_add_date='2002-12-01', last_add_hour='22:00'),
-            LoteModel(name='La Paz', creation_date='2002-12-01', creation_hour='22:00', last_add_date='2002-12-01', last_add_hour='22:00'),
-            LoteModel(name='La Paz', creation_date='2002-12-01', creation_hour='22:00', last_add_date='2002-12-01', last_add_hour='22:00'),
-            LoteModel(name='La Paz', creation_date='2002-12-01', creation_hour='22:00', last_add_date='2002-12-01', last_add_hour='22:00'),
-            LoteModel(name='La Paz', creation_date='2002-12-01', creation_hour='22:00', last_add_date='2002-12-01', last_add_hour='22:00'),
-        ]
-        """
 
         if len(self.folders_list) == 0:
             self.ui.emptyFoldersNoticeLbl.show()

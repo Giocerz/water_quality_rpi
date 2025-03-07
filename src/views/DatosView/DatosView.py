@@ -3,16 +3,18 @@ from PySide2.QtWidgets import QMainWindow, QTableWidgetItem
 from PySide2.QtCore import QSize
 from PySide2.QtGui import QIcon
 from src.views.ui_Datos import Ui_MainWindow
+from src.widgets.PopupWidget import PopupWidget
 from src.model.Models import WaterQualityParams
 from src.model.WaterQualityDB import WaterDataBase
 from src.package.Navigator import Navigator
 
 class DatosView(QMainWindow):
     ELEMENTS_NUMBER = 5
-    def __init__(self, context, lote_id:int):
+    def __init__(self, context, lote_id:int, update_folder_view:callable):
         QMainWindow.__init__(self)
         self.context = context
         self.lote_id:int = lote_id
+        self.update_folder_view:callable = update_folder_view
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.ui_components()
@@ -24,12 +26,13 @@ class DatosView(QMainWindow):
         # Configurar la tabla
         self.ui.tableWidget.setColumnCount(13)
         self.ui.tableWidget.setHorizontalHeaderLabels(
-            ['Nombre', 'Temperatura (°C)', 'Oxígeno (mg/L)', 'TDS (ppm)', 'pH', 'Conductividad (uS/cm)', 'Turbidez (NTU)', 'Batería (%)', 'Fecha', 'Hora', 'Latitud', 'Longitud', 'Origen', '¿Llovió?'])
+            ['Nombre', 'T(°C)', 'OD(mg/L)', 'TDS(ppm)', 'pH', 'CE(uS/cm)', 'Turb(NTU)', 'Bat(%)', 'Fecha', 'Hora', 'Lat', 'Long', 'Origen', '¿Llovió?'])
 
         # Llenar la tabla con los datos de la base de datos
         self.data_table_controller()
 
         self.ui.backBtn.clicked.connect(self.on_back_clicked)
+        self.ui.deleteBtn.clicked.connect(self.on_delete_clicked)
 
         self.ui.horizontalSlider.valueChanged.connect(self.slider_value_changed)
 
@@ -86,6 +89,12 @@ class DatosView(QMainWindow):
         icon = QIcon('./src/resources/icons/back.png')
         self.ui.backBtn.setIcon(icon)
         self.ui.backBtn.setIconSize(QSize(30, 30))
+        icon = QIcon('./src/resources/icons/graph.png')
+        self.ui.graphBtn.setIcon(icon)
+        self.ui.backBtn.setIconSize(QSize(30, 30))
+        icon = QIcon('./src/resources/icons/delete.png')
+        self.ui.deleteBtn.setIcon(icon)
+        self.ui.backBtn.setIconSize(QSize(30, 30))
 
         self.scrollBar = self.ui.tableWidget.horizontalScrollBar()
         self.ui.horizontalSlider.setRange(self.scrollBar.minimum(), self.scrollBar.maximum())
@@ -137,3 +146,18 @@ class DatosView(QMainWindow):
 
             self.ui.tableWidget.setItem(row_idx, col := col + 1, QTableWidgetItem(str(data.sample_origin)))
             self.ui.tableWidget.setItem(row_idx, col := col + 1, QTableWidgetItem(str(data.it_rained)))
+
+    def on_delete_clicked(self):
+        self.show_dialog()
+    
+    def show_dialog(self):
+        def on_yes():
+            WaterDataBase.delete_lote()
+            self.update_folder_view()
+            self.on_back_clicked()
+
+        def on_no():
+            pass
+        dialog = PopupWidget(context=self.context, yes_callback=on_yes, no_callback=on_no,
+                             text='Está acción ELIMINARÁ el lote<br>¿Esta seguro?')
+        dialog.show()
