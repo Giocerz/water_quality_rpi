@@ -3,7 +3,7 @@ from PySide2.QtWidgets import QMainWindow
 from PySide2.QtCore import QSize
 from PySide2.QtGui import QIcon
 from src.views.ui_MainMenu import Ui_MainWindow
-from src.views.MonitoringView.MonitoringView import MonitoringView
+from src.views.MonitoringView.MonitoringSelect import MonitoringSelectView
 from src.views.CalibrationView.CalibrationView import CalibrationView
 from src.views.FoldersView.FoldersView import FoldersView
 from src.views.BluetoothView.BluetoothView import BluetoothView
@@ -41,7 +41,7 @@ class MainMenuView(QMainWindow):
         self.ui.updateBtn.setIconSize(QSize(30, 30))
 
     def on_monitoring_clicked(self):
-        Navigator.push(context= self.context, view= MonitoringView(context= self.context))
+        Navigator.push(context= self.context, view= MonitoringSelectView(context= self.context))
 
     def on_calibration_clicked(self):
         Navigator.push(context= self.context, view= CalibrationView(context= self.context))

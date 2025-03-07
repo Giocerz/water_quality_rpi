@@ -35,25 +35,6 @@ font: 11pt &quot;Poppins&quot;;
     <string>0</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="btn13">
-   <property name="geometry">
-    <rect>
-     <x>180</x>
-     <y>40</y>
-     <width>37</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
-background-color: rgb(255, 255, 255);
-font: 11pt &quot;Poppins&quot;;
-</string>
-   </property>
-   <property name="text">
-    <string>,</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="btn3">
    <property name="geometry">
     <rect>
@@ -92,10 +73,10 @@ font: 11pt &quot;Poppins&quot;;
     <string>6</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="btn15">
+  <widget class="QPushButton" name="btn12">
    <property name="geometry">
     <rect>
-     <x>272</x>
+     <x>210</x>
      <y>40</y>
      <width>63</width>
      <height>21</height>
@@ -169,10 +150,10 @@ font: 11pt &quot;Poppins&quot;;
     <string>9</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="btn16">
+  <widget class="QPushButton" name="btn13">
    <property name="geometry">
     <rect>
-     <x>342</x>
+     <x>280</x>
      <y>40</y>
      <width>63</width>
      <height>21</height>
@@ -210,45 +191,7 @@ font: 11pt &quot;Poppins&quot;;
   <widget class="QPushButton" name="btn11">
    <property name="geometry">
     <rect>
-     <x>62</x>
-     <y>40</y>
-     <width>61</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
-background-color: #00007f;
-font: 11pt &quot;Poppins&quot;;
-color: rgb(255, 255, 255);</string>
-   </property>
-   <property name="text">
-    <string>Mayús</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="btn12">
-   <property name="geometry">
-    <rect>
-     <x>133</x>
-     <y>40</y>
-     <width>37</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
-background-color: rgb(255, 255, 255);
-font: 11pt &quot;Poppins&quot;;
-</string>
-   </property>
-   <property name="text">
-    <string>/</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="btn14">
-   <property name="geometry">
-    <rect>
-     <x>222</x>
+     <x>160</x>
      <y>40</y>
      <width>37</width>
      <height>21</height>

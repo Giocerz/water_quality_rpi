@@ -138,7 +138,7 @@ class SaveDataView(QMainWindow):
                 return
             elif (location[0] == 'time'):
                 self.show_dialog_error(
-                    'Tiempo de espera de localización expirado.')
+                    'Tiempo de espera de<br>localización expirado.')
                 return
         self.latitude = location[0]
         self.longitude = location[1]

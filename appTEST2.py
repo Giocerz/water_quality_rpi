@@ -5,11 +5,13 @@ from datetime import datetime
 import random
 from PySide2 import QtWidgets, QtCore
 from PySide2.QtWidgets import QApplication, QMainWindow, QStackedLayout, QTableWidgetItem, QVBoxLayout, QWidget, QGridLayout, QSizePolicy
-from PySide2.QtCore import QSize, QThread, Signal, Slot, QTimer
+from PySide2.QtCore import QSize, QThread, Signal, Slot, QTimer, QPropertyAnimation, QSequentialAnimationGroup, QEasingCurve, QRect, Qt
 from PySide2.QtGui import QIcon, QPixmap
 from src.views.ui_MainLayout import Ui_MainLayout
 import src.views.ui_MainMenu as MainMenu
 import src.views.ui_Monitoring3 as Monitoring3
+import src.views.ui_Monitoring as Monitoring
+import src.views.ui_MonitoringSelect as MonitoringSelect
 import src.views.ui_Top_Bar as TopBar
 from src.views.SaveDataView.SaveDataView import SaveDataView
 import src.views.ui_Calibration as Calibration_View
@@ -33,6 +35,8 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg, NavigationTool
 from matplotlib.figure import Figure
 from src.package.Navigator import Navigator
 from src.package.Timer import Timer
+from src.widgets.ParametersIndicator import ParametersIndicator
+from src.logic.AppConstans import AppConstants
 
 class ParametersMeasuredWorker(QThread):
     parameters_result = Signal(list)
@@ -52,7 +56,7 @@ class ParametersMeasuredWorker(QThread):
                 tds = round(random.uniform(724.23, 892.23), 2)
                 turb = round(random.uniform(56.23, 203.23), 2)
 
-                self.parameters_result.emit([ph, do, tds, temp, turb, bat])
+                self.parameters_result.emit([temp, do, tds, ph, turb, bat])
                 time.sleep(1)
                 bat -= 2
             except Exception as e:
@@ -175,7 +179,6 @@ class MainView(QMainWindow):
         self.ui.calibrationBtn.clicked.connect(self.on_calibration_clicked)
         self.ui.dataBtn.clicked.connect(self.on_datos_clicked)
         self.ui.bluetoothBtn.clicked.connect(self.on_bluetooth_clicked)
-        self.ui.editVauesBtn.clicked.connect(self.on_edit_clicked)
         self.ui.wifiBtn.clicked.connect(self.on_wifi_clicked)
 
     def ui_components(self):
@@ -185,9 +188,12 @@ class MainView(QMainWindow):
         icon = QIcon('./src/resources/icons/wifi.png')
         self.ui.wifiBtn.setIcon(icon)
         self.ui.wifiBtn.setIconSize(QSize(30, 30))
+        icon = QIcon('./src/resources/icons/update.png')
+        self.ui.updateBtn.setIcon(icon)
+        self.ui.updateBtn.setIconSize(QSize(30, 30))
 
     def on_monitoring_clicked(self):
-        Navigator.push(context= self.context, view= MonitoringView(context=self.context))
+        Navigator.push(context= self.context, view= MonitoringSelectView(context=self.context))
 
     def on_calibration_clicked(self):
         Navigator.push(context= self.context, view= CalibrationView(context=self.context))
@@ -201,21 +207,18 @@ class MainView(QMainWindow):
     def on_wifi_clicked(self):
         Navigator.push(context= self.context, view= WifiView(context=self.context))
 
-    def on_edit_clicked(self):
-        Navigator.push(context= self.context, view= TimerTestView(context=self.context))
-
-
-class TimerTestView(QMainWindow):
+class MonitoringSelectView(QMainWindow):
     def __init__(self, context):
         QMainWindow.__init__(self)
         self.context = context
-        self.timer = None
-        self.ui = TimerTest.Ui_MainWindow()
+        self.is_all_checked = False
+
+        self.ui = MonitoringSelect.Ui_MainWindow()
         self.ui.setupUi(self)
         self.ui_components()
         self.ui.backBtn.clicked.connect(self.on_back_clicked)
-        self.ui.startBtn.clicked.connect(self.start)
-        self.ui.pushButton_2.clicked.connect(self.stop)
+        self.ui.initBtn.clicked.connect(self.on_start_clicked)
+        self.ui.allCheckBox.clicked.connect(self.on_all_checkbox_clicked)
 
     def ui_components(self):
         icon = QIcon('./src/resources/icons/back.png')
@@ -223,28 +226,54 @@ class TimerTestView(QMainWindow):
         self.ui.backBtn.setIconSize(QSize(30, 30))
     
     def on_back_clicked(self):
-        if self.timer:
-            self.timer.cancel()
-        Navigator.pop(context= self.context, view= self)
-
-    def call_back(self):
-        print("TIMER REPETITIVO")
-
-    def start(self):
-        self.timer =  Timer.periodic(duration= 2000, callback= self.call_back)
-        self.timer.start()
+        Navigator.pop(context=self.context, view=self)
     
-    def stop(self):
-        if self.timer:
-            self.timer.cancel()
+    def on_start_clicked(self):
+        tds_check = self.ui.tdsCheckBox.checkState() == QtCore.Qt.Checked
+        ph_check = self.ui.phCheckBox.checkState() == QtCore.Qt.Checked
+        oxygen_check = self.ui.oxygenCheckBox.checkState() == QtCore.Qt.Checked
+        turbidity_check = self.ui.turbidityCheckBox.checkState() == QtCore.Qt.Checked
+
+        Navigator.pushReplacement(
+            context=self.context,
+            view=MonitoringView(
+                context=self.context,
+                tds_check=tds_check,
+                ph_check=ph_check,
+                oxygen_check=oxygen_check,
+                turbidity_check=turbidity_check
+            )
+        )
+
+    
+    def on_all_checkbox_clicked(self):
+        qt_check_state:Qt.CheckState = None
+        if self.is_all_checked:
+            qt_check_state = Qt.Unchecked
+        else:
+            qt_check_state = Qt.Checked
+        
+        self.is_all_checked = not self.is_all_checked
+
+        self.ui.tdsCheckBox.setCheckState(qt_check_state)
+        self.ui.phCheckBox.setCheckState(qt_check_state)
+        self.ui.oxygenCheckBox.setCheckState(qt_check_state)
+        self.ui.turbidityCheckBox.setCheckState(qt_check_state)
+
 
 class MonitoringView(QMainWindow):
-    def __init__(self, context):
+    def __init__(self, context, tds_check:bool, ph_check:bool, oxygen_check:bool, turbidity_check:bool):
         QMainWindow.__init__(self)
         self.context = context
-        self.ui = Monitoring3.Ui_MainWindow()
+        self.tds_check:bool = tds_check
+        self.ph_check:bool = ph_check
+        self.oxygen_check:bool = oxygen_check
+        self.turbidity_check:bool = turbidity_check
+        self.ui = Monitoring.Ui_MainWindow()
         self.ui.setupUi(self)
         self.ui_components()
+        self.setup_grid()
+        self.init_animation()
 
         self.oxygen = None
         self.ph = None
@@ -260,6 +289,7 @@ class MonitoringView(QMainWindow):
         if not self.parameters_worker.isRunning():
             self.parameters_worker.start()
 
+        self.ui.captureBtn.clicked.connect(self.start_animation)
         self.ui.backBtn.clicked.connect(self.on_back_clicked)
         self.ui.saveBtn.clicked.connect(self.on_save_clicked)
         self.ui.pauseBtn.clicked.connect(self.on_pause_clicked)
@@ -271,6 +301,104 @@ class MonitoringView(QMainWindow):
         icon = QIcon('./src/resources/icons/back.png')
         self.ui.backBtn.setIcon(icon)
         self.ui.backBtn.setIconSize(QSize(30, 30))
+    
+    def init_animation(self):
+        self.original_rect = self.ui.captureCountLbl.geometry()
+        self.up_rect = QRect(self.original_rect.x(), self.original_rect.y() - 50, 
+                             self.original_rect.width(), self.original_rect.height())
+
+        # Crear las animaciones
+        self.up_animation = QPropertyAnimation(self.ui.captureCountLbl, b"geometry")
+        self.up_animation.setDuration(300)
+        self.up_animation.setStartValue(self.original_rect)
+        self.up_animation.setEndValue(self.up_rect)
+        self.up_animation.setEasingCurve(QEasingCurve.OutQuad)  # Suave al subir
+
+        self.down_animation = QPropertyAnimation(self.ui.captureCountLbl, b"geometry")
+        self.down_animation.setDuration(500)
+        self.down_animation.setStartValue(self.up_rect)
+        self.down_animation.setEndValue(self.original_rect)
+        self.down_animation.setEasingCurve(QEasingCurve.OutBounce)  # Rebote al caer
+
+        # Grupo de animaciones en secuencia
+        self.animation_group = QSequentialAnimationGroup()
+        self.animation_group.addAnimation(self.up_animation)
+        self.animation_group.addAnimation(self.down_animation)
+
+    def start_animation(self):
+        """Inicia la animación completa al presionar el botón."""
+        self.animation_group.start()
+
+    def setup_grid(self):
+        main_layout = QVBoxLayout(self.ui.indicatorsWidget)
+        main_layout.setAlignment(QtCore.Qt.AlignCenter)
+        main_layout.setSpacing(0)
+        main_layout.setContentsMargins(0, 0, 0, 0)
+
+        grid_layout = QGridLayout()
+        grid_layout.setSpacing(0)
+        grid_layout.setContentsMargins(0, 0, 0, 0)
+
+        print(f'tds {self.tds_check}, ph {self.ph_check}, oxygen {self.oxygen_check}, turb {self.turbidity_check}')
+        num_parameters = self.tds_check * 2 + self.ph_check + self.oxygen_check + self.turbidity_check + 1
+        paramter_indicator_size = 'L' if num_parameters <= 2 else 'M' if num_parameters <= 3 else 'S'
+        print(f'params: {num_parameters}')
+        num_cols = 1 if num_parameters <= 3 else 2
+        print(f'columnas: {num_cols}')
+        
+        pos = 0
+        self.indicators = {}
+
+        # Lista de parámetros activados en base a los CheckBox
+        self.parameters_keys = ["temperature"]
+        if self.tds_check:
+            self.parameters_keys.extend(["tds", "conductivity"])
+        if self.ph_check:
+            self.parameters_keys.append("ph")
+        if self.oxygen_check:
+            self.parameters_keys.append("oxygen")
+        if self.turbidity_check:
+            self.parameters_keys.append("turbidity")
+
+        for param_key in self.parameters_keys:
+            param_info = AppConstants.PARAMS_ATTRIBUTES.get(param_key, {})
+            name = param_info.get("name", "")
+
+            unit = param_info.get("unit", "")
+            if isinstance(unit, list):  # Si hay varias unidades, usar la primera
+                unit = unit[0]
+
+            # Extraer valores de los límites
+            min_value = param_info.get("minValue")
+            max_value = param_info.get("maxValue")
+            lower_limit = param_info.get("lowerLimit")
+            upper_limit = param_info.get("upperLimit")
+
+            # Crear el widget `ParametersIndicator` con todos los valores necesarios
+            self.indicators[param_key] = ParametersIndicator(
+                name=name,
+                unit=unit,
+                widget_size=paramter_indicator_size,
+                min_value=min_value,
+                max_value=max_value,
+                lower_limit=lower_limit,
+                upper_limit=upper_limit
+            )
+
+            recommended_size = self.indicators[param_key].sizeHint()
+            self.indicators[param_key].setMinimumSize(recommended_size)
+            self.indicators[param_key].setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+
+            row = pos // num_cols
+            col = pos % num_cols
+
+            grid_layout.setRowMinimumHeight(row, 70)
+            grid_layout.setColumnMinimumWidth(col, 240)
+            grid_layout.addWidget(self.indicators[param_key], row, col)
+
+            pos += 1
+
+        main_layout.addLayout(grid_layout)
 
     def show_dialog_error(self, error: str):
         dialog = PopupWidgetInfo(context=self.context, text=error)
@@ -284,12 +412,12 @@ class MonitoringView(QMainWindow):
     def on_save_clicked(self):
         if (not self.receive_parameters):
             return
-        view = SaveDataView(context=self.context, oxygen=self.oxygen, ph=self.ph,
-                            temperature=self.temperature, tds=self.tds, turbidity=self.turbidity)
-        self.context.addWidget(view)
-        self.context.setCurrentIndex(self.context.currentIndex() + 1)
-        self.parameters_worker.stop()
-        self.context.removeWidget(self)
+        #view = SaveDataView(context=self.context, oxygen=self.oxygen, ph=self.ph,
+         #                   temperature=self.temperature, tds=self.tds, turbidity=self.turbidity)
+        #self.context.addWidget(view)
+        #self.context.setCurrentIndex(self.context.currentIndex() + 1)
+        #self.parameters_worker.stop()
+        #self.context.removeWidget(self)
 
     def on_pause_clicked(self):
         if (self.isPause):
@@ -305,29 +433,27 @@ class MonitoringView(QMainWindow):
 
     def handle_parameters_result(self, parameters):
         self.receive_parameters = True
+        
+        self.temperature = parameters[0]
+        self.indicators['temperature'].setValue(self.temperature)
 
-        self.ph = parameters[0]
-        self.ui.phLbl.setText(str(self.ph))
-        self.ui.phLbl.setAlignment(QtCore.Qt.AlignCenter)
+        if self.oxygen_check:
+            self.oxygen = parameters[1]
+            self.indicators['oxygen'].setValue(self.oxygen)
+        
+        if self.tds_check:
+            self.tds = parameters[2]
+            self.indicators['tds'].setValue(self.tds)
+            self.indicators['conductivity'].setValue(self.tds * 2)
+        
+        if self.ph_check:
+            self.ph = parameters[3]
+            self.indicators['ph'].setValue(self.ph)
+        
+        if self.turbidity_check:
+            self.turbidity = parameters[4]
+            self.indicators['turbidity'].setValue(self.turbidity)
 
-        self.oxygen = parameters[1]
-        self.ui.odLbl.setText(str(self.oxygen))
-        self.ui.odLbl.setAlignment(QtCore.Qt.AlignCenter)
-
-        self.tds = parameters[2]
-        self.ui.tdsLbl.setText(str(self.tds))
-        self.ui.tdsLbl.setAlignment(QtCore.Qt.AlignCenter)
-
-        self.temperature = parameters[3]
-        self.ui.tempLbl.setText(str(self.temperature))
-        self.ui.tempLbl.setAlignment(QtCore.Qt.AlignCenter)
-
-        self.ui.ecLbl.setText(str(self.tds * 2))
-        self.ui.ecLbl.setAlignment(QtCore.Qt.AlignCenter)
-
-        self.turbidity = parameters[4]
-        self.ui.turbLbl.setText(str(self.turbidity))
-        self.ui.turbLbl.setAlignment(QtCore.Qt.AlignCenter)
 
 
 class SaveDataView222(QMainWindow):

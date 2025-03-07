@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'SaveYqEnEn.ui'
+## Form generated from reading UI file 'SaveKejeAT.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -40,7 +40,7 @@ class Ui_MainWindow(object):
         self.page.setObjectName(u"page")
         self.inputPlace = QLineEdit(self.page)
         self.inputPlace.setObjectName(u"inputPlace")
-        self.inputPlace.setGeometry(QRect(100, 40, 251, 26))
+        self.inputPlace.setGeometry(QRect(100, 30, 251, 26))
         self.inputPlace.setStyleSheet(u"border-color: rgb(0, 0, 0);\n"
 "border-style: solid;\n"
 "border-width: 1px;\n"
@@ -76,10 +76,10 @@ class Ui_MainWindow(object):
 "}")
         self.label = QLabel(self.page)
         self.label.setObjectName(u"label")
-        self.label.setGeometry(QRect(100, 18, 61, 21))
+        self.label.setGeometry(QRect(100, 8, 61, 21))
         self.nextBtn = QPushButton(self.page)
         self.nextBtn.setObjectName(u"nextBtn")
-        self.nextBtn.setGeometry(QRect(350, 80, 111, 31))
+        self.nextBtn.setGeometry(QRect(350, 90, 111, 31))
         self.nextBtn.setStyleSheet(u"border-radius: 20px;\n"
 "background-color: #00007f;\n"
 "color: white;\n"
@@ -107,7 +107,7 @@ class Ui_MainWindow(object):
         self.comboBox.addItem("")
         self.comboBox.addItem("")
         self.comboBox.setObjectName(u"comboBox")
-        self.comboBox.setGeometry(QRect(132, 40, 218, 29))
+        self.comboBox.setGeometry(QRect(132, 30, 218, 29))
         self.comboBox.setLayoutDirection(Qt.LeftToRight)
         self.comboBox.setStyleSheet(u"border-color: rgb(0, 0, 0);\n"
 "border-style: solid;\n"
@@ -125,7 +125,7 @@ class Ui_MainWindow(object):
 "")
         self.gpsBtn = QPushButton(self.page_2)
         self.gpsBtn.setObjectName(u"gpsBtn")
-        self.gpsBtn.setGeometry(QRect(160, 120, 180, 31))
+        self.gpsBtn.setGeometry(QRect(70, 100, 180, 31))
         self.gpsBtn.setStyleSheet(u"border-radius: 20px;\n"
 "background-color: #00007f;\n"
 "color: white;\n"
@@ -135,7 +135,7 @@ class Ui_MainWindow(object):
 "")
         self.label_4 = QLabel(self.page_2)
         self.label_4.setObjectName(u"label_4")
-        self.label_4.setGeometry(QRect(110, 90, 281, 21))
+        self.label_4.setGeometry(QRect(110, 70, 281, 21))
         self.saveBtn = QPushButton(self.page_2)
         self.saveBtn.setObjectName(u"saveBtn")
         self.saveBtn.setGeometry(QRect(350, 230, 111, 31))
@@ -148,7 +148,7 @@ class Ui_MainWindow(object):
 "")
         self.selectFolderBtn = QPushButton(self.page_2)
         self.selectFolderBtn.setObjectName(u"selectFolderBtn")
-        self.selectFolderBtn.setGeometry(QRect(160, 190, 181, 31))
+        self.selectFolderBtn.setGeometry(QRect(160, 180, 181, 31))
         self.selectFolderBtn.setStyleSheet(u"border-radius: 20px;\n"
 "background-color: #00007f;\n"
 "color: white;\n"
@@ -158,16 +158,26 @@ class Ui_MainWindow(object):
 "")
         self.folderLbl = QLabel(self.page_2)
         self.folderLbl.setObjectName(u"folderLbl")
-        self.folderLbl.setGeometry(QRect(110, 160, 281, 21))
+        self.folderLbl.setGeometry(QRect(110, 150, 281, 21))
         self.label_2 = QLabel(self.page_2)
         self.label_2.setObjectName(u"label_2")
-        self.label_2.setGeometry(QRect(132, 20, 55, 16))
+        self.label_2.setGeometry(QRect(132, 10, 55, 16))
+        self.gpsManualBtn = QPushButton(self.page_2)
+        self.gpsManualBtn.setObjectName(u"gpsManualBtn")
+        self.gpsManualBtn.setGeometry(QRect(260, 100, 180, 31))
+        self.gpsManualBtn.setStyleSheet(u"border-radius: 20px;\n"
+"background-color: #00007f;\n"
+"color: white;\n"
+"border: none;\n"
+"border-radius: 15px;\n"
+"\n"
+"")
         self.stackedWidget.addWidget(self.page_2)
         self.page_3 = QWidget()
         self.page_3.setObjectName(u"page_3")
         self.openCreateFolderBtn = QPushButton(self.page_3)
         self.openCreateFolderBtn.setObjectName(u"openCreateFolderBtn")
-        self.openCreateFolderBtn.setGeometry(QRect(130, 240, 211, 31))
+        self.openCreateFolderBtn.setGeometry(QRect(130, 230, 211, 31))
         self.openCreateFolderBtn.setStyleSheet(u"border-radius: 20px;\n"
 "background-color: #00007f;\n"
 "color: white;\n"
@@ -262,7 +272,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(3)
+        self.stackedWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -300,6 +310,7 @@ class Ui_MainWindow(object):
         self.selectFolderBtn.setText(QCoreApplication.translate("MainWindow", u"Seleccionar carpeta", None))
         self.folderLbl.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\">Carpeta:</p></body></html>", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Fuente", None))
+        self.gpsManualBtn.setText(QCoreApplication.translate("MainWindow", u"Ingresar manualmente", None))
         self.openCreateFolderBtn.setText(QCoreApplication.translate("MainWindow", u"Crear una nueva carpeta", None))
         self.emptyFoldersNoticeLbl.setText(QCoreApplication.translate("MainWindow", u"No hay carpetas guardadas", None))
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>Nombre</p></body></html>", None))

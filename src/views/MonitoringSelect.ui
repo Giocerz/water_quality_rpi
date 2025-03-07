@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>480</width>
+    <height>272</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QLabel {
+	font-family: Poppins;
+	font-size: 16px;
+}
+
+QWidget {
+	background-color: white;
+}
+
+QPushButton {
+	border: 1px solid #00007f;
+	background-color: white;
+	color: #00007f;
+	font-size: 14px;
+	font-family: Poppins;
+	font-weight: 500;
+}
+
+QLabel {
+	text-align: center;
+}</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <widget class="QPushButton" name="initBtn">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>220</y>
+      <width>171</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius: 20px;</string>
+    </property>
+    <property name="text">
+     <string>Iniciar</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="backBtn">
+    <property name="geometry">
+     <rect>
+      <x>5</x>
+      <y>5</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">	height: 40px;
+	border-radius: 20px;
+	border: 1px solid #00007f;
+	background-color: white;
+	color: #00007f;
+	font-weight: 500;
+	font-size: 16px;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="tdsCheckBox">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>50</y>
+      <width>141</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::RightToLeft</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QCheckBox {
+	background-color: transparent;
+	height: 21px;
+	font-family: Poppins;
+	font-size: 14px;
+}
+
+QCheckBox::indicator {
+    width: 15px; /* Ancho del indicador */
+    height: 15px; /* Alto del indicador */
+    border-radius: 4px; /* Bordes redondeados */
+    border: 2px solid #666; /* Borde del indicador */
+}
+
+QCheckBox::indicator:checked {
+    background-color: #00007f; /* Color de fondo cuando está marcado */
+}
+
+QCheckBox::indicator:unchecked {
+    background-color: transparent;
+}</string>
+    </property>
+    <property name="text">
+     <string>TDS/CE</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="phCheckBox">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>80</y>
+      <width>141</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::RightToLeft</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QCheckBox {
+	background-color: transparent;
+	height: 21px;
+	font-family: Poppins;
+	font-size: 14px;
+}
+
+QCheckBox::indicator {
+    width: 15px; /* Ancho del indicador */
+    height: 15px; /* Alto del indicador */
+    border-radius: 4px; /* Bordes redondeados */
+    border: 2px solid #666; /* Borde del indicador */
+}
+
+QCheckBox::indicator:checked {
+    background-color: #00007f; /* Color de fondo cuando está marcado */
+}
+
+QCheckBox::indicator:unchecked {
+    background-color: transparent;
+}</string>
+    </property>
+    <property name="text">
+     <string>pH</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="oxygenCheckBox">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>110</y>
+      <width>171</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::RightToLeft</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QCheckBox {
+	background-color: transparent;
+	height: 21px;
+	font-family: Poppins;
+	font-size: 14px;
+}
+
+QCheckBox::indicator {
+    width: 15px; /* Ancho del indicador */
+    height: 15px; /* Alto del indicador */
+    border-radius: 4px; /* Bordes redondeados */
+    border: 2px solid #666; /* Borde del indicador */
+}
+
+QCheckBox::indicator:checked {
+    background-color: #00007f; /* Color de fondo cuando está marcado */
+}
+
+QCheckBox::indicator:unchecked {
+    background-color: transparent;
+}</string>
+    </property>
+    <property name="text">
+     <string>Oxígeno Disuelto</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="turbidityCheckBox">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>140</y>
+      <width>141</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::RightToLeft</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QCheckBox {
+	background-color: transparent;
+	height: 21px;
+	font-family: Poppins;
+	font-size: 14px;
+}
+
+QCheckBox::indicator {
+    width: 15px; /* Ancho del indicador */
+    height: 15px; /* Alto del indicador */
+    border-radius: 4px; /* Bordes redondeados */
+    border: 2px solid #666; /* Borde del indicador */
+}
+
+QCheckBox::indicator:checked {
+    background-color: #00007f; /* Color de fondo cuando está marcado */
+}
+
+QCheckBox::indicator:unchecked {
+    background-color: transparent;
+}</string>
+    </property>
+    <property name="text">
+     <string>Turbidez</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>10</y>
+      <width>301</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;¿Que párametros desea monitorear?&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="allCheckBox">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>170</y>
+      <width>141</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::RightToLeft</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QCheckBox {
+	background-color: transparent;
+	height: 21px;
+	font-family: Poppins;
+	font-size: 14px;
+}
+
+QCheckBox::indicator {
+    width: 15px; /* Ancho del indicador */
+    height: 15px; /* Alto del indicador */
+    border-radius: 4px; /* Bordes redondeados */
+    border: 2px solid #666; /* Borde del indicador */
+}
+
+QCheckBox::indicator:checked {
+    background-color: #00007f; /* Color de fondo cuando está marcado */
+}
+
+QCheckBox::indicator:unchecked {
+    background-color: transparent;
+}</string>
+    </property>
+    <property name="text">
+     <string>Marcar todos</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
