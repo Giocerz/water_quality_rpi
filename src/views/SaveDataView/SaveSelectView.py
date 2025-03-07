@@ -1,5 +1,5 @@
 from PySide2.QtWidgets import QMainWindow
-from PySide2.QtCore import QSize
+from PySide2.QtCore import QSize, Qt
 from PySide2.QtGui import QIcon
 from src.views.ui_SaveSelect import Ui_MainWindow
 from src.views.SaveDataView.SaveDataView import SaveDataView
@@ -8,10 +8,11 @@ from src.model.SensorData import SensorData
 from typing import Optional
 
 class SaveSelectView(QMainWindow):
-    def __init__(self, context, capture_samples: list[SensorData]):
+    def __init__(self, context, capture_samples: list[SensorData], close_monitoring_callback:callable):
         super().__init__()
         self.context = context
         self.capture_samples : list[SensorData] = capture_samples
+        self.close_monitoring_callback:callable = close_monitoring_callback
 
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
@@ -28,7 +29,7 @@ class SaveSelectView(QMainWindow):
         self.ui.continueBtn.hide()
         self.averaged_samples: SensorData = self.calculate_average()
 
-        text = f"Promedio: Temp: {self.averaged_samples.temperature}"
+        text = f"Temp: {self.averaged_samples.temperature}"
 
         if self.averaged_samples.oxygen is not None:
             text += f", OD: {self.averaged_samples.oxygen}"
@@ -43,13 +44,18 @@ class SaveSelectView(QMainWindow):
             text += f", pH: {self.averaged_samples.ph}"
 
         if self.averaged_samples.turbidity is not None:
-            text += f", Turbidez: {self.averaged_samples.turbidity}"
+            text += f", Turb: {self.averaged_samples.turbidity}"
 
         self.ui.meanLbl.setText(text)
+        self.ui.meanLbl.setAlignment(Qt.AlignCenter)
         self.ui.allLbl.setText(F'Total de muestras: {len(self.capture_samples)}')
+        self.ui.allLbl.setAlignment(Qt.AlignCenter)
         self.ui.allCheckBox.setChecked(True)
         self.ui.meanCheckBox.setChecked(False)
         self.ui.continueBtn.show()
+    
+    def on_back_clicked(self):
+        Navigator.pop(context=self.context, view=self)
 
     def on_press_all_checkbox(self, event):
         """ Maneja el evento de clic en allCheckBox, desmarcando meanCheckBox si es necesario. """
@@ -69,9 +75,9 @@ class SaveSelectView(QMainWindow):
 
     def on_continue_clicked(self):
         if self.ui.allCheckBox.isChecked():
-            view =  SaveDataView(context= self.context, capture_samples=self.capture_samples)
+            view =  SaveDataView(context= self.context, capture_samples=self.capture_samples, close_monitoring_callback=self.close_monitoring_callback)
         else:
-            view =  SaveDataView(context= self.context, capture_samples=self.averaged_samples)
+            view =  SaveDataView(context= self.context, capture_samples=self.averaged_samples, close_monitoring_callback=self.close_monitoring_callback)
         Navigator.pushReplacement(context=self.context, view=view)
 
     def calculate_average(self) -> SensorData:

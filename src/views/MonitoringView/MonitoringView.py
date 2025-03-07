@@ -112,6 +112,12 @@ class MonitoringView(QMainWindow):
             self.parameters_worker.stop()
         Navigator.pop(context=self.context, view= self)
     
+    def pause_monitoring(self):
+        if self.parameters_worker.isRunning():
+                self.parameters_worker.stop()
+        self.ui.pauseBtn.setText('Reanudar')
+        self.isPause = True
+
     def on_pause_clicked(self):
         if(self.isPause):
             if not self.parameters_worker.isRunning():
@@ -129,9 +135,9 @@ class MonitoringView(QMainWindow):
             return
         self.parameters_worker.stop()
         if len(self.capture_samples) > 1:
-            view = SaveSelectView(context=self.context, capture_samples=self.capture_samples)
+            view = SaveSelectView(context=self.context, capture_samples=self.capture_samples, close_monitoring_callback=self.on_back_clicked)
         elif len(self.capture_samples) > 0:
-            view = SaveDataView(context=self.context, capture_samples=self.capture_samples)
+            view = SaveDataView(context=self.context, capture_samples=self.capture_samples, close_monitoring_callback=self.on_back_clicked)
         else:
             sample = SensorData(
                     temperature=self.temperature,
@@ -141,8 +147,8 @@ class MonitoringView(QMainWindow):
                     oxygen=self.oxygen,
                     turbidity=self.turbidity,
                     battery=self.battery)
-            view = SaveDataView(context=self.context, capture_samples=[sample])
-        Navigator.pushReplacement(context=self.context, view=view)
+            view = SaveDataView(context=self.context, capture_samples=[sample], close_monitoring_callback=self.on_back_clicked)
+        Navigator.push(context=self.context, view=view)
     
     def init_animation(self):
         self.original_rect = self.ui.captureCountLbl.geometry()

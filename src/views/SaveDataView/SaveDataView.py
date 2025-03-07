@@ -62,7 +62,7 @@ class LocationdWorker(QThread):
 
 
 class SaveDataView(QMainWindow):
-    def __init__(self, context, capture_samples: list[SensorData]):
+    def __init__(self, context, capture_samples: list[SensorData], close_monitoring_callback:callable):
         QMainWindow.__init__(self)
         self.context = context
         self.capture_samples: list[SensorData] = capture_samples
@@ -71,6 +71,7 @@ class SaveDataView(QMainWindow):
         self.folder_name: str = None
         self.folder_id: int = None
         self.folders_list: list[LoteModel] = []
+        self.close_monitoring_callback:callable = close_monitoring_callback
 
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
@@ -265,6 +266,7 @@ class SaveDataView(QMainWindow):
             counter += 1
 
         message = "La muestra se guardó exitosamente" if len(self.capture_samples) == 1 else "Las muestras se guardaron exitosamente"
+        self.close_monitoring_callback()
         finish_popup = PopupWidgetInfo(
             context=self.context, text=message, on_click=self.close_view)
         finish_popup.show()
