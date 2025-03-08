@@ -79,8 +79,8 @@ class MonitoringView(QMainWindow):
         self.turbidity = None
         self.battery = None
 
-        self.max_samples = 15
-        self.capture_period = 3
+        self.max_samples:int = 15
+        self.capture_period:int = 3
         self.is_automatic_capture_active = False
         self.capture_samples:list[SensorData] = []
 
@@ -180,7 +180,7 @@ class MonitoringView(QMainWindow):
         if not self.receive_parameters:
             return
         if len(self.capture_samples) >= self.max_samples:
-            popup = PopupWidgetInfo(context=self.context, text=f'Solo puededs capturar un<br>máximo de {self.MAX_SAMPLES} muestras')
+            popup = PopupWidgetInfo(context=self.context, text=f'Solo puededs capturar un<br>máximo de {self.max_samples} muestras')
             popup.show()
             return
         if self.is_automatic_capture_active:

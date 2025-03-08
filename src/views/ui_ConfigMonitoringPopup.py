@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ConfigMonitoringPopupPMaHFV.ui'
+## Form generated from reading UI file 'ConfigMonitoringPopupMVAaqM.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -18,7 +18,9 @@ class Ui_Form(object):
         if not Form.objectName():
             Form.setObjectName(u"Form")
         Form.resize(480, 272)
-        Form.setStyleSheet(u"")
+        Form.setStyleSheet(u"QLabel {\n"
+"	font: 14px \"Poppins\";\n"
+"}")
         self.lblOpacity = QLabel(Form)
         self.lblOpacity.setObjectName(u"lblOpacity")
         self.lblOpacity.setGeometry(QRect(0, 0, 480, 320))
@@ -43,9 +45,7 @@ class Ui_Form(object):
         self.lbl_2 = QLabel(self.Widget1)
         self.lbl_2.setObjectName(u"lbl_2")
         self.lbl_2.setGeometry(QRect(100, 10, 181, 31))
-        self.lbl_2.setStyleSheet(u"font: 14px \"Poppins\";\n"
-"background-color: transparent;\n"
-"")
+        self.lbl_2.setStyleSheet(u"")
         self.confirmBtn = QPushButton(self.Widget1)
         self.confirmBtn.setObjectName(u"confirmBtn")
         self.confirmBtn.setGeometry(QRect(250, 130, 101, 41))
@@ -74,7 +74,7 @@ class Ui_Form(object):
         self.captureCheckBox.setStyleSheet(u"QCheckBox {\n"
 "	background-color: transparent;\n"
 "	height: 21px;\n"
-"	font: 16px \"Poppins\";\n"
+"	font: 14px \"Poppins\";\n"
 "}\n"
 "\n"
 "QCheckBox::indicator {\n"
@@ -105,15 +105,11 @@ class Ui_Form(object):
         self.lbl_3 = QLabel(self.Widget1)
         self.lbl_3.setObjectName(u"lbl_3")
         self.lbl_3.setGeometry(QRect(30, 60, 181, 31))
-        self.lbl_3.setStyleSheet(u"font: 14px \"Poppins\";\n"
-"background-color: transparent;\n"
-"")
+        self.lbl_3.setStyleSheet(u"")
         self.lbl_4 = QLabel(self.Widget1)
         self.lbl_4.setObjectName(u"lbl_4")
         self.lbl_4.setGeometry(QRect(30, 140, 71, 31))
-        self.lbl_4.setStyleSheet(u"font: 14px \"Poppins\";\n"
-"background-color: transparent;\n"
-"")
+        self.lbl_4.setStyleSheet(u"")
         self.widgetKeyboard = QWidget(Form)
         self.widgetKeyboard.setObjectName(u"widgetKeyboard")
         self.widgetKeyboard.setGeometry(QRect(0, 202, 480, 70))

@@ -14,7 +14,9 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true"/>
+   <string notr="true">QLabel {
+	font: 14px &quot;Poppins&quot;;
+}</string>
   </property>
   <widget class="QLabel" name="lblOpacity">
    <property name="geometry">
@@ -85,9 +87,7 @@ background-color: rgb(234, 234, 234);</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 14px &quot;Poppins&quot;;
-background-color: transparent;
-</string>
+     <string notr="true"/>
     </property>
     <property name="text">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Opciones de captura&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -152,7 +152,7 @@ background-color: transparent;
      <string notr="true">QCheckBox {
 	background-color: transparent;
 	height: 21px;
-	font: 16px &quot;Poppins&quot;;
+	font: 14px &quot;Poppins&quot;;
 }
 
 QCheckBox::indicator {
@@ -211,9 +211,7 @@ background-color: rgb(234, 234, 234);</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 14px &quot;Poppins&quot;;
-background-color: transparent;
-</string>
+     <string notr="true"/>
     </property>
     <property name="text">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Número de muestras&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -229,9 +227,7 @@ background-color: transparent;
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 14px &quot;Poppins&quot;;
-background-color: transparent;
-</string>
+     <string notr="true"/>
     </property>
     <property name="text">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Período&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>

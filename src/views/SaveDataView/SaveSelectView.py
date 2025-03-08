@@ -18,6 +18,7 @@ class SaveSelectView(QMainWindow):
         self.ui.setupUi(self)
         self.ui_components()
 
+        self.ui.backBtn.clicked.connect(self.on_back_clicked)
         self.ui.allCheckBox.mousePressEvent = self.on_press_all_checkbox
         self.ui.meanCheckBox.mousePressEvent = self.on_pres_mean_checkbox
         self.ui.continueBtn.clicked.connect(self.on_continue_clicked)

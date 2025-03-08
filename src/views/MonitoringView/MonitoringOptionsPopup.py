@@ -11,8 +11,8 @@ class MonitoringOptionsPopup(QWidget):
         self.ui.setupUi(self)
         self.context = context
         self.is_continuous_capture_active:bool = is_continuous_capture_active
-        self.total_samples:int = totalSamples
-        self.period:int = period
+        self.total_samples:int = int(totalSamples)
+        self.period:int = int(period)
         self.set_samples:callable = set_samples
         self.set_period:callable = set_period
         self.set_continuous_capture:callable = set_continuous_capture
