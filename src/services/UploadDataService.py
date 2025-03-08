@@ -46,7 +46,8 @@ class UploadService(QThread):
                     start_time = time.time()  # Reiniciar tiempo
 
                 chunk = data_to_upload[i:i + max_upload_length]
-                payload = json.dumps({"readings": [param.to_dict() for param in chunk]})
+                payload = json.dumps({"readings": [self.convert_keys(param.to_dict()) for param in chunk]})
+
 
                 headers = {
                     'Content-Type': 'application/json',
@@ -77,3 +78,26 @@ class UploadService(QThread):
 
         except Exception as e:
             self.upload_finished.emit(False, str(e))
+    
+    def convert_keys(self, param_dict: dict) -> dict:
+        return {
+            "id": param_dict["id"],
+            "name": param_dict["name"],
+            "deviceId": param_dict["device_id"],  
+            "latitude": param_dict["latitude"],
+            "longitude": param_dict["longitude"],
+            "date": param_dict["date"],
+            "hour": param_dict["hour"],
+            "conductivity": param_dict["conductivity"],
+            "oxygen": param_dict["oxygen"],
+            "ph": param_dict["ph"],
+            "tds": param_dict["tds"],
+            "temperature": param_dict["temperature"],
+            "turbidity": param_dict["turbidity"],
+            "battery": param_dict["battery"],
+            "sampleOrigin": param_dict["sample_origin"],  
+            "itRained": param_dict["it_rained"],  
+            "uploadState": param_dict["upload_state"],  
+            "loteId": param_dict["lote_id"]  
+        }
+
