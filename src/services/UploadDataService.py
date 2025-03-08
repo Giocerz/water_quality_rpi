@@ -9,7 +9,7 @@ class UploadService(QThread):
     upload_finished = Signal(bool, str)  # Señal para indicar éxito o error
     progress = Signal(int, int)  # Señal para actualizar la barra de progreso
 
-    def __init__(self, base_url, token, parent=None):
+    def __init__(self, parent=None):
         super().__init__(parent)
         self.ssswsx = Sxdswe.yshwh
         self.wsdww2sx = Sxdswe.rswgst
