@@ -184,6 +184,7 @@ class MonitoringView(QMainWindow):
             popup.show()
             return
         if self.is_automatic_capture_active:
+            self.init_automatic_capture()
             return
         self.set_capture_samples()
         self.start_animation()
