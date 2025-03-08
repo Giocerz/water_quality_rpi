@@ -54,7 +54,7 @@ class WaterDataBase:
         cursor.execute(f'''
             INSERT INTO {WaterDataBase.WATER_TABLE_NAME} 
             (name, device_id, latitude, longitude, date, hour, conductivity, oxygen, ph, tds, temperature, turbidity, battery, sample_origin, it_rained, upload_state, lote_id)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ''', (
             water_quality_params.name,
             water_quality_params.device_id,
