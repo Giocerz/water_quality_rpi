@@ -15,6 +15,8 @@ from src.package.Navigator import Navigator
 from src.logic.batteryLevel import BatteryProvider
 from src.logic.filters import MovingAverageFilter
 from src.widgets.PopupWidget import PopupWidgetInfo
+from src.views.MonitoringView.AutomaticMonitoringPopup import AutomaticMonitoringPopup
+from src.views.MonitoringView.MonitoringOptionsPopup import MonitoringOptionsPopup
 from src.model.SensorData import SensorData
 
 class ParametersMeasuredWorker(QThread):
@@ -57,7 +59,6 @@ class ParametersMeasuredWorker(QThread):
     
 
 class MonitoringView(QMainWindow):
-    MAX_SAMPLES = 30
     def __init__(self, context, tds_check:bool, ph_check:bool, oxygen_check:bool, turbidity_check:bool):
         QMainWindow.__init__(self)
         self.context = context
@@ -78,6 +79,9 @@ class MonitoringView(QMainWindow):
         self.turbidity = None
         self.battery = None
 
+        self.max_samples = 15
+        self.capture_period = 3
+        self.is_automatic_capture_active = False
         self.capture_samples:list[SensorData] = []
 
         self.receive_parameters = False
@@ -90,6 +94,7 @@ class MonitoringView(QMainWindow):
             self.parameters_worker.start()
 
         self.ui.captureBtn.clicked.connect(self.on_capture_clicked)
+        self.ui.optionsBtn.clicked.connect(self.on_options_clicked)
         self.ui.backBtn.clicked.connect(self.on_back_clicked)
         self.ui.saveBtn.clicked.connect(self.on_save_clicked)
         self.ui.pauseBtn.clicked.connect(self.on_pause_clicked)
@@ -174,10 +179,16 @@ class MonitoringView(QMainWindow):
     def on_capture_clicked(self):
         if not self.receive_parameters:
             return
-        if len(self.capture_samples) >= self.MAX_SAMPLES:
+        if len(self.capture_samples) >= self.max_samples:
             popup = PopupWidgetInfo(context=self.context, text=f'Solo puededs capturar un<br>máximo de {self.MAX_SAMPLES} muestras')
             popup.show()
             return
+        if self.is_automatic_capture_active:
+            return
+        self.set_capture_samples()
+        self.start_animation()
+    
+    def set_capture_samples(self):
         self.capture_samples.append(SensorData(
             temperature=self.temperature,
             ph=self.ph,
@@ -187,11 +198,10 @@ class MonitoringView(QMainWindow):
             turbidity=self.turbidity,
             battery=self.battery
         ))
-        self.start_animation()
-
-    def start_animation(self):
         self.ui.captureCountLbl.setText(f'+{len(self.capture_samples)}')
         self.ui.captureCountLbl.show()
+
+    def start_animation(self):
         """Inicia la animación completa al presionar el botón."""
         self.animation_group.start()
 
@@ -287,3 +297,31 @@ class MonitoringView(QMainWindow):
             self.indicators['turbidity'].setValue(self.turbidity)
         
         self.battery = parameters[5]
+    
+    #Automatic monitoring methods
+    def on_options_clicked(self):
+        def set_period(period:int):
+            self.capture_period = period
+        def set_samples(samples:int):
+            self.max_samples = samples
+        def set_continuous_capture(value:bool):
+            self.is_automatic_capture_active = value
+        popup = MonitoringOptionsPopup(context=self.context, 
+                                       is_continuous_capture_active=self.is_automatic_capture_active, 
+                                       totalSamples=self.max_samples,
+                                       period=self.capture_period,
+                                       set_period=set_period,
+                                       set_samples=set_samples,
+                                       set_continuous_capture=set_continuous_capture)
+        popup.show()
+    
+    def init_automatic_capture(self):
+        if self.isPause:
+            popup = PopupWidgetInfo(context=self.context, text='Reanuda la medición para<br>la captura automática.')
+            popup.show()
+            return
+        popup = AutomaticMonitoringPopup(context=self.context, period=self.capture_period, 
+                                         total_samples=self.max_samples,
+                                         current_samples=len(self.capture_samples),
+                                         set_capture_samples=self.set_capture_samples)
+        popup.show()

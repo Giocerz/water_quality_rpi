@@ -148,8 +148,8 @@ class FoldersView(QMainWindow):
         self.progress_popup = ProgressPopupWidget(context=self.context, text='Sincronizando...')
         self.progress_popup.show()
 
-    def handle_upload_progress(self, upload_progress):
-        progress =  round(upload_progress[0]/upload_progress[1] * 100)
+    def handle_upload_progress(self, step, total):
+        progress =  round(step/total * 100)
         self.progress_popup.set_value(progress)
 
     def upload_finished_result(self, result, error_msg):

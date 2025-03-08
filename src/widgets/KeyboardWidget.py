@@ -357,12 +357,14 @@ class KeyboardWidget(QWidget):
 
 
 class NumericKeyboardWidget(QWidget):
-    def __init__(self, focusLine):
+    def __init__(self, focusLine, natural_numbers:bool = False):
         QWidget.__init__(self)
         self.__ui = Numeric_Keyboard()
         self.__ui.setupUi(self)
         self.__focusLine = focusLine 
         self.__focusLine.setFocus() 
+        self.__natural_numbers:bool = natural_numbers
+        self.__init_ui_components()
 
         self.__timerBackSpace = QTimer(self)
         self.__timerBackSpace.setInterval(1000)
@@ -400,6 +402,11 @@ class NumericKeyboardWidget(QWidget):
 
         self.__ui.btn13.pressed.connect(self.__backspacePressed)  # Backspace
         self.__ui.btn13.released.connect(self.__backspaceReleased)  # Backspace
+
+    def __init_ui_components(self):
+        if self.__natural_numbers:
+            self.__ui.btn11.hide()
+            self.__ui.btn12.hide()
 
     def changeFocusKeyboard(self, focus):
         self.__focusLine = focus

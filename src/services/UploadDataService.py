@@ -17,7 +17,7 @@ class UploadService(QThread):
 
     def run(self):
         max_upload_length = 10
-        max_request_per_minute = 10  
+        max_request_per_minute = 18  
         requests_count = 0
         start_time = time.time()  # Marca de tiempo inicial
         is_successful = True
@@ -46,7 +46,7 @@ class UploadService(QThread):
                     start_time = time.time()  # Reiniciar tiempo
 
                 chunk = data_to_upload[i:i + max_upload_length]
-                payload = json.dumps({"readings": [self.convert_keys(param.to_dict()) for param in chunk]})
+                payload = {"readings": [self.convert_keys(param.to_dict()) for param in chunk]}
 
 
                 headers = {
@@ -55,7 +55,7 @@ class UploadService(QThread):
                 }
 
                 try:
-                    response = requests.post(self.ssswsx, json==payload, headers=headers, timeout=15)
+                    response = requests.post(self.ssswsx, json=payload, headers=headers, timeout=15)
 
                     if response.status_code == 200:
                         for param in chunk:
