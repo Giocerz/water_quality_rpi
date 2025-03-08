@@ -203,7 +203,7 @@ class WaterDataBase:
     def count_samples_not_updated():
         conn = WaterDataBase._open_db()
         cursor = conn.cursor()
-        cursor.execute(f"SELECT COUNT(*) FROM {WaterDataBase.WATER_TABLE_NAME} WHERE uploadState = ?", (0,))
+        cursor.execute(f"SELECT COUNT(*) FROM {WaterDataBase.WATER_TABLE_NAME} WHERE upload_state = ?", (0,))
         count = cursor.fetchone()
         conn.close()
         return count[0] if count else 0
@@ -212,7 +212,7 @@ class WaterDataBase:
     def get_water_quality_params_no_sync():
         conn = WaterDataBase._open_db()
         cursor = conn.cursor()
-        cursor.execute(f"SELECT * FROM {WaterDataBase.WATER_TABLE_NAME} WHERE uploadState = ?", (0,))
+        cursor.execute(f"SELECT * FROM {WaterDataBase.WATER_TABLE_NAME} WHERE upload_state = ?", (0,))
         rows = cursor.fetchall()
         conn.close()
 
