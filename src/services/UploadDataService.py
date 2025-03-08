@@ -55,7 +55,7 @@ class UploadService(QThread):
                 }
 
                 try:
-                    response = requests.post(self.ssswsx, data=payload, headers=headers, timeout=15)
+                    response = requests.post(self.ssswsx, json==payload, headers=headers, timeout=15)
 
                     if response.status_code == 200:
                         for param in chunk:
