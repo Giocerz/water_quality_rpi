@@ -7,6 +7,9 @@ from src.model.Models import LoteModel
 from src.model.WaterQualityDB import WaterDataBase
 from src.views.DatosView.DatosView import DatosView
 from src.package.Navigator import Navigator
+from src.widgets.PopupWidget import PopupWidgetInfo, PopupWidget, LoadingPopupWidget, ProgressPopupWidget
+from src.services.internetService import InternetChecker
+from src.services.UploadDataService import UploadService
 
 class FoldersView(QMainWindow):
     def __init__(self, context):
@@ -18,6 +21,7 @@ class FoldersView(QMainWindow):
         self.ui_components()
         self.setup_list()
 
+        self.init_workers()
         self.ui.backBtn.clicked.connect(self.on_back_clicked)
         self.ui.verticalSlider.valueChanged.connect(self.slider_value_changed)
 
@@ -28,6 +32,10 @@ class FoldersView(QMainWindow):
         icon = QIcon('./src/resources/icons/back.png')
         self.ui.backBtn.setIcon(icon)
         self.ui.backBtn.setIconSize(QSize(30, 30))
+        icon = QIcon('./src/resources/icons/delete.png')
+        self.ui.uploadBtn.setIcon(icon)
+        self.ui.uploadBtn.setIconSize(QSize(30, 30))
+        self.ui.uploadBtn.hide()
         self.scrollBar = self.ui.scrollArea.verticalScrollBar()
         self.ui.verticalSlider.setRange(self.scrollBar.minimum(), self.scrollBar.maximum())
         self.ui.emptyFoldersNoticeLbl.hide()
@@ -37,6 +45,7 @@ class FoldersView(QMainWindow):
         self.folders_list = WaterDataBase.get_lotes()
 
     def on_back_clicked(self):
+        self.stop_workers()
         Navigator.pop(context=self.context, view= self)
 
     def on_push_folder_widget(self, id:int, name:str):
@@ -84,6 +93,7 @@ class FoldersView(QMainWindow):
         # Ajustar el contenedor dentro del ScrollArea
         self.ui.scrollArea.setWidget(container_widget)
         self.ui.scrollArea.setWidgetResizable(True)
+        self.ui.uploadBtn.show()
 
 
     def slider_value_changed(self, value):
@@ -95,3 +105,57 @@ class FoldersView(QMainWindow):
 
     def scroll_value_changed(self, value):
         self.ui.verticalSlider.setValue(value) 
+
+    #Metodos de subida
+    def init_workers(self):
+        self.internet_checker = InternetChecker()
+        self.upload_service = UploadService()
+        self.internet_checker.connection_status.connect(self.internet_check_result)
+        self.upload_service.upload_finished.connect(self.upload_finished_result)
+        self.upload_service.progress.connect(self.handle_upload_progress)
+
+    def stop_workers(self):
+        pass
+        if self.internet_checker.isRunning():
+            self.internet_checker.wait()
+        if self.upload_service.isRunning():
+            self.upload_service.stop()
+
+    def on_upload_clicked(self):
+        count_data_no_uploaded =  WaterDataBase.count_samples_not_updated()
+        if count_data_no_uploaded == 0:
+            popup =  PopupWidget(context=self.context, text='Todos los datos estan<br>sincronizados')
+            popup.show()
+            return
+        if count_data_no_uploaded > 1:
+            text = f'Hay {count_data_no_uploaded} muestras sin<br>sincronizar ¿Desea subirlas?'
+        else:
+            text = f'Hay una muestra sin<br>sincronizar ¿Desea subirla?'
+        def yes_callback():
+            self.internet_checker.start()
+        def no_callback():
+            pass
+        popup = PopupWidget(context=self.context, text=text, yes_callback=yes_callback, no_callback=no_callback)
+        popup.show()
+    
+    def internet_check_result(self, result):
+        if not result:
+            popup = PopupWidgetInfo(context=self.context, text='No hay conexion a internet')
+            popup.show()
+            return
+        self.upload_service.start()
+        self.progress_popup = ProgressPopupWidget(context=self.context, text='Sincronizando...')
+        self.progress_popup.show()
+
+    def handle_upload_progress(self, upload_progress):
+        progress =  round(upload_progress[0]/upload_progress[1] * 100)
+        self.progress_popup.set_value(progress)
+
+    def upload_finished_result(self, result, error_msg):
+        if result:
+            text = 'Los datos se sincronizaron<br>exitosamente.'
+        else:
+            text = error_msg
+        self.progress_popup.close_and_delete()
+        popup =  PopupWidgetInfo(context=self.context, text=text)
+        popup.show()

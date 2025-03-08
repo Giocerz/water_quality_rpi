@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'SaveSelectrJMuQv.ui'
+## Form generated from reading UI file 'SaveSelectTfnLuB.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -115,7 +115,7 @@ class Ui_MainWindow(object):
         self.allLbl.setStyleSheet(u"font-size: 14px;")
         self.meanLbl = QLabel(self.centralwidget)
         self.meanLbl.setObjectName(u"meanLbl")
-        self.meanLbl.setGeometry(QRect(20, 150, 451, 31))
+        self.meanLbl.setGeometry(QRect(20, 150, 451, 41))
         self.meanLbl.setStyleSheet(u"font-size: 14px;")
         MainWindow.setCentralWidget(self.centralwidget)
 
@@ -132,6 +132,6 @@ class Ui_MainWindow(object):
         self.meanCheckBox.setText(QCoreApplication.translate("MainWindow", u"Promedio", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>\u00bfComo desea guardar las muestras?</p></body></html>", None))
         self.allLbl.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>Total de muestras: </p></body></html>", None))
-        self.meanLbl.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>Promedio: Temp: 123.22, OD: 23.2, pH: 7.2, Turb: 22.2</p></body></html>", None))
+        self.meanLbl.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>Temp: 123.22, OD: 23.2, pH: 7.2, Turb: 22.2</p></body></html>", None))
     # retranslateUi
 

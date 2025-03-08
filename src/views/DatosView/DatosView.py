@@ -91,10 +91,10 @@ class DatosView(QMainWindow):
         self.ui.backBtn.setIconSize(QSize(30, 30))
         icon = QIcon('./src/resources/icons/graph.png')
         self.ui.graphBtn.setIcon(icon)
-        self.ui.backBtn.setIconSize(QSize(30, 30))
+        self.ui.graphBtn.setIconSize(QSize(30, 30))
         icon = QIcon('./src/resources/icons/delete.png')
         self.ui.deleteBtn.setIcon(icon)
-        self.ui.backBtn.setIconSize(QSize(30, 30))
+        self.ui.deleteBtn.setIconSize(QSize(30, 30))
 
         self.scrollBar = self.ui.tableWidget.horizontalScrollBar()
         self.ui.horizontalSlider.setRange(self.scrollBar.minimum(), self.scrollBar.maximum())

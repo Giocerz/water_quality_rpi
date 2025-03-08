@@ -3,6 +3,7 @@ from PySide2.QtGui import QPixmap
 from PySide2 import QtCore
 from src.views.ui_PopupWidget import Ui_Form as Ui_Popup
 from src.views.ui_LoadingPopupWidget import Ui_Form as Ui_Loading
+from src.views.ui_ProgressPopupWidget import Ui_Form as Ui_Progress
 from src.package.Timer import Timer
 
 
@@ -128,5 +129,31 @@ class LoadingPopupWidget(QWidget):
 
     def close_and_delete(self):
         self.timer.cancel()
+        self.setParent(None)
+        self.deleteLater()
+
+
+class ProgressPopupWidget(QWidget):
+    def __init__(self, context, text):
+        super().__init__()
+        self.context = context
+        self.ui = Ui_Progress()
+        self.ui.setupUi(self)
+
+        self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+
+        self.opacity = QGraphicsOpacityEffect()
+        self.opacity.setOpacity(0.2)
+        self.ui.lblOpacity.setGraphicsEffect(self.opacity)
+        self.ui.LabelInfo.setText(text)
+        self.ui.LabelInfo.setAlignment(QtCore.Qt.AlignCenter)
+        self.ui.progressBar.setValue(0)
+
+        self.setParent(self.context)
+    
+    def set_value(self, value:int):
+        self.ui.progressBar.setValue(value)
+        
+    def close_and_delete(self):
         self.setParent(None)
         self.deleteLater()

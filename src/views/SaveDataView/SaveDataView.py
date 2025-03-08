@@ -253,7 +253,7 @@ class SaveDataView(QMainWindow):
                 hour=str(hour),
                 sample_origin=sample_origin,
                 it_rained=it_rained,
-                upload_state=1,
+                upload_state=0,
                 lote_id=lote_id,
                 conductivity=sample.conductivity,
                 oxygen=sample.oxygen,

@@ -73,6 +73,28 @@ font: 11pt Poppins;</string>
        <height>272</height>
       </rect>
      </property>
+     <widget class="QPushButton" name="uploadBtn">
+      <property name="geometry">
+       <rect>
+        <x>385</x>
+        <y>0</y>
+        <width>41</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">	height: 40px;
+	border-radius: 20px;
+	border: 0px;
+	background-color: #8ac926;
+	color: #00007f;
+	font-weight: 500;
+	font-size: 16px;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
     </widget>
    </widget>
    <widget class="QSlider" name="verticalSlider">

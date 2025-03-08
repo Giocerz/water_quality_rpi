@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'Folders_viewWDxdZb.ui'
+## Form generated from reading UI file 'Folders_viewrzYyvy.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -43,6 +43,16 @@ class Ui_MainWindow(object):
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
         self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 431, 272))
+        self.uploadBtn = QPushButton(self.scrollAreaWidgetContents)
+        self.uploadBtn.setObjectName(u"uploadBtn")
+        self.uploadBtn.setGeometry(QRect(385, 0, 41, 41))
+        self.uploadBtn.setStyleSheet(u"	height: 40px;\n"
+"	border-radius: 20px;\n"
+"	border: 0px;\n"
+"	background-color: #8ac926;\n"
+"	color: #00007f;\n"
+"	font-weight: 500;\n"
+"	font-size: 16px;")
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.verticalSlider = QSlider(self.centralwidget)
         self.verticalSlider.setObjectName(u"verticalSlider")
@@ -91,6 +101,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.backBtn.setText("")
+        self.uploadBtn.setText("")
         self.emptyFoldersNoticeLbl.setText(QCoreApplication.translate("MainWindow", u"No hay carpetas guardadas", None))
     # retranslateUi
 

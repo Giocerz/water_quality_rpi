@@ -160,7 +160,6 @@ class WaterDataBase:
         conn.commit()
         conn.close()
 
-
     
     @staticmethod
     def get_water_quality_params_by_lote(lote_id:int) -> list[WaterQualityParams]:
@@ -199,6 +198,49 @@ class WaterDataBase:
             )
             params_list.append(params)
         return params_list
+    
+    @staticmethod
+    def count_samples_not_updated():
+        conn = WaterDataBase._open_db()
+        cursor = conn.cursor()
+        cursor.execute(f"SELECT COUNT(*) FROM {WaterDataBase.WATER_TABLE_NAME} WHERE uploadState = ?", (0,))
+        count = cursor.fetchone()
+        conn.close()
+        return count[0] if count else 0
+    
+    @staticmethod
+    def get_water_quality_params_no_sync():
+        conn = WaterDataBase._open_db()
+        cursor = conn.cursor()
+        cursor.execute(f"SELECT * FROM {WaterDataBase.WATER_TABLE_NAME} WHERE uploadState = ?", (0,))
+        rows = cursor.fetchall()
+        conn.close()
+
+        # Convertimos cada fila en un objeto WaterQualityParams
+        water_params = [
+            WaterQualityParams(
+                id=row[0],
+                name=row[1],
+                device_id=row[2],
+                latitude=row[3],
+                longitude=row[4],
+                date=row[5],
+                hour=row[6],
+                conductivity=row[7],
+                oxygen=row[8],
+                ph=row[9],
+                tds=row[10],
+                temperature=row[11],
+                turbidity=row[12],
+                battery=row[13],
+                sample_origin=row[14],
+                it_rained=row[15],
+                upload_state=row[16],
+                lote_id=row[17],
+            )
+            for row in rows
+        ]
+        return water_params
 
     @staticmethod
     def update_upload_state(id: int, new_state: int):

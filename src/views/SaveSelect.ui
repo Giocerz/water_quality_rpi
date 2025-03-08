@@ -191,14 +191,14 @@ QCheckBox::indicator:unchecked {
       <x>20</x>
       <y>150</y>
       <width>451</width>
-      <height>31</height>
+      <height>41</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">font-size: 14px;</string>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Promedio: Temp: 123.22, OD: 23.2, pH: 7.2, Turb: 22.2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Temp: 123.22, OD: 23.2, pH: 7.2, Turb: 22.2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
   </widget>
