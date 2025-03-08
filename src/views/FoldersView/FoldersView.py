@@ -23,6 +23,7 @@ class FoldersView(QMainWindow):
 
         self.init_workers()
         self.ui.backBtn.clicked.connect(self.on_back_clicked)
+        self.ui.uploadBtn.clicked.connect(self.on_upload_clicked)
         self.ui.verticalSlider.valueChanged.connect(self.slider_value_changed)
 
         self.scrollBar.rangeChanged.connect(self.adjust_slider_range)
@@ -32,7 +33,7 @@ class FoldersView(QMainWindow):
         icon = QIcon('./src/resources/icons/back.png')
         self.ui.backBtn.setIcon(icon)
         self.ui.backBtn.setIconSize(QSize(30, 30))
-        icon = QIcon('./src/resources/icons/delete.png')
+        icon = QIcon('./src/resources/icons/upload.png')
         self.ui.uploadBtn.setIcon(icon)
         self.ui.uploadBtn.setIconSize(QSize(30, 30))
         self.ui.uploadBtn.hide()
@@ -124,7 +125,7 @@ class FoldersView(QMainWindow):
     def on_upload_clicked(self):
         count_data_no_uploaded =  WaterDataBase.count_samples_not_updated()
         if count_data_no_uploaded == 0:
-            popup =  PopupWidget(context=self.context, text='Todos los datos estan<br>sincronizados')
+            popup =  PopupWidgetInfo(context=self.context, text='Todos los datos estan<br>sincronizados')
             popup.show()
             return
         if count_data_no_uploaded > 1:
