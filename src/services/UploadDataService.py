@@ -6,17 +6,20 @@ from src.model.WaterQualityDB import WaterDataBase
 from src.config.sxdswe import Sxdswe
 
 class UploadService(QThread):
-    upload_finished = Signal(bool, str)  # Señal para indicar éxito o error
-    progress = Signal(int, int)  # Señal para actualizar la barra de progreso
+    upload_finished = Signal(bool, str)  
+    progress = Signal(int, int)  
 
     def __init__(self, parent=None):
         super().__init__(parent)
         self.ssswsx = Sxdswe.yshwh
         self.wsdww2sx = Sxdswe.rswgst
-        self.is_cancelled = False  # Bandera para cancelar el proceso
+        self.is_cancelled = False  
 
     def run(self):
         max_upload_length = 10
+        max_request_per_minute = 10  
+        requests_count = 0
+        start_time = time.time()  # Marca de tiempo inicial
         is_successful = True
         error_msg = ""
 
@@ -30,9 +33,21 @@ class UploadService(QThread):
                     error_msg = "Subida cancelada"
                     break
 
+                # Verificar si ya pasaron 60 segundos desde la primera solicitud
+                elapsed_time = time.time() - start_time
+                if requests_count >= max_request_per_minute and elapsed_time < 60:
+                    wait_time = 60 - elapsed_time
+                    for _ in range(int(wait_time)):  
+                        if self.is_cancelled:
+                            self.upload_finished.emit(False, "Subida cancelada")
+                            return
+                        time.sleep(1)
+                    requests_count = 0  # Reiniciar contador
+                    start_time = time.time()  # Reiniciar tiempo
+
                 chunk = data_to_upload[i:i + max_upload_length]
                 payload = json.dumps({"readings": [param.to_dict() for param in chunk]})
-                
+
                 headers = {
                     'Content-Type': 'application/json',
                     'Authorization': f'Bearer {self.wsdww2sx}'
@@ -49,20 +64,16 @@ class UploadService(QThread):
                         error_msg = f"Error {response.status_code}"
                         break
 
-                except requests.exceptions.RequestException as e:
+                except requests.exceptions.RequestException:
                     is_successful = False
                     error_msg = "Error de conexión"
                     break
 
-                self.progress.emit(i + len(chunk), total)  # Emitimos progreso
-                
-                time.sleep(1)  # <-- Se agrega el delay de 1 segundo después de cada envío
+                self.progress.emit(i + len(chunk), total)  
+                requests_count += 1
+                time.sleep(1)  
 
             self.upload_finished.emit(is_successful, error_msg)
 
         except Exception as e:
             self.upload_finished.emit(False, str(e))
-
-    def stop(self):
-        self.is_cancelled = True
-        self.wait()
