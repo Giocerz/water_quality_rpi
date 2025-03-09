@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ParametersIndicatorLaYUIQz.ui'
+## Form generated from reading UI file 'ParametersIndicatorLvnRnSm.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -52,6 +52,12 @@ class Ui_Form(object):
         self.valueLbl.setGeometry(QRect(240, 0, 231, 81))
         self.valueLbl.setStyleSheet(u"font-weight: bold;\n"
 "font-size: 36px;")
+        self.warningLbl = QLabel(Form)
+        self.warningLbl.setObjectName(u"warningLbl")
+        self.warningLbl.setGeometry(QRect(10, 40, 35, 35))
+        self.stableLbl = QLabel(Form)
+        self.stableLbl.setObjectName(u"stableLbl")
+        self.stableLbl.setGeometry(QRect(50, 40, 35, 35))
 
         self.retranslateUi(Form)
 
@@ -62,5 +68,7 @@ class Ui_Form(object):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
         self.nameLbl.setText(QCoreApplication.translate("Form", u"Conductividad Electrica", None))
         self.valueLbl.setText(QCoreApplication.translate("Form", u"1234.2 ppm", None))
+        self.warningLbl.setText("")
+        self.stableLbl.setText("")
     # retranslateUi
 

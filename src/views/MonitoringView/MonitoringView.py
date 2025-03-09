@@ -18,6 +18,7 @@ from src.widgets.PopupWidget import PopupWidgetInfo
 from src.views.MonitoringView.AutomaticMonitoringPopup import AutomaticMonitoringPopup
 from src.views.MonitoringView.MonitoringOptionsPopup import MonitoringOptionsPopup
 from src.model.SensorData import SensorData
+from src.logic.sensorStabilizer import SensorStabilizer
 
 class ParametersMeasuredWorker(QThread):
     parameters_result = Signal(list)
@@ -71,6 +72,7 @@ class MonitoringView(QMainWindow):
         self.ui_components()
         self.setup_grid()
         self.init_animation()
+        self.init_stabilizers()
 
         self.oxygen = None
         self.ph = None
@@ -111,6 +113,36 @@ class MonitoringView(QMainWindow):
         self.ui.saveBtn.setIconSize(QSize(30, 30))
         self.ui.captureCountLbl.setText('')
         self.ui.captureCountLbl.hide()
+
+    def init_stabilizers(self):
+        self.tds_stabilization:SensorStabilizer = SensorStabilizer(
+            window_size=AppConstants.MONITORING_STABLE_TDS['window'],
+            threshold=AppConstants.MONITORING_STABLE_TDS['threshold'],
+            is_stable_number=AppConstants.MONITORING_STABLE_TDS['repeat']
+        )
+
+        self.ph_stabilization:SensorStabilizer = SensorStabilizer(
+            window_size=AppConstants.MONITORING_STABLE_PH['window'],
+            threshold=AppConstants.MONITORING_STABLE_PH['threshold'],
+            is_stable_number=AppConstants.MONITORING_STABLE_PH['repeat']
+        )
+
+        self.do_stabilization:SensorStabilizer = SensorStabilizer(
+            window_size=AppConstants.MONITORING_STABLE_DO['window'],
+            threshold=AppConstants.MONITORING_STABLE_DO['threshold'],
+            is_stable_number=AppConstants.MONITORING_STABLE_DO['repeat']
+        )
+
+        self.turbidity_stabilization:SensorStabilizer = SensorStabilizer(
+            window_size=AppConstants.MONITORING_STABLE_TURBIDITY['window'],
+            threshold=AppConstants.MONITORING_STABLE_TURBIDITY['threshold'],
+            is_stable_number=AppConstants.MONITORING_STABLE_TURBIDITY['repeat']
+        )
+        self.tds_is_stable:bool = False
+        self.ph_is_stable:bool = False
+        self.do_is_stable:bool = False
+        self.turbidity_is_stable:bool = False
+
 
     def on_back_clicked(self):
         if self.parameters_worker.isRunning():
@@ -282,20 +314,30 @@ class MonitoringView(QMainWindow):
 
         if self.oxygen_check:
             self.oxygen = parameters[1]
+            self.do_is_stable = self.do_stabilization.value_is_stable(self.oxygen)
             self.indicators['oxygen'].setValue(self.oxygen)
-        
+            self.indicators['oxygen'].setStable(self.do_is_stable)
+
         if self.tds_check:
             self.tds = parameters[2]
+            self.td_is_stable = self.tds_stabilization.value_is_stable(self.tds)
             self.indicators['tds'].setValue(self.tds)
+            self.indicators['tds'].setStable(self.td_is_stable)
             self.indicators['conductivity'].setValue(self.tds * 2)
-        
+            self.indicators['conductivity'].setStable(self.td_is_stable)
+
         if self.ph_check:
             self.ph = parameters[3]
+            self.ph_is_stable = self.ph_stabilization.value_is_stable(self.ph)
             self.indicators['ph'].setValue(self.ph)
-        
+            self.indicators['ph'].setStable(self.ph_is_stable)
+
         if self.turbidity_check:
             self.turbidity = parameters[4]
+            self.turbidity_is_stable = self.turbidity_stabilization.value_is_stable(self.turbidity)
             self.indicators['turbidity'].setValue(self.turbidity)
+            self.indicators['turbidity'].setStable(self.turbidity_is_stable)
+
         
         self.battery = parameters[5]
     

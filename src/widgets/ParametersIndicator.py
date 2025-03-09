@@ -1,5 +1,6 @@
 from PySide2.QtWidgets import QWidget
-from PySide2.QtCore import QSize, Qt
+from PySide2.QtCore import Qt
+from PySide2.QtGui import QPixmap
 from src.views.ui_ParametersIndicator import Ui_Form as Ui_S
 from src.views.ui_ParametersIndicatorM import Ui_Form as Ui_M
 from src.views.ui_ParametersIndicatorL import Ui_Form as Ui_L
@@ -29,9 +30,22 @@ class ParametersIndicator(QWidget):
         self.ui.setupUi(self)
 
     def __ui_components(self):
+        self.ui.warningLbl.hide()
+        self.ui.stableLbl.hide()
         self.ui.nameLbl.setText(self.name)
         self.ui.valueLbl.setText(f'---- {self.unit}',)
         self.ui.valueLbl.setAlignment(Qt.AlignRight)
+        warning_pixmap = QPixmap('./src/resources/icons/warning_red.png')
+        stable_pixmap = QPixmap('./src/resources/icons/water.png')
+        if self.widget_size == 'L' or self.widget_size == 'l':
+            warning_pixmap = warning_pixmap.scaled(35, 35)
+            stable_pixmap = stable_pixmap.scaled(35, 35)
+        else:
+            warning_pixmap = warning_pixmap.scaled(21, 21)
+            stable_pixmap = stable_pixmap.scaled(21, 21)
+        self.ui.warningLbl.setPixmap(warning_pixmap)
+        self.ui.stableLbl.setPixmap(stable_pixmap)
+
 
     def __acond_value(self, value: float) -> int:
         result = 100.0 / (self.max_value - self.min_value) * \
@@ -43,6 +57,12 @@ class ParametersIndicator(QWidget):
             result = 100
         return result
 
+    def __verify_limits(self, value:float):
+        if value < self.lower_limit or value > self.upper_limit:
+            self.ui.warningLbl.show()
+        else:
+            self.ui.warningLbl.hide()
+
     def sizeHint(self):
         return self.size()
 
@@ -50,6 +70,10 @@ class ParametersIndicator(QWidget):
         self.ui.valueLbl.setText(f'{value} {self.unit}',)
         self.ui.valueLbl.setAlignment(Qt.AlignRight)
         self.ui.progressBar.setValue(self.__acond_value(value))
+        self.__verify_limits(value)
 
-    def setStable(self, isStable: float):
-        pass
+    def setStable(self, is_stable: float):
+        if is_stable:
+            self.ui.stableLbl.show()
+        else:
+            self.ui.stableLbl.hide()

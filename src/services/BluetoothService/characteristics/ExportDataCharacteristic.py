@@ -13,14 +13,14 @@ class ExportDataCharacteristic(Characteristic):
 
     def WriteValue(self, value, options):
         data = bytes(value).decode("utf-8")
-        if data == "START":
+        if data == "START_L":
             self.reset_flags()
             self.set_total_lotes()
             return
         elif data == "GET_L":
             self.get_lotes()
             return
-        elif data == "NEXT":
+        elif data == "NEXT_L":
             if self.sends_counter >= len(self.data_chunks):
                 return
             self.data_to_send = self.data_chunks[self.sends_counter]
@@ -46,7 +46,7 @@ class ExportDataCharacteristic(Characteristic):
         for lote in lotes_list:
             total_samples:int = WaterDataBase.count_samples_by_lote(lote.id)
             result += f'{lote.id},{lote.name},{total_samples};'
-        self.data_chunks = [result[i:i+20] for i in range(0, len(result), 20)]
+        self.data_chunks = [result[i:i+30] for i in range(0, len(result), 30)]
 
 
     

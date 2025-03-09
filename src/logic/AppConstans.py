@@ -52,3 +52,27 @@ class AppConstants:
         "unit": "NTU",
     },
     }
+
+    MONITORING_STABLE_TDS = {
+        'window': 6,
+        'threshold': 10.0,
+        'repeat': 3,
+    }
+    
+    MONITORING_STABLE_PH = {
+        'window': 6,
+        'threshold': 0.01,
+        'repeat': 2,
+    }
+    
+    MONITORING_STABLE_DO = {
+        'window': 6,
+        'threshold': 0.1,
+        'repeat': 3,
+    }
+    
+    MONITORING_STABLE_TURBIDITY = {
+        'window': 6,
+        'threshold': 30.0,
+        'repeat': 3,
+    }

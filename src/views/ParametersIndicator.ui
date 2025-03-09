@@ -79,6 +79,32 @@ QProgressBar::chunk {
     <string>72.1 °C</string>
    </property>
   </widget>
+  <widget class="QLabel" name="warningLbl">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>26</y>
+     <width>21</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="stableLbl">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>26</y>
+     <width>21</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

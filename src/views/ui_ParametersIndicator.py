@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ParametersIndicatorkQKlIT.ui'
+## Form generated from reading UI file 'ParametersIndicatorZDuQdR.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -47,6 +47,12 @@ class Ui_Form(object):
         self.valueLbl.setObjectName(u"valueLbl")
         self.valueLbl.setGeometry(QRect(120, 20, 111, 21))
         self.valueLbl.setStyleSheet(u"font-weight: bold;")
+        self.warningLbl = QLabel(Form)
+        self.warningLbl.setObjectName(u"warningLbl")
+        self.warningLbl.setGeometry(QRect(10, 26, 21, 21))
+        self.stableLbl = QLabel(Form)
+        self.stableLbl.setObjectName(u"stableLbl")
+        self.stableLbl.setGeometry(QRect(40, 26, 21, 21))
 
         self.retranslateUi(Form)
 
@@ -57,5 +63,7 @@ class Ui_Form(object):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
         self.nameLbl.setText(QCoreApplication.translate("Form", u"title", None))
         self.valueLbl.setText(QCoreApplication.translate("Form", u"72.1 \u00b0C", None))
+        self.warningLbl.setText("")
+        self.stableLbl.setText("")
     # retranslateUi
 
