@@ -20,7 +20,7 @@ class ExportDataCharacteristic(Characteristic):
         elif data == "GET_L":
             self.get_lotes()
             return
-        elif data == "":
+        elif data == "NEXT":
             if self.sends_counter >= len(self.data_chunks):
                 return
             self.data_to_send = self.data_chunks[self.sends_counter]
