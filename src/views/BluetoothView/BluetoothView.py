@@ -2,7 +2,7 @@ from PySide2.QtWidgets import QMainWindow
 from PySide2.QtCore import QSize, Qt
 from PySide2.QtGui import QIcon
 from src.views.ui_Bluetooth_Connected import Ui_MainWindow
-from src.services.bluetoothLE import BluetoothWorker
+from src.services.BluetoothService.BluetoothService import BluetoothService
 from src.package.Navigator import Navigator
 from src.config.Constants import Constants
 
@@ -13,7 +13,7 @@ class BluetoothView(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.ui_components()
-        self.bluetooth_worker = BluetoothWorker()
+        self.bluetooth_worker = BluetoothService()
         self.bluetooth_worker.start()
 
         self.ui.backBtn.clicked.connect(self.on_back_clicked)

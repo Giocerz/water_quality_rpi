@@ -141,6 +141,16 @@ class WaterDataBase:
         ))
         conn.commit()
         conn.close()
+    
+    @staticmethod
+    def count_total_lotes():
+        conn = WaterDataBase._open_db()
+        cursor = conn.cursor()
+        cursor.execute(f"SELECT COUNT(*) FROM {WaterDataBase.LOTE_TABLE_NAME}")
+        count = cursor.fetchone()
+        conn.close()
+        return count[0] if count else 0
+
 
     @staticmethod
     def delete_lote(lote_id: int):
@@ -204,6 +214,15 @@ class WaterDataBase:
         conn = WaterDataBase._open_db()
         cursor = conn.cursor()
         cursor.execute(f"SELECT COUNT(*) FROM {WaterDataBase.WATER_TABLE_NAME} WHERE upload_state = ?", (0,))
+        count = cursor.fetchone()
+        conn.close()
+        return count[0] if count else 0
+    
+    @staticmethod
+    def count_samples_by_lote(lote_id:int):
+        conn = WaterDataBase._open_db()
+        cursor = conn.cursor()
+        cursor.execute(f"SELECT COUNT(*) FROM {WaterDataBase.WATER_TABLE_NAME} WHERE lote_id = ?", (lote_id,))
         count = cursor.fetchone()
         conn.close()
         return count[0] if count else 0
