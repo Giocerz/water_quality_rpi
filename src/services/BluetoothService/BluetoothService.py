@@ -6,6 +6,7 @@ from src.config.Constants import Constants
 from .characteristics.MonitoringCharacteristic import MonitoringCharacteristic
 from .characteristics.CalibrationCharacteristics import CalibrationCharacteristic
 from .characteristics.GetIdCharacteristic import GetIDCharacteristic
+from .characteristics.ExportDataCharacteristic import ExportDataCharacteristic
 from .BLEConstants import BLEConstants
 
 GATT_CHRC_IFACE = "org.bluez.GattCharacteristic1"
@@ -24,6 +25,7 @@ class WaterParametersService(Service):
         self.add_characteristic(MonitoringCharacteristic(self))
         self.add_characteristic(GetIDCharacteristic(self))
         self.add_characteristic(CalibrationCharacteristic(self))
+        self.add_characteristic(ExportDataCharacteristic(self))
 
 app_blue = None
 adv_blue = None
