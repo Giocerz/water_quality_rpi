@@ -7,6 +7,7 @@ class AppConstants:
         "lowerLimit": None,
         "upperLimit": 1000.0,
         "unit": "µS/cm",
+        "significant_figures": 0
     },
     "oxygen": {
         "name": "Oxigeno Disuelto",
@@ -16,6 +17,7 @@ class AppConstants:
         "upperLimit": None,
         "stableTolerance": 0.1,
         "unit": ["mg/L", "%"],
+        "significant_figures": 2
     },
     "ph": {
         "name": "pH",
@@ -25,6 +27,7 @@ class AppConstants:
         "upperLimit": 8.5,
         "stableTolerance": 0.1,
         "unit": "pH",
+        "significant_figures": 2
     },
     "tds": {
         "name": "Sólidos Totales Disueltos",
@@ -34,6 +37,7 @@ class AppConstants:
         "upperLimit": 500.0,
         "stableTolerance": 2.0,
         "unit": "ppm",
+        "significant_figures": 0
     },
     "temperature": {
         "name": "Temperatura",
@@ -42,6 +46,7 @@ class AppConstants:
         "lowerLimit": None,
         "upperLimit": 30.0,
         "unit": ["°C", "°F", "K"],
+        "significant_figures": 1
     },
     "turbidity": {
         "name": "Turbidez",
@@ -50,6 +55,7 @@ class AppConstants:
         "lowerLimit": None,
         "upperLimit": 42.0,
         "unit": "NTU",
+        "significant_figures": 0
     },
     }
 

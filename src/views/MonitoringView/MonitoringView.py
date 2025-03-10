@@ -108,9 +108,9 @@ class MonitoringView(QMainWindow):
         icon = QIcon('./src/resources/icons/back.png')
         self.ui.backBtn.setIcon(icon)
         self.ui.backBtn.setIconSize(QSize(30, 30))
-        icon = QIcon('./src/resources/icons/save.png')
-        self.ui.saveBtn.setIcon(icon)
-        self.ui.saveBtn.setIconSize(QSize(30, 30))
+        icon = QIcon('./src/resources/icons/more.png')
+        self.ui.optionsBtn.setIcon(icon)
+        self.ui.optionsBtn.setIconSize(QSize(30, 30))
         self.ui.captureCountLbl.setText('')
         self.ui.captureCountLbl.hide()
 
@@ -279,6 +279,7 @@ class MonitoringView(QMainWindow):
             max_value = param_info.get("maxValue")
             lower_limit = param_info.get("lowerLimit")
             upper_limit = param_info.get("upperLimit")
+            significant_figures = param_info.get("significant_figures")
 
             # Crear el widget `ParametersIndicator` con todos los valores necesarios
             self.indicators[param_key] = ParametersIndicator(
@@ -288,7 +289,8 @@ class MonitoringView(QMainWindow):
                 min_value=min_value,
                 max_value=max_value,
                 lower_limit=lower_limit,
-                upper_limit=upper_limit
+                upper_limit=upper_limit,
+                significant_figures = significant_figures
             )
 
             recommended_size = self.indicators[param_key].sizeHint()

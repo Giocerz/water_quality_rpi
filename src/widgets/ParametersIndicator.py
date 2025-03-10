@@ -8,7 +8,7 @@ from src.views.ui_ParametersIndicatorL import Ui_Form as Ui_L
 
 class ParametersIndicator(QWidget):
     def __init__(self, name: str, unit: str, min_value: float = None, max_value: float = None,
-                 lower_limit: float = None, upper_limit: float = None, widget_size: str = 'S'):
+                 lower_limit: float = None, upper_limit: float = None, significant_figures:int = 2, widget_size: str = 'S'):
         super().__init__()
         self.name: str = name
         self.unit: str = unit
@@ -16,6 +16,7 @@ class ParametersIndicator(QWidget):
         self.max_value: float = max_value if max_value is not None else 100.0
         self.lower_limit: float = lower_limit if lower_limit is not None else -20000.0
         self.upper_limit: float = upper_limit if upper_limit is not None else 20000.0
+        self.significant_figures: int = significant_figures
         self.widget_size: str = widget_size
         self.__setup_size()
         self.__ui_components()
@@ -67,7 +68,7 @@ class ParametersIndicator(QWidget):
         return self.size()
 
     def setValue(self, value: float):
-        self.ui.valueLbl.setText(f'{value} {self.unit}',)
+        self.ui.valueLbl.setText(f'{round(value, self.significant_figures)} {self.unit}',)
         self.ui.valueLbl.setAlignment(Qt.AlignRight)
         self.ui.progressBar.setValue(self.__acond_value(value))
         self.__verify_limits(value)
