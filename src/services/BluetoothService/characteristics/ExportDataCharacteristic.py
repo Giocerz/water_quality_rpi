@@ -36,7 +36,7 @@ class ExportDataCharacteristic(Characteristic):
             self.data_is_ready_provider.set_data_is_ready(True)
         elif "GET_S" in data:
             self.data_is_ready_provider.set_data_is_ready(False)
-            command = data.split(':')
+            command = data.split(':')[1]
             if command == "ALL":
                 #TO DO GET ALL SAMPLES
                 self.get_all_samples()
@@ -47,9 +47,6 @@ class ExportDataCharacteristic(Characteristic):
                 except:
                     self.data_to_send = "SEND_ERROR"
             self.data_is_ready_provider.set_data_is_ready(True)
-            
-
-        
     
     def ReadValue(self, options):
         value = self.data_to_send.encode()
@@ -91,7 +88,7 @@ class ExportDataCharacteristic(Characteristic):
             sample_ph = sample.ph if sample.ph is not None else "nu"
             sample_turb = sample.turbidity if sample.turbidity is not None else "nu"
             sample_battery = sample.battery if sample.battery is not None else "nu"
-            result += f'{sample_name_hex},{sample.latitude},{sample.longitude},{sample.latitude},{sample.longitude},{sample.date},{sample.hour},{sample_temp},{sample_od},{sample_tds},{sample_ph},{sample_turb},{sample_battery},{sample_origin_hex},{sample_it_rainded_hex},{sample.lote_id};'
+            result += f'{sample_name_hex},{sample.latitude},{sample.longitude},{sample.date},{sample.hour},{sample_temp},{sample_od},{sample_tds},{sample_ph},{sample_turb},{sample_battery},{sample_origin_hex},{sample_it_rainded_hex},{sample.lote_id};'
         
         self.data_chunks = [result[i:i+30] for i in range(0, len(result), 30)]
 

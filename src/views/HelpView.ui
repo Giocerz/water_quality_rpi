@@ -15,24 +15,11 @@
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: white;
-font-family: Poppins;
-font-size:18px;
-font-weight: 500;</string>
+font: 14px Poppins;</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
-    <string notr="true">QPushButton {
-	height: 40px;
-	border-radius: 20px;
-	border: 1px solid #00007f;
-	background-color: white;
-	color: #00007f;
-}
-
-QLabel {
-	color: #00007f;
-}
-</string>
+    <string notr="true"/>
    </property>
    <widget class="QPushButton" name="backBtn">
     <property name="geometry">
@@ -44,7 +31,13 @@ QLabel {
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true"/>
+     <string notr="true">	height: 40px;
+	border-radius: 20px;
+	border: 1px solid #00007f;
+	background-color: white;
+	color: #00007f;
+	font-weight: 500;
+	font-size: 16px;</string>
     </property>
     <property name="text">
      <string/>
@@ -53,17 +46,17 @@ QLabel {
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>200</y>
-      <width>481</width>
-      <height>61</height>
+      <x>-30</x>
+      <y>10</y>
+      <width>511</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font-size: 24px;</string>
+     <string notr="true">font-size: 16px;</string>
     </property>
     <property name="text">
-     <string>CitizenAP0003</string>
+     <string>Ayuda</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -73,18 +66,24 @@ QLabel {
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>10</y>
+      <y>60</y>
       <width>481</width>
-      <height>191</height>
+      <height>211</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font-size: 16px;</string>
     </property>
     <property name="text">
      <string/>
     </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
    </widget>
-   <zorder>imageLbl</zorder>
-   <zorder>backBtn</zorder>
    <zorder>label</zorder>
+   <zorder>backBtn</zorder>
+   <zorder>imageLbl</zorder>
   </widget>
  </widget>
  <resources/>

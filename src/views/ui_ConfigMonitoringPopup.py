@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ConfigMonitoringPopupMVAaqM.ui'
+## Form generated from reading UI file 'ConfigMonitoringPopupTUCmEQ.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -18,9 +18,7 @@ class Ui_Form(object):
         if not Form.objectName():
             Form.setObjectName(u"Form")
         Form.resize(480, 272)
-        Form.setStyleSheet(u"QLabel {\n"
-"	font: 14px \"Poppins\";\n"
-"}")
+        Form.setStyleSheet(u"font: 14px Poppins;")
         self.lblOpacity = QLabel(Form)
         self.lblOpacity.setObjectName(u"lblOpacity")
         self.lblOpacity.setGeometry(QRect(0, 0, 480, 320))
@@ -33,19 +31,15 @@ class Ui_Form(object):
 "background-color: white;")
         self.periodLine = QLineEdit(self.Widget1)
         self.periodLine.setObjectName(u"periodLine")
-        self.periodLine.setGeometry(QRect(110, 140, 111, 26))
+        self.periodLine.setGeometry(QRect(140, 140, 91, 26))
         self.periodLine.setStyleSheet(u"border-color: rgb(0, 0, 0);\n"
 "border-style: solid;\n"
 "border-width: 1px;\n"
 "border-radius: 6px;\n"
-"font: 16px \"Poppins\";\n"
+"font: 14px \"Poppins\";\n"
 "background-color: rgb(234, 234, 234);")
         self.periodLine.setMaxLength(50)
         self.periodLine.setEchoMode(QLineEdit.Normal)
-        self.lbl_2 = QLabel(self.Widget1)
-        self.lbl_2.setObjectName(u"lbl_2")
-        self.lbl_2.setGeometry(QRect(100, 10, 181, 31))
-        self.lbl_2.setStyleSheet(u"")
         self.confirmBtn = QPushButton(self.Widget1)
         self.confirmBtn.setObjectName(u"confirmBtn")
         self.confirmBtn.setGeometry(QRect(250, 130, 101, 41))
@@ -70,10 +64,10 @@ class Ui_Form(object):
 "}")
         self.captureCheckBox = QCheckBox(self.Widget1)
         self.captureCheckBox.setObjectName(u"captureCheckBox")
-        self.captureCheckBox.setGeometry(QRect(30, 100, 271, 31))
+        self.captureCheckBox.setGeometry(QRect(40, 95, 271, 31))
         self.captureCheckBox.setStyleSheet(u"QCheckBox {\n"
 "	background-color: transparent;\n"
-"	height: 21px;\n"
+"	height: 10px;\n"
 "	font: 14px \"Poppins\";\n"
 "}\n"
 "\n"
@@ -93,23 +87,32 @@ class Ui_Form(object):
 "}")
         self.totalSamplesLine = QLineEdit(self.Widget1)
         self.totalSamplesLine.setObjectName(u"totalSamplesLine")
-        self.totalSamplesLine.setGeometry(QRect(230, 60, 121, 26))
+        self.totalSamplesLine.setGeometry(QRect(210, 60, 141, 26))
         self.totalSamplesLine.setStyleSheet(u"border-color: rgb(0, 0, 0);\n"
 "border-style: solid;\n"
 "border-width: 1px;\n"
 "border-radius: 6px;\n"
-"font: 16px \"Poppins\";\n"
+"font: 14px \"Poppins\";\n"
 "background-color: rgb(234, 234, 234);")
         self.totalSamplesLine.setMaxLength(50)
         self.totalSamplesLine.setEchoMode(QLineEdit.Normal)
-        self.lbl_3 = QLabel(self.Widget1)
-        self.lbl_3.setObjectName(u"lbl_3")
-        self.lbl_3.setGeometry(QRect(30, 60, 181, 31))
-        self.lbl_3.setStyleSheet(u"")
-        self.lbl_4 = QLabel(self.Widget1)
-        self.lbl_4.setObjectName(u"lbl_4")
-        self.lbl_4.setGeometry(QRect(30, 140, 71, 31))
-        self.lbl_4.setStyleSheet(u"")
+        self.label = QLabel(self.Widget1)
+        self.label.setObjectName(u"label")
+        self.label.setGeometry(QRect(110, 20, 171, 16))
+        self.label_3 = QLabel(self.Widget1)
+        self.label_3.setObjectName(u"label_3")
+        self.label_3.setGeometry(QRect(40, 65, 161, 16))
+        self.label_4 = QLabel(self.Widget1)
+        self.label_4.setObjectName(u"label_4")
+        self.label_4.setGeometry(QRect(40, 145, 91, 16))
+        self.periodLine.raise_()
+        self.closeBtn.raise_()
+        self.captureCheckBox.raise_()
+        self.totalSamplesLine.raise_()
+        self.confirmBtn.raise_()
+        self.label.raise_()
+        self.label_3.raise_()
+        self.label_4.raise_()
         self.widgetKeyboard = QWidget(Form)
         self.widgetKeyboard.setObjectName(u"widgetKeyboard")
         self.widgetKeyboard.setGeometry(QRect(0, 202, 480, 70))
@@ -124,12 +127,12 @@ class Ui_Form(object):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
         self.lblOpacity.setText("")
         self.periodLine.setPlaceholderText("")
-        self.lbl_2.setText(QCoreApplication.translate("Form", u"<html><head/><body><p><span style=\" font-size:10pt;\">Opciones de captura</span></p></body></html>", None))
         self.confirmBtn.setText(QCoreApplication.translate("Form", u"Confirmar", None))
         self.closeBtn.setText(QCoreApplication.translate("Form", u"X", None))
         self.captureCheckBox.setText(QCoreApplication.translate("Form", u"Activar captura autom\u00e1tica", None))
         self.totalSamplesLine.setPlaceholderText("")
-        self.lbl_3.setText(QCoreApplication.translate("Form", u"<html><head/><body><p><span style=\" font-size:10pt;\">N\u00famero de muestras</span></p></body></html>", None))
-        self.lbl_4.setText(QCoreApplication.translate("Form", u"<html><head/><body><p><span style=\" font-size:10pt;\">Per\u00edodo</span></p><p><br/></p></body></html>", None))
+        self.label.setText(QCoreApplication.translate("Form", u"Opciones de captura", None))
+        self.label_3.setText(QCoreApplication.translate("Form", u"N\u00famero de muestras", None))
+        self.label_4.setText(QCoreApplication.translate("Form", u"Per\u00edodo (s):", None))
     # retranslateUi
 

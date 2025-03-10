@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'MainMenugxUzlY.ui'
+## Form generated from reading UI file 'MainMenuDWnRbn.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -60,11 +60,6 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.bluetoothBtn)
 
-        self.editVauesBtn = QPushButton(self.centralwidget)
-        self.editVauesBtn.setObjectName(u"editVauesBtn")
-        self.editVauesBtn.setGeometry(QRect(0, 190, 51, 81))
-        self.editVauesBtn.setStyleSheet(u"border: 0px;\n"
-"background-color: white;")
         self.powerBtn = QPushButton(self.centralwidget)
         self.powerBtn.setObjectName(u"powerBtn")
         self.powerBtn.setGeometry(QRect(420, 212, 50, 50))
@@ -73,10 +68,10 @@ class Ui_MainWindow(object):
         self.wifiBtn.setObjectName(u"wifiBtn")
         self.wifiBtn.setGeometry(QRect(420, 150, 50, 50))
         self.wifiBtn.setStyleSheet(u"")
-        self.updateBtn = QPushButton(self.centralwidget)
-        self.updateBtn.setObjectName(u"updateBtn")
-        self.updateBtn.setGeometry(QRect(420, 90, 50, 50))
-        self.updateBtn.setStyleSheet(u"")
+        self.helpBtn = QPushButton(self.centralwidget)
+        self.helpBtn.setObjectName(u"helpBtn")
+        self.helpBtn.setGeometry(QRect(420, 90, 50, 50))
+        self.helpBtn.setStyleSheet(u"")
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -90,9 +85,8 @@ class Ui_MainWindow(object):
         self.calibrationBtn.setText(QCoreApplication.translate("MainWindow", u"Calibraci\u00f3n", None))
         self.dataBtn.setText(QCoreApplication.translate("MainWindow", u"Datos", None))
         self.bluetoothBtn.setText(QCoreApplication.translate("MainWindow", u"Bluetooth", None))
-        self.editVauesBtn.setText("")
         self.powerBtn.setText("")
         self.wifiBtn.setText("")
-        self.updateBtn.setText("")
+        self.helpBtn.setText("")
     # retranslateUi
 
